@@ -3,23 +3,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="styled.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Neonderthaw&family=Yanone+Kaffeesatz&family=Nunito:wght@300&display=swap" rel="stylesheet"> 
-    <script src="https://kit.fontawesome.com/f22718211c.js" crossorigin="anonymous"></script>
-</head>
+<?php require "head.php"?>
 
 <body>
     <div id="page">
-        <div id="logos"></div><p id="logotext">STANDARDIZED-EXPERIENCE</p>
-        <ul id="lisuto">
-            <li class="dashitem"><a href="experience.php" class="dashitm">Home</a></li>
-            <li class="dashitem"><a href="data.php" class="dashitm">Data</a></li>
-            <li class="dashitem"><a href="practice.php" class="dashitm">Practice</a></li>
-            <li class="dashitemr"><a href="about.php" class="dashitm">About</a></li>
-        </ul>
+        <?php require 'head_branch.php'?>
         <?php $stats = mysqli_fetch_assoc($conn->query("SELECT * FROM statistics"));
         $id_data = mysqli_fetch_assoc($conn->query("SELECT * from quizzes WHERE id=".$stats['last_quiz_id']." LIMIT 1"));
         $id = $stats['last_quiz_id'];
@@ -44,8 +32,7 @@
             $score = $correct / $questions_num * 20;
         };        
         ?>
-        <img src="https://4.bp.blogspot.com/-EjZ4ENmfIkc/V9PE9nu6eKI/AAAAAAAA9ko/I1hPkXoivi4WWdibdh2JQw1kgeVXwu0AgCLcB/s450/kjhou_seifuku.png" id='board'>
-        <p style='float:right'>O seu último teste foi de <b><?php echo $id_data['subject']?></b>.<br>A sua nota foi <?php echo number_format($score,2,',','')?> valor(es).<br>
+        <p style='float:right; max-width: 300px; padding-right: 40px;'>O seu último teste foi de <b><?php echo $id_data['subject']?></b>.<br>A sua nota foi <?php echo number_format($score,2,',','')?> valor(es).<br>
     <br><?php 
     if ($score <= 6) {
         echo "Mas...que vergonha...";
@@ -56,9 +43,10 @@
     } elseif ($score <= 17) {
         echo "Se liga, para Medicina esta nota é muito legal! Mandou bem!!!";
     } elseif ($score == 20) {
-        echo "Perfeito. Ninguém poderá te derrotar. Você é invencivel!";
+        echo "<b>Perfeito</b>. Ninguém poderá te derrotar. Você é invencivel!";
     };
     ?></p>
+    <img src="https://4.bp.blogspot.com/-EjZ4ENmfIkc/V9PE9nu6eKI/AAAAAAAA9ko/I1hPkXoivi4WWdibdh2JQw1kgeVXwu0AgCLcB/s450/kjhou_seifuku.png" id='board'>
 
     </div>
 

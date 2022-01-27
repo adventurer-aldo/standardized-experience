@@ -10,9 +10,14 @@
     $id = 1 + $quizzes_done['quizzes_done'];
     while ($old_quests > 0) {
         ++$questions_num;
-        $conn->query("INSERT INTO quizzes VALUES ('".$_GET["uname"]."','".$_GET["usurname"]."','".$_GET["subject"]."',$id,NULL, '".$_GET["question".$questions_num]."', '".$_GET["answer".$questions_num]."', ".strtotime(date("m-d-Y h:i:s a"))-intval($_GET["time"]).",".strtotime(date("Y:m:d H:i:s")).")");
+        if (gettype($_GET["answer".$questions_num]) == 'array') {
+            $answer = implode("|",$_GET["answer".$questions_num]);
+        } else {
+            $answer = $_GET["answer".$questions_num];
+        };
+        $conn->query("INSERT INTO quizzes VALUES ('".$_GET["uname"]."','".$_GET["usurname"]."','".$_GET["subject"]."',$id,NULL, '".$_GET["question".$questions_num]."', '".$answer."', ".strtotime(date("m-d-Y h:i:s a"))-intval($_GET["time"]).",".strtotime(date("Y:m:d H:i:s")).")");
         $correctness = mysqli_fetch_assoc($conn->query("SELECT * FROM quiz WHERE question='".$_GET["question".$questions_num]."'"));
-        if ($correctness['answer']==$_GET["answer".$questions_num]) {
+        if (explode("|",$answer) == explode("|",$correctness['answer']) ) {
             ++$correct_answers;
         };
         --$old_quests;

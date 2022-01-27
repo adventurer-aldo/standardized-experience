@@ -1,28 +1,24 @@
-<?php require "connect.php"?>
+<?php require "connect.php";
+session_start();?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="styled.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Neonderthaw&family=Yanone+Kaffeesatz&family=Nunito:wght@300&display=swap" rel="stylesheet"> 
-    <script src="https://kit.fontawesome.com/f22718211c.js" crossorigin="anonymous"></script>
-</head>
+<?php require "head.php"?>
 
 <body>
     <div id="page">
-        <div id="logos"></div><p id="logotext">STANDARDIZED-EXPERIENCE</p>
-        <ul id="lisuto">
-            <li class="dashitem"><a href="experience.php" class="dashitm">Home</a></li>
-            <li class="dashitem"><a href="data.php" class="dashitm">Data</a></li>
-            <li class="dashitem"><a href="practice.php" class="dashitm">Practice</a></li>
-            <li class="dashitemr"><a href="about.php" class="dashitm">About</a></li>
-        </ul>
-        <form action='new_question.php' method='get' id='question'>
-            <label for 'question'><b>Question:</b></label><input type=text name='question' class='questionnable'><br>
-            <label for 'answer'><b>Answer:</b></label><input type=text name='answer' class='questionnable'><br>
+        <?php require 'head_branch.php';echo "<p id='warning'>".$_SESSION['error']."</p>"?>
+        <form action='new_question.php' method='get' id='question' autocomplete='off'><div class='leftal'>
+            <label for 'question'><b>Question:</b></label><input type=text name='question' class='questionnable' required><br>
+            <label for 'answer'><b>Answer:</b></label><input type=text name='answer' class='questionnable' required><br>
+            <label for 'choices'><b>Choices:</b><input type=text name='choices' class='questionnable' value='NULL' required><br>
+            <label for 'type'><b>Type:</b></label><select name='type' class='questionnable'>
+                <option value="open">Open (Input Box)</option>
+                <option value="choice">Choice</option>
+                <option value="multichoice">Multiple Choice</option>
+                <option value="veracity">True or False</option>
+            </select><br>
             <label for 'subject'><b>Subject:</b></label> <select name='subject' class='questionnable'>
                 <option value="Bioquímica II">Bioquímica II</option>
                 <option value="Biologia Molecular e Celular II">Biologia Molecular e Celular II</option>
@@ -36,18 +32,20 @@
                 <option value="2">2º Teste Teórico</option>
                 <option value="3">Exame</option>
                 </select><br>
-            <br>
+            <br></div>
             <button id="submit" form='question' type='submit'>SUBMIT</button>
         </form>
+        <div style='max-height: 500px;overflow: scroll;'>
         <?php
         $table = mysqli_fetch_assoc($conn->query("SELECT * FROM quiz"));
         $bar = $conn->query("SELECT * FROM quiz ORDER BY subject DESC");
         if (mysqli_num_rows($conn->query("SELECT * FROM quiz")) > 0) {
         while ($result = mysqli_fetch_assoc($bar)) {
-            echo "<p><b>".$result['question']."</b><br>".$result['answer']."</p>";
+            $answered = explode("|",$result['answer']);
+            echo "<p align=left><b>".$result['question']."</b><br>R: ".implode("&",$answered)."</p>";
         };
     };
-        ?>
+        ?></div>
     </div>
 
     <!--<div id="like_button_container"></div>-->

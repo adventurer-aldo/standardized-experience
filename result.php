@@ -5,17 +5,10 @@ $id = $_SESSION['id'];?>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="styled.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave&display=swap" rel="stylesheet"> 
-    <link href="https://fonts.googleapis.com/css2?family=Neonderthaw&family=Times+New+Roman&family=Yanone+Kaffeesatz&family=Nunito:wght@300&display=swap" rel="stylesheet"> 
-    <script src="https://kit.fontawesome.com/f22718211c.js" crossorigin="anonymous"></script>
-</head>
+<?php require "head.php"?>
 
 <body>
-    <div id="return"><a class="home" href="experience.php"><i class="fas fa-home"></i></a><a class="data" href="data.php"><i class="fas fa-file"></i></a><a class="reload" href="experience.php"><i class="fas fa-sync-alt"></i></a><a class="about" href="about.php"><i class="fas fa-question"></i></a></div>
+    <?php require 'return.php'?>
     <div id="page"><?php $quiz = mysqli_fetch_assoc($conn->query("SELECT * FROM quizzes WHERE id=$id LIMIT 1"));
     $testing = $conn->query("SELECT * FROM quizzes WHERE id=$id ORDER BY id DESC");?>
     <?php 
@@ -70,11 +63,11 @@ $id = $_SESSION['id'];?>
                 } else {
                     $result = "wrong";
                     echo " class='wrong'";
-                    $icon = "<i class='fas fa-times'></i><br><b>RESPOSTA CORRECTA: ".$original['answer']."</b>";
+                    $icon = "<i class='fas fa-times'></i><br><b>RESPOSTA CORRECTA: ".implode("&",explode("|",$original['answer']))."</b>";
                 };
                 
                 echo ">".$questions_num.". ".$questions['question']."$icon</p>";
-                    echo "<p class='inputtable $result'>".$questions['answer']."</p>";
+                    echo "<p class='inputtable $result'>".implode("&",explode("|",$questions['answer']))."</p>";
             };
         } else {
             echo "<p>There are no questions in this subject.</p>";
