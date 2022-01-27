@@ -1,0 +1,222 @@
+body {
+    background-color: #667F75;
+    color: black;
+    font-family: 'Nunito', sans-serif;
+    font-size: 19px;
+    margin: 0px;
+    padding: 0px;
+}
+
+#page {
+    padding: 30px;
+    background-color: white;
+    border-left: #a0b9bc 7px solid;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 800px;
+}
+
+#logos {
+    background-image: url('https://i.ibb.co/p2xry5X/Instituto-Superior-de-Ci-ncias-e-Tecnologia-de-Mo-ambique.png');
+    max-height: 300px;
+    background-size: 100%;
+    min-width: 190px;
+    vertical-align: middle;
+    min-height: 190px;
+    max-width: 300px;
+    display: inline-block;
+}
+
+#logotext {
+    color: #006dd8;
+    font-weight: bold;
+    font-size: 50px;
+    font-style: italic;
+    font-family: 'Yanone Kaffeesatz';
+    text-shadow: #082744 2px 1px;
+    margin: 0;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+#lisuto {
+    background-color: #006dd8;
+    border-radius: 20px;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.dashitem {
+    color: white;
+    display: inline;
+    font-weight: bold;
+    padding: 0px 3px;
+    border-left: solid white 2px;
+}
+
+.dashitm {
+    color: white;
+    display: inline;
+    font-weight: bold;
+    padding: 0px 3px;
+}
+
+.dashitemr {
+    color: white;
+    display: inline;
+    font-weight: bold;
+    padding: 0px 3px;
+    border-left: solid white 2px;
+    border-right: solid white 2px;
+}
+
+.gapped {
+    line-height: 40px;
+}
+
+.notice {
+    padding: 9px;
+    text-align: left;
+    border: 2px black solid;
+}
+
+.roman {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.bolding {
+    font-weight: bold;
+}
+
+.left {
+    text-align: left;
+    padding: 20px;
+}
+
+#questions {
+    text-align: left;
+    padding: 0px 30px;
+    line-height: 25px;
+}
+
+.inputtable {
+    min-width: 80%;
+    background-color: white;
+    border: none;
+    border-bottom: solid 2px black;
+    color: blue;
+    font-size: 25px;
+    font-family: 'Sedgwick Ave';
+    text-decoration: underline;
+    display: inline-block;
+    text-align: left;
+    padding-left: 20px;
+    line-height: 25px;
+}
+
+#question {
+    text-align: left;
+}
+
+.questionnable {
+    min-width: 80%;
+    background-color: white;
+    border: none;
+    border-bottom: solid 2px black;
+    color: black;
+    font-size: 19px;
+    display: inline-block;
+    text-align: left;
+    padding-left: 9px;
+}
+
+.inputtableans {
+    width: 100%;
+}
+
+.sizea {
+    max-width: 900px;
+}
+
+#return {
+    position: fixed;
+    padding-top: 10px;
+}
+
+.home {
+    background-color: #006dd8;
+    color: white;
+    padding: 10px;
+}
+
+.about {
+    background-color: #3ec400;
+    color: white;
+    padding: 10px;
+}
+
+.data {
+    background-color: #96147a;
+    color: white;
+    padding: 10px;
+}
+
+.reload {
+    background-color: #d87300;
+    color: white;
+    padding: 10px;
+}
+
+.rogossu {
+    width: 50px;
+    height: 50px;
+    border-bottom-right-radius: 30px;
+    
+}
+
+#submit {
+    background-color: rgb(34, 175, 69);
+    color: white;
+    border: none;
+    border-radius: 10%;
+    padding: 9px;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#submit:active {
+    background-color: rgb(175, 55, 34);
+    color: white;
+    border: none;
+    border-radius: 10%;
+    padding: 9px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.wrong {
+    color: rgb(97, 9, 9);
+}
+
+.right {
+    color: rgb(22, 131, 18);
+}
+
+.fa-home {
+    color: white;
+}
+
+.grade {
+    position: fixed;
+    font-family: 'Sedgwick Ave';
+    color: rgb(219, 14, 14);
+    font-size: 80px;
+    text-shadow: rgb(73, 8, 8) 2px 1px;
+    display: block;
+    top: -50px;
+    right: 0px;
+    height: 80px;
+}
