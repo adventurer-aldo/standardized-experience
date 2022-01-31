@@ -11,7 +11,7 @@
 
         $templine .= $line;
         if (substr(trim($line), -1, 1) == ';') { 
-            pg_query($templine);
+            pg_query($conn,$templine);
             $templine = '';
         };
     };
