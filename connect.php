@@ -2,14 +2,17 @@
     // Create connection
     $conn = pg_connect("host=ec2-52-208-145-55.eu-west-1.compute.amazonaws.com user=jxjrhhnsbrdceq password=26ef405f573a3c924900cf77a5fa8dc7d6a9e73499724dd79ab8bdd0bd475f93 dbname=d3jdf665veionf");
 
-    pg_query($conn,"CREATE TABLE quiz (
-                subject text NOT NULL,
-                type text NOT NULL DEFAULT 'open',
-                question text NOT NULL,
-                choices text DEFAULT NULL,
-                answer text NOT NULL,
-                level int DEFAULT NULL
-              )");
+    pg_query($conn,"CREATE TABLE 'quizzes' (
+        'name' text NOT NULL,
+        'surname' text NOT NULL,
+        'subject' text NOT NULL,
+        'id' int NOT NULL,
+        'journey' text DEFAULT NULL,
+        'question' text NOT NULL,
+        'answer' text NOT NULL,
+        'time_left' int NOT NULL,
+        'date' int NOT NULL
+      )");
 
     pg_query($conn,"INSERT INTO quiz VALUES
     ('Bioquímica II', 'open', 'Dentre todas formas energéticas no organismo, qual é que é mais usada pela célula?', NULL, 'ATP', 1),
