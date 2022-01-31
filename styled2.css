@@ -1,0 +1,107 @@
+.datapagebutton {
+    background-color: #006dd8;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    padding: 9px;
+}
+
+#journeys {
+    background-color: #006dd8; 
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 40px;
+}
+
+.tg {
+    border-collapse: separate ;
+    border-spacing: 5px;
+    font-size: 19px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.tg .tabsubj {
+    border-radius: 15px;
+    font-weight: bold;
+    padding: 5px;
+    background-color: yellow;
+    color: black;
+    border: none;
+}
+
+.tg .tabprog {
+    border-radius: 15px;
+    font-weight: bold;
+    background-color: yellow;
+    color: black;
+    padding: 5px;
+    border: none;
+}
+
+.tg .subj {
+    padding: 9px;
+    background-color: white;
+    color: black;
+    font-weight: normal;
+    border: none;
+    border-radius: 15px;
+    border-spacing: 10px 3px;
+}
+
+
+.tbdat {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: normal;
+    color: inherit;
+    background-color: inherit;
+    border: none;
+}
+
+.tg-wp8o {
+    font-family: inherit;
+    font-size: 15px;
+    padding: 9px;
+    font-weight: normal;
+    color: black;
+    background-color: white;
+    border: none;
+    border-radius: 15px;
+    
+}
+
+
+.tg-wp8o:hover {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: normal;
+    padding: 9px;
+    color: black;
+    background-color: yellow;
+    border: none;
+    border-radius: 15px;
+}
+
+.tg-wp8o:empty {
+    display: none;
+    
+}
+
+#newjour {
+    display: inline;
+    background-color: inherit;
+    color: #006dd8;
+    font-weight: bold;
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+}
+
+#newjour:hover {
+    display: inline;
+    background-color: inherit;
+    color: red;
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+}

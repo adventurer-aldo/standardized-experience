@@ -14,19 +14,18 @@ body {
     margin: 0 auto;
     text-align: center;
     max-width: 800px;
+    overflow:auto;  
 }
 
 #logos {
-    background-image: url('https://i.ibb.co/p2xry5X/Instituto-Superior-de-Ci-ncias-e-Tecnologia-de-Mo-ambique.png');
-    max-height: 300px;
+    background-image: url('https://i.ibb.co/h2NChXj/Unti2tled.png');
+    height: 183px;
     background-size: 100%;
-    min-width: 190px;
     vertical-align: middle;
-    min-height: 190px;
-    max-width: 300px;
+    width: 209px;
     display: inline-block;
 }
-
+ 
 #logotext {
     color: #006dd8;
     font-weight: bold;
@@ -53,13 +52,18 @@ body {
     font-weight: bold;
     padding: 0px 3px;
     border-left: solid white 2px;
+    text-decoration: none;
 }
 
 .dashitm {
     color: white;
     display: inline;
-    font-weight: bold;
+    
     padding: 0px 3px;
+    text-decoration: none;
+    background-color: inherit;
+    border: none;
+    font-size: inherit;
 }
 
 .dashitemr {
@@ -69,6 +73,7 @@ body {
     padding: 0px 3px;
     border-left: solid white 2px;
     border-right: solid white 2px;
+    text-decoration: none;
 }
 
 .gapped {
@@ -94,9 +99,26 @@ body {
     padding: 20px;
 }
 
+.leftal {
+    text-align: left;
+}
+
 #questions {
     text-align: left;
     padding: 0px 30px;
+    line-height: 25px;
+}
+
+.caption {
+    background-color: white;
+    border: none;
+    border-bottom: solid 2px black;
+    color: blue;
+    font-size: 25px;
+    font-family: 'Sedgwick Ave' !important;
+    text-decoration: underline;
+    display: inline-block;
+    text-align: left;
     line-height: 25px;
 }
 
@@ -107,7 +129,7 @@ body {
     border-bottom: solid 2px black;
     color: blue;
     font-size: 25px;
-    font-family: 'Sedgwick Ave';
+    font-family: 'Sedgwick Ave' !important;
     text-decoration: underline;
     display: inline-block;
     text-align: left;
@@ -116,7 +138,7 @@ body {
 }
 
 #question {
-    text-align: left;
+    text-decoration: none;
 }
 
 .questionnable {
@@ -142,6 +164,7 @@ body {
 #return {
     position: fixed;
     padding-top: 10px;
+    background-color: white;
 }
 
 .home {
@@ -175,19 +198,33 @@ body {
     
 }
 
-#submit {
-    background-color: rgb(34, 175, 69);
+#warning {
+    background-color: rgb(139, 11, 11);
+    color: white;
+    padding: 10px;
+    max-width: 900px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+#warning:empty {
+    display: none;  
+}
+
+#btnSubmit {
+    background-color: #006dd8;
     color: white;
     border: none;
     border-radius: 10%;
     padding: 9px;
-    font-weight: bold;
     font-size: 30px;
+    font-weight: bold;  
     text-align: center;
-    margin: 0 auto;
+    margin: 0 auto !important;
 }
 
-#submit:active {
+#btnSubmit:active {
     background-color: rgb(175, 55, 34);
     color: white;
     border: none;
@@ -195,6 +232,7 @@ body {
     padding: 9px;
     font-weight: bold;
     font-size: 30px;
+    margin: 0 auto;
 }
 
 .wrong {
@@ -209,6 +247,24 @@ body {
     color: white;
 }
 
+.calligraphy {
+    font-family: 'Sedgwick Ave';
+}
+
+#demo {
+    position: fixed;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    background-color: white;
+    border-left: solid black 2px;
+    border-bottom: solid black 2px;
+    text-align: center;
+    text-shadow: rgb(154, 156, 156) 2px 1px;
+    display: block;
+    top: -30px;
+    right: 0px;
+}
+
 .grade {
     position: fixed;
     font-family: 'Sedgwick Ave';
@@ -220,3 +276,65 @@ body {
     right: 0px;
     height: 80px;
 }
+
+#board {
+    display: block;   
+}
+
+.singlecheck {
+    text-decoration: none;
+    padding-right: 40px;
+}
+
+.check {
+    text-decoration: none;
+}
+
+.veracity {
+    max-width: 50px;
+}
+
+.chosla {
+    padding-right: 30px;
+}
+
+#quizlings {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.tgt {
+    margin: 0 auto;
+    padding: 20px;
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+.tgt td {
+    border-color:black;
+    border-style:solid;
+    border-width:1px;
+    font-family:Arial, sans-serif;
+    font-size:14px;
+  overflow:hidden;
+  padding:10px 5px;
+  word-break:normal;
+}
+
+.tgt th {
+    border-color:black;
+    border-style:solid;
+    border-width:1px;
+    font-family:Arial, sans-serif;
+    font-size:14px;
+  font-weight:normal;
+  overflow:hidden;
+  padding:10px 5px;
+  word-break:normal;
+}
+
+.tgt .tgt-0lax {
+    text-align:center;
+    vertical-align:top
+}
+

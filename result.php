@@ -8,33 +8,33 @@ $id = $_SESSION['id'];?>
 <?php require "head.php"?>
 
 <body>
-    <?php require 'return.php'?>
-    <div id="page"><?php $quiz = mysqli_fetch_assoc($conn->query("SELECT * FROM quizzes WHERE id=$id LIMIT 1"));
-    $testing = $conn->query("SELECT * FROM quizzes WHERE id=$id ORDER BY id DESC");?>
+    <?php require 'return.php';?>
+    <div id="page"><?php $quiz = pg_fetch_assoc(pg_query($conn,"SELECT * FROM quizzes WHERE id=$id LIMIT 1"));
+    $testing = pg_query($conn,"SELECT * FROM quizzes WHERE id=$id ORDER BY id DESC");?>
     <?php 
     $test_name = "8";
     $appenda = "<p class='bolding roman gapped'>CURSO DE MEDICINA GERAL<br>DISCIPLINA DE ".strtoupper($quiz['subject'])."<br> %s <br>DATA: ".date("d/m/Y",$quiz['date'])." <br>NOME<span class='inputtable'>".$quiz['name']."</span><br>APELIDO<span class='inputtable'>".$quiz['surname']."</span></p>
     <p class='bolding notice roman'>Escreva o seu Nome e Apelido em letras MAÍUSCULAS e LEGÍVEIS no início do Teste e em cada folha que compõe o Teste.<br>Não é permitido o porte de TELEMÓVEL, LAPTOP, nem qualquer APARELHO Electrónico, livro ou papel para além das Folhas do Teste.<br>Não estão autorizados a conversar, pedir ou trocar qualquer material.</p>";
 
-    $appendb = "<p class='bolding roman'>INSTITUTO SUPERIOR DE CIÊNCIAS E TECNOLOGIA DE MOÇAMBIQUE<br>CURSO DE MEDICINA GERAL<br>Disciplina de ".$quiz['subject']."<br> %s - ".date("d/m/Y",$quiz['date'])."<br>Nome completo:<span class='inputtable'>".$quiz['name']."</span> Código:<span class='inputtable'>".$quiz['surname']."</span></p>
+    $appendb = "<p class='bolding roman'>STANDARDIZED EXPERIENCE<br>CURSO DE MEDICINA GERAL<br>Disciplina de ".$quiz['subject']."<br> %s - ".date("d/m/Y",$quiz['date'])."<br>Nome completo:<span class='inputtable'>".$quiz['name']."</span> Código:<span class='inputtable'>".$quiz['surname']."</span></p>
     <p class='bolding notice roman'>Leia atentamente as questões colocadas e responda a todas na folha de exercícios seguindo a ordem. Respostas a lápis não contam. O exame tem a duração de 90 minutos.</p>";
 
-    ;if ($quiz['journey']=="a") {
+    ;if ($quiz['journey']==0) {
         $test_name = "1º TESTE ESCRITO";
         echo "<img src='https://i.ibb.co/dfdznVS/Untitled.png'>";
         echo sprintf($appenda, $test_name);
-    } elseif ($quiz['journey']=="b") {
+    } elseif ($quiz['journey']==1) {
         $test_name = "2º TESTE ESCRITO";
         echo "<img src='https://i.ibb.co/dfdznVS/Untitled.png'>";
         echo sprintf($appenda, $test_name);
-    } elseif ($quiz['journey']=="c") {
+    } elseif ($quiz['journey']==2) {
         $test_name = "TESTE DE REPOSIÇÃO";
         echo "<img src='https://i.ibb.co/dfdznVS/Untitled.png'>";
         echo sprintf($appenda, $test_name);
-    } elseif ($quiz['journey']=="exama") {
+    } elseif ($quiz['journey']==3) {
         $test_name = "EXAME NORMAL";
         echo sprintf($appendb, $test_name);
-    } elseif ($quiz['journey']=="examb") {
+    } elseif ($quiz['journey']==4) {
         $test_name = "EXAME DE RECORRÊNCIA";
         echo sprintf($appendb, $test_name);
     } else {
@@ -49,13 +49,15 @@ $id = $_SESSION['id'];?>
         $questions_num = 0;
         $score = 0;
         $result = "w";
-        if (mysqli_num_rows($testing) > 0) {
-            while ($questions = mysqli_fetch_assoc($testing)) {
+        if (pg_num_rows($testing) > 0) {
+            while ($questions = pg_fetch_assoc($testing)) {
                 $questions_num = $questions_num + 1;
                 $icon = "x";
-                $original = mysqli_fetch_assoc($conn->query("SELECT * FROM quiz WHERE question='".$questions['question']."'"));
+                $original = pg_fetch_assoc(pg_query($conn,"SELECT * FROM quiz WHERE question='".$questions['question']."'"));
+                $olddog = explode("|",$original['answer']);
+                $newdog = explode("|",$questions['answer']);
                 echo "<p";
-                if ($original['answer'] == $questions['answer']) {
+                if (array_diff($olddog,$newdog) == array()) {
                     $result = "right";
                     ++$correct;
                     echo " class='right'";
@@ -63,11 +65,11 @@ $id = $_SESSION['id'];?>
                 } else {
                     $result = "wrong";
                     echo " class='wrong'";
-                    $icon = "<i class='fas fa-times'></i><br><b>RESPOSTA CORRECTA: ".implode("&",explode("|",$original['answer']))."</b>";
+                    $icon = "<i class='fas fa-times'></i><br><b>RESPOSTA CORRECTA:</b><br>".implode("<br>",explode("|",$original['answer']));
                 };
                 
                 echo ">".$questions_num.". ".$questions['question']."$icon</p>";
-                    echo "<p class='inputtable $result'>".implode("&",explode("|",$questions['answer']))."</p>";
+                    echo "<p class='inputtable $result'>".implode("<br>",explode("|",$questions['answer']))."</p>";
             };
         } else {
             echo "<p>There are no questions in this subject.</p>";
@@ -79,9 +81,20 @@ $id = $_SESSION['id'];?>
             $score = $correct / $questions_num * 20;
         };
         
+        if ($score == 20) {
+            echo "<audio autoplay><source src='audio/succeedhardest.mp3' type='audio/mpeg'></audio>";
+        } elseif ($score > 15)  {
+            echo "<audio autoplay><source src='audio/succeedhard.mp3' type='audio/mpeg'></audio>";
+        } elseif ($score > 9.5)  {
+            echo "<audio autoplay><source src='audio/succeed.mp3' type='audio/mpeg'></audio>";
+        } elseif ($score > 6)  {
+            echo "<audio autoplay><source src='audio/fail.mp3' type='audio/mpeg'></audio>";
+        } else {
+            echo "<audio autoplay><source src='audio/failhard.mp3' type='audio/mpeg'></audio>";
+        };
         ?>
         
-    <p class="grade"><?php echo number_format($score,2,',','');?>/20</p>
+    <p class="grade"><?php echo number_format($score,2,',','');?>/20,00</p>
     </div><br>
         <br>
     <?php 
