@@ -132,7 +132,7 @@
             <td class='tg-wp8o row$num_rows extra'>Dissertação<br>$grade_dissertation</td>
             <td class='tg-wp8o row$num_rows repo'>$grade_reposition</td>
             <td class='tg-wp8o row$num_rows final'>Média Final<br>$final</td>
-            <td class='tg-wp8o row$num_rows exam'>grade_exam</td>
+            <td class='tg-wp8o row$num_rows exam'>$grade_exam</td>
             <td class='tg-wp8o row$num_rows reco'>$grade_recorrence</td>
           </tr>
             ";
