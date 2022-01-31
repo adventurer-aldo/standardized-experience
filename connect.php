@@ -12,8 +12,6 @@
                 'exam' int(11) DEFAULT NULL,
                 'exam_reposition' int(11) DEFAULT NULL
               )");
-        };
-    };
     // Check connection
     // <?php $aka = $conn->query("SELECT * FROM subject");$nume = pg_fetch_assoc($aka); echo "<li class='dashitem'>".implode("|",$nume)."</li>";
 ?>
