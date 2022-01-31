@@ -9,10 +9,6 @@ CREATE TABLE 'journeys' (
   'exam_reposition' int(11) DEFAULT NULL
 );
 
---
--- Dumping data for table 'journeys'
---
-
 INSERT INTO 'journeys' ('subject', 'id', 'grade_1', 'grade_2', 'grade_reposition', 'grade_dissertation', 'exam', 'exam_reposition') VALUES
 ('Nenhuma', 0, 2, 5, 0, 16, 0, 0),
 ('Bioquímica II', 7, NULL, NULL, NULL, NULL, NULL, NULL),
