@@ -50,9 +50,8 @@
         echo "...Temos um caminho realmente longo pela frente.";
     };
     
-    if ($stats["active_journey_id"] == 0) {
-        echo "<br><br>Parece que você não está em nenhuma jornada no momento. <button id='newjour' type='submit' form='newjourney'>Começe uma já!</button>";    
-    };
+    echo "<br><br><button id='newjour' type='submit' form='newjourney'>Começe uma nova jornada já!</button>";    
+   
     ?></p>
     <img src="https://4.bp.blogspot.com/-EjZ4ENmfIkc/V9PE9nu6eKI/AAAAAAAA9ko/I1hPkXoivi4WWdibdh2JQw1kgeVXwu0AgCLcB/s450/kjhou_seifuku.png" id='board'>
     <br>
