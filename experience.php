@@ -1,4 +1,4 @@
-<?php include "connect.php"?>
+<?php require "connect.php"?>
 <!DOCTYPE html>
 <html lang="en">
 
