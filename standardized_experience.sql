@@ -18,31 +18,31 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `standardized_experience`
+-- Database: 'standardized_experience'
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `journeys`
+-- Table structure for table 'journeys'
 --
 
-CREATE TABLE `journeys` (
-  `subject` text DEFAULT 'Nenhuma',
-  `id` int(11) DEFAULT NULL,
-  `grade_1` int(11) DEFAULT NULL,
-  `grade_2` int(11) DEFAULT NULL,
-  `grade_reposition` int(11) DEFAULT NULL,
-  `grade_dissertation` int(11) DEFAULT NULL,
-  `exam` int(11) DEFAULT NULL,
-  `exam_reposition` int(11) DEFAULT NULL
+CREATE TABLE 'journeys' (
+  'subject' text DEFAULT 'Nenhuma',
+  'id' int(11) DEFAULT NULL,
+  'grade_1' int(11) DEFAULT NULL,
+  'grade_2' int(11) DEFAULT NULL,
+  'grade_reposition' int(11) DEFAULT NULL,
+  'grade_dissertation' int(11) DEFAULT NULL,
+  'exam' int(11) DEFAULT NULL,
+  'exam_reposition' int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `journeys`
+-- Dumping data for table 'journeys'
 --
 
-INSERT INTO `journeys` (`subject`, `id`, `grade_1`, `grade_2`, `grade_reposition`, `grade_dissertation`, `exam`, `exam_reposition`) VALUES
+INSERT INTO 'journeys' ('subject', 'id', 'grade_1', 'grade_2', 'grade_reposition', 'grade_dissertation', 'exam', 'exam_reposition') VALUES
 ('Nenhuma', 0, 2, 5, 0, 16, 0, 0),
 ('Bioquímica II', 7, NULL, NULL, NULL, NULL, NULL, NULL),
 ('Biologia Molecular e Celular II', 7, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -52,23 +52,23 @@ INSERT INTO `journeys` (`subject`, `id`, `grade_1`, `grade_2`, `grade_reposition
 -- --------------------------------------------------------
 
 --
--- Table structure for table `quiz`
+-- Table structure for table 'quiz'
 --
 
-CREATE TABLE `quiz` (
-  `subject` text NOT NULL,
-  `type` text NOT NULL DEFAULT 'open',
-  `question` text NOT NULL,
-  `choices` text DEFAULT NULL,
-  `answer` text NOT NULL,
-  `level` int(11) DEFAULT NULL
+CREATE TABLE 'quiz' (
+  'subject' text NOT NULL,
+  'type' text NOT NULL DEFAULT 'open',
+  'question' text NOT NULL,
+  'choices' text DEFAULT NULL,
+  'answer' text NOT NULL,
+  'level' int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `quiz`
+-- Dumping data for table 'quiz'
 --
 
-INSERT INTO `quiz` (`subject`, `type`, `question`, `choices`, `answer`, `level`) VALUES
+INSERT INTO 'quiz' ('subject', 'type', 'question', 'choices', 'answer', 'level') VALUES
 ('Bioquímica II', 'open', 'Dentre todas formas energéticas no organismo, qual é que é mais usada pela célula?', NULL, 'ATP', 1),
 ('Bioquímica II', 'open', 'Qual é o substrato principal do ciclo de Krebs?', NULL, 'Acetil-CoA', 1),
 ('Bioquímica II', 'open', 'De que forma é regulada a enzima chave da glicólise?', NULL, 'alostericamente', 1),
@@ -208,26 +208,26 @@ INSERT INTO `quiz` (`subject`, `type`, `question`, `choices`, `answer`, `level`)
 -- --------------------------------------------------------
 
 --
--- Table structure for table `quizzes`
+-- Table structure for table 'quizzes'
 --
 
-CREATE TABLE `quizzes` (
-  `name` text NOT NULL,
-  `surname` text NOT NULL,
-  `subject` text NOT NULL,
-  `id` int(11) NOT NULL,
-  `journey` text DEFAULT NULL,
-  `question` text NOT NULL,
-  `answer` text NOT NULL,
-  `time_left` int(20) NOT NULL,
-  `date` int(20) NOT NULL
+CREATE TABLE 'quizzes' (
+  'name' text NOT NULL,
+  'surname' text NOT NULL,
+  'subject' text NOT NULL,
+  'id' int(11) NOT NULL,
+  'journey' text DEFAULT NULL,
+  'question' text NOT NULL,
+  'answer' text NOT NULL,
+  'time_left' int(20) NOT NULL,
+  'date' int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `quizzes`
+-- Dumping data for table 'quizzes'
 --
 
-INSERT INTO `quizzes` (`name`, `surname`, `subject`, `id`, `journey`, `question`, `answer`, `time_left`, `date`) VALUES
+INSERT INTO 'quizzes' ('name', 'surname', 'subject', 'id', 'journey', 'question', 'answer', 'time_left', 'date') VALUES
 ('XCA', 'AFWQ', 'Anatomia', 6, NULL, 'O crânio faz parte de que esqueleto?', 'Axial', 0, 1643229014),
 ('XCA', 'AFWQ', 'Anatomia', 7, NULL, 'O crânio faz parte de que esqueleto?', 'Axial', 0, 1643229134),
 ('XCA', 'AFWQ', 'Anatomia', 9, NULL, 'O crânio faz parte de que esqueleto?', 'Axial', 0, 1643229314),
@@ -411,7 +411,7 @@ INSERT INTO `quizzes` (`name`, `surname`, `subject`, `id`, `journey`, `question`
 ('', '', 'Bioquímica II', 32, NULL, 'Durante o metabolismo energético ocorrem diversas reações redox em que eletrões perdidos por nutrientes energéticos como os ácidos gordos ao serem oxidados são recebidos por moléculas aceitadoras universais de eletrões. Qual dos aceitadores de eletrões abaixo listados é universal?', '', 1643396201, 1643396201),
 ('', '', 'Bioquímica II', 32, NULL, 'Na cadeia respiratória dentre vários citocromos, há os que são fixos e um que é livre. O livre é:', '', 1643396201, 1643396201),
 ('', '', 'Bioquímica II', 32, NULL, 'Em que compartimento celular ocorre a glicólise', '', 1643396201, 1643396201);
-INSERT INTO `quizzes` (`name`, `surname`, `subject`, `id`, `journey`, `question`, `answer`, `time_left`, `date`) VALUES
+INSERT INTO 'quizzes' ('name', 'surname', 'subject', 'id', 'journey', 'question', 'answer', 'time_left', 'date') VALUES
 ('hsh', 'sdhsh', 'Biologia Molecular e Celular II', 33, NULL, 'Sobre a reprodução assexuada, marque a alternativa incorreta:', 'Alguns animais podem reproduzir-se assexuadamente.', 1643396213, 1643396213),
 ('hsh', 'sdhsh', 'Biologia Molecular e Celular II', 33, NULL, 'Considerando a anatomia do aparelho reprodutor feminino, a fecundação e a gestação ocorrem, respectivamente:', '', 1643396213, 1643396213),
 ('hsh', 'sdhsh', 'Biologia Molecular e Celular II', 33, NULL, 'Baseado nos esquemas abaixo, que correspondem a diferentes fases do desenvolvimento embrionário de um animal, assinale a proposição verdadeiras.<br><img src=\"https://i.ibb.co/6ZybY2g/bio004.png\">', '', 1643396213, 1643396213),
@@ -615,7 +615,7 @@ INSERT INTO `quizzes` (`name`, `surname`, `subject`, `id`, `journey`, `question`
 ('Kleber ', 'Sitoe', 'Biologia Molecular e Celular II', 50, NULL, 'Faça a legenda da replicação de DNA.<br><img src=\"pictures/bio2/replicacaption.png\">', '1. Topoisomerase|6. Braçadeira|10. Fita contínua|13. Fita descontínua|9. Grampo|3. Helicase|4. Primase|||||||', 1643475851, 1643475852),
 ('Kleber ', 'Sitoe', 'Biologia Molecular e Celular II', 50, NULL, 'Em que fase da mitose ocorre a divisão dos centrômeros?', 'Profase', 1643475851, 1643475852),
 ('Kleber ', 'Sitoe', 'Biologia Molecular e Celular II', 50, NULL, 'Sobre a estrutura do DNA, marque a alternativa incorreta:', 'Os nucleotídeos que formam o DNA diferenciam-se do RNA por apresentarem uma ribose e a base timina.', 1643475851, 1643475852);
-INSERT INTO `quizzes` (`name`, `surname`, `subject`, `id`, `journey`, `question`, `answer`, `time_left`, `date`) VALUES
+INSERT INTO 'quizzes' ('name', 'surname', 'subject', 'id', 'journey', 'question', 'answer', 'time_left', 'date') VALUES
 ('Kleber ', 'Sitoe', 'Biologia Molecular e Celular II', 50, NULL, 'Nos organismos multicelulares, após a fecundação, tem início o desenvolvimento embrionário (a embriogênese) que dará origem ao novo indivíduo. Durante esse desenvolvimento, é correto afirmar que:', 'uma das fases do desenvolvimento denomina-se gastrulação, que se caracteriza pela formação de folhetos embrionários, do arquêntero e do blastóporo.', 1643475851, 1643475852),
 ('Kleber ', 'Sitoe', 'Biologia Molecular e Celular II', 50, NULL, 'Baseado nos esquemas abaixo, que correspondem a diferentes fases do desenvolvimento embrionário de um animal, assinale a proposição verdadeiras.<br><img src=\"https://i.ibb.co/6ZybY2g/bio004.png\">', '', 1643475851, 1643475852),
 ('Kleber ', 'Sitoe', 'Biologia Molecular e Celular II', 50, NULL, 'Escreva as alternativas que contém as palavras que completam a frase abaixo:<br>Existem cinco tipos principais de bases nitrogenadas: adenina, (1)______________, ­­­­­citosina, (2)__________ e uracila. As duas primeiras possuem um duplo anel de átomos de carbono e derivam de uma substância chamada (3)____________, sendo, por isso, denominadas bases (4)______________.', 'Guanina|Timina|Purítina|Purinas', 1643475851, 1643475852),
@@ -814,7 +814,7 @@ INSERT INTO `quizzes` (`name`, `surname`, `subject`, `id`, `journey`, `question`
 ('', '', 'Biologia Molecular e Celular II', 57, NULL, 'No aparelho reprodutor masculino, os testículos são os órgãos produtores de espermatozoides. A espermiogênese compreende:', 'Etapa de diferenciação celular originando células diploides, os espermatozoides.', 1643537721, 1643537722),
 ('', '', 'Biologia Molecular e Celular II', 57, NULL, 'Analise a figura abaixo.<br><img src=\"https://i.ibb.co/YjKy1dh/bio003.png\"><br>Com base na figura que ilustra a ovulação, fecundação e nidação (ou implantação) na espécie humana e nos seus conhecimento sobre o tema, considere as alternativas correctas.', '', 1643537721, 1643537722),
 ('', '', 'Biologia Molecular e Celular II', 57, NULL, 'Define cromossoma.', 'Cromossoma é uma molécula de ADN associada à histonas', 1643537721, 1643537722);
-INSERT INTO `quizzes` (`name`, `surname`, `subject`, `id`, `journey`, `question`, `answer`, `time_left`, `date`) VALUES
+INSERT INTO 'quizzes' ('name', 'surname', 'subject', 'id', 'journey', 'question', 'answer', 'time_left', 'date') VALUES
 ('', '', 'Biologia Molecular e Celular II', 57, NULL, 'Quais são as subfases da interfase?', 'Pré-síntese|Síntese|Pós-síntese', 1643537721, 1643537722),
 ('', '', 'Biologia Molecular e Celular II', 57, NULL, 'A figura abaixo indica uma das fases da mitose. Identifique-a.<br><img src=\"pictures/bio2/profase.png\">', 'Profase', 1643537721, 1643537722),
 ('', '', 'Biologia Molecular e Celular II', 58, NULL, 'Algumas mulheres que não desejam ter uma nova gestação, pois ainda estão em fase de amamentação, utilizam a minipílula anticoncepcional como método contraceptivo. Todas as minipílulas de uma cartela são compostas com a mesma concentração do hormônio progesterona. Os médicos geralmente indicam às mulheres a ingestão de uma pílula por vez, diariamente, e preferencialmente no mesmo horário, cuja finalidade é:', 'Manter constante a concentração de progesterona, o que inibe a ovulação.', 1643540825, 1643540826),
@@ -1009,7 +1009,7 @@ INSERT INTO `quizzes` (`name`, `surname`, `subject`, `id`, `journey`, `question`
 ('', '', 'Biologia Molecular e Celular II', 74, NULL, 'Podemos dizer que cromossomo é um filamento de cromatina espiralado, visível ao microscópio óptico por ocasião da divisão celular. O conjunto de dados sobre tamanho, forma, número e características dos cromossomas de uma espécie é chamado de:', '', 1643637482, 1643637483),
 ('', '', 'Biologia Molecular e Celular II', 74, NULL, 'Nos seres humanos, por volta do quarto ou quinto dia de desenvolvimento, observa-se a formação de uma cavidade cheia de líquido no embrião. O surgimento dessa cavidade marca o início da fase de:', '', 1643637482, 1643637483),
 ('', '', 'Biologia Molecular e Celular II', 74, NULL, 'Nos organismos vivos multicelulares, a meiose é um mecanismo que tem como sua principal função:', '', 1643637482, 1643637483);
-INSERT INTO `quizzes` (`name`, `surname`, `subject`, `id`, `journey`, `question`, `answer`, `time_left`, `date`) VALUES
+INSERT INTO 'quizzes' ('name', 'surname', 'subject', 'id', 'journey', 'question', 'answer', 'time_left', 'date') VALUES
 ('', '', 'Biologia Molecular e Celular II', 74, NULL, 'A gametogênese humana ocorre nas glândulas sexuais, também denominadas de gônadas, onde se realiza a ovulogênese e a espermatogênese. Essas fases são semelhantes e ao final produzem respectivamente os óvulos e os espermatozoides. Ao final do processo, quantos óvulos e espermatozoides são produzidos a partir de 8 ovócitos primários e 8 espermatócitos primários?', '|', 1643637482, 1643637483),
 ('', '', 'Biologia Molecular e Celular II', 74, NULL, 'Algumas mulheres que não desejam ter uma nova gestação, pois ainda estão em fase de amamentação, utilizam a minipílula anticoncepcional como método contraceptivo. Todas as minipílulas de uma cartela são compostas com a mesma concentração do hormônio progesterona. Os médicos geralmente indicam às mulheres a ingestão de uma pílula por vez, diariamente, e preferencialmente no mesmo horário, cuja finalidade é:', '', 1643637482, 1643637483),
 ('', '', 'Biologia Molecular e Celular II', 74, NULL, 'A meiose é simbolizada por:', '', 1643637482, 1643637483),
@@ -1106,24 +1106,24 @@ INSERT INTO `quizzes` (`name`, `surname`, `subject`, `id`, `journey`, `question`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `statistics`
+-- Table structure for table 'statistics'
 --
 
-CREATE TABLE `statistics` (
-  `questions` int(11) NOT NULL,
-  `quizzes_done` int(11) NOT NULL,
-  `last_quiz_id` int(11) NOT NULL,
-  `journeys_num` int(11) NOT NULL,
-  `active_journey_id` int(11) NOT NULL,
-  `current_journey_progress` int(11) NOT NULL DEFAULT 0,
-  `users_num` int(11) NOT NULL
+CREATE TABLE 'statistics' (
+  'questions' int(11) NOT NULL,
+  'quizzes_done' int(11) NOT NULL,
+  'last_quiz_id' int(11) NOT NULL,
+  'journeys_num' int(11) NOT NULL,
+  'active_journey_id' int(11) NOT NULL,
+  'current_journey_progress' int(11) NOT NULL DEFAULT 0,
+  'users_num' int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `statistics`
+-- Dumping data for table 'statistics'
 --
 
-INSERT INTO `statistics` (`questions`, `quizzes_done`, `last_quiz_id`, `journeys_num`, `active_journey_id`, `current_journey_progress`, `users_num`) VALUES
+INSERT INTO 'statistics' ('questions', 'quizzes_done', 'last_quiz_id', 'journeys_num', 'active_journey_id', 'current_journey_progress', 'users_num') VALUES
 (91, 81, 81, 8, 8, 0, -1);
 
 --
@@ -1131,16 +1131,16 @@ INSERT INTO `statistics` (`questions`, `quizzes_done`, `last_quiz_id`, `journeys
 --
 
 --
--- Indexes for table `quiz`
+-- Indexes for table 'quiz'
 --
-ALTER TABLE `quiz`
-  ADD UNIQUE KEY `question` (`question`) USING HASH;
+ALTER TABLE 'quiz'
+  ADD UNIQUE KEY 'question' ('question') USING HASH;
 
 --
--- Indexes for table `statistics`
+-- Indexes for table 'statistics'
 --
-ALTER TABLE `statistics`
-  ADD UNIQUE KEY `users_num` (`users_num`);
+ALTER TABLE 'statistics'
+  ADD UNIQUE KEY 'users_num' ('users_num');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
