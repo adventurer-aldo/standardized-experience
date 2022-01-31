@@ -21,7 +21,7 @@ session_start();?>
         $_SESSION['time'] = 1+strtotime(date("m-d-Y h:i:s a"));
         $rande = rand(9,15);
         $result = pg_query($conn,"SELECT * FROM quiz 
-        WHERE subject='".$subject."' ORDER BY random() LIMIT $rande");
+        WHERE subject='".$subject."' LIMIT $rande");
         if (pg_num_rows($result) > 0){
             while ($questions = pg_fetch_assoc($result)) {
                 $questions_num = $questions_num + 1;
