@@ -1,32 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Jan 31, 2022 at 06:26 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: 'standardized_experience'
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table 'journeys'
---
-
 CREATE TABLE 'journeys' (
   'subject' text DEFAULT 'Nenhuma',
   'id' int(11) DEFAULT NULL,
@@ -36,7 +7,7 @@ CREATE TABLE 'journeys' (
   'grade_dissertation' int(11) DEFAULT NULL,
   'exam' int(11) DEFAULT NULL,
   'exam_reposition' int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 --
 -- Dumping data for table 'journeys'
@@ -49,12 +20,6 @@ INSERT INTO 'journeys' ('subject', 'id', 'grade_1', 'grade_2', 'grade_reposition
 ('Biologia Molecular e Celular II', 8, NULL, NULL, NULL, 9, NULL, NULL),
 ('Bioquímica II', 8, NULL, NULL, NULL, 12, NULL, NULL);
 
--- --------------------------------------------------------
-
---
--- Table structure for table 'quiz'
---
-
 CREATE TABLE 'quiz' (
   'subject' text NOT NULL,
   'type' text NOT NULL DEFAULT 'open',
@@ -62,11 +27,7 @@ CREATE TABLE 'quiz' (
   'choices' text DEFAULT NULL,
   'answer' text NOT NULL,
   'level' int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table 'quiz'
---
+);
 
 INSERT INTO 'quiz' ('subject', 'type', 'question', 'choices', 'answer', 'level') VALUES
 ('Bioquímica II', 'open', 'Dentre todas formas energéticas no organismo, qual é que é mais usada pela célula?', NULL, 'ATP', 1),
@@ -205,12 +166,6 @@ INSERT INTO 'quiz' ('subject', 'type', 'question', 'choices', 'answer', 'level')
 ('Bioquímica II', 'open', 'A glucose 1-fosfato libertada durante a glicogenólise é rapidamente convertida em glucose 6-fosfato. Qual é a enzima que catalisa esta reacção?', 'NULL', 'fosfoglucomutase ou glucose 6-fosfato isomerase', 1),
 ('Biologia Molecular e Celular II', 'open', 'Qual é o ano em que a tecnologia do DNA recombinante começou a ser definida?', 'NULL', '1970', 3);
 
--- --------------------------------------------------------
-
---
--- Table structure for table 'quizzes'
---
-
 CREATE TABLE 'quizzes' (
   'name' text NOT NULL,
   'surname' text NOT NULL,
@@ -221,11 +176,7 @@ CREATE TABLE 'quizzes' (
   'answer' text NOT NULL,
   'time_left' int(20) NOT NULL,
   'date' int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table 'quizzes'
---
+);
 
 INSERT INTO 'quizzes' ('name', 'surname', 'subject', 'id', 'journey', 'question', 'answer', 'time_left', 'date') VALUES
 ('XCA', 'AFWQ', 'Anatomia', 6, NULL, 'O crânio faz parte de que esqueleto?', 'Axial', 0, 1643229014),
@@ -1103,11 +1054,6 @@ INSERT INTO 'quizzes' ('name', 'surname', 'subject', 'id', 'journey', 'question'
 ('Kleber', 'Sitoe', 'Bioquímica II', 81, NULL, 'Nas células absortivas do intestino existem alguns transportadores para cada tipo dos produtos da digestão dos glícidos. Como chama o transportador da glucose?', '', 1643644636, 1643644637),
 ('Kleber', 'Sitoe', 'Bioquímica II', 81, NULL, 'Qual é o mecanismo de absorção dos principais produtos da digestão dos glícidos na mucosa intestinal?', '', 1643644636, 1643644637);
 
--- --------------------------------------------------------
-
---
--- Table structure for table 'statistics'
---
 
 CREATE TABLE 'statistics' (
   'questions' int(11) NOT NULL,
@@ -1117,32 +1063,14 @@ CREATE TABLE 'statistics' (
   'active_journey_id' int(11) NOT NULL,
   'current_journey_progress' int(11) NOT NULL DEFAULT 0,
   'users_num' int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table 'statistics'
---
+);
 
 INSERT INTO 'statistics' ('questions', 'quizzes_done', 'last_quiz_id', 'journeys_num', 'active_journey_id', 'current_journey_progress', 'users_num') VALUES
 (91, 81, 81, 8, 8, 0, -1);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table 'quiz'
---
 ALTER TABLE 'quiz'
   ADD UNIQUE KEY 'question' ('question') USING HASH;
 
---
--- Indexes for table 'statistics'
---
 ALTER TABLE 'statistics'
   ADD UNIQUE KEY 'users_num' ('users_num');
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
