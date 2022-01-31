@@ -1,3 +1,4 @@
+<?php require "connect.php"?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,17 +7,17 @@
 <body>
     <div id="page">
         <?php require 'head_branch.php'?>
-        <?php $stats = mysqli_fetch_assoc($conn->query("SELECT * FROM statistics"));
-        $id_data = mysqli_fetch_assoc($conn->query("SELECT * from quizzes WHERE id=".$stats['last_quiz_id']." LIMIT 1"));
+        <?php $stats = pg_fetch_assoc($conn->query("SELECT * FROM statistics"));
+        $id_data = pg_fetch_assoc($conn->query("SELECT * from quizzes WHERE id=".$stats['last_quiz_id']." LIMIT 1"));
         $id = $stats['last_quiz_id'];
         $testing = $conn->query("SELECT * FROM quizzes WHERE id=$id ORDER BY id DESC");
         $correct = 0;
         $questions_num = 0;
         $score = 0;
-        if (mysqli_num_rows($testing) > 0) {
-            while ($questions = mysqli_fetch_assoc($testing)) {
+        if (pg_num_rows($testing) > 0) {
+            while ($questions = pg_fetch_assoc($testing)) {
                 $questions_num = $questions_num + 1;
-                $original = mysqli_fetch_assoc($conn->query("SELECT * FROM quiz WHERE question='".$questions['question']."'"));
+                $original = pg_fetch_assoc($conn->query("SELECT * FROM quiz WHERE question='".$questions['question']."'"));
                 if ($original['answer'] == $questions['answer']) {
                     ++$correct;
                 } ;
