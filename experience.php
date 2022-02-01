@@ -7,7 +7,7 @@
 
 <body>
     <?php $stats = pg_fetch_assoc(pg_query($conn,"SELECT * FROM statistics"));
-    $level = $stats['current_journey_progress']
+    $level = $stats['current_journey_progress'];
     if ($stats['current_journey_id'] == 0) {
         $ausrc = "home";
     } else {
