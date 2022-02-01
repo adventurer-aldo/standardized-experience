@@ -6,7 +6,31 @@
 <?php require "head.php"?>
 
 <body>
-    <audio autoplay loop><source src="audio/home.mp3" type="audio/mpeg"></audio> 
+    <?php $stats = pg_fetch_assoc(pg_query($conn,"SELECT * FROM statistics"));
+    $level = $stats['current_journey_progress']
+    if ($stats['current_journey_id'] == 0) {
+        $ausrc = "home";
+    } else {
+        switch ($level) {
+            case 0:
+                $ausrc = "prep";
+                break;
+            case 1:
+                $ausrc = "prep2";
+                break;
+            case 2:
+                $ausrc = "prep2";
+                break;
+            case 3:
+                $ausrc = "prepexam";
+                break;
+            case 4:
+                $ausrc = "prepexam";
+                break;
+        };
+    };
+    echo "<audio autoplay loop><source src='audio/$ausrc.mp3' type='audio/mpeg'></audio>";?>
+     
     <div id="page">
         <?php require 'head_branch.php'?>
         <?php $stats = pg_fetch_assoc(pg_query($conn,"SELECT * FROM statistics"));
@@ -50,8 +74,9 @@
         echo "...Temos um caminho realmente longo pela frente.";
     };
     
-    echo "<br><br><button id='newjour' type='submit' form='newjourney'>Começe uma nova jornada já!</button>";    
-   
+    if ($stats["active_journey_id"] == 0) {
+        echo "<br><br>Parece que você não está em nenhuma jornada no momento. <button id='newjour' type='submit' form='newjourney'>Começe uma já!</button>";    
+    };
     ?></p>
     <img src="https://4.bp.blogspot.com/-EjZ4ENmfIkc/V9PE9nu6eKI/AAAAAAAA9ko/I1hPkXoivi4WWdibdh2JQw1kgeVXwu0AgCLcB/s450/kjhou_seifuku.png" id='board'>
     <br>

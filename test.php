@@ -60,7 +60,7 @@ session_start();?>
         switch ($level) {
             case 1:
                 $result = pg_query($conn,"SELECT * FROM quiz 
-                WHERE subject='$subject' AND level=1 LIMIT $rande");
+                WHERE subject='$subject' AND level=1  ORDER BY RANDOM() LIMIT $rande");
                 break;
             case 2:
                 $result = pg_query($conn,"SELECT * FROM quiz 
@@ -68,12 +68,12 @@ session_start();?>
                 UNION  
                 SELECT * FROM quiz
                 WHERE subject='$subject' AND level=1 LIMIT rand(1,9)
-                ORDER BY random()");
+                 ORDER BY RANDOM()");
                 break;
             case 3:
                 $result = pg_query($conn,"SELECT * FROM quiz 
                 WHERE subject='$subject' AND (level=1 OR level=2) 
-                LIMIT rand(15,30)");
+                 ORDER BY RANDOM() LIMIT rand(15,30)");
                 break;
             case 4:
                 $result = pg_query($conn,"SELECT * FROM quiz 
@@ -81,11 +81,11 @@ session_start();?>
                 UNION  
                 SELECT * FROM quiz
                 WHERE subject='$subject' AND (level=1 OR level=2) LIMIT rand(10,20)
-                ORDER BY random()");
+                 ORDER BY RANDOM()");
                 break;
             case 5:
                 $result = pg_query($conn,"SELECT * FROM quiz 
-                WHERE subject='$subject' LIMIT rand(30,100)");
+                WHERE subject='$subject'  ORDER BY RANDOM() LIMIT rand(30,100)");
                 break;
         }
         if (pg_num_rows($result) > 0){
