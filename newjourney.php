@@ -5,7 +5,7 @@
     $journeys_num = ++$stats['journeys_num'];
     pg_query($conn,"UPDATE statistics SET active_journey_id=$journeys_num");
     pg_query($conn,"UPDATE statistics SET journeys_num=$journeys_num");
-    $available_quests = pg_query($conn,"SELECT DISTINCT subject FROM quiz  ORDER BY RANDOM()");
+    $available_quests = pg_query($conn,"SELECT DISTINCT subject FROM quiz  OFFSET random() * (SELECT COUNT (*) FROM ");
 
     if (pg_num_rows($available_quests) > 0 ) {
         while ($subjact = pg_fetch_assoc($available_quests)) {
