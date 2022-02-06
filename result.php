@@ -1,5 +1,6 @@
 <?php require "connect.php";
 session_start();
+error_reporting(E_NOTICE);
 $id = $_SESSION['id'];?>
 
 <!DOCTYPE html>
@@ -9,8 +10,9 @@ $id = $_SESSION['id'];?>
 
 <body>
     <?php require 'return.php';?>
-    <div id="page"><?php $quiz = pg_fetch_assoc(pg_query($conn,"SELECT * FROM quizzes WHERE id=$id LIMIT 1"));
-    $testing = pg_query($conn,"SELECT * FROM quizzes WHERE id=$id ORDER BY id DESC");?>
+    <div id="page"><?php $quiz = mysqli_fetch_assoc($conn->query("SELECT * FROM quizzes WHERE id=$id LIMIT 1"));
+    $stat = mysqli_fetch_assoc($conn->query("SELECT * FROM statistics"));
+    $testing = $conn->query("SELECT * FROM quizzes WHERE id=$id ORDER BY id DESC");?>
     <?php 
     $test_name = "8";
     $appenda = "<p class='bolding roman gapped'>CURSO DE MEDICINA GERAL<br>DISCIPLINA DE ".strtoupper($quiz['subject'])."<br> %s <br>DATA: ".date("d/m/Y",$quiz['date'])." <br>NOME<span class='inputtable'>".$quiz['name']."</span><br>APELIDO<span class='inputtable'>".$quiz['surname']."</span></p>
@@ -21,15 +23,15 @@ $id = $_SESSION['id'];?>
 
     ;if ($quiz['journey']==0) {
         $test_name = "1º TESTE ESCRITO";
-        echo "<img src='https://i.ibb.co/dfdznVS/Untitled.png'>";
+        echo "<img src='https://i.ibb.co/2vpwYXR/Unti2tled.png'>";
         echo sprintf($appenda, $test_name);
     } elseif ($quiz['journey']==1) {
         $test_name = "2º TESTE ESCRITO";
-        echo "<img src='https://i.ibb.co/dfdznVS/Untitled.png'>";
+        echo "<img src='https://i.ibb.co/2vpwYXR/Unti2tled.png'>";
         echo sprintf($appenda, $test_name);
     } elseif ($quiz['journey']==2) {
         $test_name = "TESTE DE REPOSIÇÃO";
-        echo "<img src='https://i.ibb.co/dfdznVS/Untitled.png'>";
+        echo "<img src='https://i.ibb.co/2vpwYXR/Unti2tled.png'>";
         echo sprintf($appenda, $test_name);
     } elseif ($quiz['journey']==3) {
         $test_name = "EXAME NORMAL";
@@ -38,7 +40,7 @@ $id = $_SESSION['id'];?>
         $test_name = "EXAME DE RECORRÊNCIA";
         echo sprintf($appendb, $test_name);
     } else {
-        echo "<img src='https://i.ibb.co/dfdznVS/Untitled.png'>";
+        echo "<img src='https://i.ibb.co/2vpwYXR/Unti2tled.png'>";
         $test_name = "TESTE PRÁTICO";
         echo sprintf($appenda, $test_name);
     };?>
@@ -49,11 +51,11 @@ $id = $_SESSION['id'];?>
         $questions_num = 0;
         $score = 0;
         $result = "w";
-        if (pg_num_rows($testing) > 0) {
-            while ($questions = pg_fetch_assoc($testing)) {
+        if (mysqli_num_rows($testing) > 0) {
+            while ($questions = mysqli_fetch_assoc($testing)) {
                 $questions_num = $questions_num + 1;
                 $icon = "x";
-                $original = pg_fetch_assoc(pg_query($conn,"SELECT * FROM quiz WHERE question='".$questions['question']."'"));
+                $original = mysqli_fetch_assoc($conn->query("SELECT * FROM quiz WHERE question='".$questions['question']."'"));
                 $olddog = explode("|",$original['answer']);
                 $newdog = explode("|",$questions['answer']);
                 echo "<p";

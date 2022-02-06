@@ -1,17 +1,18 @@
 <?php
     require "connect.php";
 
-    $stats = pg_fetch_assoc(pg_query($conn,"SELECT * FROM statistics"));
+    $stats = mysqli_fetch_assoc($conn->query("SELECT * FROM statistics"));
     $journeys_num = ++$stats['journeys_num'];
-    pg_query($conn,"UPDATE statistics SET active_journey_id=$journeys_num");
-    pg_query($conn,"UPDATE statistics SET journeys_num=$journeys_num");
-    $available_quests = pg_query($conn,"SELECT DISTINCT subject FROM quiz  OFFSET random() * (SELECT COUNT (*) FROM quiz");
+    $conn->query("UPDATE statistics SET active_journey_id=$journeys_num");
+    $conn->query("UPDATE statistics SET journeys_num=$journeys_num");
+    $conn->query("UPDATE statistics SET current_journey_progress=0");
+    $available_quests = $conn->query("SELECT DISTINCT subject FROM quiz ORDER BY rand()");
 
-    if (pg_num_rows($available_quests) > 0 ) {
-        while ($subjact = pg_fetch_assoc($available_quests)) {
-            pg_query($conn,"INSERT INTO journeys (subject,id,grade_dissertation) VALUES ('".$subjact['subject']."',$journeys_num,".rand(0,20).")");
+    if (mysqli_num_rows($available_quests) > 0 ) {
+        while ($subjact = mysqli_fetch_assoc($available_quests)) {
+            $conn->query("INSERT INTO journeys (subject,id,grade_dissertation) VALUES ('".$subjact['subject']."',$journeys_num,".rand(0,20).")");
         };
     };
-
+    header("Location: experience.php");
 
 ?>

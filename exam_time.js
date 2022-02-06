@@ -9,7 +9,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     // Set the date we're counting down to
     var ehhh = new Date();
-    var countDownDate = new Date(ehhh.getTime() + 10*60000);
+    var countDownDate = new Date(ehhh.getTime() + 20*60000);
 
 // Update the count down every 1 second
     var x = setInterval(function() {

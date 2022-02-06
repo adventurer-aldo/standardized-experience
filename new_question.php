@@ -22,11 +22,11 @@
     } else {
         $_SESSION['error']='';
         $answer = $_GET['answer'];
-        pg_query($conn,"INSERT INTO quiz (subject,type,question,choices,answer,level) VALUES ('$subject','$type','$question', '$choices','$answer',$level)");
+        $conn->query("INSERT INTO quiz (subject,type,question,choices,answer,level) VALUES ('$subject','$type','$question', '$choices','$answer',$level)");
 
-        $temp = pg_fetch_assoc(pg_query($conn,"SELECT questions FROM statistics"));
+        $temp = mysqli_fetch_assoc($conn->query("SELECT questions FROM statistics"));
         $questions = ++$temp['questions'];
-        pg_query($conn,"UPDATE statistics SET questions = $questions");
+        $conn->query("UPDATE statistics SET questions = $questions");
 
         $blast = explode('|',$answer);
         header("Location: data.php");

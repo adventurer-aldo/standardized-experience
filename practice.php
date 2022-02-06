@@ -6,7 +6,7 @@ session_start();?>
 
 <?php require "head.php"?>
 
-<body><audio id="theme" autoplay loop><source id="fightpractice" src="audio/prac.mp3" type="audio/mpeg"></audio> <form action="new_quiz.php" method="get" id='quiz' autocomplete='off'>
+<body><audio id="theme" autoplay loop><source id="fightpractice" src="audio/prac.mp3" type="audio/mpeg"></audio> <form action="new_quiz.php" method="post" id='quiz' autocomplete='off'>
 <?php require 'return.php'?>
 <script src="outro.js"></script>
     <div id="page"><img style='width: 209px;height: 183px;' src='https://i.ibb.co/2vpwYXR/Unti2tled.png'><?php $subject = $_SESSION['subjecto']['subject'];
@@ -20,10 +20,10 @@ session_start();?>
         $questions_num = 0;
         $_SESSION['time'] = 1+strtotime(date("m-d-Y h:i:s a"));
         $rande = rand(9,15);
-        $result = pg_query($conn,"SELECT * FROM quiz 
-        WHERE subject='".$subject."'  ORDER BY RANDOM() LIMIT $rande");
-        if (pg_num_rows($result) > 0){
-            while ($questions = pg_fetch_assoc($result)) {
+        $result = $conn->query("SELECT * FROM quiz 
+        WHERE subject='".$subject."' ORDER BY rand() LIMIT $rande");
+        if (mysqli_num_rows($result) > 0){
+            while ($questions = mysqli_fetch_assoc($result)) {
                 $questions_num = $questions_num + 1;
                 echo "<p>".$questions_num.". ".$questions['question']."</p>";
                 echo "<input type='hidden' name='question".$questions_num."' value='".$questions['question']."'>";
@@ -59,9 +59,9 @@ session_start();?>
                         foreach ($choices as $response) {
                             echo "<label for 'choice'>".$alphas[array_search($response,$choices)].". </label>$response<select class='veracity' name='answer".$questions_num."[]'>";
                             if (in_array($response,$answer)) {
-                                echo "<option value='$response'>V</option><br>\n<option>F</option></select><br>";
+                                echo "<option value='$response'>V</option><br>\n<option value=''>F</option></select><br>";
                             } else {
-                                echo "<option>V</option><br>\n<option value='$response'>F</option></select><br>";
+                                echo "<option value=''>V</option><br>\n<option value='$response'>F</option></select><br>";
                             };
                         };
                         break;

@@ -6,36 +6,40 @@ session_start();?>
 
 <?php require "head.php"?>
 
-<body><form action="new_test.php" method="get" id='quiz' autocomplete='off'>
+<body><form action="new_test.php" method="post" id='quiz' autocomplete='off'>
 <?php require 'return.php'?>
-<script src="test_time.js"></script>
     <div id="page"><img style='width: 209px;height: 183px;' src='https://i.ibb.co/2vpwYXR/Unti2tled.png'><?php $subject = $_SESSION['subjecto']['subject'];
     ( isset($_GET['subjecto']) ) ? $subject = $_GET['subjecto'] : $v = 0;
-    $stats = pg_fetch_assoc(pg_query($conn,"SELECT * FROM statistics"));
+    $stats = mysqli_fetch_assoc($conn->query("SELECT * FROM statistics"));
     $progress = $stats['current_journey_progress'];
     if ($progress == 0) {
         $level = 1; // 1st Test
+        echo "<script src='test_time.js'></script>";
         $_SESSION['level'] = 1;
         $test_name = "1º TESTE ESCRITO";
         $aud_src = "test1";
     } elseif ($progress == 1 ) {
         $level = 2; // 2nd Test
+        echo "<script src='test_time.js'></script>";
         $_SESSION['level'] = 2;
         $test_name = "2º TESTE ESCRITO";
         $aud_src = "test2";
     } else if ($progress == 2) {
         $_SESSION['level'] = 3;
         $level = 3; // Reposition
+        echo "<script src='test_time.js'></script>";
         $test_name = "TESTE DE REPOSIÇÃO";
         $aud_src = "test2";
     } else if ($progress == 3) {
         $_SESSION['level'] = 4;
         $level = 4; // Exam
+        echo "<script src='exam_time.js'></script>";
         $test_name = "EXAME NORMAL";
         $aud_src = "exam";
     } else if ($progress == 4) {
         $_SESSION['level'] = 5;
         $level = 5; // Recorrence
+        echo "<script src='exam_time.js'></script>";
         $test_name = "EXAME DE RECORRÊNCIA";
         $aud_src = "examrec";
     };
@@ -56,40 +60,47 @@ session_start();?>
         $numas = range(1, 100);
         $questions_num = 0;
         $_SESSION['time'] = 1+strtotime(date("m-d-Y h:i:s a"));
-        $rande = rand(20,30);
+        
         switch ($level) {
             case 1:
-                $result = pg_query($conn,"SELECT * FROM quiz 
-                WHERE subject='$subject' AND level=1  OFFSET random() * (SELECT COUNT (*) FROM quiz) LIMIT $rande");
+                $rande = rand(20,30);
+                $result = $conn->query("SELECT * FROM quiz 
+                WHERE subject='$subject' AND level=1 ORDER BY rand() LIMIT $rande");
                 break;
             case 2:
-                $result = pg_query($conn,"SELECT * FROM quiz 
-                WHERE subject='$subject' AND level=2 LIMIT rand(10,20) 
-                UNION  
-                SELECT * FROM quiz
-                WHERE subject='$subject' AND level=1 LIMIT rand(1,9)
-                 OFFSET random() * (SELECT COUNT (*) FROM quiz");
+                $rande = rand(10,20);
+                $rande2 = rand(1,9);
+                $result = $conn->query("(SELECT * FROM quiz 
+                WHERE subject='$subject' AND level=2 ORDER BY rand() LIMIT $rande)
+                UNION ALL
+                (SELECT * FROM quiz
+                WHERE subject='$subject' AND level=1 ORDER BY rand() LIMIT $rande2)
+                ORDER BY rand()");
                 break;
             case 3:
-                $result = pg_query($conn,"SELECT * FROM quiz 
+                $rande = rand(15,30);
+                $result = $conn->query("SELECT * FROM quiz 
                 WHERE subject='$subject' AND (level=1 OR level=2) 
-                 OFFSET random() * (SELECT COUNT (*) FROM quiz) LIMIT rand(15,30)");
+                ORDER BY rand() LIMIT $rande");
                 break;
             case 4:
-                $result = pg_query($conn,"SELECT * FROM quiz 
-                WHERE subject='$subject' AND level=3 LIMIT rand(5,30) 
-                UNION  
-                SELECT * FROM quiz
-                WHERE subject='$subject' AND (level=1 OR level=2) LIMIT rand(10,20)
-                 OFFSET random() * (SELECT COUNT (*) FROM quiz");
+                $rande = rand(5,30);
+                $rande2 = rand(10,20);
+                $result = $conn->query("(SELECT * FROM quiz 
+                WHERE subject='$subject' AND level=3 ORDER BY rand() LIMIT $rande)
+                UNION ALL
+                (SELECT * FROM quiz
+                WHERE subject='$subject' AND (level=1 OR level=2) ORDER BY rand() LIMIT $rande2)
+                ORDER BY rand()");
                 break;
             case 5:
-                $result = pg_query($conn,"SELECT * FROM quiz 
-                WHERE subject='$subject'  OFFSET random() * (SELECT COUNT (*) FROM quiz) LIMIT rand(30,100)");
+                $rande = rand(30,100);
+                $result = $conn->query("SELECT * FROM quiz 
+                WHERE subject='$subject' ORDER BY rand() LIMIT $rande");
                 break;
         }
-        if (pg_num_rows($result) > 0){
-            while ($questions = pg_fetch_assoc($result)) {
+        if (mysqli_num_rows($result) > 0){
+            while ($questions = mysqli_fetch_assoc($result)) {
                 $questions_num = $questions_num + 1;
                 echo "<p>".$questions_num.". ".$questions['question']."</p>";
                 echo "<input type='hidden' name='question".$questions_num."' value='".$questions['question']."'>";

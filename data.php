@@ -50,7 +50,7 @@ if (!isset($_SESSION['error'])) {
             <br></div>
             <button id="btnSubmit" form='question' type='submit'>SUBMIT</button>
         </form>
-        <?php $stats = pg_fetch_assoc(pg_query($conn,"SELECT * FROM statistics"));?><br>
+        <?php $stats = mysqli_fetch_assoc($conn->query("SELECT * FROM statistics"));?><br>
         
     <table class="tgt">
     <thead>
@@ -71,11 +71,11 @@ if (!isset($_SESSION['error'])) {
     <span class="datapagebutton"><button id="previousData" class="datapagebutton">Previous</button> | <span id="pagenumdata">0</span> | <button id="nextData" class="datapagebutton">Next</button></span>
         <div id="quizlings">
         <?php
-        $table = pg_fetch_assoc(pg_query($conn,"SELECT * FROM quiz"));
-        $bar = pg_query($conn,"SELECT * FROM quiz ORDER BY level DESC");
+        $table = mysqli_fetch_assoc($conn->query("SELECT * FROM quiz"));
+        $bar = $conn->query("SELECT * FROM quiz ORDER BY level DESC");
         $content = 0;
-        if (pg_num_rows(pg_query($conn,"SELECT * FROM quiz")) > 0) {
-          while ($result = pg_fetch_assoc($bar)) {
+        if (mysqli_num_rows($conn->query("SELECT * FROM quiz")) > 0) {
+          while ($result = mysqli_fetch_assoc($bar)) {
               ++$content;
               $answered = explode("|",$result['answer']);
               echo "<p align=left><b>".$result['question']."</b><br>R: ".implode("<br>",$answered)."</p>";
