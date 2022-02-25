@@ -1,1 +1,1 @@
-standard: ruby bin\rails server
+standard: ruby bin/rails server
