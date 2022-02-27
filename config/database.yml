@@ -6,20 +6,22 @@
 #
 default: &default
   adapter: postgresql
+  host: ec2-34-241-19-183.eu-west-1.compute.amazonaws.com
+  username: tnipywjteanmkp
+  database: d61ef2o6sb5m2g
+  password: 764e981a8b7d2da20c28bc8d2d3aa6500f39c7840cd26da03a796a78007f30ae
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: d61ef2o6sb5m2g
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
 
 production:
   <<: *default
-  database: db/production.sqlite3

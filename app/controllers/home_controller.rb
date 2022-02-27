@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
-    def index
+    def gaud
+        @crusader = "Vatia"
     end
 end
