@@ -1,11 +1,20 @@
 body {
     background-color: #3B354E;
+    font-family: 'Fredoka', sans-serif;
+    /*font-family: 'Dancing Script', cursive; exam*/
 }
 
 #navbar {
     background-color: #0051B5;
     position: fixed;
     top: 0px;
+    left: 0px;
+    display: block;
+    width: 100%
+}
+
+#logotext {
+    font-family: 'Staatliches', cursive;
 }
 
 ul {
@@ -16,4 +25,6 @@ ul {
 
 li {
     display: inline;
+    color: white;
+    padding: 7px;
 }
