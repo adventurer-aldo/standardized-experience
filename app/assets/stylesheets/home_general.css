@@ -4,17 +4,34 @@ body {
     /*font-family: 'Dancing Script', cursive; exam*/
 }
 
+/* =====STANDARDIZED BRAND===== */
 #navbar {
     background-color: #0051B5;
     position: fixed;
     top: 0px;
     left: 0px;
     display: block;
-    width: 100%
+    width: 100%;
+    height: 35px;
+}
+
+#logoimage {
+    background-image: url('https://i.ibb.co/r0078kt/XPLogo.png');
+    width: 270px;
+    height: 206px;
+    background-size: 100%;
+    display: inline-blocK;
+    vertical-align: middle;
 }
 
 #logotext {
-    font-family: 'Staatliches', cursive;
+    font-family: 'Titillium Web', sans-serif;
+    color: #0051b5;
+    text-shadow: #000c6a 4px 0px;
+    font-style: italic;
+    font-size: 55px;
+    text-align: right;
+    display: inline-block;
 }
 
 ul {
@@ -24,7 +41,25 @@ ul {
 }
 
 li {
+    background-color: #0051B5;
     display: inline;
     color: white;
-    padding: 7px;
+    padding: 2px 10px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+li :hover {
+    background-color: red;
+    border-radius: 30px;
+}
+/* ==================================================== */
+
+#page {
+    background-color: white;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0px 11px 55px 50px black;
+    padding-top: 30px;
 }
