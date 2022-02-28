@@ -23,6 +23,7 @@ body {
     background-size: 100%;
     display: inline-blocK;
     vertical-align: middle;
+    margin: 0 auto;
 }
 
 #logotext {
@@ -31,7 +32,7 @@ body {
     text-shadow: #000c6a 4px 0px;
     font-style: italic;
     font-size: 55px;
-    text-align: right;
+    text-align: center;
     display: inline-block;
 }
 
