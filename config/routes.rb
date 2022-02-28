@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   root "home#index"
   
   get "/about", to: "home#about"
+  get "/data", to: "home#data"
+
+  get "/quiz(/:subject/:level)", to: "quiz#index", as: "quiz"
+  get "/result/:id", to: "quiz#result"
 
   # Defines the root path route ("/")
   # root "articles#index"
