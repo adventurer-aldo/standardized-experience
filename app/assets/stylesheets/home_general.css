@@ -35,6 +35,10 @@ body {
     display: inline-block;
 }
 
+a {
+    text-decoration: none;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -48,13 +52,11 @@ li {
     padding: 2px 10px;
     font-size: 25px;
     font-weight: bold;
-    text-decoration: none;
 }
 
 li:hover {
     background-color: #3C78E0;
-    border-radius: 20px;
-    text-decoration: none;
+    border-radius: 10px;
 }
 /* ==================================================== */
 
