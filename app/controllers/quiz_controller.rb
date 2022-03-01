@@ -51,5 +51,6 @@ class QuizController < ApplicationController
     end
 
     def result
+        
     end
 end
