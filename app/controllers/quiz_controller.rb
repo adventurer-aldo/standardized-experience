@@ -37,6 +37,12 @@ class QuizController < ApplicationController
             @questionsArray << query['id']
         end
 
+        @questionsArray.each do |n|
+            @tempQuestion = Question.where(id: n)
+            @tempQuestion.frequency += 1
+            @tempQuestion.save
+        end
+
         Quiz.create(
             subject: params[:subject],
             name: "", surname: "",
