@@ -1,5 +1,4 @@
 <div id='page'>
-    <div id='logoquiz'></div>
-    
+    <%= render "format-#{@format}"%>
     <p><b>Current journey progress is:</b> <%=params[:level]%><br><b>Current subject is:</b> <%= params[:subject] %></b></p>
 </div>

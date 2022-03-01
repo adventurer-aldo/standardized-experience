@@ -1,7 +1,16 @@
 class QuizController < ApplicationController
 
+    @formats = 0..1
+    @ending = ""
+
+    case @formats
+    when 0
+        @ending = ""
+    end
+
     def index
         @journeyProgress = Statistic.select(:current_journey_progress)[0]
+        Statistic.update()
 
         if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject])
             params[:subject] = Subject.order(Arel.sql('RANDOM()')).limit(1)[0]['title']
@@ -9,6 +18,13 @@ class QuizController < ApplicationController
 
         if params[:level].nil? || (@journeyProgress != params[:level] && @journeyProgress != 0)
             params[:level] = 0
+        end
+
+        if params[:level] = 0
+            @format = rand(@formats)
+        else
+            @format = Subject.select(:preferredFormat).where(subject: params[:subject]).preferredFormat
+            @format = 0 unless @formats.include?(@format)
         end
         
         params[:level] == 0 ? @journey = 0 : @journey = Statistic.select(:active_journey_id)[0]
@@ -33,6 +49,7 @@ class QuizController < ApplicationController
         @fullQuery = allQuestions.group(:tags)
 
         @questionsArray = []
+        @answersArray = []
         @fullQuery.each do |query|
             @questionsArray << query['id']
         end
@@ -41,13 +58,26 @@ class QuizController < ApplicationController
             @tempQuestion = Question.where(id: n)
             @tempQuestion.frequency += 1
             @tempQuestion.save
+            
+            @answer = Answer.create(
+                attempt: "",
+                questionId: n
+            )
+            @answersArray << @answer.id
         end
 
-        Quiz.create(
+        @answersArray.each do |answer|
+        end
+
+        @currentQuiz = Quiz.create(
             subject: params[:subject],
             name: "", surname: "",
             journey: @journey,
-            question: @questionsArray.to_s)
+            answerArray: @answersArray.to_s,
+            timeStarted: Time.now.to_i,
+            timeEnded: Time.now.to_i,
+            format: @format
+            )
     end
 
     def result
