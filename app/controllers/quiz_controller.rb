@@ -1,24 +1,27 @@
 class QuizController < ApplicationController
+    before_action :setup
 
-    @formats = 0..0
-    @ending = ""
+    def setup
+        @formats = 0..0
+        @ending = ""
 
-    @testName = [
-        "Teste 1",
-        "Teste 2",
-        "Teste de Reposição",
-        "Exame Normal",
-        "Exame de Reposição"
-    ]
+        @testName = [
+            "Teste 1",
+            "Teste 2",
+            "Teste de Reposição",
+            "Exame Normal",
+            "Exame de Reposição"
+        ]
 
-    @quizDurations = [5,9,9,10,15,20]
+        @quizDurations = [5,9,9,10,15,20]
 
-    case @formats
-    when 0
-        @ending = "RR/BM"
-    when 1
-        @testName[0] = "1º Teste de Frequência"
-        @testName[0] = "2º Teste de Frequência"
+        case @formats
+        when 0
+            @ending = "RR/BM"
+        when 1
+            @testName[0] = "1º Teste de Frequência"
+            @testName[0] = "2º Teste de Frequência"
+        end
     end
 
     def index
@@ -93,6 +96,9 @@ class QuizController < ApplicationController
         @stats.increment!(:totalquizzes)
 
         @quizStart = Time.at(@currentQuiz.timestarted)
+        print "The following is the request."
+        puts  @quizDurations.to_s
+        print "The request has been returned."
         @quizEnd = Time.at(@quizTime.to_i + @quizDurations[params[:level]]*60)
 
     end
