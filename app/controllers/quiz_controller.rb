@@ -1,16 +1,28 @@
 class QuizController < ApplicationController
 
-    @formats = 0..1
+    @formats = 0..0
     @ending = ""
+
+    @testName = [
+        "Teste 1",
+        "Teste 2",
+        "Teste de Reposição",
+        "Exame Normal",
+        "Exame de Reposição"
+    ]
+
+    @quizDurations = [5,9,9,10,15,20]
 
     case @formats
     when 0
-        @ending = ""
+        @ending = "RR/BM"
+    when 1
+        @testName[0] = "1º Teste de Frequência"
+        @testName[0] = "2º Teste de Frequência"
     end
 
     def index
         @journeyProgress = Statistic.first["activejourneylevel"]
-        @testName = ""
 
         if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject])
             params[:subject] = Subject.order(Arel.sql('RANDOM()')).limit(1)[0]['title']
@@ -73,12 +85,16 @@ class QuizController < ApplicationController
             answerarray: @answersArray.to_s,
             timestarted: Time.now.to_i,
             timeended: Time.now.to_i,
-            format: @format)
+            format: @format,
+            level: params[:level])
         
         @stats = Statistic.first
         @stats.lastquizid = @currentQuiz.id
         @stats.totalquizzes += 1
         @stats.save
+
+        @quizStart = Time.at(@currentQuiz.timestarted)
+        @quizEnd = Time.at(@quizTime.to_i + @quizDurations*60)
 
     end
 

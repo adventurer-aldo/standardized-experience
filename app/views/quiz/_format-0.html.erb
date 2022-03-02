@@ -1,3 +1,12 @@
 <div id='logoquiz' class='smudge-image'></div>
 <p><b>Standardized Experience</b><br>
-<b>Curso:</b> Med. Geral</p>
+<b>Curso:</b> Med. Geral&emsp<b>Ano lectivo:</b>&emsp<b>Nível:</b> <%=@currentQuiz.level%>&emsp<%=@quizStart.year%>&emsp<b>Jornada:</b> <%=@currentQuiz.journey%><br>
+<span style='text-decoration: underline'><b>Disciplina:</b> <%=@currentQuiz.subject%>&emsp<%=@testName[@currentQuiz.level]%>&emsp<b>Data:</b> <%=@quizStart.day%>/<%=@quizStart.month%>/<%=@quizStart.year%>&emsp<b>Duração:</b> <%=@quizDurations[params[:level]]%> min — <%=@quizStart.hour%>:<%=@quizStart.minutes%> as <%=@quizEnd.hour%>:<%=@quizEnd.minutes%> </span> </p>
+
+<p> <%= form_with model: @currentQuiz do |form| %>
+ <%= form.label :name, "<b>Nome:</b> "%>
+ <%= form.text_field :name %>
+ <%= form.label :name, "<b>Código:</b> "%>
+ <%= form.text_field :surname %>
+ <% end %>
+ </p>
