@@ -45,7 +45,7 @@ class QuizController < ApplicationController
         
         case params[:level]
         when 0
-            allQuestions = baseQuery.limit(rand(5..10))
+            allQuestions = baseQuery.limit(3) #rand(5..10)
         when 1
             allQuestions = baseQuery.where(%Q(level=1)).limit(rand(15..35))
         when 2
@@ -93,7 +93,7 @@ class QuizController < ApplicationController
         @stats.increment!(:totalquizzes)
 
         @quizStart = Time.at(@currentQuiz.timestarted)
-        @quizEnd = Time.at(@quizTime.to_i + @quizDurations*60)
+        @quizEnd = Time.at(@quizTime.to_i + @quizDurations[params[:level]]*60)
 
     end
 

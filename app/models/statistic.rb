@@ -1,3 +1,3 @@
 class Statistic < ApplicationRecord
-    self.primary_key = :users
+    self.primary_key = :totalusers
 end
