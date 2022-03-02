@@ -10,6 +10,7 @@ class QuizController < ApplicationController
 
     def index
         @journeyProgress = Statistic.first["activejourneylevel"]
+        @testName = ""
 
         if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject])
             params[:subject] = Subject.order(Arel.sql('RANDOM()')).limit(1)[0]['title']
