@@ -88,11 +88,9 @@ class QuizController < ApplicationController
             format: @format,
             level: params[:level])
         
-        stats = Statistic.first
-        newLastQuizID = @currentQuiz.id
-        newTotalQuizzes = stats.totalquizzes += 1
-        
-        stats.update(lastquizid: newLastQuizID, totalquizzes: newTotalQuizzes)
+        @stats = Statistic.first
+        @stats.increment!(:lastquizid)
+        @stats.increment!(:totalquizzes)
 
         @quizStart = Time.at(@currentQuiz.timestarted)
         @quizEnd = Time.at(@quizTime.to_i + @quizDurations*60)
