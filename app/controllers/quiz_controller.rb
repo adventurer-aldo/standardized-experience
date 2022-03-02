@@ -9,8 +9,7 @@ class QuizController < ApplicationController
     end
 
     def index
-        @journeyProgress = Statistic.select(:current_journey_progress)[0]
-        Statistic.update()
+        @journeyProgress = Statistic.first["activejourneylevel"]
 
         if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject])
             params[:subject] = Subject.order(Arel.sql('RANDOM()')).limit(1)[0]['title']
@@ -21,17 +20,17 @@ class QuizController < ApplicationController
         end
 
         if params[:level] = 0
-            @format = rand(@formats)
+            @format = rand(@formats).round(0)
         else
             @format = Subject.select(:preferredFormat).where(subject: params[:subject]).preferredFormat
             @format = 0 unless @formats.include?(@format)
         end
         
-        params[:level] == 0 ? @journey = 0 : @journey = Statistic.select(:active_journey_id)[0]
+        params[:level] == 0 ? @journey = 0 : @journey = Statistic.first[:activeJourneyId]
 
-        baseQuery = Question.select.where(%Q(subject='#{params[:subject]}')).order(Arel.sql('RANDOM()'))
+        baseQuery = Question.select(:id, :tags).where(%Q(subject='#{params[:subject]}')).order(Arel.sql('RANDOM()')).group(:id)
         
-        case level
+        case params[:level]
         when 0
             allQuestions = baseQuery.limit(rand(5..10))
         when 1
@@ -53,31 +52,33 @@ class QuizController < ApplicationController
         @fullQuery.each do |query|
             @questionsArray << query['id']
         end
-
+        
         @questionsArray.each do |n|
-            @tempQuestion = Question.where(id: n)
-            @tempQuestion.frequency += 1
+            @tempQuestion = Question.select(:frequency).where(id: n)[0]
+            @tempQuestion['frequency'] += 1
             @tempQuestion.save
             
             @answer = Answer.create(
                 attempt: "",
-                questionId: n
+                questionid: n
             )
             @answersArray << @answer.id
-        end
-
-        @answersArray.each do |answer|
         end
 
         @currentQuiz = Quiz.create(
             subject: params[:subject],
             name: "", surname: "",
             journey: @journey,
-            answerArray: @answersArray.to_s,
-            timeStarted: Time.now.to_i,
-            timeEnded: Time.now.to_i,
-            format: @format
-            )
+            answerarray: @answersArray.to_s,
+            timestarted: Time.now.to_i,
+            timeended: Time.now.to_i,
+            format: @format)
+        
+        @stats = Statistic.first
+        @stats.lastquizid = @currentQuiz.id
+        @stats.totalquizzes += 1
+        @stats.save
+
     end
 
     def result

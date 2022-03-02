@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get "/quiz(/:subject/:level)", to: "quiz#index", as: "quiz"
   get "/result/:id", to: "quiz#result"
+  get "/submit/quiz", to: "quiz#submit"
 
   # Defines the root path route ("/")
   # root "articles#index"
