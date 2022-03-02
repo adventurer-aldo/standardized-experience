@@ -58,6 +58,10 @@ li {
     float: right;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 li:active {
     background-color: white;
     color: black;
