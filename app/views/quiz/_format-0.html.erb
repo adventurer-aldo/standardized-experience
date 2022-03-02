@@ -1,7 +1,7 @@
 <div id='logoquiz' class='smudge-image'></div>
 <p align='center'><b>Standardized Experience</b><br>
 <b>Curso:</b> Med. Geral&emsp;<b>Ano lectivo:</b>&emsp;<b>Nível:</b> <%=@currentQuiz.level%>&emsp;<%=@quizStart.year%>&emsp;<b>Jornada:</b> <%=@currentQuiz.journey%><br>
-<span style='text-decoration: underline'><b>Disciplina:</b> <%=@currentQuiz.subject%>&emsp;<%=@testName[@currentQuiz.level]%>&emsp;<b>Data:</b> <%=@quizStart.day%>/<%=@quizStart.month%>/<%=@quizStart.year%>&emsp;<b>Duração:</b> <%=@quizDurations[params[:level]]%> min — <%=@quizStart.hour%>h<%=@quizStart.min%>m as <%=@quizEnd.hour%>h<%=@quizEnd.min%>m </span> </p>
+<span style='text-decoration: underline'><b>Disciplina:</b> <%=@currentQuiz.subject%>&emsp;<b><%=@testName[@currentQuiz.level]%></b>&emsp;<b>Data:</b> <%=@quizStart.day%>/<%=@quizStart.month%>/<%=@quizStart.year%>&emsp;<b>Duração:</b> <%=@quizDurations[params[:level]]%> min — <%=@quizStart.hour%>h<%=@quizStart.min%>m as <%=@quizEnd.hour%>h<%=@quizEnd.min%>m </span> </p>
 
 <p> <%= form_with model: @currentQuiz do |form| %>
  <%= form.label :name, "Nome: ", class: 'bold'%>

@@ -99,7 +99,7 @@ class QuizController < ApplicationController
         print "The following is the request."
         puts  @quizDurations.to_s
         print "The request has been returned."
-        @quizEnd = Time.at(@quizTime.to_i + @quizDurations[params[:level]]*60)
+        @quizEnd = Time.at(@quizStart.to_i + @quizDurations[params[:level]]*60)
 
     end
 
