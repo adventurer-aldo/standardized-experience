@@ -21,7 +21,7 @@ body {
     width: 270px;
     height: 206px;
     background-size: 100%;
-    margin: 0 auto;
+    vertical-align: middle;
     display: block;
 }
 
@@ -49,7 +49,6 @@ li {
     background-color: #0051B5;
     display: inline;
     color: white;
-    font-size: 22px;
     padding: 2px 10px;
     font-weight: bold;
 }
@@ -73,17 +72,22 @@ li:hover {
 }
 
 .erasable {
-    font-size: 0px;
+    font-size: x-large;
 }
 
-@media screen and (min-width: 768px) {
-    .erasable, li {
-        font-size: x-large;
+@media screen and (max-width: 768px) {
+    .erasable {
+        font-size: 0px;
     }    
 
+    li {
+        font-size: 22px;
+    }
+
     #logoimage {
+        margin: 0 auto;
         display: inline-blocK;
-        vertical-align: middle;}
+    }
 }
 /* ==================================================== */
 
