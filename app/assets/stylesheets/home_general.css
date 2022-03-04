@@ -21,9 +21,8 @@ body {
     width: 270px;
     height: 206px;
     background-size: 100%;
-    display: inline-blocK;
-    vertical-align: middle;
-    margin: auto 0px;
+    margin: 0 auto;
+    display: block;
 }
 
 #logotext {
@@ -50,6 +49,7 @@ li {
     background-color: #0051B5;
     display: inline;
     color: white;
+    font-size: 22px;
     padding: 2px 10px;
     font-weight: bold;
 }
@@ -77,10 +77,13 @@ li:hover {
 }
 
 @media screen and (min-width: 768px) {
-    #erasable {
+    .erasable, li {
         font-size: x-large;
-    }
-    
+    }    
+
+    #logoimage {
+        display: inline-blocK;
+        vertical-align: middle;}
 }
 /* ==================================================== */
 
