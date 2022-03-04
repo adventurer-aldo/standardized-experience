@@ -21,8 +21,8 @@ body {
     width: 270px;
     height: 206px;
     background-size: 100%;
+    display: inline-blocK;
     vertical-align: middle;
-    display: block;
 }
 
 #logotext {
@@ -86,7 +86,7 @@ li:hover {
 
     #logoimage {
         margin: 0 auto;
-        display: inline-blocK;
+        display: block;
     }
 }
 /* ==================================================== */
