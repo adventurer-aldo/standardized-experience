@@ -1,15 +1,16 @@
 module QuizHelper
-    
-    def makeQuiz(array)
-        @questionObjects = []
-        array.each do |answerID|
-            @answerObject = Answer.where(id: answerID)
-            @questionObjects << Question.where(id: @answerObject.questionid)
-        end
-        
-        @questionObjects.each do |quizQuestion|
-        end
+=begin
 
-    end
-
+            @questionObjects.each do |quizQuestion|
+                case eval("[#{quizQuestion.questiontype}]").sample
+                when :open
+                when :choice
+                when :multichoice
+                when :veracity
+                when :caption
+                when :table
+                when :template
+                end
+            end
+=end
 end

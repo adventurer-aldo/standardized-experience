@@ -1,5 +1,6 @@
 class QuizController < ApplicationController
     before_action :setup
+    after_action :shift
 
     def setup
         @formats = 0..0
@@ -106,4 +107,15 @@ class QuizController < ApplicationController
     def result
         
     end
+
+    def shift
+        @questionsNum
+        @questionObjects = []
+        @answersArray.each do |answerID|
+            @answerObject = Answer.where(id: answerID)
+            @questionObjects << Question.where(id: @answerObject[0].questionid)
+        end
+
+    end
+
 end
