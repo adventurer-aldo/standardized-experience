@@ -117,7 +117,7 @@ class QuizController < ApplicationController
             level: params[:level])
         
         @currentQuiz = Quiz.last
-        
+
         @stats = Statistic.first
         @stats.increment!(:lastquizid)
         @stats.increment!(:totalquizzes)
@@ -126,9 +126,6 @@ class QuizController < ApplicationController
         @quizEnd = Time.at(@quizStart.to_i + @quizDurations[params[:level]]*60)
 
         shift
-        puts "Wanna know the ID? It's..."
-        puts "Obviously it is #{@currentQuiz.id} and you're jealous of me."
-        puts "Well shit"
     end
 
     #=======================================================================================
@@ -137,9 +134,11 @@ class QuizController < ApplicationController
     # to display the data.
     #=======================================================================================
     def submit
-        puts "I am here!"
         @currentQuiz = Quiz.find_by(id: params[:quizID])
-        puts "I know the value of quizID and it is..." + params[:quizID].to_s
+        @answers = eval(@currentQuiz.answerarray)
+        @answers.each do |answer_id|
+            Answer.find_by(id: answer_id).update(attempt: "#{params[:answer]["#{@answers.index(answer_id)}"]}")
+        end
         redirect_to results_path(id: params[:quizID])
     end
 
