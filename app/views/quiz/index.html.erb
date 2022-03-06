@@ -5,7 +5,7 @@
         <%= form.hidden_field_tag 'quizID', @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
             <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question %></p>
-            <% case eval "[#{question.questiontype}].sample" %>
+            <% case eval(question.questiontype).sample %>
             <% when :open %>
                 <%= form.text_field :answer, (@questionObjects.index(question)) %>
             <% when :choice %>

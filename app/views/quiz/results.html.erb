@@ -1,0 +1,18 @@
+<div id='page'><div style='padding: 30px'>
+    <%= render "format-#{@format}"%>
+
+    <% @questionObjects.each do |question| %>
+        <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question %><br>
+        <% case eval(question.questiontype).sample %>
+        <% when :open %>
+            <b>R: </b><%= @answerObjects[@questionObjects.index(question)].attempt %></p>
+        <% when :choice %>
+        <% when :multichoice %>
+        <% when :veracity %>
+        <% when :caption %>
+        <% when :table %>
+        <% when :formula %>
+        <% end %>
+        
+    <% end %>
+</div></div>

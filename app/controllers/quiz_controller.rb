@@ -121,9 +121,6 @@ class QuizController < ApplicationController
         @stats.increment!(:totalquizzes)
 
         @quizStart = Time.at(@currentQuiz.timestarted)
-        print "The following is the request."
-        puts  @quizDurations.to_s
-        print "The request has been returned."
         @quizEnd = Time.at(@quizStart.to_i + @quizDurations[params[:level]]*60)
 
         shift
@@ -136,7 +133,7 @@ class QuizController < ApplicationController
     #=======================================================================================
     def submit
         @currentQuiz = Quiz.find_by(id: params[:quizID])
-        redirect_to '/results' id: params[:quizID]
+        redirect_to results_path(id: params[:quizID])
     end
 
     #=======================================================================================
@@ -147,6 +144,17 @@ class QuizController < ApplicationController
     # determine the grade.
     #=======================================================================================
     def results
+        @currentQuiz = Quiz.find_by(id: params[:quizID])
+
+        @quizStart = Time.at(@currentQuiz.timestarted)
+        @quizEnd = Time.at(@quizStart.to_i + @quizDurations[params[:level]]*60)
+
+        @answersArray = eval(@currentQuiz.answerarray)
+        @answerObjects = []
+        @answersArray.each do |a_id|
+            @answerObjects << Answer.find_by(id: a_id)
+        end
+
         shift
     end
  
