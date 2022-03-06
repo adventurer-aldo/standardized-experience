@@ -1,9 +1,21 @@
-<div id='page'>
+<div id='page'><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
 
-    <%= form_with do |form| %>
+    <%= form_with html: { autocomplete: 'off' } do |form| %>
         <% @questionObjects.each do |question| %>
             <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question[0].question %></p>
+            <% case eval "[#{question[0].questiontype}].sample" %>
+            <% when :open %>
+                <%= form.text_field :answer %>
+            <% when :choice %>
+            <% when :multichoice %>
+            <% when :veracity %>
+            <% when :caption %>
+            <% when :table %>
+            <% when :formula %>
+            <% end %>
         <% end %>
+        <br>
+        <%= form.submit "Deliver" %>
     <% end %>
-</div>
+</div></div>

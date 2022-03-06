@@ -1,6 +1,11 @@
 class QuizController < ApplicationController
     before_action :setup
 
+    #=======================================================================================
+    # -- SETUP
+    # Common for all methods of the controller. Defines common variables such as the formats
+    # names and the endings of the tests, as wll as the time the quizzes will take.
+    #=======================================================================================
     def setup
         @formats = 0..0
         @ending = ""
@@ -24,6 +29,11 @@ class QuizController < ApplicationController
         end
     end
 
+    #=======================================================================================
+    # -- SHIFT
+    # Creates an array of Question objects from the database that matches each ID of the
+    # Answers array.
+    #=======================================================================================
     def shift
         @questionObjects = []
         @answersArray.each do |answerID|
@@ -33,6 +43,12 @@ class QuizController < ApplicationController
 
     end
 
+    #=======================================================================================
+    # -- INDEX
+    # The main page. Takes parameters LEVEL and SUBJECT before choosing which questions to
+    # show. Randomly selects questions based on those parameters and takes care of other
+    # extra transitions.
+    #=======================================================================================
     def index
         @journeyProgress = Statistic.first["activejourneylevel"]
 
@@ -113,6 +129,13 @@ class QuizController < ApplicationController
         shift
     end
 
+    #=======================================================================================
+    # -- RESULT
+    # Takes a mandatory Quiz ID as an attribute and retrieves the array, level and subject
+    # of that quiz. Gets each answer object from the array of IDs from the quiz's answer
+    # column, and attempts to match it to its Question ID to see if it's correct in order to
+    # determine the grade.
+    #=======================================================================================
     def result
         shift
     end
