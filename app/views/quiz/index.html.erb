@@ -2,7 +2,7 @@
     <%= render "format-#{@format}"%>
 
     <%= form_with html: { autocomplete: 'off' } do |form| %>
-        <%= form.hidden_field_tag 'quizID', @currentQuiz.id %>
+        <%= form.hidden_field 'quizID', @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
             <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question %></p>
             <% case eval(question.questiontype).sample %>
