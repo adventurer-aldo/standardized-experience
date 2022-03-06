@@ -37,8 +37,8 @@ class QuizController < ApplicationController
     def shift
         @questionObjects = []
         @answersArray.each do |answerID|
-            @answerObject = Answer.where(id: answerID)
-            @questionObjects << Question.where(id: @answerObject[0].questionid)
+            @answerObject = Answer.find_by(id: answerID)
+            @questionObjects << Question.find_by(id: @answerObject.questionid)
         end
 
     end
@@ -130,13 +130,23 @@ class QuizController < ApplicationController
     end
 
     #=======================================================================================
+    # -- SUBMIT
+    # Takes forms from index and updates the database accordingly, then redirects to /result
+    # to display the data.
+    #=======================================================================================
+    def submit
+        @currentQuiz = Quiz.find_by(id: params[:quizID])
+        redirect_to '/results' id: params[:quizID]
+    end
+
+    #=======================================================================================
     # -- RESULT
     # Takes a mandatory Quiz ID as an attribute and retrieves the array, level and subject
     # of that quiz. Gets each answer object from the array of IDs from the quiz's answer
     # column, and attempts to match it to its Question ID to see if it's correct in order to
     # determine the grade.
     #=======================================================================================
-    def result
+    def results
         shift
     end
  
