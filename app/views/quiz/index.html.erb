@@ -1,10 +1,9 @@
 <div id='page'>
     <%= render "format-#{@format}"%>
 
-    <% form_with do |form| %>
+    <%= form_with do |form| %>
         <% @questionObjects.each do |question| %>
-            <p><%=(@questionObjects.index(question).to_s + '. ') + question.question %></p>
-
+            <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question[0].question %></p>
         <% end %>
     <% end %>
 </div>

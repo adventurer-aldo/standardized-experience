@@ -1,6 +1,5 @@
 class QuizController < ApplicationController
     before_action :setup
-    after_action :shift
 
     def setup
         @formats = 0..0
@@ -23,6 +22,15 @@ class QuizController < ApplicationController
             @testName[0] = "1º Teste de Frequência"
             @testName[0] = "2º Teste de Frequência"
         end
+    end
+
+    def shift
+        @questionObjects = []
+        @answersArray.each do |answerID|
+            @answerObject = Answer.where(id: answerID)
+            @questionObjects << Question.where(id: @answerObject[0].questionid)
+        end
+
     end
 
     def index
@@ -102,20 +110,11 @@ class QuizController < ApplicationController
         print "The request has been returned."
         @quizEnd = Time.at(@quizStart.to_i + @quizDurations[params[:level]]*60)
 
+        shift
     end
 
     def result
-        
+        shift
     end
-
-    def shift
-        @questionsNum
-        @questionObjects = []
-        @answersArray.each do |answerID|
-            @answerObject = Answer.where(id: answerID)
-            @questionObjects << Question.where(id: @answerObject[0].questionid)
-        end
-
-    end
-
+ 
 end
