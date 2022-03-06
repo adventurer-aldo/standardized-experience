@@ -45,8 +45,16 @@ ul {
     padding: 0;
 }
 
-li {
+.li-home {
     background-color: #0051B5;
+    display: inline;
+    color: white;
+    padding: 2px 10px;
+    font-weight: bold;
+}
+
+.li-result {
+    background-color: black;
     display: inline;
     color: white;
     padding: 2px 10px;
@@ -60,15 +68,13 @@ li {
 .bold {
     font-weight: bold;
 }
-
-li:active {
-    background-color: white;
-    color: black;
-}
-
-li:hover {
+.li-home:hover {
     background-color: #3C78E0;
     color: yellow;
+}
+
+.li-result:hover {
+    background-color: #585858;
 }
 
 .erasable {

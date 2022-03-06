@@ -1,21 +1,21 @@
 <div id='navbar' style='background-color: black;'><ul>
     <%=link_to '/' do %>
-        <li id='nav-li-Home'><%=fa_icon 'home'%> <span class='erasable'>Home</span></li>
+        <li id='nav-li-Home' class='li-result'><%=fa_icon 'home'%> <span class='erasable'>Home</span></li>
     <% end %>
 
     <%=link_to '/data' do %>
-        <li id='nav-li-Data'><%=fa_icon 'file'%> <span class='erasable'>Data</span></li>
+        <li id='nav-li-Data' class='li-result'><%=fa_icon 'file'%> <span class='erasable'>Data</span></li>
     <% end %>
 
     <%=link_to '/quiz' do %>
-        <li id='nav-li-Practice'><%=fa_icon 'align-left'%> <span class='erasable'>Practice</span></li>
+        <li id='nav-li-Practice' class='li-result'><%=fa_icon 'align-left'%> <span class='erasable'>Practice</span></li>
     <% end %>
 
     <%=link_to '/about' do %>
-        <li id='nav-li-About'><%=fa_icon 'question'%> <span class='erasable'>About</span></li>
+        <li id='nav-li-About' class='li-result'><%=fa_icon 'question'%> <span class='erasable'>About</span></li>
     <% end %>
 
-    <li id='nav-li-Time' class='time li-right'><%= @duration.min %>m <%= @duration.sec %>s</li>
+    <li id='nav-li-Time' class='li-result time li-right'><%= @duration.min %>m <%= @duration.sec %>s</li>
 </ul></div>
 <div id='page'><div style='padding: 30px'>
     <%= render "format-#{@currentQuiz.format}"%>
