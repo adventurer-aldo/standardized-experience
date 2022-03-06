@@ -135,10 +135,13 @@ class QuizController < ApplicationController
     #=======================================================================================
     def submit
         @currentQuiz = Quiz.find_by(id: params[:quizID])
+        @currentQuiz.update(timeended: Time.now.to_i)
+
         @answers = eval(@currentQuiz.answerarray)
         @answers.each do |answer_id|
             Answer.find_by(id: answer_id).update(attempt: "#{params[:answer]["#{@answers.index(answer_id)}"]}")
         end
+        
         redirect_to results_path(id: params[:quizID])
     end
 
@@ -154,6 +157,7 @@ class QuizController < ApplicationController
 
         @quizStart = Time.at(@currentQuiz.timestarted)
         @quizEnd = Time.at(@quizStart.to_i + @quizDurations[@currentQuiz.level]*60)
+        @duration = Time.at(@currentQuiz.timestarted - @currentQuiz.timeended)
 
         @answersArray = eval(@currentQuiz.answerarray)
         @answerObjects = []
