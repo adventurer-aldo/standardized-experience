@@ -101,7 +101,8 @@ class QuizController < ApplicationController
             
             @answer = Answer.create(
                 attempt: "",
-                questionid: n
+                questionid: n,
+                grade: (20/@questionsArray.size)
             )
             @answersArray << @answer.id
         end
@@ -114,7 +115,8 @@ class QuizController < ApplicationController
             timestarted: Time.now.to_i,
             timeended: Time.now.to_i,
             format: @format,
-            level: params[:level])
+            level: params[:level]
+        )
         
         @currentQuiz = Quiz.last
 
