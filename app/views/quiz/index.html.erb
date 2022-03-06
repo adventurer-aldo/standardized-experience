@@ -1,6 +1,8 @@
 <div id='page'><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
 
+    /* */
+
     <%= form_with html: { autocomplete: 'off' } do |form| %>
         <%= form.hidden_field :quizID, value: @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
@@ -9,6 +11,14 @@
             <% when :open %>
                 <%= form.text_field "answer[#{(@questionObjects.index(question))}]" %>
             <% when :choice %>
+                <% @choices = [] %>
+                <% @qChoices = question.choices.split('|') %>
+                <% rand(1..@qChoices.size).times { @choices << (@qChoices - @choices).sample} %>
+                <% @choices << question.answer %>
+                <% @choices.shuffle! %>
+                <% @choices.each do |choose| %>
+                    <%= form.radio%>
+                <% end %>
             <% when :multichoice %>
             <% when :veracity %>
             <% when :caption %>
