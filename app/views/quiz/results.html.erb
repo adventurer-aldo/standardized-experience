@@ -1,5 +1,5 @@
 <div id='page'><div style='padding: 30px'>
-    <%= render "format-#{@format}"%>
+    <%= render "format-#{@currentQuiz.format}"%>
 
     <% @questionObjects.each do |question| %>
         <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question %><br>

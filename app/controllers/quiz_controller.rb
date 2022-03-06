@@ -106,7 +106,7 @@ class QuizController < ApplicationController
             @answersArray << @answer.id
         end
 
-        @currentQuiz = Quiz.create(
+        Quiz.create(
             subject: params[:subject],
             name: "", surname: "",
             journey: @journey,
@@ -116,6 +116,8 @@ class QuizController < ApplicationController
             format: @format,
             level: params[:level])
         
+        @currentQuiz = Quiz.last
+        
         @stats = Statistic.first
         @stats.increment!(:lastquizid)
         @stats.increment!(:totalquizzes)
@@ -124,6 +126,9 @@ class QuizController < ApplicationController
         @quizEnd = Time.at(@quizStart.to_i + @quizDurations[params[:level]]*60)
 
         shift
+        puts "Wanna know the ID? It's..."
+        puts "Obviously it is #{@currentQuiz.id} and you're jealous of me."
+        puts "Well shit"
     end
 
     #=======================================================================================
@@ -132,7 +137,9 @@ class QuizController < ApplicationController
     # to display the data.
     #=======================================================================================
     def submit
+        puts "I am here!"
         @currentQuiz = Quiz.find_by(id: params[:quizID])
+        puts "I know the value of quizID and it is..." + params[:quizID].to_s
         redirect_to results_path(id: params[:quizID])
     end
 
@@ -144,10 +151,10 @@ class QuizController < ApplicationController
     # determine the grade.
     #=======================================================================================
     def results
-        @currentQuiz = Quiz.find_by(id: params[:quizID])
+        @currentQuiz = Quiz.find_by(id: params[:id])
 
         @quizStart = Time.at(@currentQuiz.timestarted)
-        @quizEnd = Time.at(@quizStart.to_i + @quizDurations[params[:level]]*60)
+        @quizEnd = Time.at(@quizStart.to_i + @quizDurations[@currentQuiz.level]*60)
 
         @answersArray = eval(@currentQuiz.answerarray)
         @answerObjects = []

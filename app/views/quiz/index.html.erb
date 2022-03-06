@@ -2,12 +2,12 @@
     <%= render "format-#{@format}"%>
 
     <%= form_with html: { autocomplete: 'off' } do |form| %>
-        <%= form.hidden_field 'quizID', @currentQuiz.id %>
+        <%= form.hidden_field :quizID, value: @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
             <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question %></p>
             <% case eval(question.questiontype).sample %>
             <% when :open %>
-                <%= form.text_field :answer, (@questionObjects.index(question)) %>
+                <%= form.text_field "answer[#{(@questionObjects.index(question))}]" %>
             <% when :choice %>
             <% when :multichoice %>
             <% when :veracity %>
