@@ -17,10 +17,19 @@
                 <% @choices << question.answer %>
                 <% @choices.shuffle! %>
                 <% @choices.each do |choose| %>
-                    <%= form.radio%>
+                    <%= form.radio choose %>
                 <% end %>
             <% when :multichoice %>
+                <% @choices = [] %>
+                <% @qChoices = question.choices.split('|') %>
+                <% rand(1..@qChoices.size).times { @choices << (@qChoices - @choices).sample} %>
+                <% @choices << question.answer.split('|') %>
+                <% @choices.shuffle! %>
+                <% @choices.each do |choose| %>
+                    <%= form.check_box choose %>
+                <% end %>
             <% when :veracity %>
+                <%  %>
             <% when :caption %>
             <% when :table %>
             <% when :formula %>
