@@ -17,7 +17,8 @@
                 sort_choices
                 %><%= form.collection_check_boxes "answer[#{(@questionObjects.index(question))}]", @choices, :to_s, :to_s %><%
             when :veracity
-            
+                @question = question
+                sort_choices
             when :caption
             when :table
             when :formula
