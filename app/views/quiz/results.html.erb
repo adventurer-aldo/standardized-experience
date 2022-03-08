@@ -24,7 +24,7 @@
         <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question %><br>
         <% 
         @ans = @answerObjects[@questionObjects.index(question)]
-        @parameters = eval(.parameters)
+        @parameters = eval(@ans.parameters)
         case @parameters[:type]
         when :open 
             %><b>R: </b><%= @ans.attempt %></p><%
@@ -33,7 +33,7 @@
             @question = question
             order_choices
             @choices.each do |choice|
-                %><b>• </b><%= @ans.attempt %><%
+                %><b>• </b><%= choice %><br><%
             end
 
         when :multichoice
