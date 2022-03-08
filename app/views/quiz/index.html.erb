@@ -20,9 +20,9 @@
             when :multichoice
                 @question = question
                 sort_choices
-                %><%= form.hidden_field "choices[#{(@questionObjects.index(question))}]", value: @choices %><%
+                %><%= form.hidden_field "choices[#{(@questionObjects.index(question))}]", value: @choices.to_s %><%
 
-                %><%= form.collection_check_boxes "answer[#{(@questionObjects.index(question))}]", @choices.to_s, :to_s, :to_s %><%
+                %><%= form.collection_check_boxes "answer[#{(@questionObjects.index(question))}]", @choices, :to_s, :to_s %><%
 
             when :veracity
                 @question = question
