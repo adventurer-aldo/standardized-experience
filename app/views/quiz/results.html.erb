@@ -33,7 +33,7 @@
             @question = question
             order_choices
             @choices.each do |choice|
-                %><b>• </b><%= choice %><br><%
+                %><b>• </b><%= choice.html_safe %><br><%
             end
 
         when :multichoice
