@@ -9,4 +9,17 @@ module QuizHelper
         return @choices
     end
 
+    def order_choices
+        @choices = []
+        @answer = @question.answer.split("|")
+        @choices = @question.choices.split("|")
+        @parameters[:order].each do |choice|
+            @choices << if choice.class = String
+                            @answer[choice.to_i]
+                        else
+                            @choices[choice]
+                        end
+        end
+    end
+
 end

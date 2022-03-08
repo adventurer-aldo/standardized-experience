@@ -26,8 +26,13 @@
         case @parameters[:type]
         when :open 
             %><b>R: </b><%= @answerObjects[@questionObjects.index(question)].attempt %></p><%
-            
+
         when :choice
+            @question = question
+            order_choices
+            @choices.each do |choice|
+                %><b>• </b><%= @answerObjects[@questionObjects.index(question)].attempt %><%
+            end
 
         when :multichoice
 
