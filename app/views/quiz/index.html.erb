@@ -15,7 +15,6 @@
                 %><%= form.hidden_field "choices[#{(@questionObjects.index(question))}]", value: @choices.to_s %><%
 
                 %><%= form.collection_radio_buttons "answer[#{(@questionObjects.index(question))}]", @choices, :to_s, :to_s %><%
-                %><%= form.hidden_field "answer[type]", value: :open %><%
 
             when :multichoice
                 @question = question
