@@ -31,9 +31,9 @@
                 @choices.each do |choose|
                     %><%= form.label choose %><%
                     if question.answer.split("|").include?(choose)
-                        %><%= form.select "answer[#{(@questionObjects.index(question))}]", [["V",choose],["F",""]] %><%
+                        %><%= form.select "answer[#{(@questionObjects.index(question))}]", [["V",choose],["F"," "]] %><%
                     else
-                        %><%= form.select "answer[#{(@questionObjects.index(question))}]", [["V",""],["F",choose]] %><%
+                        %><%= form.select "answer[#{(@questionObjects.index(question))}]", [["V"," "],["F",choose]] %><%
                     end
                 end
                 
