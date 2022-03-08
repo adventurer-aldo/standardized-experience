@@ -7,3 +7,17 @@
     display: block;
     margin: 0 auto;
 }
+
+.li-result {
+    background-color: black;
+    display: inline;
+    color: white;
+    padding: 2px 10px;
+    font-weight: bold;
+}
+
+
+
+.li-result:hover {
+    background-color: #585858;
+}
