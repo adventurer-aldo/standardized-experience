@@ -21,7 +21,7 @@
     <%= render "format-#{@currentQuiz.format}"%>
 
     <% @questionObjects.each do |question| %>
-        <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question %><br>
+        <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.gsub('<br>',"\n") %><br>
         <% 
         @ans = @answerObjects[@questionObjects.index(question)]
         @parameters = eval(@ans.parameters)
