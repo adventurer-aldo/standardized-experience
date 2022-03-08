@@ -5,14 +5,15 @@
     <%= form.hidden_field :quizID, value: @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
             <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.gsub('<br>',"\n") %></p>
-            <% case eval(question.questiontype).sample
+            <% @type = eval(question.questiontype).sample
+            case @type
             when :open
                 %><%= form.text_field "answer[#{(@questionObjects.index(question))}]" %><%
-
             when :choice
                 @question = question
                 sort_choices
                 %><%= form.collection_radio_buttons "answer[#{(@questionObjects.index(question))}]", @choices, :to_s, :to_s %><%
+                %><%= form.hidden_field "answer[type]", value: :open %><%
 
             when :multichoice
                 @question = question
@@ -40,6 +41,7 @@
             when :formula
 
             end
+            %><%= form.hidden_field "type[#{(@questionObjects.index(question))}]", value: @type %><%
         end %>
     <br>
     <%= form.submit "Deliver" %>
