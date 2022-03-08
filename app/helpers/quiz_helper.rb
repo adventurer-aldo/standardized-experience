@@ -15,9 +15,9 @@ module QuizHelper
         @choices = @question.choices.split("|")
         @parameters[:order].each do |choice|
             if choice.class == String
-                @choices << @answer[choice.to_i]
+                @choices[@parameters[:order].index(choice)] = @answer[choice.to_i]
             else
-                @choices << @choices[choice]
+                @choices[@parameters[:order].index(choice)] = @choices[choice]
             end
         end
     end
