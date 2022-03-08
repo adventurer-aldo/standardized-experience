@@ -4,9 +4,8 @@
 <span style='text-decoration: underline'><b>Disciplina:</b> <%=@currentQuiz.subject%>&emsp;<b><%=@testName[@currentQuiz.level]%></b>&emsp;<b>Data:</b> <%=@quizStart.day%>/<%=@quizStart.month%>/<%=@quizStart.year%>&emsp;<b>Duração:</b> <%=@quizDurations[@currentQuiz.level]%>min — <%=@quizStart.hour%>h<%=@quizStart.min%>m as <%=@quizEnd.hour%>h<%=@quizEnd.min%>m </span> </p>
 
 <p> <%= form_with html: { autocomplete: 'off' } do |form| %>
- <%= form.label :name, "Nome: ", class: 'bold'%>
- <%= form.text_field :name %>
- <%= form.label :name, "Código: ", class: 'bold'%>
- <%= form.text_field :surname %>
- <% end %>
+        <%= form.label :name, "Nome: ", class: 'bold'%>
+        <%= form.text_field :name %>
+        <%= form.label :name, "Código: ", class: 'bold'%>
+        <%= form.text_field :surname %>
  </p>

@@ -1,41 +1,30 @@
 <div id='page'><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
 
-    /* */
-
-    <%= form_with html: { autocomplete: 'off' } do |form| %>
-        <%= form.hidden_field :quizID, value: @currentQuiz.id %>
+    <%= form.hidden_field :quizID, value: @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
             <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question %></p>
-            <% case eval(question.questiontype).sample %>
-            <% when :open %>
-                <%= form.text_field "answer[#{(@questionObjects.index(question))}]" %>
-            <% when :choice %>
-                <% @choices = [] %>
-                <% @qChoices = question.choices.split('|') %>
-                <% rand(1..@qChoices.size).times { @choices << (@qChoices - @choices).sample} %>
-                <% @choices << question.answer %>
-                <% @choices.shuffle! %>
-                <% @choices.each do |choose| %>
-                    <%= form.radio choose %>
-                <% end %>
-            <% when :multichoice %>
-                <% @choices = [] %>
-                <% @qChoices = question.choices.split('|') %>
-                <% rand(1..@qChoices.size).times { @choices << (@qChoices - @choices).sample} %>
-                <% @choices << question.answer.split('|') %>
-                <% @choices.shuffle! %>
-                <% @choices.each do |choose| %>
-                    <%= form.check_box choose %>
-                <% end %>
-            <% when :veracity %>
-                <%  %>
-            <% when :caption %>
-            <% when :table %>
-            <% when :formula %>
-            <% end %>
-        <% end %>
-        <br>
-        <%= form.submit "Deliver" %>
-    <% end %>
+            <% case eval(question.questiontype).sample
+            when :open
+                %><%= form.text_field "answer[#{(@questionObjects.index(question))}]" %><%
+            when :choice
+                @question = question
+                sort_choices
+                %><%= form.collection_radio_buttons "answer[#{(@questionObjects.index(question))}]", @choices %><%
+            when :multichoice
+                @question = question
+                sort_choices
+                @choices.each do |choose|
+                    %><%= form.collection_check_boxes "answer[#{(@questionObjects.index(question))}]", @choices %><%
+                end
+            when :veracity
+            
+            when :caption
+            when :table
+            when :formula
+            end
+        end %>
+    <br>
+    <%= form.submit "Deliver" %>
+<% end %>
 </div></div>
