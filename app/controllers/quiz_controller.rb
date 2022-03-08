@@ -141,7 +141,10 @@ class QuizController < ApplicationController
 
         @answers = eval(@currentQuiz.answerarray)
         @answers.each do |answer_id|
-            Answer.find_by(id: answer_id).update(attempt: "#{params[:answer]["#{@answers.index(answer_id)}"]}")
+            @ans = Answer.find_by(id: answer_id)
+            @ans.update(attempt: "#{params[:answer]["#{@answers.index(answer_id)}"]}")
+            if %W(choice multichoice veracity).include? params[:type]["#{@answers.index(answer_id)}"]
+            parameters: {type: params[:type]["#{@answers.index(answer_id)}"].to_s 
         end
 
         redirect_to results_path(id: params[:quizID])
