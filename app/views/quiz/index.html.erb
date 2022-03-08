@@ -29,8 +29,8 @@
                 %><%= form.hidden_field "choices[#{(@questionObjects.index(question))}]", value: @choices.to_s %><%
                 
                 @choices.each do |choose|
+                    %><%= form.label choose %><%
                     if question.answer.split("|").include?(choose)
-                        %><%= form.label choose %><%
                         %><%= form.select "answer[#{(@questionObjects.index(question))}]", [["V",choose],["F",""]] %><%
                     else
                         %><%= form.select "answer[#{(@questionObjects.index(question))}]", [["V",""],["F",choose]] %><%
