@@ -14,7 +14,7 @@ module QuizHelper
         @answer = @question.answer.split("|")
         @choices = @question.choices.split("|")
         @parameters[:order].each do |choice|
-            @choices << if choice.class = String
+            @choices << if choice.class == String
                             @answer[choice.to_i]
                         else
                             @choices[choice]

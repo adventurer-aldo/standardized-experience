@@ -22,16 +22,18 @@
 
     <% @questionObjects.each do |question| %>
         <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question %><br>
-        <% @parameters = eval(question.parameters)
+        <% 
+        @ans = @answerObjects[@questionObjects.index(question)]
+        @parameters = eval(.parameters)
         case @parameters[:type]
         when :open 
-            %><b>R: </b><%= @answerObjects[@questionObjects.index(question)].attempt %></p><%
+            %><b>R: </b><%= @ans.attempt %></p><%
 
         when :choice
             @question = question
             order_choices
             @choices.each do |choice|
-                %><b>• </b><%= @answerObjects[@questionObjects.index(question)].attempt %><%
+                %><b>• </b><%= @ans.attempt %><%
             end
 
         when :multichoice
