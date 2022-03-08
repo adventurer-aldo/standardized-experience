@@ -144,7 +144,7 @@ class QuizController < ApplicationController
             @ans = Answer.find_by(id: answer_id)
             @parameters = {}
             @parameters[:type] = params[:type]["#{@answers.index(answer_id)}"].to_sym
-            
+            @answer = "#{params[:answer]["#{@answers.index(answer_id)}"]}"
             if %I(choice multichoice veracity).include? @parameters[:type]
                 @que = Question.find_by(id: @ans.questionid)
                 @sourceAnswers = @que.answer.split("|")
@@ -159,9 +159,11 @@ class QuizController < ApplicationController
                 end
 
                 @parameters[:order] = @order
+            elsif @parameters[:type] == :caption
+                @answer = @answer.join('|')
             end
 
-            @ans.update(attempt: "#{params[:answer]["#{@answers.index(answer_id)}"]}",
+            @ans.update(attempt: @answer,
             parameters: @parameters.to_s )
              
         end

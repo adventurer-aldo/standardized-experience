@@ -37,10 +37,23 @@
             end
 
         when :multichoice
+            @question = question
+            order_choices
+            @choices.each do |choice|
+                %><b>• </b><%= choice.html_safe %><br><%
+            end
 
         when :veracity
+            @question = question
+            order_choices
+            @choices.each do |choice|
+                %><b>• </b><%= choice.html_safe %><br><%
+            end
 
         when :caption
+            %><b>R: </b><% @ans.attempt.split('|').each do |str|
+                %><%= str %><br><%
+            end %></p><%
 
         when :table
 
