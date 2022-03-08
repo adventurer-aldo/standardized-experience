@@ -4,7 +4,7 @@
 <%= form_with html: { autocomplete: 'off' } do |form| %>
     <%= form.hidden_field :quizID, value: @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
-            <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.gsub('<br>',"\n") %></p>
+            <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.html_safe %></p>
             <% @type = eval(question.questiontype).sample
             case @type
             when :open
