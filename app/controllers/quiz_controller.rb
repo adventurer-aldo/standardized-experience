@@ -145,7 +145,7 @@ class QuizController < ApplicationController
             @parameters = {}
             @parameters[:type] = params[:type]["#{@answers.index(answer_id)}"].to_sym
             
-            if %I(choice multichoice veracity).include? parameters[:type]
+            if %I(choice multichoice veracity).include? @parameters[:type]
                 @que = Question.find_by(id: @ans.questionid)
                 @sourceAnswers = @que.answer.split("|")
                 @sourceChoices = @que.choices.split("|")
