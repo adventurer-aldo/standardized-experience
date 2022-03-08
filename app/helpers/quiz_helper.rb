@@ -12,13 +12,13 @@ module QuizHelper
     def order_choices
         @choices = []
         @answer = @question.answer.split("|")
-        @choices = @question.choices.split("|")
+        @realChoices = @question.choices.split("|")
         @parameters[:order].each do |choice|
-            if choice.class == String
-                @choices[@parameters[:order].index(choice)] = @answer[choice.to_i]
-            else
-                @choices[@parameters[:order].index(choice)] = @choices[choice]
-            end
+            @choices << if choice.class == String
+                            @answer[choice.to_i]
+                        else
+                            @realChoices[choice]
+                        end
         end
     end
 
