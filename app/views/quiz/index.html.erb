@@ -1,22 +1,21 @@
 <div id='page'><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
 
+<%= form_with html: { autocomplete: 'off' } do |form| %>
     <%= form.hidden_field :quizID, value: @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
-            <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question %></p>
+            <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.gsub('<br>',"\n") %></p>
             <% case eval(question.questiontype).sample
             when :open
                 %><%= form.text_field "answer[#{(@questionObjects.index(question))}]" %><%
             when :choice
                 @question = question
                 sort_choices
-                %><%= form.collection_radio_buttons "answer[#{(@questionObjects.index(question))}]", @choices %><%
+                %><%= form.collection_radio_buttons "answer[#{(@questionObjects.index(question))}]", @choices, :to_s, :to_s %><%
             when :multichoice
                 @question = question
                 sort_choices
-                @choices.each do |choose|
-                    %><%= form.collection_check_boxes "answer[#{(@questionObjects.index(question))}]", @choices %><%
-                end
+                %><%= form.collection_check_boxes "answer[#{(@questionObjects.index(question))}]", @choices, :to_s, :to_s %><%
             when :veracity
             
             when :caption
