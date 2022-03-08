@@ -160,7 +160,7 @@ class QuizController < ApplicationController
 
                 @parameters[:order] = @order
             elsif @parameters[:type] == :caption
-                @answer = @answer.join('|')
+                @answer = eval(@answer).join('|')
             end
 
             @ans.update(attempt: @answer,
@@ -180,6 +180,7 @@ class QuizController < ApplicationController
     #=======================================================================================
     def results
         @currentQuiz = Quiz.find_by(id: params[:id])
+        @grade = 0
 
         @quizStart = Time.at(@currentQuiz.timestarted)
         @quizEnd = Time.at(@quizStart.to_i + @quizDurations[@currentQuiz.level]*60)
@@ -192,6 +193,10 @@ class QuizController < ApplicationController
         end
 
         shift
+        @answerObjects.each do |anst|
+            quest = @questionObjects[@answerObjects.index(anst)]
+            @grade += anst.grade if anst.attempt.split('|') == quest.answer.split('|')
+        end
     end
  
 end

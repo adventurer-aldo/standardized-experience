@@ -39,7 +39,7 @@
                 
             when :caption
                 question.answer.split("|").each do
-                    %><%= form.text_field "answer[#{(@questionObjects.index(question))}]" %><br><%
+                    %><%= form.text_field "answer[#{(@questionObjects.index(question))}][]" %><br><%
                 end
 
             when :table
