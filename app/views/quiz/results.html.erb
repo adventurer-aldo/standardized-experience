@@ -35,9 +35,9 @@
         case @parameters[:type]
         when :open 
             if @right 
-                %><span class='ck'></span><%
+                %><span style='position: relative'><span class='ck'></span></span><%
             elsif @ans.attempt != ""
-                %><span class='ek'></span><% 
+                %><span style='position: relative'><span class='ek'></span></span><% 
             end
             %><span class='input-answer'><%= @ans.attempt %></span></p><%
 
