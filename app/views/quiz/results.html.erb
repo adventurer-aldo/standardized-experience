@@ -26,9 +26,9 @@
         @parameters = eval(@ans.parameters)
         @right = question.answer.split('|') == @ans.attempt.split('|')
         if @right
-            %><span class='grade'><%=%><%=number_with_precision @ans.grade, significant: true, precision: 2, separator: ',' %></span><%
+            %><span style='position: relative'><span class='grade'><%=%><%=number_with_precision @ans.grade, significant: true, precision: 2, separator: ',' %></span></span><%
         else
-            %><span class='grade'>0,0</span><%
+            %><span style='position: relative'><span class='grade'>0,0</span></span><%
         end
         %><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.html_safe %><br><%
 
@@ -36,30 +36,59 @@
         when :open 
             if @right 
                 %><span class='ck'></span><%
-            else
+            elsif @ans.attempt != ""
                 %><span class='ek'></span><% 
             end
-            %><b>R: </b><%= @ans.attempt %></p><%
+            %><span class='input-answer'><%= @ans.attempt %></span></p><%
 
         when :choice
             @question = question
             order_choices
             @choices.each do |choice|
-                %><b>• </b><%= choice.html_safe %><br><%
+                %><b><% 
+                @check_question = @question.answer.split('|').include?(choice)
+                @check_answer = @ans.attempt.split('|').include?(choice)
+                if @check_answer && @check_question
+                %><span class='red'> ✓</span> </b><%= choice.html_safe %><br><%
+                elsif @check_answer && !@check_question
+                %><span class='red'> ✗</span> </b><%= choice.html_safe %><br><%
+                else
+                %> ◯ </b><%= choice.html_safe %><br><%
+                end
             end
 
         when :multichoice
             @question = question
             order_choices
             @choices.each do |choice|
-                %><b>• </b><%= choice.html_safe %><br><%
+                %><b><% 
+                @check_question = @question.answer.split('|').include?(choice)
+                @check_answer = @ans.attempt.split('|').include?(choice)
+                if @check_answer && @check_question
+                %><span class='red'> ✓</span> </b><%= choice.html_safe %><br><%
+                elsif @check_answer && !@check_question
+                %><span class='red'> ✗</span> </b><%= choice.html_safe %><br><%
+                else
+                %> ◯ </b><%= choice.html_safe %><br><%
+                end
             end
 
         when :veracity
             @question = question
             order_choices
             @choices.each do |choice|
-                %><b>• </b><%= choice.html_safe %><br><%
+                %><b><% 
+                @check_question = @question.answer.split('|').include?(choice)
+                @check_answer = @ans.attempt.split('|').include?(choice)
+                if @check_answer && @check_question
+                %><span class='red'> 𝒱</span> </b><%= choice.html_safe %><br><span class='red'> ✓</span><%
+                elsif @check_answer && !@check_question
+                %><span class='red'> 𝒱</span> </b><%= choice.html_safe %><br><span class='red'> ✗</span><%
+                elsif !@check_answer && @check_question
+                %><span class='red'> ℱ</span> </b><%= choice.html_safe %><br><span class='red'> ✗</span><%
+                else
+                %><span class='red'> ℱ</span> </b><%= choice.html_safe %><br><span class='red'> ✓</span><%
+                end
             end
 
         when :caption

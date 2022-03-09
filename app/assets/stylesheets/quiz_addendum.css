@@ -20,6 +20,14 @@
     background-color: #585858;
 }
 
+.red {
+    color: red;
+}
+
+.blue {
+    color: blue;
+}
+
 .grade {
     font-family: 'Reenie Beanie', cursive;
     color: red;
@@ -54,17 +62,42 @@
     border-right: solid 2px red;
     border-bottom: solid 3px red;
     position: absolute;
-    left: 70%;
+    left: 60%;
 }
 
-.ck {
+.ck, .ek {
     filter: invert(23%) sepia(96%) saturate(7122%) hue-rotate(357deg) brightness(97%) contrast(113%);
-    background-image: url('https://i.ibb.co/4T6zKTP/249-2498546-black-tick-mark-handwritten-check-mark-png-transparent-removebg-preview-1.png');
+    background-image: url('https://i.ibb.co/bm3QSG1/ck.png');
     display: block;
-    width: 10vw;
-    height: 15vh;
+    width: 9rem;
+    height: 10rem;
     position: absolute;
     left: 50%;
     background-size: 100%;
     background-repeat: no-repeat;
   }
+
+.ek {
+    background-image: url("https://i.ibb.co/JpRBh8t/mxm.png");
+    width: 8rem;
+    height: 9rem;
+    background-size: 75%;
+}
+
+.input-name, .input-code, .input-answer {
+    border: none;
+    font-family: 'Homemade Apple', cursive;
+    color: blue;
+    font-size: larger;
+    padding-left: 4px;
+    text-decoration: underline;
+    text-decoration-color: black;
+    line-height: 2rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
