@@ -21,14 +21,38 @@
 }
 
 .grade {
+    font-family: 'Reenie Beanie', cursive;
     color: red;
+    font-weight: bold;
     background:transparent;
     padding:0.5rem 0.5rem;
     margin:0 0.5rem;
-    font-size:1rem;
-    border-top-left-radius: 255px 15px;
-    border-top-right-radius: 15px 225px;
-    border-bottom-right-radius: 225px 15px;
-    border-bottom-left-radius:15px 255px;
-    border:solid 3px red;
+    font-size: 2rem;
+    border-top-left-radius: 90% 50%;
+    border-top-right-radius: 50% 70%;
+    border-bottom-right-radius: 70% 50%;
+    border-bottom-left-radius:50% 80%;
+    border-left: solid 3px red;
+    border-right: solid 2px red;
+    border-bottom: solid 3px red;
+    position: absolute;
+}
+
+.score {
+    font-family: 'Reenie Beanie', cursive;
+    color: red;
+    font-weight: bold;
+    background:transparent;
+    padding:0.5rem 0.5rem;
+    margin:0 0.5rem;
+    font-size: 4rem;
+    border-top-right-radius: 90% 50%;
+    border-top-left-radius: 50% 70%;
+    border-bottom-left-radius: 70% 50%;
+    border-bottom-right-radius:50% 80%;
+    border-left: solid 3px red;
+    border-right: solid 2px red;
+    border-bottom: solid 3px red;
+    position: absolute;
+    left: 70%;
 }
