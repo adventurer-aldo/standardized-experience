@@ -24,7 +24,8 @@
         <p><% 
         @ans = @answerObjects[@questionObjects.index(question)]
         @parameters = eval(@ans.parameters)
-        if question.answer.split('|') == @ans.attempt.split('|')
+        @right = question.answer.split('|') == @ans.attempt.split('|')
+        if @right
             %><span class='grade'><%=%><%=number_with_precision @ans.grade, significant: true, precision: 2, separator: ',' %></span><%
         else
             %><span class='grade'>0,0</span><%
@@ -33,7 +34,12 @@
 
         case @parameters[:type]
         when :open 
-            %><b>R: </b><%= @ans.attempt %></p><%
+            if @right 
+                %><span class='ck'><%
+            else
+                %><span class='ek'><% 
+            end
+            %><b>R: </b><%= @ans.attempt %></p></span><%
 
         when :choice
             @question = question

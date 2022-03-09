@@ -56,3 +56,11 @@
     position: absolute;
     left: 70%;
 }
+
+.ck {
+    filter: invert(23%) sepia(96%) saturate(7122%) hue-rotate(357deg) brightness(97%) contrast(113%);
+    background-image: url('https://i.ibb.co/4T6zKTP/249-2498546-black-tick-mark-handwritten-check-mark-png-transparent-removebg-preview-1.png');
+    display: block;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
