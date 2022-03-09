@@ -60,6 +60,8 @@ class QuizController < ApplicationController
             params[:level] = 0
         end
 
+        params[:level] = 2
+
         if params[:level] = 0
             @format = rand(@formats).round(0)
         else
