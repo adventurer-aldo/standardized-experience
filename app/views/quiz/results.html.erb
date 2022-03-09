@@ -35,11 +35,11 @@
         case @parameters[:type]
         when :open 
             if @right 
-                %><span class='ck'><%
+                %><span class='ck'></span><%
             else
-                %><span class='ek'><% 
+                %><span class='ek'></span><% 
             end
-            %><b>R: </b><%= @ans.attempt %></p></span><%
+            %><b>R: </b><%= @ans.attempt %></p><%
 
         when :choice
             @question = question
