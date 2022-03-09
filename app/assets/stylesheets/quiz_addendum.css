@@ -22,10 +22,14 @@
 
 .red {
     color: red;
+    font-size: larger;
+    font-weight: bold;
 }
 
 .blue {
     color: blue;
+    font-size: larger;
+    font-weight: bold;
 }
 
 .grade {
@@ -90,10 +94,11 @@
     font-family: 'Homemade Apple', cursive;
     color: blue;
     font-size: larger;
-    padding-left: 4px;
+    padding-left: 10px;
     text-decoration: underline;
     text-decoration-color: black;
-    line-height: 2rem;
+    line-height: 1.5rem;
+    margin-top: 0px;
 }
 
 input:focus,

@@ -1,4 +1,4 @@
-<div id='page'><div style='padding: 30px'>
+<head><title><%=@currentQuiz.subject%> | <%=@testName[@currentQuiz.level]%></title></head><div id='page'><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
 
 <%= form_with id: :quiz, html: { autocomplete: 'off' } do |form| %>
