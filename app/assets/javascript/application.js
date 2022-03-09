@@ -1,7 +1,7 @@
 $(document).ready(function(){
     // Set the date we're counting down to
     var ehhh = new Date();
-    var countDownDate = new Date(ehhh.getTime() + quiz_timer*60000);
+    var countDownDate = new Date(ehhh.getTime() + 0.175*60000);
 
 // Update the count down every 1 second
     var x = setInterval(function() {
@@ -44,6 +44,9 @@ $(document).ready(function(){
 }, 1000);
 });
 
-$('#quiz').onSubmit(function() {
-  document.getElementById("quiz").submit();
+$(document).ready(function(){
+  $('#quiz').on('submit', function(e) {
+    e.preventDefault();
+    document.getElementById("quiz").submit();
+  });
 });

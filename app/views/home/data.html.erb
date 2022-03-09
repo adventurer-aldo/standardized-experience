@@ -1,3 +1,20 @@
 <head><title>Data | SE</title></head><%=render 'header'%>
-<p>Data here.</p>
+<p><b>Create a new question for Anatomy.</p>
+<%= form_with do |form| %>
+    <%= form.hidden_field :level, value: 2 %>
+    <%= form.label :question, "Question:" %>
+    <%= form.text_field :question, required: true %>
+    <%= form.label :answer, "Answer:" %>
+    <%= form.text_field :answer, required: true  %>
+    <%= form.label :choices, "Choices:" %>
+    <%= form.text_field :choices %>
+    <p><b>Will this be for Theorical or Practical?</b></p>
+    <%= form.label :subject, "Anatomia Humana II(Prática)"%>
+    <%= form.radio_button :subject, "Anatomia Humana II(Prática)" %>
+    <%= form.label :subject, "Anatomia Humana II(Teórica)"%>
+    <%= form.radio_button :subject, "Anatomia Humana II(Teórica)" %>
+    <p><b>Select the type.</b></p>
+    <%= form.select :type, %W([:open] [:choice] [:multichoice] [:caption])%>
+    <%= form.submit "Submit question"%>
+<% end %>
 </div>
