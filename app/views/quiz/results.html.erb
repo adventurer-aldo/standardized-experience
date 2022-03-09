@@ -21,7 +21,7 @@
     <%= render "format-#{@currentQuiz.format}"%>
 
     <% @questionObjects.each do |question| %>
-        <p><% 
+        <p style='position: relative'><% 
         @ans = @answerObjects[@questionObjects.index(question)]
         @parameters = eval(@ans.parameters)
         @right = question.answer.split('|') == @ans.attempt.split('|')
@@ -35,9 +35,9 @@
         case @parameters[:type]
         when :open 
             if @right 
-                %><span style='position: relative'><span class='ck'></span></span><%
+                %><span class='ck'></span><%
             elsif @ans.attempt != ""
-                %><span style='position: relative'><span class='ek'></span></span><% 
+                %><span class='ek'></span><% 
             end
             %><span class='input-answer'><%= @ans.attempt %></span></p><%
 
