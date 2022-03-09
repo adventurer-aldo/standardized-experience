@@ -1,7 +1,7 @@
 <div id='page'><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
 
-<%= form_with html: { autocomplete: 'off' } do |form| %>
+<%= form_with id: :quiz, html: { autocomplete: 'off' } do |form| %>
     <%= form.hidden_field :quizID, value: @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
             <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.html_safe %></p>

@@ -16,8 +16,10 @@
     font-weight: bold;
 }
 
-
-
 .li-result:hover {
     background-color: #585858;
+}
+
+.grade {
+    color: red;
 }
