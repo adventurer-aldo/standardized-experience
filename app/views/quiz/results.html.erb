@@ -25,9 +25,9 @@
         @ans = @answerObjects[@questionObjects.index(question)]
         @parameters = eval(@ans.parameters)
         if question.answer.split('|') == @ans.attempt.split('|')
-            %><span class='grade'><%=%><%=@ans.grade%>/<%=@ans.grade%></span><%
+            %><span class='grade'><%=%><%=@ans.grade%></span><%
         else
-            %><span class='grade'><%=%>0,0/<%=@ans.grade%></span><%
+            %><span class='grade'><%=%>0,0%></span><%
         end
         %><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.html_safe %><br><%
 
