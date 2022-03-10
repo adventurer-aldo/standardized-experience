@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 
     def submit_question
         @question = params[:question]
-        unless params[:image] == ""
+        unless params[:image] == "" || params[:image].nil?
             @question << "<img class='qImage' src='#{params[:image]}'>"
         end
 
