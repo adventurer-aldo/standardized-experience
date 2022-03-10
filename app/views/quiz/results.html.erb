@@ -17,6 +17,7 @@
 
     <li id='nav-li-Time' class='li-result time li-right'><%= @duration.min %>m <%= @duration.sec %>s</li>
 </ul></div>
+<%= audio_tag(@fanfare, autoplay: true)%>
 <div id='page'><div style='padding: 30px'>
     <%= render "format-#{@currentQuiz.format}"%>
 

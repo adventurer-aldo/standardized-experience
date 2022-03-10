@@ -205,6 +205,20 @@ class QuizController < ApplicationController
                 @grade += anst.grade if anst.attempt.split('|').sort == quest.answer.split('|').sort
             end
         end
+
+        if @grade > 7
+            @fanfare = "https://vgmsite.com/soundtracks/fire-emblem-awakening/hjmlcdyjor/1-16%20-%20Farewell...my%20friends....mp3"
+        elsif  @grade > 11
+            @fanfare = "https://vgmsite.com/soundtracks/rpg-maker-mv-ost/nybqpgcdjt/Gameover1.mp3"
+        elsif @grade > 15
+            @fanfare = "https://vgmsite.com/soundtracks/rpg-maker-mv-ost/tksshzgtjq/Fanfare3.mp3"
+        elsif @grade > 18
+            @fanfare = "https://vgmsite.com/soundtracks/rpg-maker-mv-ost/ewqgncnoxb/Jingle%20Fantasy1%2001.mp3"
+        elsif @grade > 20
+            @fanfare = "https://vgmsite.com/soundtracks/rpg-maker-mv-ost/ccttepsreq/Jingle%20Fantasy1%2004.mp3"
+        else
+            @fanfare = "https://vgmsite.com/soundtracks/fire-emblem-awakening/ewwjfbcsyp/4-11%20-%20Grima.%20It%27s%20all%20over....mp3"
+        end
     end
  
 end
