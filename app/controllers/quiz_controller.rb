@@ -89,7 +89,7 @@ class QuizController < ApplicationController
             allQuestions = baseQuery.limit(rand(50..100))
         end        
         
-        @fullQuery = allQuestions.group(:tags)
+        @fullQuery = allQuestions.group_by(:tags)
 
         @questionsArray = []
         @answersArray = []
