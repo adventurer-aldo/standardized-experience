@@ -44,8 +44,8 @@
                 %><span class='ek'></span><% 
             end
             %><span class='input-answer'><%= @ans.attempt %></span>
-            <% unless @right %><span class='red'><span class='input-answer'><b>R:</b> <%= question.answer %></span> <% end %>
-            </span></p><%
+            <% unless @right %><span class='red input-answer'><b>R:</b> <%= question.answer %></span> <% end %>
+            </p><%
 
         when :choice
             @question = question

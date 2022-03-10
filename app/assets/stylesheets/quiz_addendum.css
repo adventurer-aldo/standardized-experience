@@ -115,6 +115,10 @@
     border-bottom: black 2px solid;
 }
 
+.qImage {
+    max-width: 100%;
+}
+
 input:focus,select:focus,textarea:focus,button:focus {
     outline: none;
 }
