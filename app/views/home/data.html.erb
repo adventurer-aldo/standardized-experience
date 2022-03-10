@@ -1,6 +1,6 @@
 <head><title>Data | SE</title></head><%=render 'header'%>
 <p><b>Create a new question for Anatomy.</b></p>
-<%= form_with do |form| %>
+<%= form_with autocomplete: false do |form| %>
     <%= form.hidden_field :level, value: 2 %>
     <%= form.label :question, "Question:" %>
     <%= form.text_field :question, required: true %>
@@ -12,7 +12,7 @@
     <%= form.text_field :choices %><br>
     <p><b>Will this be for Theorical or Practical?</b></p>
     <%= form.label :subject, "Anatomia Humana II(Prática)"%>
-    <%= form.radio_button :subject, "Anatomia Humana II(Prática)" %>
+    <%= form.radio_button :subject, "Anatomia Humana II(Prática)", selected: true %>
     <%= form.label :subject, "Anatomia Humana II(Teórica)"%>
     <%= form.radio_button :subject, "Anatomia Humana II(Teórica)" %>
     <p><b>Select the type.</b></p>
