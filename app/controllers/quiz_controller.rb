@@ -11,6 +11,7 @@ class QuizController < ApplicationController
         @ending = ""
 
         @testName = [
+            "Exercícios",
             "Teste 1",
             "Teste 2",
             "Teste de Reposição",
@@ -24,8 +25,8 @@ class QuizController < ApplicationController
         when 0
             @ending = "RR/BM"
         when 1
-            @testName[0] = "1º Teste de Frequência"
-            @testName[0] = "2º Teste de Frequência"
+            @testName[1] = "1º Teste de Frequência"
+            @testName[2] = "2º Teste de Frequência"
         end
     end
 
