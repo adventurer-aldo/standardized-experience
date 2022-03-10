@@ -106,6 +106,7 @@
 .striket {
     text-decoration: line-through;
     text-decoration-color: red;
+    text-decoration-thickness: 4px;
 }
 
 input:focus,
