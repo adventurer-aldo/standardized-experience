@@ -8,7 +8,7 @@
             <% @type = eval(question.questiontype).sample
             case @type
             when :open
-                %><%= form.text_field "answer[#{(@questionObjects.index(question))}]", class: 'input-answer' %><%
+                %><%= form.text_inpt "answer[#{(@questionObjects.index(question))}]", class: 'input-answer widther' %><%
             when :choice
                 @question = question
                 sort_choices
@@ -39,7 +39,7 @@
                 
             when :caption
                 question.answer.split("|").each do
-                    %><%= form.text_field "answer[#{(@questionObjects.index(question))}][]", class: 'input-answer' %><br><%
+                    %><%= form.text_inpt "answer[#{(@questionObjects.index(question))}][]", class: 'input-answer widther' %><br><%
                 end
 
             when :table
