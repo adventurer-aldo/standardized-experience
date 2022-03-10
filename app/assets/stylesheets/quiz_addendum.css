@@ -95,9 +95,7 @@
     font-family: 'Homemade Apple', cursive;
     color: blue;
     font-size: larger;
-    padding-left: 10px;
-    text-decoration: underline;
-    text-decoration-color: black;
+    padding: 10px;
     line-height: 1.5rem;
     margin-top: 0px;
     white-space: initial;
@@ -107,6 +105,14 @@
     text-decoration: line-through;
     text-decoration-color: red;
     text-decoration-thickness: 4px;
+}
+
+.widther {
+    width:100%;
+    height: fit-content;
+    margin:0;
+    overflow: visible;
+    border-bottom: black 2px solid;
 }
 
 input:focus,
