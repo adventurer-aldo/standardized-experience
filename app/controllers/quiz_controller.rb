@@ -66,7 +66,7 @@ class QuizController < ApplicationController
         if params[:level] == 0
             @format = rand(@formats).round(0)
         else
-            @format = Subject.select(:preferredFormat).where(subject: params[:subject]).preferredFormat
+            @format = Subject.find_by(subject: params[:subject]).preferredFormat
             @format = 0 unless @formats.include?(@format)
         end
         
