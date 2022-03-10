@@ -102,7 +102,7 @@
             %><% @real_alts = question.answer.split('|')
                 @ans.attempt.split('|').each do |str|
                 if @real_alts.include?(str)
-                %><span class='striket input-answer'><%= str %></span><span class='input-answer red '> ✓</span><br><%
+                %><span class='input-answer'><%= str %></span><span class='input-answer red '> ✓</span><br><%
                     @real_alts -= [str]
                 else
                     %><span class='striket input-answer'><%= str %></span><span class='input-answer red '> ✗</span><br><%
