@@ -66,11 +66,11 @@ class QuizController < ApplicationController
         if params[:level] == 0
             @format = rand(@formats).round(0)
         else
-            @format = Subject.find_by(title: params[:subject]).preferredFormat
+            @format = Subject.find_by(title: params[:subject]).preferredformat
             @format = 0 unless @formats.include?(@format)
         end
         
-        params[:level] == 0 ? @journey = 0 : @journey = Statistic.first.activeJourneyId
+        params[:level] == 0 ? @journey = 0 : @journey = Statistic.first.activejourneyid
 
         baseQuery = Question.select(:id, :tags).where(%Q(subject='#{params[:subject]}')).order(Arel.sql('RANDOM()')).group(:id)
         
