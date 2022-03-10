@@ -39,7 +39,9 @@
             elsif @ans.attempt != ""
                 %><span class='ek'></span><% 
             end
-            %><span class='input-answer'><%= @ans.attempt %></span></p><%
+            %><span class='input-answer'><%= @ans.attempt %>
+            <% unless @right %><span class='red'><b>R:</b> <%= @question.answer %> <% end %>
+            </span></p><%
 
         when :choice
             @question = question
@@ -92,9 +94,15 @@
             end
 
         when :caption
-            %><b>R: </b><% @ans.attempt.split('|').each do |str|
-                %><%= str %><br><%
-            end %></p><%
+            %><b>R: </b><% @real_alts = question.answer.split('|')
+                @ans.attempt.split('|').each do |str|
+                if @real_alts.include?(str)
+                %><%= str %><span class='red'> ✓</span><br><%
+                    @real_alts -= str
+                else
+                    %><%= str %><span class='red'> ✗</span><br><%
+                end
+            end %><span class='red'><%= @real_alts.split("<br>").html_safe%></span></p><%
 
         when :table
 

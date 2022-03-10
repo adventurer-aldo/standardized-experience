@@ -102,6 +102,11 @@
     white-space: pre;
 }
 
+.striket {
+    text-decoration: line-through;
+    text-decoration-color: red;
+}
+
 input:focus,
 select:focus,
 textarea:focus,
