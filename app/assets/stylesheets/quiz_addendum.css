@@ -122,3 +122,9 @@
 input:focus,select:focus,textarea:focus,button:focus {
     outline: none;
 }
+
+@media screen and (max-width: 768px) {
+    .score {
+        left: 60%;
+    }
+}
