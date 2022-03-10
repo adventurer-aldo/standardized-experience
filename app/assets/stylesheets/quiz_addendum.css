@@ -115,9 +115,6 @@
     border-bottom: black 2px solid;
 }
 
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
+input:focus,select:focus,textarea:focus,button:focus {
     outline: none;
 }
