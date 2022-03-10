@@ -3,7 +3,9 @@
 <%= form_with do |form| %>
     <%= form.hidden_field :level, value: 2 %>
     <%= form.label :question, "Question:" %>
-    <%= form.text_field :question, required: true %><br>
+    <%= form.text_field :question, required: true %>
+    <%= form.label :image, "Image:" %>
+    <%= form.text_field :image %><br>
     <%= form.label :answer, "Answer:" %>
     <%= form.text_field :answer, required: true  %><br>
     <%= form.label :choices, "Choices:" %>

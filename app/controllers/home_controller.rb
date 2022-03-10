@@ -3,7 +3,12 @@ class HomeController < ApplicationController
     end
 
     def submit_question
-        Question.create(question: params[:question],
+        @question = params[:question]
+        unless params[:image] == ""
+            @question << "<img class='qImage' src='#{params[:image]}'>"
+        end
+
+        Question.create(question: @question,
         questiontype: params[:type],
         answer: params[:answer],
         choices: params[:choices],
