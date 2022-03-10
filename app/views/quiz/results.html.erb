@@ -102,7 +102,7 @@
                 else
                     %><%= str %><span class='red'> ✗</span><br><%
                 end
-            end %><span class='red'><%= @real_alts.split("<br>").html_safe%></span></p><%
+            end %><span class='red'><%= @real_alts.join("<br>").html_safe%></span></p><%
 
         when :table
 
