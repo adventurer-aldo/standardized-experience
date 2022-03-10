@@ -98,7 +98,7 @@
                 @ans.attempt.split('|').each do |str|
                 if @real_alts.include?(str)
                 %><%= str %><span class='red'> ✓</span><br><%
-                    @real_alts -= str
+                    @real_alts -= [str]
                 else
                     %><%= str %><span class='red'> ✗</span><br><%
                 end
