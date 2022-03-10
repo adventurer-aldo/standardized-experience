@@ -1,7 +1,7 @@
 $(document).ready(function(){
     // Set the date we're counting down to
     var ehhh = new Date();
-    var countDownDate = new Date(ehhh.getTime() + 0.175*60000);
+    var countDownDate = new Date(ehhh.getTime() + quiz_timer*60000);
 
 // Update the count down every 1 second
     var x = setInterval(function() {
@@ -26,20 +26,6 @@ $(document).ready(function(){
     clearInterval(x);
     document.getElementById("timer").innerHTML = "Time's up!";
     document.getElementById("quiz").submit();
-  } else if (minutes == 1 && seconds == 30) {
-    var primeiro = document.getElementById('test1');
-    if (primeiro != null) {document.getElementById('test1').src='audio/rushtest1.mp3'; };
-
-    var segundo = document.getElementById('test2');
-    if (segundo != null) {document.getElementById('test2').src='audio/rushtest2.mp3'; };
-
-    var terceiro = document.getElementById('exam');
-    if (terceiro != null) {document.getElementById('exam').src='audio/rushexam.mp3'; };
-
-    var quarto = document.getElementById('examrec');
-    if (quarto != null) {document.getElementById('examrec').src='audio/rushexam.mp3'; };
-
-    document.getElementById('theme').load();
   };
 }, 1000);
 });
