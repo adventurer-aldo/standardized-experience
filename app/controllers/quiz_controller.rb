@@ -198,7 +198,11 @@ class QuizController < ApplicationController
         shift
         @answerObjects.each do |anst|
             quest = @questionObjects[@answerObjects.index(anst)]
-            @grade += anst.grade if anst.attempt.split('|') == quest.answer.split('|')
+            if eval(quest.parameters).include?(:strict_order)
+                @grade += anst.grade if anst.attempt.split('|') == quest.answer.split('|')
+            else
+                @grade += anst.grade if anst.attempt.split('|').sort == quest.answer.split('|').sort
+            end
         end
     end
  

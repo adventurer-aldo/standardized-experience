@@ -24,7 +24,11 @@
         <p style='position: relative'><% 
         @ans = @answerObjects[@questionObjects.index(question)]
         @parameters = eval(@ans.parameters)
-        @right = question.answer.split('|') == @ans.attempt.split('|')
+        @right= if eval(question.parameters).include?(:strict_order)
+                    question.answer.split('|') == @ans.attempt.split('|')
+                else
+                    question.answer.split('|').sort == @ans.attempt.split('|').sort
+                end
         if @right
             %><span style='position: relative'><span class='grade'><%=%><%=number_with_precision @ans.grade, significant: true, precision: 2, separator: ',' %></span></span><%
         else
@@ -94,15 +98,15 @@
             end
 
         when :caption
-            %><b>R: </b><% @real_alts = question.answer.split('|')
+            %><% @real_alts = question.answer.split('|')
                 @ans.attempt.split('|').each do |str|
                 if @real_alts.include?(str)
-                %><%= str %><span class='red'> ✓</span><br><%
+                %><%= str %><span class='red input-answer'> ✓</span><br><%
                     @real_alts -= [str]
                 else
-                    %><%= str %><span class='red'> ✗</span><br><%
+                    %><%= str %><span class='red input-answer'> ✗</span><br><%
                 end
-            end %><span class='red'><%= @real_alts.join("<br>").html_safe%></span></p><%
+            end %><span class='red input-answer'><%= @real_alts.join("<br>").html_safe%></span></p><%
 
         when :table
 
