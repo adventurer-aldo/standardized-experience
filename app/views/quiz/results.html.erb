@@ -39,8 +39,8 @@
             elsif @ans.attempt != ""
                 %><span class='ek'></span><% 
             end
-            %><span class='input-answer'><%= @ans.attempt %>
-            <% unless @right %><span class='red'><b>R:</b> <%= question.answer %> <% end %>
+            %><span class='input-answer'><%= @ans.attempt %></span>
+            <% unless @right %><span class='red'><span class='input-answer'><b>R:</b> <%= question.answer %></span> <% end %>
             </span></p><%
 
         when :choice
