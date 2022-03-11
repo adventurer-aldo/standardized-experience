@@ -208,7 +208,7 @@ class QuizController < ApplicationController
 
         if @grade < 7
             @fanfare = "https://vgmsite.com/soundtracks/fire-emblem-awakening/hjmlcdyjor/1-16%20-%20Farewell...my%20friends....mp3"
-        elsif  @grade < 11
+        elsif  @grade < 10
             @fanfare = "https://vgmsite.com/soundtracks/rpg-maker-mv-ost/nybqpgcdjt/Gameover1.mp3"
         elsif @grade < 15
             @fanfare = "https://vgmsite.com/soundtracks/rpg-maker-mv-ost/tksshzgtjq/Fanfare3.mp3"
