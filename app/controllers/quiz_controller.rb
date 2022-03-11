@@ -106,7 +106,7 @@ class QuizController < ApplicationController
             @answer = Answer.create(
                 attempt: "",
                 questionid: n,
-                grade: (20/@questionsArray.size)
+                grade: (Float(20)/@questionsArray.size)
             )
             @answersArray << @answer.id
         end
