@@ -184,7 +184,7 @@ class QuizController < ApplicationController
     #=======================================================================================
     def results
         @currentQuiz = Quiz.find_by(id: params[:id])
-        @grade = 0
+        @grade = Float(0)
 
         @quizStart = Time.at(@currentQuiz.timestarted)
         @quizEnd = Time.at(@quizStart.to_i + @quizDurations[@currentQuiz.level]*60)
