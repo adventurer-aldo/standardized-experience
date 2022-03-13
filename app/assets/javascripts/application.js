@@ -1,6 +1,3 @@
-import "@hotwired/turbo-rails"
-import "./components/seconds.jsx"
-
 (() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
