@@ -8,6 +8,6 @@
         "react-dom": "^17.0.2"
     },
     "scripts": {
-        "build": "esbuild --bundle app/assets/javascripts/build_file.js --outfile=app/javascript/application.js"
+        "build": "esbuild --bundle app/build_file.js --outfile=app/javascript/application.js"
     }
 }
