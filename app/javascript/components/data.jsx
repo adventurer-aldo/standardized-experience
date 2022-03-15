@@ -7,7 +7,7 @@ class QType extends React.Component {
     choice: 'open'
   }
 
-  handleClick = (index) => this.setState({ activeIndex: index, choice: [':open',':choice',':multichoice',':veracity',':caption',':table',':formula'][this.state.activeIndex] })
+  handleClick = (index) => this.setState({ activeIndex: index, choice: [':open',':choice',':multichoice',':veracity',':caption',':table',':formula'][index] })
 
   render() {
     return <div><b>Select the type:</b> 

@@ -24219,7 +24219,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       activeIndex: type,
       choice: "open"
     };
-    handleClick = (index) => this.setState({ activeIndex: index, choice: [":open", ":choice", ":multichoice", ":veracity", ":caption", ":table", ":formula"][this.state.activeIndex] });
+    handleClick = (index) => this.setState({ activeIndex: index, choice: [":open", ":choice", ":multichoice", ":veracity", ":caption", ":table", ":formula"][index] });
     render() {
       return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("b", null, "Select the type:"), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
         name: "Open",
