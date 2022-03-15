@@ -21,3 +21,10 @@
 #questiontype {
   display: inline-block
 }
+
+.submitBtn {
+  display: block;
+  border: none;
+  background-color: black;
+  color: white;
+}

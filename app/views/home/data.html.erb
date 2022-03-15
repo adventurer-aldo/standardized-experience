@@ -11,9 +11,8 @@
     <%= form.label :choices, "Choices:" %>
     <%= form.text_field :choices %><br>
     <p><b>Will this be for Theorical or Practical?</b></p>
-    <%= form.label :subject, "Anatomia Humana II(Prática)"%>
-    <%= form.radio_button :subject, "Anatomia Humana II(Prática)", checked: true %>
+    <%= form.label :subject, @subject, :subject, :to_s %>
     <div id='questiontype'></div>
-    <%= form.submit "Submit question"%>
+    <%= form.submit "Submit question", class: 'submitBtn' %>
 <% end %>
 </div>
