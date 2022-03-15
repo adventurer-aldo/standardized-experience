@@ -1,9 +1,6 @@
 class HomeController < ApplicationController
     def index
-        @r = Question.all 
-        @r.each do |quest|
-            quest.update(question: quest.question.gsub("\\",""))
-        end
+        
     end
 
     def data
