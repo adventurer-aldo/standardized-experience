@@ -24214,26 +24214,6 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   // app/javascript/components/seconds.jsx
   var import_react = __toESM(require_react());
   var import_react_dom = __toESM(require_react_dom());
-  var Timer = class extends import_react.default.Component {
-    constructor(props) {
-      super(props);
-      this.state = { seconds: 0 };
-    }
-    tick() {
-      this.setState((state) => ({
-        seconds: state.seconds + 1
-      }));
-    }
-    componentDidMount() {
-      this.interval = setInterval(() => this.tick(), 1e3);
-    }
-    componentWillUnmount() {
-      clearInterval(this.interval);
-    }
-    render() {
-      return /* @__PURE__ */ import_react.default.createElement("div", null, "Seconds: ", this.state.seconds);
-    }
-  };
   var Container = class extends import_react.default.Component {
     state = {
       activeIndex: 0,
@@ -24291,27 +24271,6 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         className: this.props.isActive ? "btnType onType" : "btnType offType",
         onClick: this.handleClick
       }, /* @__PURE__ */ import_react.default.createElement("span", null, this.props.name));
-    }
-  };
-  var Question = class extends import_react.default.Component {
-    constructor(props) {
-      super(props);
-      this.value = "open";
-    }
-    render() {
-      return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("input", {
-        type: "hidden",
-        name: "type",
-        value: this.value
-      }), /* @__PURE__ */ import_react.default.createElement("input", {
-        className: "btnType",
-        type: "button",
-        value: "Open"
-      }), /* @__PURE__ */ import_react.default.createElement("input", {
-        className: "btnType",
-        type: "button",
-        value: "Choice"
-      }));
     }
   };
   import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(Container, null), document.getElementById("questiontype"));

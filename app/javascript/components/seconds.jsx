@@ -1,35 +1,6 @@
 import React from "react"
 import ReactDOM  from "react-dom"
 
-class Timer extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = { seconds: 0 };
-    }
-  
-    tick() {
-      this.setState(state => ({
-        seconds: state.seconds + 1
-      }));
-    }
-  
-    componentDidMount() {
-      this.interval = setInterval(() => this.tick(), 1000);
-    }
-  
-    componentWillUnmount() {
-      clearInterval(this.interval);
-    }
-  
-    render() {
-      return (
-        <div>
-          Seconds: {this.state.seconds}
-        </div>
-      );
-    }
-}
-  
 class Container extends React.Component {
   state = {
     activeIndex: 0,
@@ -65,22 +36,6 @@ class MyClickable extends React.Component {
     >
       <span>{ this.props.name }</span>
     </button>
-  }
-}
-
-class Question extends React.Component {
-  constructor(props) {
-    super(props);
-    this.value = "open";
-  }
-  render() {
-    return (
-      <div>
-      <input type="hidden" name="type" value={this.value} />
-      <input className="btnType" type='button' value="Open" /> 
-      <input className="btnType" type='button' value="Choice" />
-      </div>
-    );
   }
 }
 
