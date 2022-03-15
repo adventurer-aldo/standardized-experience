@@ -57,6 +57,8 @@
                 @check_answer = @ans.attempt.split('|').include?(choice)
                 if @check_answer && @check_question
                 %><span class='red'> ✓</span> </b><%= choice.html_safe %><br><%
+                elsif !@check_answer && @check_question
+                %><span class='red'> 𝒪</span> </b><%= choice.html_safe %><br><%
                 elsif @check_answer && !@check_question
                 %><span class='red'> ✗</span> </b><%= choice.html_safe %><br><%
                 else
@@ -73,6 +75,8 @@
                 @check_answer = @ans.attempt.split('|').include?(choice)
                 if @check_answer && @check_question
                 %><span class='red'> ✓</span> </b><%= choice.html_safe %><br><%
+                elsif !@check_answer && @check_question
+                %><span class='red'> 𝒪</span> </b><%= choice.html_safe %><br><%
                 elsif @check_answer && !@check_question
                 %><span class='red'> ✗</span> </b><%= choice.html_safe %><br><%
                 else
