@@ -3,11 +3,11 @@ import ReactDOM  from "react-dom"
 
 class QType extends React.Component {
   state = {
-    activeIndex: 0,
+    activeIndex: type,
     choice: 'open'
   }
 
-  handleClick = (index) => this.setState({ activeIndex: index, choice: ['open','choice','multichoice','veracity','caption','table','formula'][this.state.activeIndex] })
+  handleClick = (index) => this.setState({ activeIndex: index, choice: [':open',':choice',':multichoice',':veracity',':caption',':table',':formula'][this.state.activeIndex] })
 
   render() {
     return <div><b>Select the type:</b> 
@@ -24,7 +24,7 @@ class QType extends React.Component {
 }
 class Level extends React.Component {
   state = {
-    level: 1
+    level: level
   }
 
   handleClick = (index) => this.setState({ level: index })

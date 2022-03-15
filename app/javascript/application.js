@@ -296,8 +296,8 @@
           if (!this.isProtocolSupported()) {
             return;
           }
-          const { identifier, message, reason, reconnect, type } = JSON.parse(event.data);
-          switch (type) {
+          const { identifier, message, reason, reconnect, type: type2 } = JSON.parse(event.data);
+          switch (type2) {
             case message_types.welcome:
               this.monitor.recordConnect();
               return this.subscriptions.reload();
@@ -782,7 +782,7 @@
               printWarning("error", format, args);
             }
           }
-          function printWarning(level, format, args) {
+          function printWarning(level2, format, args) {
             {
               var ReactDebugCurrentFrame2 = ReactSharedInternals.ReactDebugCurrentFrame;
               var stack = ReactDebugCurrentFrame2.getStackAddendum();
@@ -794,7 +794,7 @@
                 return "" + item;
               });
               argsWithFormat.unshift("Warning: " + format);
-              Function.prototype.apply.call(console[level], console, argsWithFormat);
+              Function.prototype.apply.call(console[level2], console, argsWithFormat);
             }
           }
           var didWarnStateUpdateForUnmountedComponent = {};
@@ -891,25 +891,25 @@
             var functionName = innerType.displayName || innerType.name || "";
             return outerType.displayName || (functionName !== "" ? wrapperName + "(" + functionName + ")" : wrapperName);
           }
-          function getContextName(type) {
-            return type.displayName || "Context";
+          function getContextName(type2) {
+            return type2.displayName || "Context";
           }
-          function getComponentName(type) {
-            if (type == null) {
+          function getComponentName(type2) {
+            if (type2 == null) {
               return null;
             }
             {
-              if (typeof type.tag === "number") {
+              if (typeof type2.tag === "number") {
                 error("Received an unexpected object in getComponentName(). This is likely a bug in React. Please file an issue.");
               }
             }
-            if (typeof type === "function") {
-              return type.displayName || type.name || null;
+            if (typeof type2 === "function") {
+              return type2.displayName || type2.name || null;
             }
-            if (typeof type === "string") {
-              return type;
+            if (typeof type2 === "string") {
+              return type2;
             }
-            switch (type) {
+            switch (type2) {
               case exports.Fragment:
                 return "Fragment";
               case REACT_PORTAL_TYPE:
@@ -923,22 +923,22 @@
               case REACT_SUSPENSE_LIST_TYPE:
                 return "SuspenseList";
             }
-            if (typeof type === "object") {
-              switch (type.$$typeof) {
+            if (typeof type2 === "object") {
+              switch (type2.$$typeof) {
                 case REACT_CONTEXT_TYPE:
-                  var context = type;
+                  var context = type2;
                   return getContextName(context) + ".Consumer";
                 case REACT_PROVIDER_TYPE:
-                  var provider = type;
+                  var provider = type2;
                   return getContextName(provider._context) + ".Provider";
                 case REACT_FORWARD_REF_TYPE:
-                  return getWrappedName(type, type.render, "ForwardRef");
+                  return getWrappedName(type2, type2.render, "ForwardRef");
                 case REACT_MEMO_TYPE:
-                  return getComponentName(type.type);
+                  return getComponentName(type2.type);
                 case REACT_BLOCK_TYPE:
-                  return getComponentName(type._render);
+                  return getComponentName(type2._render);
                 case REACT_LAZY_TYPE: {
-                  var lazyComponent = type;
+                  var lazyComponent = type2;
                   var payload = lazyComponent._payload;
                   var init = lazyComponent._init;
                   try {
@@ -1025,10 +1025,10 @@
               }
             }
           }
-          var ReactElement = function(type, key, ref, self2, source, owner, props) {
+          var ReactElement = function(type2, key, ref, self2, source, owner, props) {
             var element = {
               $$typeof: REACT_ELEMENT_TYPE,
-              type,
+              type: type2,
               key,
               ref,
               props,
@@ -1061,7 +1061,7 @@
             }
             return element;
           };
-          function createElement(type, config, children) {
+          function createElement(type2, config, children) {
             var propName;
             var props = {};
             var key = null;
@@ -1101,8 +1101,8 @@
               }
               props.children = childArray;
             }
-            if (type && type.defaultProps) {
-              var defaultProps = type.defaultProps;
+            if (type2 && type2.defaultProps) {
+              var defaultProps = type2.defaultProps;
               for (propName in defaultProps) {
                 if (props[propName] === void 0) {
                   props[propName] = defaultProps[propName];
@@ -1111,7 +1111,7 @@
             }
             {
               if (key || ref) {
-                var displayName = typeof type === "function" ? type.displayName || type.name || "Unknown" : type;
+                var displayName = typeof type2 === "function" ? type2.displayName || type2.name || "Unknown" : type2;
                 if (key) {
                   defineKeyPropWarningGetter(props, displayName);
                 }
@@ -1120,7 +1120,7 @@
                 }
               }
             }
-            return ReactElement(type, key, ref, self2, source, ReactCurrentOwner.current, props);
+            return ReactElement(type2, key, ref, self2, source, ReactCurrentOwner.current, props);
           }
           function cloneAndReplaceKey(oldElement, newKey) {
             var newElement = ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
@@ -1201,15 +1201,15 @@
             return index.toString(36);
           }
           function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
-            var type = typeof children;
-            if (type === "undefined" || type === "boolean") {
+            var type2 = typeof children;
+            if (type2 === "undefined" || type2 === "boolean") {
               children = null;
             }
             var invokeCallback = false;
             if (children === null) {
               invokeCallback = true;
             } else {
-              switch (type) {
+              switch (type2) {
                 case "string":
                 case "number":
                   invokeCallback = true;
@@ -1272,7 +1272,7 @@
                   nextName = nextNamePrefix + getElementKey(child, ii++);
                   subtreeCount += mapIntoArray(child, array, escapedPrefix, nextName, callback);
                 }
-              } else if (type === "object") {
+              } else if (type2 === "object") {
                 var childrenString = "" + children;
                 {
                   {
@@ -1538,29 +1538,29 @@
             return elementType2;
           }
           var enableScopeAPI = false;
-          function isValidElementType(type) {
-            if (typeof type === "string" || typeof type === "function") {
+          function isValidElementType(type2) {
+            if (typeof type2 === "string" || typeof type2 === "function") {
               return true;
             }
-            if (type === exports.Fragment || type === exports.Profiler || type === REACT_DEBUG_TRACING_MODE_TYPE || type === exports.StrictMode || type === exports.Suspense || type === REACT_SUSPENSE_LIST_TYPE || type === REACT_LEGACY_HIDDEN_TYPE || enableScopeAPI) {
+            if (type2 === exports.Fragment || type2 === exports.Profiler || type2 === REACT_DEBUG_TRACING_MODE_TYPE || type2 === exports.StrictMode || type2 === exports.Suspense || type2 === REACT_SUSPENSE_LIST_TYPE || type2 === REACT_LEGACY_HIDDEN_TYPE || enableScopeAPI) {
               return true;
             }
-            if (typeof type === "object" && type !== null) {
-              if (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_BLOCK_TYPE || type[0] === REACT_SERVER_BLOCK_TYPE) {
+            if (typeof type2 === "object" && type2 !== null) {
+              if (type2.$$typeof === REACT_LAZY_TYPE || type2.$$typeof === REACT_MEMO_TYPE || type2.$$typeof === REACT_PROVIDER_TYPE || type2.$$typeof === REACT_CONTEXT_TYPE || type2.$$typeof === REACT_FORWARD_REF_TYPE || type2.$$typeof === REACT_FUNDAMENTAL_TYPE || type2.$$typeof === REACT_BLOCK_TYPE || type2[0] === REACT_SERVER_BLOCK_TYPE) {
                 return true;
               }
             }
             return false;
           }
-          function memo(type, compare) {
+          function memo(type2, compare) {
             {
-              if (!isValidElementType(type)) {
-                error("memo: The first argument must be a component. Instead received: %s", type === null ? "null" : typeof type);
+              if (!isValidElementType(type2)) {
+                error("memo: The first argument must be a component. Instead received: %s", type2 === null ? "null" : typeof type2);
               }
             }
             var elementType2 = {
               $$typeof: REACT_MEMO_TYPE,
-              type,
+              type: type2,
               compare: compare === void 0 ? null : compare
             };
             {
@@ -1573,8 +1573,8 @@
                 },
                 set: function(name) {
                   ownName = name;
-                  if (type.displayName == null) {
-                    type.displayName = name;
+                  if (type2.displayName == null) {
+                    type2.displayName = name;
                   }
                 }
               });
@@ -1853,34 +1853,34 @@
             var prototype = Component2.prototype;
             return !!(prototype && prototype.isReactComponent);
           }
-          function describeUnknownElementTypeFrameInDEV(type, source, ownerFn) {
-            if (type == null) {
+          function describeUnknownElementTypeFrameInDEV(type2, source, ownerFn) {
+            if (type2 == null) {
               return "";
             }
-            if (typeof type === "function") {
+            if (typeof type2 === "function") {
               {
-                return describeNativeComponentFrame(type, shouldConstruct(type));
+                return describeNativeComponentFrame(type2, shouldConstruct(type2));
               }
             }
-            if (typeof type === "string") {
-              return describeBuiltInComponentFrame(type);
+            if (typeof type2 === "string") {
+              return describeBuiltInComponentFrame(type2);
             }
-            switch (type) {
+            switch (type2) {
               case exports.Suspense:
                 return describeBuiltInComponentFrame("Suspense");
               case REACT_SUSPENSE_LIST_TYPE:
                 return describeBuiltInComponentFrame("SuspenseList");
             }
-            if (typeof type === "object") {
-              switch (type.$$typeof) {
+            if (typeof type2 === "object") {
+              switch (type2.$$typeof) {
                 case REACT_FORWARD_REF_TYPE:
-                  return describeFunctionComponentFrame(type.render);
+                  return describeFunctionComponentFrame(type2.render);
                 case REACT_MEMO_TYPE:
-                  return describeUnknownElementTypeFrameInDEV(type.type, source, ownerFn);
+                  return describeUnknownElementTypeFrameInDEV(type2.type, source, ownerFn);
                 case REACT_BLOCK_TYPE:
-                  return describeFunctionComponentFrame(type._render);
+                  return describeFunctionComponentFrame(type2._render);
                 case REACT_LAZY_TYPE: {
-                  var lazyComponent = type;
+                  var lazyComponent = type2;
                   var payload = lazyComponent._payload;
                   var init = lazyComponent._init;
                   try {
@@ -2037,27 +2037,27 @@
           }
           function validatePropTypes(element) {
             {
-              var type = element.type;
-              if (type === null || type === void 0 || typeof type === "string") {
+              var type2 = element.type;
+              if (type2 === null || type2 === void 0 || typeof type2 === "string") {
                 return;
               }
               var propTypes;
-              if (typeof type === "function") {
-                propTypes = type.propTypes;
-              } else if (typeof type === "object" && (type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_MEMO_TYPE)) {
-                propTypes = type.propTypes;
+              if (typeof type2 === "function") {
+                propTypes = type2.propTypes;
+              } else if (typeof type2 === "object" && (type2.$$typeof === REACT_FORWARD_REF_TYPE || type2.$$typeof === REACT_MEMO_TYPE)) {
+                propTypes = type2.propTypes;
               } else {
                 return;
               }
               if (propTypes) {
-                var name = getComponentName(type);
+                var name = getComponentName(type2);
                 checkPropTypes(propTypes, element.props, "prop", name, element);
-              } else if (type.PropTypes !== void 0 && !propTypesMisspellWarningShown) {
+              } else if (type2.PropTypes !== void 0 && !propTypesMisspellWarningShown) {
                 propTypesMisspellWarningShown = true;
-                var _name = getComponentName(type);
+                var _name = getComponentName(type2);
                 error("Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?", _name || "Unknown");
               }
-              if (typeof type.getDefaultProps === "function" && !type.getDefaultProps.isReactClassApproved) {
+              if (typeof type2.getDefaultProps === "function" && !type2.getDefaultProps.isReactClassApproved) {
                 error("getDefaultProps is only used on classic React.createClass definitions. Use a static property named `defaultProps` instead.");
               }
             }
@@ -2081,11 +2081,11 @@
               }
             }
           }
-          function createElementWithValidation(type, props, children) {
-            var validType = isValidElementType(type);
+          function createElementWithValidation(type2, props, children) {
+            var validType = isValidElementType(type2);
             if (!validType) {
               var info = "";
-              if (type === void 0 || typeof type === "object" && type !== null && Object.keys(type).length === 0) {
+              if (type2 === void 0 || typeof type2 === "object" && type2 !== null && Object.keys(type2).length === 0) {
                 info += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.";
               }
               var sourceInfo = getSourceInfoErrorAddendumForProps(props);
@@ -2095,15 +2095,15 @@
                 info += getDeclarationErrorAddendum();
               }
               var typeString;
-              if (type === null) {
+              if (type2 === null) {
                 typeString = "null";
-              } else if (Array.isArray(type)) {
+              } else if (Array.isArray(type2)) {
                 typeString = "array";
-              } else if (type !== void 0 && type.$$typeof === REACT_ELEMENT_TYPE) {
-                typeString = "<" + (getComponentName(type.type) || "Unknown") + " />";
+              } else if (type2 !== void 0 && type2.$$typeof === REACT_ELEMENT_TYPE) {
+                typeString = "<" + (getComponentName(type2.type) || "Unknown") + " />";
                 info = " Did you accidentally export a JSX literal instead of a component?";
               } else {
-                typeString = typeof type;
+                typeString = typeof type2;
               }
               {
                 error("React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
@@ -2115,10 +2115,10 @@
             }
             if (validType) {
               for (var i = 2; i < arguments.length; i++) {
-                validateChildKeys(arguments[i], type);
+                validateChildKeys(arguments[i], type2);
               }
             }
-            if (type === exports.Fragment) {
+            if (type2 === exports.Fragment) {
               validateFragmentProps(element);
             } else {
               validatePropTypes(element);
@@ -2126,9 +2126,9 @@
             return element;
           }
           var didWarnAboutDeprecatedCreateFactory = false;
-          function createFactoryWithValidation(type) {
-            var validatedFactory = createElementWithValidation.bind(null, type);
-            validatedFactory.type = type;
+          function createFactoryWithValidation(type2) {
+            var validatedFactory = createElementWithValidation.bind(null, type2);
+            validatedFactory.type = type2;
             {
               if (!didWarnAboutDeprecatedCreateFactory) {
                 didWarnAboutDeprecatedCreateFactory = true;
@@ -2139,9 +2139,9 @@
                 get: function() {
                   warn("Factory.type is deprecated. Access the class directly before passing it to createFactory.");
                   Object.defineProperty(this, "type", {
-                    value: type
+                    value: type2
                   });
-                  return type;
+                  return type2;
                 }
               });
             }
@@ -3024,7 +3024,7 @@
               printWarning("error", format, args);
             }
           }
-          function printWarning(level, format, args) {
+          function printWarning(level2, format, args) {
             {
               var ReactDebugCurrentFrame2 = ReactSharedInternals.ReactDebugCurrentFrame;
               var stack = ReactDebugCurrentFrame2.getStackAddendum();
@@ -3036,7 +3036,7 @@
                 return "" + item;
               });
               argsWithFormat.unshift("Warning: " + format);
-              Function.prototype.apply.call(console[level], console, argsWithFormat);
+              Function.prototype.apply.call(console[level2], console, argsWithFormat);
             }
           }
           if (!React2) {
@@ -3192,13 +3192,13 @@
           function getPropertyInfo(name) {
             return properties.hasOwnProperty(name) ? properties[name] : null;
           }
-          function PropertyInfoRecord(name, type, mustUseProperty, attributeName, attributeNamespace, sanitizeURL2, removeEmptyString) {
-            this.acceptsBooleans = type === BOOLEANISH_STRING || type === BOOLEAN || type === OVERLOADED_BOOLEAN;
+          function PropertyInfoRecord(name, type2, mustUseProperty, attributeName, attributeNamespace, sanitizeURL2, removeEmptyString) {
+            this.acceptsBooleans = type2 === BOOLEANISH_STRING || type2 === BOOLEAN || type2 === OVERLOADED_BOOLEAN;
             this.attributeName = attributeName;
             this.attributeNamespace = attributeNamespace;
             this.mustUseProperty = mustUseProperty;
             this.propertyName = name;
-            this.type = type;
+            this.type = type2;
             this.sanitizeURL = sanitizeURL2;
             this.removeEmptyString = removeEmptyString;
           }
@@ -3482,8 +3482,8 @@
             if (mustUseProperty) {
               var propertyName = propertyInfo.propertyName;
               if (value === null) {
-                var type = propertyInfo.type;
-                node[propertyName] = type === BOOLEAN ? false : "";
+                var type2 = propertyInfo.type;
+                node[propertyName] = type2 === BOOLEAN ? false : "";
               } else {
                 node[propertyName] = value;
               }
@@ -3780,34 +3780,34 @@
             var prototype = Component.prototype;
             return !!(prototype && prototype.isReactComponent);
           }
-          function describeUnknownElementTypeFrameInDEV(type, source, ownerFn) {
-            if (type == null) {
+          function describeUnknownElementTypeFrameInDEV(type2, source, ownerFn) {
+            if (type2 == null) {
               return "";
             }
-            if (typeof type === "function") {
+            if (typeof type2 === "function") {
               {
-                return describeNativeComponentFrame(type, shouldConstruct(type));
+                return describeNativeComponentFrame(type2, shouldConstruct(type2));
               }
             }
-            if (typeof type === "string") {
-              return describeBuiltInComponentFrame(type);
+            if (typeof type2 === "string") {
+              return describeBuiltInComponentFrame(type2);
             }
-            switch (type) {
+            switch (type2) {
               case REACT_SUSPENSE_TYPE:
                 return describeBuiltInComponentFrame("Suspense");
               case REACT_SUSPENSE_LIST_TYPE:
                 return describeBuiltInComponentFrame("SuspenseList");
             }
-            if (typeof type === "object") {
-              switch (type.$$typeof) {
+            if (typeof type2 === "object") {
+              switch (type2.$$typeof) {
                 case REACT_FORWARD_REF_TYPE:
-                  return describeFunctionComponentFrame(type.render);
+                  return describeFunctionComponentFrame(type2.render);
                 case REACT_MEMO_TYPE:
-                  return describeUnknownElementTypeFrameInDEV(type.type, source, ownerFn);
+                  return describeUnknownElementTypeFrameInDEV(type2.type, source, ownerFn);
                 case REACT_BLOCK_TYPE:
-                  return describeFunctionComponentFrame(type._render);
+                  return describeFunctionComponentFrame(type2._render);
                 case REACT_LAZY_TYPE: {
-                  var lazyComponent = type;
+                  var lazyComponent = type2;
                   var payload = lazyComponent._payload;
                   var init = lazyComponent._init;
                   try {
@@ -3862,25 +3862,25 @@
             var functionName = innerType.displayName || innerType.name || "";
             return outerType.displayName || (functionName !== "" ? wrapperName + "(" + functionName + ")" : wrapperName);
           }
-          function getContextName(type) {
-            return type.displayName || "Context";
+          function getContextName(type2) {
+            return type2.displayName || "Context";
           }
-          function getComponentName(type) {
-            if (type == null) {
+          function getComponentName(type2) {
+            if (type2 == null) {
               return null;
             }
             {
-              if (typeof type.tag === "number") {
+              if (typeof type2.tag === "number") {
                 error("Received an unexpected object in getComponentName(). This is likely a bug in React. Please file an issue.");
               }
             }
-            if (typeof type === "function") {
-              return type.displayName || type.name || null;
+            if (typeof type2 === "function") {
+              return type2.displayName || type2.name || null;
             }
-            if (typeof type === "string") {
-              return type;
+            if (typeof type2 === "string") {
+              return type2;
             }
-            switch (type) {
+            switch (type2) {
               case REACT_FRAGMENT_TYPE:
                 return "Fragment";
               case REACT_PORTAL_TYPE:
@@ -3894,22 +3894,22 @@
               case REACT_SUSPENSE_LIST_TYPE:
                 return "SuspenseList";
             }
-            if (typeof type === "object") {
-              switch (type.$$typeof) {
+            if (typeof type2 === "object") {
+              switch (type2.$$typeof) {
                 case REACT_CONTEXT_TYPE:
-                  var context = type;
+                  var context = type2;
                   return getContextName(context) + ".Consumer";
                 case REACT_PROVIDER_TYPE:
-                  var provider = type;
+                  var provider = type2;
                   return getContextName(provider._context) + ".Provider";
                 case REACT_FORWARD_REF_TYPE:
-                  return getWrappedName(type, type.render, "ForwardRef");
+                  return getWrappedName(type2, type2.render, "ForwardRef");
                 case REACT_MEMO_TYPE:
-                  return getComponentName(type.type);
+                  return getComponentName(type2.type);
                 case REACT_BLOCK_TYPE:
-                  return getComponentName(type._render);
+                  return getComponentName(type2._render);
                 case REACT_LAZY_TYPE: {
-                  var lazyComponent = type;
+                  var lazyComponent = type2;
                   var payload = lazyComponent._payload;
                   var init = lazyComponent._init;
                   try {
@@ -4004,9 +4004,9 @@
             }
           }
           function isCheckable(elem) {
-            var type = elem.type;
+            var type2 = elem.type;
             var nodeName = elem.nodeName;
-            return nodeName && nodeName.toLowerCase() === "input" && (type === "checkbox" || type === "radio");
+            return nodeName && nodeName.toLowerCase() === "input" && (type2 === "checkbox" || type2 === "radio");
           }
           function getTracker(node) {
             return node._valueTracker;
@@ -4155,16 +4155,16 @@
             }
             updateChecked(element, props);
             var value = getToStringValue(props.value);
-            var type = props.type;
+            var type2 = props.type;
             if (value != null) {
-              if (type === "number") {
+              if (type2 === "number") {
                 if (value === 0 && node.value === "" || node.value != value) {
                   node.value = toString(value);
                 }
               } else if (node.value !== toString(value)) {
                 node.value = toString(value);
               }
-            } else if (type === "submit" || type === "reset") {
+            } else if (type2 === "submit" || type2 === "reset") {
               node.removeAttribute("value");
               return;
             }
@@ -4184,8 +4184,8 @@
           function postMountWrapper(element, props, isHydrating2) {
             var node = element;
             if (props.hasOwnProperty("value") || props.hasOwnProperty("defaultValue")) {
-              var type = props.type;
-              var isButton = type === "submit" || type === "reset";
+              var type2 = props.type;
+              var isButton = type2 === "submit" || type2 === "reset";
               if (isButton && (props.value === void 0 || props.value === null)) {
                 return;
               }
@@ -4242,8 +4242,8 @@
               }
             }
           }
-          function setDefaultValue(node, type, value) {
-            if (type !== "number" || getActiveElement(node.ownerDocument) !== node) {
+          function setDefaultValue(node, type2, value) {
+            if (type2 !== "number" || getActiveElement(node.ownerDocument) !== node) {
               if (value == null) {
                 node.defaultValue = toString(node._wrapperState.initialValue);
               } else if (node.defaultValue !== toString(value)) {
@@ -4515,8 +4515,8 @@
             mathml: MATH_NAMESPACE,
             svg: SVG_NAMESPACE
           };
-          function getIntrinsicNamespace(type) {
-            switch (type) {
+          function getIntrinsicNamespace(type2) {
+            switch (type2) {
               case "svg":
                 return SVG_NAMESPACE;
               case "math":
@@ -4525,11 +4525,11 @@
                 return HTML_NAMESPACE;
             }
           }
-          function getChildNamespace(parentNamespace, type) {
+          function getChildNamespace(parentNamespace, type2) {
             if (parentNamespace == null || parentNamespace === HTML_NAMESPACE) {
-              return getIntrinsicNamespace(type);
+              return getIntrinsicNamespace(type2);
             }
-            if (parentNamespace === SVG_NAMESPACE && type === "foreignObject") {
+            if (parentNamespace === SVG_NAMESPACE && type2 === "foreignObject") {
               return HTML_NAMESPACE;
             }
             return parentNamespace;
@@ -5488,11 +5488,11 @@
             }
             return true;
           }
-          function warnInvalidARIAProps(type, props) {
+          function warnInvalidARIAProps(type2, props) {
             {
               var invalidProps = [];
               for (var key in props) {
-                var isValid = validateProperty(type, key);
+                var isValid = validateProperty(type2, key);
                 if (!isValid) {
                   invalidProps.push(key);
                 }
@@ -5501,30 +5501,30 @@
                 return "`" + prop + "`";
               }).join(", ");
               if (invalidProps.length === 1) {
-                error("Invalid aria prop %s on <%s> tag. For details, see https://reactjs.org/link/invalid-aria-props", unknownPropString, type);
+                error("Invalid aria prop %s on <%s> tag. For details, see https://reactjs.org/link/invalid-aria-props", unknownPropString, type2);
               } else if (invalidProps.length > 1) {
-                error("Invalid aria props %s on <%s> tag. For details, see https://reactjs.org/link/invalid-aria-props", unknownPropString, type);
+                error("Invalid aria props %s on <%s> tag. For details, see https://reactjs.org/link/invalid-aria-props", unknownPropString, type2);
               }
             }
           }
-          function validateProperties(type, props) {
-            if (isCustomComponent(type, props)) {
+          function validateProperties(type2, props) {
+            if (isCustomComponent(type2, props)) {
               return;
             }
-            warnInvalidARIAProps(type, props);
+            warnInvalidARIAProps(type2, props);
           }
           var didWarnValueNull = false;
-          function validateProperties$1(type, props) {
+          function validateProperties$1(type2, props) {
             {
-              if (type !== "input" && type !== "textarea" && type !== "select") {
+              if (type2 !== "input" && type2 !== "textarea" && type2 !== "select") {
                 return;
               }
               if (props != null && props.value === null && !didWarnValueNull) {
                 didWarnValueNull = true;
-                if (type === "select" && props.multiple) {
-                  error("`value` prop on `%s` should not be null. Consider using an empty array when `multiple` is set to `true` to clear the component or `undefined` for uncontrolled components.", type);
+                if (type2 === "select" && props.multiple) {
+                  error("`value` prop on `%s` should not be null. Consider using an empty array when `multiple` is set to `true` to clear the component or `undefined` for uncontrolled components.", type2);
                 } else {
-                  error("`value` prop on `%s` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled components.", type);
+                  error("`value` prop on `%s` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled components.", type2);
                 }
               }
             }
@@ -5632,11 +5632,11 @@
               return true;
             };
           }
-          var warnUnknownProperties = function(type, props, eventRegistry) {
+          var warnUnknownProperties = function(type2, props, eventRegistry) {
             {
               var unknownProps = [];
               for (var key in props) {
-                var isValid = validateProperty$1(type, key, props[key], eventRegistry);
+                var isValid = validateProperty$1(type2, key, props[key], eventRegistry);
                 if (!isValid) {
                   unknownProps.push(key);
                 }
@@ -5645,17 +5645,17 @@
                 return "`" + prop + "`";
               }).join(", ");
               if (unknownProps.length === 1) {
-                error("Invalid value for prop %s on <%s> tag. Either remove it from the element, or pass a string or number value to keep it in the DOM. For details, see https://reactjs.org/link/attribute-behavior ", unknownPropString, type);
+                error("Invalid value for prop %s on <%s> tag. Either remove it from the element, or pass a string or number value to keep it in the DOM. For details, see https://reactjs.org/link/attribute-behavior ", unknownPropString, type2);
               } else if (unknownProps.length > 1) {
-                error("Invalid values for props %s on <%s> tag. Either remove them from the element, or pass a string or number value to keep them in the DOM. For details, see https://reactjs.org/link/attribute-behavior ", unknownPropString, type);
+                error("Invalid values for props %s on <%s> tag. Either remove them from the element, or pass a string or number value to keep them in the DOM. For details, see https://reactjs.org/link/attribute-behavior ", unknownPropString, type2);
               }
             }
           };
-          function validateProperties$2(type, props, eventRegistry) {
-            if (isCustomComponent(type, props)) {
+          function validateProperties$2(type2, props, eventRegistry) {
+            if (isCustomComponent(type2, props)) {
               return;
             }
-            warnUnknownProperties(type, props, eventRegistry);
+            warnUnknownProperties(type2, props, eventRegistry);
           }
           var IS_EVENT_HANDLE_NON_MANAGED_NODE = 1;
           var IS_NON_DELEGATED = 1 << 1;
@@ -5790,7 +5790,7 @@
           function isInteractive(tag) {
             return tag === "button" || tag === "input" || tag === "select" || tag === "textarea";
           }
-          function shouldPreventMouseEvent(name, type, props) {
+          function shouldPreventMouseEvent(name, type2, props) {
             switch (name) {
               case "onClick":
               case "onClickCapture":
@@ -5803,7 +5803,7 @@
               case "onMouseUp":
               case "onMouseUpCapture":
               case "onMouseEnter":
-                return !!(props.disabled && isInteractive(type));
+                return !!(props.disabled && isInteractive(type2));
               default:
                 return false;
             }
@@ -8559,9 +8559,9 @@
           var mediaEventTypes = ["abort", "canplay", "canplaythrough", "durationchange", "emptied", "encrypted", "ended", "error", "loadeddata", "loadedmetadata", "loadstart", "pause", "play", "playing", "progress", "ratechange", "seeked", "seeking", "stalled", "suspend", "timeupdate", "volumechange", "waiting"];
           var nonDelegatedEvents = new Set(["cancel", "close", "invalid", "load", "scroll", "toggle"].concat(mediaEventTypes));
           function executeDispatch(event, listener, currentTarget) {
-            var type = event.type || "unknown-event";
+            var type2 = event.type || "unknown-event";
             event.currentTarget = currentTarget;
-            invokeGuardedCallbackAndCatchFirstError(type, listener, void 0, event);
+            invokeGuardedCallbackAndCatchFirstError(type2, listener, void 0, event);
             event.currentTarget = null;
           }
           function processDispatchQueueItemsInOrder(event, dispatchListeners, inCapturePhase) {
@@ -8889,10 +8889,10 @@
               dialog: true,
               webview: true
             };
-            validatePropertiesInDevelopment = function(type, props) {
-              validateProperties(type, props);
-              validateProperties$1(type, props);
-              validateProperties$2(type, props, {
+            validatePropertiesInDevelopment = function(type2, props) {
+              validateProperties(type2, props);
+              validateProperties$1(type2, props);
+              validateProperties$2(type2, props, {
                 registrationNameDependencies,
                 possibleRegistrationNames
               });
@@ -9020,33 +9020,33 @@
               }
             }
           }
-          function createElement(type, props, rootContainerElement, parentNamespace) {
+          function createElement(type2, props, rootContainerElement, parentNamespace) {
             var isCustomComponentTag;
             var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
             var domElement;
             var namespaceURI = parentNamespace;
             if (namespaceURI === HTML_NAMESPACE$1) {
-              namespaceURI = getIntrinsicNamespace(type);
+              namespaceURI = getIntrinsicNamespace(type2);
             }
             if (namespaceURI === HTML_NAMESPACE$1) {
               {
-                isCustomComponentTag = isCustomComponent(type, props);
-                if (!isCustomComponentTag && type !== type.toLowerCase()) {
-                  error("<%s /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.", type);
+                isCustomComponentTag = isCustomComponent(type2, props);
+                if (!isCustomComponentTag && type2 !== type2.toLowerCase()) {
+                  error("<%s /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.", type2);
                 }
               }
-              if (type === "script") {
+              if (type2 === "script") {
                 var div = ownerDocument.createElement("div");
                 div.innerHTML = "<script><\/script>";
                 var firstChild = div.firstChild;
                 domElement = div.removeChild(firstChild);
               } else if (typeof props.is === "string") {
-                domElement = ownerDocument.createElement(type, {
+                domElement = ownerDocument.createElement(type2, {
                   is: props.is
                 });
               } else {
-                domElement = ownerDocument.createElement(type);
-                if (type === "select") {
+                domElement = ownerDocument.createElement(type2);
+                if (type2 === "select") {
                   var node = domElement;
                   if (props.multiple) {
                     node.multiple = true;
@@ -9056,13 +9056,13 @@
                 }
               }
             } else {
-              domElement = ownerDocument.createElementNS(namespaceURI, type);
+              domElement = ownerDocument.createElementNS(namespaceURI, type2);
             }
             {
               if (namespaceURI === HTML_NAMESPACE$1) {
-                if (!isCustomComponentTag && Object.prototype.toString.call(domElement) === "[object HTMLUnknownElement]" && !Object.prototype.hasOwnProperty.call(warnedUnknownTags, type)) {
-                  warnedUnknownTags[type] = true;
-                  error("The tag <%s> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.", type);
+                if (!isCustomComponentTag && Object.prototype.toString.call(domElement) === "[object HTMLUnknownElement]" && !Object.prototype.hasOwnProperty.call(warnedUnknownTags, type2)) {
+                  warnedUnknownTags[type2] = true;
+                  error("The tag <%s> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.", type2);
                 }
               }
             }
@@ -9819,8 +9819,8 @@
           var STYLE$1 = "style";
           var eventsEnabled = null;
           var selectionInformation = null;
-          function shouldAutoFocusHostComponent(type, props) {
-            switch (type) {
+          function shouldAutoFocusHostComponent(type2, props) {
+            switch (type2) {
               case "button":
               case "input":
               case "select":
@@ -9830,13 +9830,13 @@
             return false;
           }
           function getRootHostContext(rootContainerInstance) {
-            var type;
+            var type2;
             var namespace;
             var nodeType = rootContainerInstance.nodeType;
             switch (nodeType) {
               case DOCUMENT_NODE:
               case DOCUMENT_FRAGMENT_NODE: {
-                type = nodeType === DOCUMENT_NODE ? "#document" : "#fragment";
+                type2 = nodeType === DOCUMENT_NODE ? "#document" : "#fragment";
                 var root2 = rootContainerInstance.documentElement;
                 namespace = root2 ? root2.namespaceURI : getChildNamespace(null, "");
                 break;
@@ -9844,13 +9844,13 @@
               default: {
                 var container = nodeType === COMMENT_NODE ? rootContainerInstance.parentNode : rootContainerInstance;
                 var ownNamespace = container.namespaceURI || null;
-                type = container.tagName;
-                namespace = getChildNamespace(ownNamespace, type);
+                type2 = container.tagName;
+                namespace = getChildNamespace(ownNamespace, type2);
                 break;
               }
             }
             {
-              var validatedTag = type.toLowerCase();
+              var validatedTag = type2.toLowerCase();
               var ancestorInfo = updatedAncestorInfo(null, validatedTag);
               return {
                 namespace,
@@ -9858,11 +9858,11 @@
               };
             }
           }
-          function getChildHostContext(parentHostContext, type, rootContainerInstance) {
+          function getChildHostContext(parentHostContext, type2, rootContainerInstance) {
             {
               var parentHostContextDev = parentHostContext;
-              var namespace = getChildNamespace(parentHostContextDev.namespace, type);
-              var ancestorInfo = updatedAncestorInfo(parentHostContextDev.ancestorInfo, type);
+              var namespace = getChildNamespace(parentHostContextDev.namespace, type2);
+              var ancestorInfo = updatedAncestorInfo(parentHostContextDev.ancestorInfo, type2);
               return {
                 namespace,
                 ancestorInfo
@@ -9885,19 +9885,19 @@
             eventsEnabled = null;
             selectionInformation = null;
           }
-          function createInstance(type, props, rootContainerInstance, hostContext, internalInstanceHandle) {
+          function createInstance(type2, props, rootContainerInstance, hostContext, internalInstanceHandle) {
             var parentNamespace;
             {
               var hostContextDev = hostContext;
-              validateDOMNesting(type, null, hostContextDev.ancestorInfo);
+              validateDOMNesting(type2, null, hostContextDev.ancestorInfo);
               if (typeof props.children === "string" || typeof props.children === "number") {
                 var string = "" + props.children;
-                var ownAncestorInfo = updatedAncestorInfo(hostContextDev.ancestorInfo, type);
+                var ownAncestorInfo = updatedAncestorInfo(hostContextDev.ancestorInfo, type2);
                 validateDOMNesting(null, string, ownAncestorInfo);
               }
               parentNamespace = hostContextDev.namespace;
             }
-            var domElement = createElement(type, props, rootContainerInstance, parentNamespace);
+            var domElement = createElement(type2, props, rootContainerInstance, parentNamespace);
             precacheFiberNode(internalInstanceHandle, domElement);
             updateFiberProps(domElement, props);
             return domElement;
@@ -9905,23 +9905,23 @@
           function appendInitialChild(parentInstance, child) {
             parentInstance.appendChild(child);
           }
-          function finalizeInitialChildren(domElement, type, props, rootContainerInstance, hostContext) {
-            setInitialProperties(domElement, type, props, rootContainerInstance);
-            return shouldAutoFocusHostComponent(type, props);
+          function finalizeInitialChildren(domElement, type2, props, rootContainerInstance, hostContext) {
+            setInitialProperties(domElement, type2, props, rootContainerInstance);
+            return shouldAutoFocusHostComponent(type2, props);
           }
-          function prepareUpdate(domElement, type, oldProps, newProps, rootContainerInstance, hostContext) {
+          function prepareUpdate(domElement, type2, oldProps, newProps, rootContainerInstance, hostContext) {
             {
               var hostContextDev = hostContext;
               if (typeof newProps.children !== typeof oldProps.children && (typeof newProps.children === "string" || typeof newProps.children === "number")) {
                 var string = "" + newProps.children;
-                var ownAncestorInfo = updatedAncestorInfo(hostContextDev.ancestorInfo, type);
+                var ownAncestorInfo = updatedAncestorInfo(hostContextDev.ancestorInfo, type2);
                 validateDOMNesting(null, string, ownAncestorInfo);
               }
             }
-            return diffProperties(domElement, type, oldProps, newProps);
+            return diffProperties(domElement, type2, oldProps, newProps);
           }
-          function shouldSetTextContent(type, props) {
-            return type === "textarea" || type === "option" || type === "noscript" || typeof props.children === "string" || typeof props.children === "number" || typeof props.dangerouslySetInnerHTML === "object" && props.dangerouslySetInnerHTML !== null && props.dangerouslySetInnerHTML.__html != null;
+          function shouldSetTextContent(type2, props) {
+            return type2 === "textarea" || type2 === "option" || type2 === "noscript" || typeof props.children === "string" || typeof props.children === "number" || typeof props.dangerouslySetInnerHTML === "object" && props.dangerouslySetInnerHTML !== null && props.dangerouslySetInnerHTML.__html != null;
           }
           function createTextInstance(text, rootContainerInstance, hostContext, internalInstanceHandle) {
             {
@@ -9935,14 +9935,14 @@
           var scheduleTimeout = typeof setTimeout === "function" ? setTimeout : void 0;
           var cancelTimeout = typeof clearTimeout === "function" ? clearTimeout : void 0;
           var noTimeout = -1;
-          function commitMount(domElement, type, newProps, internalInstanceHandle) {
-            if (shouldAutoFocusHostComponent(type, newProps)) {
+          function commitMount(domElement, type2, newProps, internalInstanceHandle) {
+            if (shouldAutoFocusHostComponent(type2, newProps)) {
               domElement.focus();
             }
           }
-          function commitUpdate(domElement, updatePayload, type, oldProps, newProps, internalInstanceHandle) {
+          function commitUpdate(domElement, updatePayload, type2, oldProps, newProps, internalInstanceHandle) {
             updateFiberProps(domElement, newProps);
-            updateProperties(domElement, updatePayload, type, oldProps, newProps);
+            updateProperties(domElement, updatePayload, type2, oldProps, newProps);
           }
           function resetTextContent(domElement) {
             setTextContent(domElement, "");
@@ -10018,8 +10018,8 @@
               }
             }
           }
-          function canHydrateInstance(instance, type, props) {
-            if (instance.nodeType !== ELEMENT_NODE || type.toLowerCase() !== instance.nodeName.toLowerCase()) {
+          function canHydrateInstance(instance, type2, props) {
+            if (instance.nodeType !== ELEMENT_NODE || type2.toLowerCase() !== instance.nodeName.toLowerCase()) {
               return null;
             }
             return instance;
@@ -10051,7 +10051,7 @@
           function getFirstHydratableChild(parentInstance) {
             return getNextHydratable(parentInstance.firstChild);
           }
-          function hydrateInstance(instance, type, props, rootContainerInstance, hostContext, internalInstanceHandle) {
+          function hydrateInstance(instance, type2, props, rootContainerInstance, hostContext, internalInstanceHandle) {
             precacheFiberNode(internalInstanceHandle, instance);
             updateFiberProps(instance, props);
             var parentNamespace;
@@ -10059,7 +10059,7 @@
               var hostContextDev = hostContext;
               parentNamespace = hostContextDev.namespace;
             }
-            return diffHydratedProperties(instance, type, props, parentNamespace);
+            return diffHydratedProperties(instance, type2, props, parentNamespace);
           }
           function hydrateTextInstance(textInstance, text, internalInstanceHandle) {
             precacheFiberNode(internalInstanceHandle, textInstance);
@@ -10143,9 +10143,9 @@
               }
             }
           }
-          function didNotFindHydratableContainerInstance(parentContainer, type, props) {
+          function didNotFindHydratableContainerInstance(parentContainer, type2, props) {
             {
-              warnForInsertedHydratedElement(parentContainer, type);
+              warnForInsertedHydratedElement(parentContainer, type2);
             }
           }
           function didNotFindHydratableContainerTextInstance(parentContainer, text) {
@@ -10153,9 +10153,9 @@
               warnForInsertedHydratedText(parentContainer, text);
             }
           }
-          function didNotFindHydratableInstance(parentType, parentProps, parentInstance, type, props) {
+          function didNotFindHydratableInstance(parentType, parentProps, parentInstance, type2, props) {
             if (parentProps[SUPPRESS_HYDRATION_WARNING$1] !== true) {
-              warnForInsertedHydratedElement(parentInstance, type);
+              warnForInsertedHydratedElement(parentInstance, type2);
             }
           }
           function didNotFindHydratableTextInstance(parentType, parentProps, parentInstance, text) {
@@ -10384,8 +10384,8 @@
           }
           function getMaskedContext(workInProgress2, unmaskedContext) {
             {
-              var type = workInProgress2.type;
-              var contextTypes = type.contextTypes;
+              var type2 = workInProgress2.type;
+              var contextTypes = type2.contextTypes;
               if (!contextTypes) {
                 return emptyContextObject;
               }
@@ -10398,7 +10398,7 @@
                 context[key] = unmaskedContext[key];
               }
               {
-                var name = getComponentName(type) || "Unknown";
+                var name = getComponentName(type2) || "Unknown";
                 checkPropTypes(contextTypes, context, "context", name);
               }
               if (instance) {
@@ -10412,9 +10412,9 @@
               return didPerformWorkStackCursor.current;
             }
           }
-          function isContextProvider(type) {
+          function isContextProvider(type2) {
             {
-              var childContextTypes = type.childContextTypes;
+              var childContextTypes = type2.childContextTypes;
               return childContextTypes !== null && childContextTypes !== void 0;
             }
           }
@@ -10441,13 +10441,13 @@
               push(didPerformWorkStackCursor, didChange, fiber);
             }
           }
-          function processChildContext(fiber, type, parentContext) {
+          function processChildContext(fiber, type2, parentContext) {
             {
               var instance = fiber.stateNode;
-              var childContextTypes = type.childContextTypes;
+              var childContextTypes = type2.childContextTypes;
               if (typeof instance.getChildContext !== "function") {
                 {
-                  var componentName = getComponentName(type) || "Unknown";
+                  var componentName = getComponentName(type2) || "Unknown";
                   if (!warnedAboutMissingGetChildContext[componentName]) {
                     warnedAboutMissingGetChildContext[componentName] = true;
                     error("%s.childContextTypes is specified but there is no getChildContext() method on the instance. You can either define getChildContext() on %s or remove childContextTypes from it.", componentName, componentName);
@@ -10459,12 +10459,12 @@
               for (var contextKey in childContext) {
                 if (!(contextKey in childContextTypes)) {
                   {
-                    throw Error((getComponentName(type) || "Unknown") + '.getChildContext(): key "' + contextKey + '" is not defined in childContextTypes.');
+                    throw Error((getComponentName(type2) || "Unknown") + '.getChildContext(): key "' + contextKey + '" is not defined in childContextTypes.');
                   }
                 }
               }
               {
-                var name = getComponentName(type) || "Unknown";
+                var name = getComponentName(type2) || "Unknown";
                 checkPropTypes(childContextTypes, childContext, "child context", name);
               }
               return _assign({}, parentContext, childContext);
@@ -10480,7 +10480,7 @@
               return true;
             }
           }
-          function invalidateContextProvider(workInProgress2, type, didChange) {
+          function invalidateContextProvider(workInProgress2, type2, didChange) {
             {
               var instance = workInProgress2.stateNode;
               if (!instance) {
@@ -10489,7 +10489,7 @@
                 }
               }
               if (didChange) {
-                var mergedContext = processChildContext(workInProgress2, type, previousContext);
+                var mergedContext = processChildContext(workInProgress2, type2, previousContext);
                 instance.__reactInternalMemoizedMergedChildContext = mergedContext;
                 pop(didPerformWorkStackCursor, workInProgress2);
                 pop(contextStackCursor, workInProgress2);
@@ -11490,9 +11490,9 @@
                 error("%s(...): Expected the last optional `callback` argument to be a function. Instead received: %s.", callerName, callback);
               }
             };
-            warnOnUndefinedDerivedState = function(type, partialState) {
+            warnOnUndefinedDerivedState = function(type2, partialState) {
               if (partialState === void 0) {
-                var componentName = getComponentName(type) || "Component";
+                var componentName = getComponentName(type2) || "Component";
                 if (!didWarnAboutUndefinedDerivedState.has(componentName)) {
                   didWarnAboutUndefinedDerivedState.add(componentName);
                   error("%s.getDerivedStateFromProps(): A valid state object (or null) must be returned. You have returned undefined.", componentName);
@@ -12931,9 +12931,9 @@
                   var parentContainer = returnFiber.stateNode.containerInfo;
                   switch (fiber.tag) {
                     case HostComponent:
-                      var type = fiber.type;
+                      var type2 = fiber.type;
                       var props = fiber.pendingProps;
-                      didNotFindHydratableContainerInstance(parentContainer, type);
+                      didNotFindHydratableContainerInstance(parentContainer, type2);
                       break;
                     case HostText:
                       var text = fiber.pendingProps;
@@ -12970,9 +12970,9 @@
           function tryHydrate(fiber, nextInstance) {
             switch (fiber.tag) {
               case HostComponent: {
-                var type = fiber.type;
+                var type2 = fiber.type;
                 var props = fiber.pendingProps;
-                var instance = canHydrateInstance(nextInstance, type);
+                var instance = canHydrateInstance(nextInstance, type2);
                 if (instance !== null) {
                   fiber.stateNode = instance;
                   return true;
@@ -13082,8 +13082,8 @@
               isHydrating = true;
               return false;
             }
-            var type = fiber.type;
-            if (fiber.tag !== HostComponent || type !== "head" && type !== "body" && !shouldSetTextContent(type, fiber.memoizedProps)) {
+            var type2 = fiber.type;
+            if (fiber.tag !== HostComponent || type2 !== "head" && type2 !== "body" && !shouldSetTextContent(type2, fiber.memoizedProps)) {
               var nextInstance = nextHydratableInstance;
               while (nextInstance) {
                 deleteHydratableInstance(fiber, nextInstance);
@@ -14911,23 +14911,23 @@
           }
           function updateMemoComponent(current2, workInProgress2, Component, nextProps, updateLanes, renderLanes2) {
             if (current2 === null) {
-              var type = Component.type;
-              if (isSimpleFunctionComponent(type) && Component.compare === null && Component.defaultProps === void 0) {
-                var resolvedType = type;
+              var type2 = Component.type;
+              if (isSimpleFunctionComponent(type2) && Component.compare === null && Component.defaultProps === void 0) {
+                var resolvedType = type2;
                 {
-                  resolvedType = resolveFunctionForHotReloading(type);
+                  resolvedType = resolveFunctionForHotReloading(type2);
                 }
                 workInProgress2.tag = SimpleMemoComponent;
                 workInProgress2.type = resolvedType;
                 {
-                  validateFunctionComponentInDev(workInProgress2, type);
+                  validateFunctionComponentInDev(workInProgress2, type2);
                 }
                 return updateSimpleMemoComponent(current2, workInProgress2, resolvedType, nextProps, updateLanes, renderLanes2);
               }
               {
-                var innerPropTypes = type.propTypes;
+                var innerPropTypes = type2.propTypes;
                 if (innerPropTypes) {
-                  checkPropTypes(innerPropTypes, nextProps, "prop", getComponentName(type));
+                  checkPropTypes(innerPropTypes, nextProps, "prop", getComponentName(type2));
                 }
               }
               var child = createFiberFromTypeAndProps(Component.type, null, nextProps, workInProgress2, workInProgress2.mode, renderLanes2);
@@ -15257,14 +15257,14 @@
             if (current2 === null) {
               tryToClaimNextHydratableInstance(workInProgress2);
             }
-            var type = workInProgress2.type;
+            var type2 = workInProgress2.type;
             var nextProps = workInProgress2.pendingProps;
             var prevProps = current2 !== null ? current2.memoizedProps : null;
             var nextChildren = nextProps.children;
-            var isDirectTextChild = shouldSetTextContent(type, nextProps);
+            var isDirectTextChild = shouldSetTextContent(type2, nextProps);
             if (isDirectTextChild) {
               nextChildren = null;
-            } else if (prevProps !== null && shouldSetTextContent(type, prevProps)) {
+            } else if (prevProps !== null && shouldSetTextContent(type2, prevProps)) {
               workInProgress2.flags |= ContentReset;
             }
             markRef(current2, workInProgress2);
@@ -15797,8 +15797,8 @@
               var isArray2 = Array.isArray(childSlot);
               var isIterable = !isArray2 && typeof getIteratorFn(childSlot) === "function";
               if (isArray2 || isIterable) {
-                var type = isArray2 ? "array" : "iterable";
-                error("A nested %s was passed to row #%s in <SuspenseList />. Wrap it in an additional SuspenseList to configure its revealOrder: <SuspenseList revealOrder=...> ... <SuspenseList revealOrder=...>{%s}</SuspenseList> ... </SuspenseList>", type, index2, type);
+                var type2 = isArray2 ? "array" : "iterable";
+                error("A nested %s was passed to row #%s in <SuspenseList />. Wrap it in an additional SuspenseList to configure its revealOrder: <SuspenseList revealOrder=...> ... <SuspenseList revealOrder=...>{%s}</SuspenseList> ... </SuspenseList>", type2, index2, type2);
                 return false;
               }
             }
@@ -16202,10 +16202,10 @@
               case HostPortal:
                 return updatePortalComponent(current2, workInProgress2, renderLanes2);
               case ForwardRef: {
-                var type = workInProgress2.type;
+                var type2 = workInProgress2.type;
                 var _unresolvedProps2 = workInProgress2.pendingProps;
-                var _resolvedProps2 = workInProgress2.elementType === type ? _unresolvedProps2 : resolveDefaultProps(type, _unresolvedProps2);
-                return updateForwardRef(current2, workInProgress2, type, _resolvedProps2, renderLanes2);
+                var _resolvedProps2 = workInProgress2.elementType === type2 ? _unresolvedProps2 : resolveDefaultProps(type2, _unresolvedProps2);
+                return updateForwardRef(current2, workInProgress2, type2, _resolvedProps2, renderLanes2);
               }
               case Fragment:
                 return updateFragment(current2, workInProgress2, renderLanes2);
@@ -16304,14 +16304,14 @@
             };
             updateHostContainer = function(workInProgress2) {
             };
-            updateHostComponent$1 = function(current2, workInProgress2, type, newProps, rootContainerInstance) {
+            updateHostComponent$1 = function(current2, workInProgress2, type2, newProps, rootContainerInstance) {
               var oldProps = current2.memoizedProps;
               if (oldProps === newProps) {
                 return;
               }
               var instance = workInProgress2.stateNode;
               var currentHostContext = getHostContext();
-              var updatePayload = prepareUpdate(instance, type, oldProps, newProps, rootContainerInstance, currentHostContext);
+              var updatePayload = prepareUpdate(instance, type2, oldProps, newProps, rootContainerInstance, currentHostContext);
               workInProgress2.updateQueue = updatePayload;
               if (updatePayload) {
                 markUpdate(workInProgress2);
@@ -16410,9 +16410,9 @@
               case HostComponent: {
                 popHostContext(workInProgress2);
                 var rootContainerInstance = getRootHostContainer();
-                var type = workInProgress2.type;
+                var type2 = workInProgress2.type;
                 if (current2 !== null && workInProgress2.stateNode != null) {
-                  updateHostComponent$1(current2, workInProgress2, type, newProps, rootContainerInstance);
+                  updateHostComponent$1(current2, workInProgress2, type2, newProps, rootContainerInstance);
                   if (current2.ref !== workInProgress2.ref) {
                     markRef$1(workInProgress2);
                   }
@@ -16432,10 +16432,10 @@
                       markUpdate(workInProgress2);
                     }
                   } else {
-                    var instance = createInstance(type, newProps, rootContainerInstance, currentHostContext, workInProgress2);
+                    var instance = createInstance(type2, newProps, rootContainerInstance, currentHostContext, workInProgress2);
                     appendAllChildren(instance, workInProgress2, false, false);
                     workInProgress2.stateNode = instance;
-                    if (finalizeInitialChildren(instance, type, newProps, rootContainerInstance)) {
+                    if (finalizeInitialChildren(instance, type2, newProps, rootContainerInstance)) {
                       markUpdate(workInProgress2);
                     }
                   }
@@ -17220,9 +17220,9 @@
               case HostComponent: {
                 var _instance2 = finishedWork.stateNode;
                 if (current2 === null && finishedWork.flags & Update) {
-                  var type = finishedWork.type;
+                  var type2 = finishedWork.type;
                   var props = finishedWork.memoizedProps;
-                  commitMount(_instance2, type, props);
+                  commitMount(_instance2, type2, props);
                 }
                 return;
               }
@@ -17665,11 +17665,11 @@
                 if (instance != null) {
                   var newProps = finishedWork.memoizedProps;
                   var oldProps = current2 !== null ? current2.memoizedProps : newProps;
-                  var type = finishedWork.type;
+                  var type2 = finishedWork.type;
                   var updatePayload = finishedWork.updateQueue;
                   finishedWork.updateQueue = null;
                   if (updatePayload !== null) {
-                    commitUpdate(instance, updatePayload, type, oldProps, newProps);
+                    commitUpdate(instance, updatePayload, type2, oldProps, newProps);
                   }
                 }
                 return;
@@ -19493,42 +19493,42 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               resolveFamily = handler;
             }
           };
-          function resolveFunctionForHotReloading(type) {
+          function resolveFunctionForHotReloading(type2) {
             {
               if (resolveFamily === null) {
-                return type;
+                return type2;
               }
-              var family = resolveFamily(type);
+              var family = resolveFamily(type2);
               if (family === void 0) {
-                return type;
+                return type2;
               }
               return family.current;
             }
           }
-          function resolveClassForHotReloading(type) {
-            return resolveFunctionForHotReloading(type);
+          function resolveClassForHotReloading(type2) {
+            return resolveFunctionForHotReloading(type2);
           }
-          function resolveForwardRefForHotReloading(type) {
+          function resolveForwardRefForHotReloading(type2) {
             {
               if (resolveFamily === null) {
-                return type;
+                return type2;
               }
-              var family = resolveFamily(type);
+              var family = resolveFamily(type2);
               if (family === void 0) {
-                if (type !== null && type !== void 0 && typeof type.render === "function") {
-                  var currentRender = resolveFunctionForHotReloading(type.render);
-                  if (type.render !== currentRender) {
+                if (type2 !== null && type2 !== void 0 && typeof type2.render === "function") {
+                  var currentRender = resolveFunctionForHotReloading(type2.render);
+                  if (type2.render !== currentRender) {
                     var syntheticType = {
                       $$typeof: REACT_FORWARD_REF_TYPE,
                       render: currentRender
                     };
-                    if (type.displayName !== void 0) {
-                      syntheticType.displayName = type.displayName;
+                    if (type2.displayName !== void 0) {
+                      syntheticType.displayName = type2.displayName;
                     }
                     return syntheticType;
                   }
                 }
-                return type;
+                return type2;
               }
               return family.current;
             }
@@ -19625,16 +19625,16 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           };
           function scheduleFibersWithFamiliesRecursively(fiber, updatedFamilies, staleFamilies) {
             {
-              var alternate = fiber.alternate, child = fiber.child, sibling = fiber.sibling, tag = fiber.tag, type = fiber.type;
+              var alternate = fiber.alternate, child = fiber.child, sibling = fiber.sibling, tag = fiber.tag, type2 = fiber.type;
               var candidateType = null;
               switch (tag) {
                 case FunctionComponent:
                 case SimpleMemoComponent:
                 case ClassComponent:
-                  candidateType = type;
+                  candidateType = type2;
                   break;
                 case ForwardRef:
-                  candidateType = type.render;
+                  candidateType = type2.render;
                   break;
               }
               if (resolveFamily === null) {
@@ -19687,16 +19687,16 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           };
           function findHostInstancesForMatchingFibersRecursively(fiber, types, hostInstances) {
             {
-              var child = fiber.child, sibling = fiber.sibling, tag = fiber.tag, type = fiber.type;
+              var child = fiber.child, sibling = fiber.sibling, tag = fiber.tag, type2 = fiber.type;
               var candidateType = null;
               switch (tag) {
                 case FunctionComponent:
                 case SimpleMemoComponent:
                 case ClassComponent:
-                  candidateType = type;
+                  candidateType = type2;
                   break;
                 case ForwardRef:
-                  candidateType = type.render;
+                  candidateType = type2.render;
                   break;
               }
               var didMatch = false;
@@ -19835,8 +19835,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             var prototype = Component.prototype;
             return !!(prototype && prototype.isReactComponent);
           }
-          function isSimpleFunctionComponent(type) {
-            return typeof type === "function" && !shouldConstruct$1(type) && type.defaultProps === void 0;
+          function isSimpleFunctionComponent(type2) {
+            return typeof type2 === "function" && !shouldConstruct$1(type2) && type2.defaultProps === void 0;
           }
           function resolveLazyComponentTag(Component) {
             if (typeof Component === "function") {
@@ -19968,11 +19968,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             }
             return createFiber(HostRoot, null, null, mode);
           }
-          function createFiberFromTypeAndProps(type, key, pendingProps, owner, mode, lanes) {
+          function createFiberFromTypeAndProps(type2, key, pendingProps, owner, mode, lanes) {
             var fiberTag = IndeterminateComponent;
-            var resolvedType = type;
-            if (typeof type === "function") {
-              if (shouldConstruct$1(type)) {
+            var resolvedType = type2;
+            if (typeof type2 === "function") {
+              if (shouldConstruct$1(type2)) {
                 fiberTag = ClassComponent;
                 {
                   resolvedType = resolveClassForHotReloading(resolvedType);
@@ -19982,11 +19982,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
                   resolvedType = resolveFunctionForHotReloading(resolvedType);
                 }
               }
-            } else if (typeof type === "string") {
+            } else if (typeof type2 === "string") {
               fiberTag = HostComponent;
             } else {
               getTag:
-                switch (type) {
+                switch (type2) {
                   case REACT_FRAGMENT_TYPE:
                     return createFiberFromFragment(pendingProps.children, mode, lanes, key);
                   case REACT_DEBUG_TRACING_MODE_TYPE:
@@ -20009,8 +20009,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
                     return createFiberFromLegacyHidden(pendingProps, mode, lanes, key);
                   case REACT_SCOPE_TYPE:
                   default: {
-                    if (typeof type === "object" && type !== null) {
-                      switch (type.$$typeof) {
+                    if (typeof type2 === "object" && type2 !== null) {
+                      switch (type2.$$typeof) {
                         case REACT_PROVIDER_TYPE:
                           fiberTag = ContextProvider;
                           break getTag;
@@ -20037,7 +20037,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
                     }
                     var info = "";
                     {
-                      if (type === void 0 || typeof type === "object" && type !== null && Object.keys(type).length === 0) {
+                      if (type2 === void 0 || typeof type2 === "object" && type2 !== null && Object.keys(type2).length === 0) {
                         info += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.";
                       }
                       var ownerName = owner ? getComponentName(owner.type) : null;
@@ -20047,14 +20047,14 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
                     }
                     {
                       {
-                        throw Error("Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: " + (type == null ? type : typeof type) + "." + info);
+                        throw Error("Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: " + (type2 == null ? type2 : typeof type2) + "." + info);
                       }
                     }
                   }
                 }
             }
             var fiber = createFiber(fiberTag, pendingProps, key, mode);
-            fiber.elementType = type;
+            fiber.elementType = type2;
             fiber.type = resolvedType;
             fiber.lanes = lanes;
             {
@@ -20067,10 +20067,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             {
               owner = element._owner;
             }
-            var type = element.type;
+            var type2 = element.type;
             var key = element.key;
             var pendingProps = element.props;
-            var fiber = createFiberFromTypeAndProps(type, key, pendingProps, owner, mode, lanes);
+            var fiber = createFiberFromTypeAndProps(type2, key, pendingProps, owner, mode, lanes);
             {
               fiber._debugSource = element._source;
               fiber._debugOwner = element._owner;
@@ -22157,12 +22157,12 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       return this.getElementsMatchingTypeNotInSnapshot("stylesheet", snapshot);
     }
     getElementsMatchingTypeNotInSnapshot(matchedType, snapshot) {
-      return Object.keys(this.detailsByOuterHTML).filter((outerHTML) => !(outerHTML in snapshot.detailsByOuterHTML)).map((outerHTML) => this.detailsByOuterHTML[outerHTML]).filter(({ type }) => type == matchedType).map(({ elements: [element] }) => element);
+      return Object.keys(this.detailsByOuterHTML).filter((outerHTML) => !(outerHTML in snapshot.detailsByOuterHTML)).map((outerHTML) => this.detailsByOuterHTML[outerHTML]).filter(({ type: type2 }) => type2 == matchedType).map(({ elements: [element] }) => element);
     }
     get provisionalElements() {
       return Object.keys(this.detailsByOuterHTML).reduce((result, outerHTML) => {
-        const { type, tracked, elements } = this.detailsByOuterHTML[outerHTML];
-        if (type == null && !tracked) {
+        const { type: type2, tracked, elements } = this.detailsByOuterHTML[outerHTML];
+        if (type2 == null && !tracked) {
           return [...result, ...elements];
         } else if (elements.length > 1) {
           return [...result, ...elements.slice(1)];
@@ -24216,10 +24216,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var import_react_dom = __toESM(require_react_dom());
   var QType = class extends import_react.default.Component {
     state = {
-      activeIndex: 0,
+      activeIndex: type,
       choice: "open"
     };
-    handleClick = (index) => this.setState({ activeIndex: index, choice: ["open", "choice", "multichoice", "veracity", "caption", "table", "formula"][this.state.activeIndex] });
+    handleClick = (index) => this.setState({ activeIndex: index, choice: [":open", ":choice", ":multichoice", ":veracity", ":caption", ":table", ":formula"][this.state.activeIndex] });
     render() {
       return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("b", null, "Select the type:"), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
         name: "Open",
@@ -24265,7 +24265,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   var Level = class extends import_react.default.Component {
     state = {
-      level: 1
+      level
     };
     handleClick = (index) => this.setState({ level: index });
     render() {

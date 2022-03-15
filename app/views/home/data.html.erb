@@ -11,12 +11,19 @@
     <%= form.text_field :choices, class: 'input-data'  %><br>
     <div id='questiontype'></div><br>
     <%= form.label :subject, "For which subject?" %>
-    <%= form.collection_select :subject, @subjects, :title, :title %>
+    <%= form.collection_select :subject, @subjects, :title, :title, selected: cookies[:subject] %>
     <div id='levels'></div><br>
     <%= form.submit "Submit question", class: 'submitBtn' %>
 <% end %>
-
-<% if cookies[:vevela] != nil %>
-<p><%= cookies[:vevela] %></p>
+<% if cookies[:level] != nil && cookies[:type] != nil %>
+<script>
+var level = <%= cookies[:level].to_i %>;
+var type = <%= [':open',':choice',':multichoice',':veracity',':caption',':table',':formula'].index(cookies[:type]) %>
+</script>
+<% else %>
+<script>
+var level = 1;
+var type = 0;
+</script>
 <% end %>
 </div>

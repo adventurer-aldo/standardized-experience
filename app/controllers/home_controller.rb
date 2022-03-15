@@ -13,7 +13,7 @@ class HomeController < ApplicationController
         end
 
         Question.create(question: @question,
-        questiontype: params[:type],
+        questiontype: [params[:type]].to_s,
         answer: params[:answer],
         choices: params[:choices],
         subject: params[:subject],
@@ -23,7 +23,9 @@ class HomeController < ApplicationController
         parameters: '[]'
         )
 
-        cookies[:vevela] = params[:answer]
+        cookies[:level] = params[:level]
+        cookies[:type] = params[:type]
+        cookies[:subject] = params[:subject]
 
     redirect_to data_path
     end
