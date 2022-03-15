@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     end
 
     def data
-        @subjects = Subject.select(:title)
+        @subjects = Subject.select(:title).order(title: 'asc')
     end
 
     def submit_question
