@@ -13,7 +13,7 @@ class HomeController < ApplicationController
         end
 
         Question.create(question: @question,
-        questiontype: [params[:type]].to_s,
+        questiontype: "[#{params[:type]}]",
         answer: params[:answer],
         choices: params[:choices],
         subject: params[:subject],
