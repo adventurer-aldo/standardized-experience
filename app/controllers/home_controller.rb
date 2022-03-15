@@ -21,7 +21,10 @@ class HomeController < ApplicationController
         tags: '[]',
         frequency: 0,
         parameters: '[]'
-    )
+        )
+
+        cookies[:vevela] = params[:answer]
+
     redirect_to data_path
     end
 

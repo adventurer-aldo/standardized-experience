@@ -15,4 +15,8 @@
     <div id='levels'></div><br>
     <%= form.submit "Submit question", class: 'submitBtn' %>
 <% end %>
+
+<% if cookies[:vevela] != nil %>
+<p><%= cookies[:vevela] %></p>
+<% end %>
 </div>
