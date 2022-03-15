@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM  from "react-dom"
 
-class Container extends React.Component {
+class QType extends React.Component {
   state = {
     activeIndex: 0,
     choice: 'open'
@@ -22,6 +22,23 @@ class Container extends React.Component {
     </div>
   }
 }
+class Level extends React.Component {
+  state = {
+    level: 1
+  }
+
+  handleClick = (index) => this.setState({ level: index })
+
+  render() {
+    return <div>
+      <MyClickable name="1" index={1} isActive={ this.state.level===1 } onClick={this.handleClick} />
+      <MyClickable name="2" index={2} isActive={ this.state.level===2 } onClick={this.handleClick} />
+      <MyClickable name="Exam" index={3} isActive={ this.state.level===3 } onClick={this.handleClick} />
+      <input name='level' value={this.state.level} type='hidden' />
+    </div>
+  }
+}
+
 
 class MyClickable extends React.Component {
   handleClick = () => this.props.onClick(this.props.index)
@@ -39,4 +56,5 @@ class MyClickable extends React.Component {
   }
 }
 
-ReactDOM.render(<Container />, document.getElementById('questiontype'))
+ReactDOM.render(<QType />, document.getElementById('questiontype'))
+ReactDOM.render(<Level />, document.getElementById('levels'))

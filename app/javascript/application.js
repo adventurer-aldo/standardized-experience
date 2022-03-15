@@ -24211,10 +24211,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   customElements.define("turbo-cable-stream-source", TurboCableStreamSourceElement);
 
-  // app/javascript/components/seconds.jsx
+  // app/javascript/components/data.jsx
   var import_react = __toESM(require_react());
   var import_react_dom = __toESM(require_react_dom());
-  var Container = class extends import_react.default.Component {
+  var QType = class extends import_react.default.Component {
     state = {
       activeIndex: 0,
       choice: "open"
@@ -24263,6 +24263,34 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }));
     }
   };
+  var Level = class extends import_react.default.Component {
+    state = {
+      level: 1
+    };
+    handleClick = (index) => this.setState({ level: index });
+    render() {
+      return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement(MyClickable, {
+        name: "1",
+        index: 1,
+        isActive: this.state.level === 1,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
+        name: "2",
+        index: 2,
+        isActive: this.state.level === 2,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
+        name: "Exam",
+        index: 3,
+        isActive: this.state.level === 3,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react.default.createElement("input", {
+        name: "level",
+        value: this.state.level,
+        type: "hidden"
+      }));
+    }
+  };
   var MyClickable = class extends import_react.default.Component {
     handleClick = () => this.props.onClick(this.props.index);
     render() {
@@ -24273,7 +24301,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }, /* @__PURE__ */ import_react.default.createElement("span", null, this.props.name));
     }
   };
-  import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(Container, null), document.getElementById("questiontype"));
+  import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(QType, null), document.getElementById("questiontype"));
+  import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(Level, null), document.getElementById("levels"));
 })();
 /*
 object-assign

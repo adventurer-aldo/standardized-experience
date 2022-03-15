@@ -2,18 +2,18 @@
 <p><b>Create a new question for Anatomy.</b></p>
 <%= form_with html: { autocomplete: 'off' } do |form| %>
     <%= form.hidden_field :level, value: 2 %>
-    <%= form.label :question, "Question:" %>
-    <%= form.text_field :question, required: true %>
+    <%= form.label :question, "Question:"%>
+    <%= form.text_field :question, required: true, class: 'input-data'  %>
     <%= form.label :image, "Image:" %>
     <%= form.text_field :image %><br>
     <%= form.label :answer, "Answer:" %>
-    <%= form.text_field :answer, required: true  %><br>
+    <%= form.text_field :answer, required: true, class: 'input-data'   %><br>
     <%= form.label :choices, "Choices:" %>
-    <%= form.text_field :choices %><br>
-    <p><b>Will this be for Theorical or Practical?</b></p>
+    <%= form.text_field :choices, class: 'input-data'  %><br>
     <%= form.label :subject, "For which subject?" %>
     <%= form.collection_select :subject, @subjects, :title, :title %>
     <div id='questiontype'></div>
+    <div id='levels'>
     <%= form.submit "Submit question", class: 'submitBtn' %>
 <% end %>
 </div>
