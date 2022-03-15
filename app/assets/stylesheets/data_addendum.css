@@ -1,0 +1,23 @@
+.btnType {
+    display: inline-block;
+    margin-bottom: 1em;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+  }
+  
+  .offType {
+    background-color: #1a3351;
+    /*content: ' (an album)';*/
+  }
+  
+  .onType {
+    font-weight: bold;
+    background-color: #00bde3;
+  }
+  
+#questiontype {
+  display: inline-block
+}

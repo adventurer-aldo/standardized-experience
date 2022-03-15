@@ -24234,7 +24234,87 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       return /* @__PURE__ */ import_react.default.createElement("div", null, "Seconds: ", this.state.seconds);
     }
   };
-  import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(Timer, null), document.getElementById("timer-example"));
+  var Container = class extends import_react.default.Component {
+    state = {
+      activeIndex: 0,
+      choice: "open"
+    };
+    handleClick = (index) => this.setState({ activeIndex: index, choice: ["open", "choice", "multichoice", "veracity", "caption", "table", "formula"][this.state.activeIndex] });
+    render() {
+      return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("b", null, "Select the type:"), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
+        name: "Open",
+        index: 0,
+        isActive: this.state.activeIndex === 0,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
+        name: "Choice",
+        index: 1,
+        isActive: this.state.activeIndex === 1,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
+        name: "Multi-Choice",
+        index: 2,
+        isActive: this.state.activeIndex === 2,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
+        name: "Veracity",
+        index: 3,
+        isActive: this.state.activeIndex === 3,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
+        name: "Caption",
+        index: 4,
+        isActive: this.state.activeIndex === 4,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
+        name: "Table",
+        index: 5,
+        isActive: this.state.activeIndex === 5,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
+        name: "Formula",
+        index: 6,
+        isActive: this.state.activeIndex === 6,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react.default.createElement("input", {
+        name: "type",
+        value: this.state.choice,
+        type: "hidden"
+      }));
+    }
+  };
+  var MyClickable = class extends import_react.default.Component {
+    handleClick = () => this.props.onClick(this.props.index);
+    render() {
+      return /* @__PURE__ */ import_react.default.createElement("button", {
+        type: "button",
+        className: this.props.isActive ? "btnType onType" : "btnType offType",
+        onClick: this.handleClick
+      }, /* @__PURE__ */ import_react.default.createElement("span", null, this.props.name));
+    }
+  };
+  var Question = class extends import_react.default.Component {
+    constructor(props) {
+      super(props);
+      this.value = "open";
+    }
+    render() {
+      return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("input", {
+        type: "hidden",
+        name: "type",
+        value: this.value
+      }), /* @__PURE__ */ import_react.default.createElement("input", {
+        className: "btnType",
+        type: "button",
+        value: "Open"
+      }), /* @__PURE__ */ import_react.default.createElement("input", {
+        className: "btnType",
+        type: "button",
+        value: "Choice"
+      }));
+    }
+  };
+  import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(Container, null), document.getElementById("questiontype"));
 })();
 /*
 object-assign

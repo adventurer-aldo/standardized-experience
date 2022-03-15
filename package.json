@@ -8,6 +8,7 @@
         "react-dom": "^17.0.2"
     },
     "scripts": {
-        "build": "esbuild --bundle app/build_file.js --outfile=app/javascript/application.js --allow-overwrite"
+        "build": "esbuild --bundle app/build_file.js --outfile=app/assets/javascripts/application.js --allow-overwrite",
+        "watch": "esbuild --watch --bundle app/build_file.js --outfile=app/assets/javascripts/application.js --allow-overwrite"
     }
 }

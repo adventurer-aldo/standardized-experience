@@ -2,6 +2,10 @@ class HomeController < ApplicationController
     def index
     end
 
+    def data
+        @subjects = Subject.select(:title)
+    end
+
     def submit_question
         @question = params[:question]
         unless params[:image] == "" || params[:image].nil?
