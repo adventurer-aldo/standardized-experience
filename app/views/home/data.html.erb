@@ -12,7 +12,7 @@
     <%= form.text_field :choices %><br>
     <p><b>Will this be for Theorical or Practical?</b></p>
     <%= form.label :subject, "For which subject?" %>
-    <%= form.collection_select :subject, @subject, :title, :to_s %>
+    <%= form.collection_select :subject, @subjects, :title, :to_s %>
     <div id='questiontype'></div>
     <%= form.submit "Submit question", class: 'submitBtn' %>
 <% end %>
