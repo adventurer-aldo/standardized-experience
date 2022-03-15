@@ -1,5 +1,5 @@
 <head><title>Data | SE</title></head><%=render 'header'%>
-<p><b>Create a new question for Anatomy.</b></p>
+<p><b>Create a new question.</b></p>
 <%= form_with html: { autocomplete: 'off' } do |form| %>
     <%= form.label :question, "Question:"%>
     <%= form.text_field :question, required: true, class: 'input-data'  %>
@@ -16,14 +16,18 @@
     <%= form.submit "Submit question", class: 'submitBtn' %>
 <% end %>
 <% if cookies[:level] != nil && cookies[:type] != nil %>
+<% @arr = [':open',':choice',':multichoice',':veracity',':caption',':table',':formula'] %>
+<% @index = @arr.index(cookies[:type]) %>
 <script>
 var level = <%= cookies[:level].to_i %>;
-var type = <%= [':open',':choice',':multichoice',':veracity',':caption',':table',':formula'].index(cookies[:type]) %>
+var type = <%= @index %>
+var type_choice = <%= @arr[@index] %>
 </script>
 <% else %>
 <script>
 var level = 1;
 var type = 0;
+var type_choice = ':open';
 </script>
 <% end %>
 </div>

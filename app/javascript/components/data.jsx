@@ -4,7 +4,7 @@ import ReactDOM  from "react-dom"
 class QType extends React.Component {
   state = {
     activeIndex: type,
-    choice: 'open'
+    choice: type_choice
   }
 
   handleClick = (index) => this.setState({ activeIndex: index, choice: [':open',':choice',':multichoice',':veracity',':caption',':table',':formula'][index] })

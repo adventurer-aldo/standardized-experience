@@ -24217,7 +24217,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var QType = class extends import_react.default.Component {
     state = {
       activeIndex: type,
-      choice: "open"
+      choice: type_choice
     };
     handleClick = (index) => this.setState({ activeIndex: index, choice: [":open", ":choice", ":multichoice", ":veracity", ":caption", ":table", ":formula"][index] });
     render() {
