@@ -15,6 +15,9 @@
 
   .offType:hover {
     background-color: #188da5;
+    transition: background-color 200ms linear;
+    -webkit-transition: background-color 200ms linear;
+    -moz-transition: background-color 200ms linear;
   }
   
   .onType {
