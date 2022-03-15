@@ -43,6 +43,18 @@
 .submitBtn {
   display: block;
   border: none;
-  background-color: black;
+  background-color: #188da5;
   color: white;
+  margin: 10px auto;
+  padding: 10px;
+  font-size: large;
+  font-family: inherit;
+  border-radius: 10px;
+  transition: background-color 100ms linear;
+  -webkit-transition: background-color 100ms linear;
+  -moz-transition: background-color 100ms linear;
+}
+
+.submitBtn:hover {
+  background-color: #00bde3;
 }

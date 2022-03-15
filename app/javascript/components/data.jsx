@@ -30,7 +30,7 @@ class Level extends React.Component {
   handleClick = (index) => this.setState({ level: index })
 
   render() {
-    return <div>
+    return <div><b>And the level:</b> 
       <MyClickable name="1" index={1} isActive={ this.state.level===1 } onClick={this.handleClick} />
       <MyClickable name="2" index={2} isActive={ this.state.level===2 } onClick={this.handleClick} />
       <MyClickable name="Exam" index={3} isActive={ this.state.level===3 } onClick={this.handleClick} />

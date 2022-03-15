@@ -10,10 +10,10 @@
     <%= form.text_field :answer, required: true, class: 'input-data'   %><br>
     <%= form.label :choices, "Choices:" %>
     <%= form.text_field :choices, class: 'input-data'  %><br>
+    <div id='questiontype'></div><br>
     <%= form.label :subject, "For which subject?" %>
     <%= form.collection_select :subject, @subjects, :title, :title %>
-    <div id='questiontype'></div>
-    <div id='levels'></div>
+    <div id='levels'></div><br>
     <%= form.submit "Submit question", class: 'submitBtn' %>
 <% end %>
 </div>

@@ -24269,7 +24269,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     };
     handleClick = (index) => this.setState({ level: index });
     render() {
-      return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement(MyClickable, {
+      return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("b", null, "And the level:"), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
         name: "1",
         index: 1,
         isActive: this.state.level === 1,
