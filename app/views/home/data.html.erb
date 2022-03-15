@@ -21,7 +21,7 @@
 <script>
 var level = <%= cookies[:level].to_i %>;
 var type = <%= @index %>
-var type_choice = <%= @arr[@index] %>
+var type_choice = "<%= @arr[@index] %>"
 </script>
 <% else %>
 <script>
