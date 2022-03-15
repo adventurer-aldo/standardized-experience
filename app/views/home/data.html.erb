@@ -13,7 +13,7 @@
     <%= form.label :subject, "For which subject?" %>
     <%= form.collection_select :subject, @subjects, :title, :title %>
     <div id='questiontype'></div>
-    <div id='levels'>
+    <div id='levels'></div>
     <%= form.submit "Submit question", class: 'submitBtn' %>
 <% end %>
 </div>
