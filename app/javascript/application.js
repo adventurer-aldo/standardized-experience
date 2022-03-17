@@ -20509,8 +20509,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }, /* @__PURE__ */ import_react.default.createElement("span", null, this.props.name));
     }
   };
-  import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(QType, null), document.getElementById("questiontype"));
-  import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(Level, null), document.getElementById("levels"));
+  if (document.getElementById("questiontype") != null) {
+    import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(QType, null), document.getElementById("questiontype"));
+    import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(Level, null), document.getElementById("levels"));
+  }
 
   // app/javascript/components/timer.jsx
   var import_react2 = __toESM(require_react());
@@ -20518,12 +20520,20 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var Timer = class extends import_react2.default.Component {
     constructor(props) {
       super(props);
-      this.state = { time: quiz_timer * 60 };
+      this.state = { time: (quiz_timer - 1) * 60 - 1 };
     }
     tick() {
-      this.setState((state) => ({
-        time: state.time - 1
-      }));
+      if (this.state.time == 0) {
+        this.setState((state) => ({
+          time: "Time's up!"
+        }));
+        clearInterval(this.interval);
+        document.getElementById("quiz").submit();
+      } else {
+        this.setState((state) => ({
+          time: state.time - 1
+        }));
+      }
     }
     componentDidMount() {
       this.interval = setInterval(() => this.tick(), 1e3);
@@ -20532,7 +20542,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       clearInterval(this.interval);
     }
     render() {
-      /* @__PURE__ */ import_react2.default.createElement("div", null, ":", this.time / 60, ":", this.time % 60);
+      return /* @__PURE__ */ import_react2.default.createElement("div", null, Math.round(this.state.time / 60).toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false }), ":", (this.state.time % 60).toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false }));
     }
   };
   if (document.getElementById("timer") != null) {

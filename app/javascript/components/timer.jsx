@@ -4,13 +4,21 @@ import ReactDOM from 'react-dom'
 class Timer extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { time: quiz_timer * 60 }
+        this.state = { time: ((quiz_timer-1) * 60)-1 }
     }
 
     tick() {
-        this.setState( state=> ({
-            time: state.time - 1
-        }));
+        if (this.state.time == 0) {
+            this.setState( state=> ({
+                time: "Time's up!"
+            }));
+            clearInterval(this.interval);
+            document.getElementById("quiz").submit()
+        } else {
+            this.setState( state=> ({
+                time: state.time - 1
+            }));
+        }
     }
 
     componentDidMount() {
@@ -20,9 +28,11 @@ class Timer extends React.Component {
     componentWillUnmount() {
         clearInterval(this.interval);
     }
+    
 
-    render() {
-        <div>:{this.time / 60}:{this.time % 60}</div>
+    render() { return <div>
+        {(Math.round(this.state.time / 60)).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}:{(this.state.time % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}
+        </div>
     }
 
 }

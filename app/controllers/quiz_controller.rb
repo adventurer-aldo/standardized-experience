@@ -61,7 +61,7 @@ class QuizController < ApplicationController
             params[:level] = 0
         end
 
-        params[:level] = 2
+        #params[:level] = 2
 
         if params[:level] == 0
             @format = rand(@formats).round(0)
@@ -76,7 +76,7 @@ class QuizController < ApplicationController
         
         case params[:level]
         when 0
-            allQuestions = baseQuery.limit(5..10) #rand()
+            allQuestions = baseQuery.limit(1) #rand(5..10)
         when 1
             allQuestions = baseQuery.where(%Q(level=1)).limit(rand(15..35))
         when 2
@@ -163,7 +163,7 @@ class QuizController < ApplicationController
 
                 @parameters[:order] = @order
             elsif %I(caption multichoice veracity).include? @parameters[:type]
-                @answer = eval(@answer).join('|')
+                @answer = eval(@answer).join('|') if eval(@answer).size > 1
             end
 
             @ans.update(attempt: @answer,
