@@ -4,12 +4,14 @@ module QuizHelper
         @choices = []
         @qChoices = @question.choices.split('|')
         @qAnswers = @question.answer.split('|')
-        rand(0..@qChoices.size).times { @choices << (@qChoices - @choices).sample }
         if @type == :veracity
             rand(0..@qAnswers.size).times { @choices << (@qAnswers - @choices).sample }
+            @min = 0
         else
             @choices += @qAnswers
+            @min = 1
         end
+        rand(@min..@qChoices.size).times { @choices << (@qChoices - @choices).sample }
         @choices << (@qAnswers + @qAnswers).sample unless @choices.size > 0
         @choices.shuffle!
         return @choices

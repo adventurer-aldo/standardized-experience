@@ -162,7 +162,7 @@ class QuizController < ApplicationController
                 end
 
                 @parameters[:order] = @order
-            elsif @parameters[:type] == :caption
+            elsif %I(caption multichoice veracity).include? @parameters[:type]
                 @answer = eval(@answer).join('|')
             end
 

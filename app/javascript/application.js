@@ -2440,11 +2440,11 @@
       if (true) {
         (function() {
           "use strict";
-          var React2 = require_react();
+          var React3 = require_react();
           var _assign = require_object_assign();
           var Scheduler = require_scheduler();
           var tracing = require_tracing();
-          var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React3.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function warn(format) {
             {
               for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -2476,7 +2476,7 @@
               Function.prototype.apply.call(console[level2], console, argsWithFormat);
             }
           }
-          if (!React2) {
+          if (!React3) {
             {
               throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
             }
@@ -3692,7 +3692,7 @@
           var didWarnInvalidChild = false;
           function flattenChildren(children) {
             var content = "";
-            React2.Children.forEach(children, function(child) {
+            React3.Children.forEach(children, function(child) {
               if (child == null) {
                 return;
               }
@@ -3703,7 +3703,7 @@
           function validateProps(element, props) {
             {
               if (typeof props.children === "object" && props.children !== null) {
-                React2.Children.forEach(props.children, function(child) {
+                React3.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -10896,7 +10896,7 @@
           }
           var fakeInternalInstance = {};
           var isArray = Array.isArray;
-          var emptyRefsObject = new React2.Component().refs;
+          var emptyRefsObject = new React3.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -20511,6 +20511,33 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(QType, null), document.getElementById("questiontype"));
   import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(Level, null), document.getElementById("levels"));
+
+  // app/javascript/components/timer.jsx
+  var import_react2 = __toESM(require_react());
+  var import_react_dom2 = __toESM(require_react_dom());
+  var Timer = class extends import_react2.default.Component {
+    constructor(props) {
+      super(props);
+      this.state = { time: quiz_timer * 60 };
+    }
+    tick() {
+      this.setState((state) => ({
+        time: state.time - 1
+      }));
+    }
+    componentDidMount() {
+      this.interval = setInterval(() => this.tick(), 1e3);
+    }
+    componentWillUnmount() {
+      clearInterval(this.interval);
+    }
+    render() {
+      /* @__PURE__ */ import_react2.default.createElement("div", null, ":", this.time / 60, ":", this.time % 60);
+    }
+  };
+  if (document.getElementById("timer") != null) {
+    import_react_dom2.default.render(/* @__PURE__ */ import_react2.default.createElement(Timer, null), document.getElementById("timer"));
+  }
 })();
 /*
 object-assign
