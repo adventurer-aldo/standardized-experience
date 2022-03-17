@@ -23,11 +23,13 @@ class QuizController < ApplicationController
 
         case @formats
         when 0
-            @ending = "RR/BM"
+            @ending = ["RR/BM",'center']
         when 1
             @testName[1] = "1º Teste de Frequência"
             @testName[2] = "2º Teste de Frequência"
         end
+
+
     end
 
     #=======================================================================================
