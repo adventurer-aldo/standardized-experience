@@ -49,7 +49,7 @@
             end
             %><%= form.hidden_field "type[#{(@questionObjects.index(question))}]", value: @type %><%
         end %>
-    <br>
-    <%= form.submit "Deliver" %>
+    <br><br><%= @ending %><br>
+    <%= form.submit "Deliver", class: 'submitBtn' %>
 <% end %>
 </div></div>
