@@ -54,7 +54,7 @@ class QuizController < ApplicationController
         @journeyProgress = Statistic.first["activejourneylevel"]
 
         if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject]) == false
-            params[:subject] = Subject.where("title LIKE 'Bioesta%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
+            params[:subject] = Subject.where("title LIKE 'Biol%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
         end
 
         if params[:level].nil? || (@journeyProgress != params[:level] && @journeyProgress != 0)
@@ -76,7 +76,7 @@ class QuizController < ApplicationController
         
         case params[:level]
         when 0
-            allQuestions = baseQuery.limit(3) #rand(5..10)
+            allQuestions = baseQuery.limit(5..10) #rand()
         when 1
             allQuestions = baseQuery.where(%Q(level=1)).limit(rand(15..35))
         when 2

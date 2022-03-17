@@ -3,8 +3,14 @@ module QuizHelper
     def sort_choices
         @choices = []
         @qChoices = @question.choices.split('|')
-        rand(1..@qChoices.size).times { @choices << (@qChoices - @choices).sample }
-        @choices += @question.answer.split('|')
+        @qAnswers = @question.answer.split('|')
+        rand(0..@qChoices.size).times { @choices << (@qChoices - @choices).sample }
+        if @type == :veracity
+            rand(0..@qAnswers.size).times { @choices << (@qAnswers - @choices).sample }
+        else
+            @choices += @qAnswers
+        end
+        @choices << (@qAnswers + @qAnswers).sample unless @choices.size > 0
         @choices.shuffle!
         return @choices
     end

@@ -25,6 +25,7 @@
         <p style='position: relative'><% 
         @ans = @answerObjects[@questionObjects.index(question)]
         @parameters = eval(@ans.parameters)
+        @type = @parameters[:type]
         @right= if eval(question.parameters).include?(:strict_order)
                     question.answer.split('|') == @ans.attempt.split('|')
                 else
@@ -37,7 +38,7 @@
         end
         %><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.html_safe %><br><%
 
-        case @parameters[:type]
+        case @type
         when :open 
             if @right 
                 %><span class='ck'></span><%
