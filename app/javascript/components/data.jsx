@@ -55,6 +55,7 @@ class MyClickable extends React.Component {
     </button>
   }
 }
-
+if (document.getElementById('questiontype') != null) {
 ReactDOM.render(<QType />, document.getElementById('questiontype'))
 ReactDOM.render(<Level />, document.getElementById('levels'))
+}
