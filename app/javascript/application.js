@@ -20520,7 +20520,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var Timer = class extends import_react2.default.Component {
     constructor(props) {
       super(props);
-      this.state = { time: (quiz_timer - 1) * 60 - 1 };
+      this.state = { time: quiz_timer * 60 };
     }
     tick() {
       if (this.state.time == 0) {
@@ -20542,7 +20542,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       clearInterval(this.interval);
     }
     render() {
-      return /* @__PURE__ */ import_react2.default.createElement("div", null, Math.round(this.state.time / 60).toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false }), ":", (this.state.time % 60).toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false }));
+      return /* @__PURE__ */ import_react2.default.createElement("div", null, Math.trunc(this.state.time / 60).toLocaleString("en-US", {
+        minimumIntegerDigits: 2,
+        useGrouping: false
+      }), ":", (this.state.time % 60).toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false }));
     }
   };
   if (document.getElementById("timer") != null) {

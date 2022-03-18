@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 class Timer extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { time: ((quiz_timer-1) * 60)-1 }
+        this.state = { time: ((quiz_timer) * 60) }
     }
 
     tick() {
@@ -31,8 +31,13 @@ class Timer extends React.Component {
     
 
     render() { return <div>
-        {(Math.round(this.state.time / 60)).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}:{(this.state.time % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}
+        {(Math.trunc(this.state.time / 60)
+        ).toLocaleString(
+            'en-US', 
+            {minimumIntegerDigits: 2, 
+            useGrouping:false})}:{(this.state.time % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}
         </div>
+
     }
 
 }
