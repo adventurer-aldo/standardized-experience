@@ -7,7 +7,7 @@ class QuizController < ApplicationController
     # names and the endings of the tests, as wll as the time the quizzes will take.
     #=======================================================================================
     def setup
-        @formats = 0..0
+        @formats = 1..1
         @ending = [""]
 
         @testName = [
@@ -80,7 +80,7 @@ class QuizController < ApplicationController
         
         case params[:level]
         when 0
-            allQuestions = baseQuery.limit(rand(5..10) #)
+            allQuestions = baseQuery.limit(rand(5..10)) #)
         when 1
             allQuestions = baseQuery.where(%Q(level=1)).limit(rand(15..35))
         when 2

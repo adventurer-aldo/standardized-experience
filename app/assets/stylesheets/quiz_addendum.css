@@ -128,3 +128,8 @@ input:focus,select:focus,textarea:focus,button:focus {
         left: 60%;
     }
 }
+
+#bioborder {
+    border: solid 2px black;
+    padding: 10px 5px;
+}
