@@ -2,17 +2,19 @@
 <p><b>Create a new question.</b></p>
 <%= form_with html: { autocomplete: 'off' } do |form| %>
     <%= form.label :question, "Question:"%>
-    <%= form.text_field :question, required: true, class: 'input-data'  %>
-    <%= form.label :image, "Image:" %>
-    <%= form.text_field :image %><br>
+    <%= form.text_field :question, required: true, class: 'input-data'  %><br>
+    <%= form.label :image, fa_icon('plus'), id: 'haer' %>
+    <%= form.file_field :image %>
+    <%= form.label :old_image, 'Would you like to use the previous image?'%>
+    <%= form.check_box :old_image %><br>
     <%= form.label :answer, "Answer:" %>
     <%= form.text_field :answer, required: true, class: 'input-data'   %><br>
-    <%= form.label :choices, "Choices:" %>
-    <%= form.text_field :choices, class: 'input-data'  %><br>
+    <div id='choices'></div>
     <div id='questiontype'></div><br>
     <%= form.label :subject, "For which subject?" %>
     <%= form.collection_select :subject, @subjects, :title, :title, selected: cookies[:subject] %>
-    <div id='levels'></div><br>
+    <div id='levels'></div>
+    <div id='parameters'></div><br>
     <%= form.submit "Submit question", class: 'submitBtn' %>
 <% end %>
 <% if cookies[:level] != nil && cookies[:type] != nil %>

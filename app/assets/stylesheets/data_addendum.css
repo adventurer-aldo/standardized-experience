@@ -40,6 +40,18 @@
   min-width: 50%;
 }
 
+.add-more {
+  background-color: #1a3351;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+    
+}
+
+.col-13 {
+  padding: 5px;
+}
+
 .submitBtn {
   display: block;
   border: none;
@@ -57,4 +69,9 @@
 
 .submitBtn:hover {
   background-color: #00bde3;
+}
+
+button[name='1'] {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
 }

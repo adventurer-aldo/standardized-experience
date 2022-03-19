@@ -2440,11 +2440,11 @@
       if (true) {
         (function() {
           "use strict";
-          var React3 = require_react();
+          var React5 = require_react();
           var _assign = require_object_assign();
           var Scheduler = require_scheduler();
           var tracing = require_tracing();
-          var ReactSharedInternals = React3.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React5.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function warn(format) {
             {
               for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -2476,7 +2476,7 @@
               Function.prototype.apply.call(console[level2], console, argsWithFormat);
             }
           }
-          if (!React3) {
+          if (!React5) {
             {
               throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
             }
@@ -3692,7 +3692,7 @@
           var didWarnInvalidChild = false;
           function flattenChildren(children) {
             var content = "";
-            React3.Children.forEach(children, function(child) {
+            React5.Children.forEach(children, function(child) {
               if (child == null) {
                 return;
               }
@@ -3703,7 +3703,7 @@
           function validateProps(element, props) {
             {
               if (typeof props.children === "object" && props.children !== null) {
-                React3.Children.forEach(props.children, function(child) {
+                React5.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -10896,7 +10896,7 @@
           }
           var fakeInternalInstance = {};
           var isArray = Array.isArray;
-          var emptyRefsObject = new React3.Component().refs;
+          var emptyRefsObject = new React5.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -20419,105 +20419,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }
   });
 
-  // app/javascript/components/data.jsx
+  // app/javascript/components/quiz_timer.jsx
   var import_react = __toESM(require_react());
   var import_react_dom = __toESM(require_react_dom());
-  var QType = class extends import_react.default.Component {
-    state = {
-      activeIndex: type,
-      choice: type_choice
-    };
-    handleClick = (index) => this.setState({ activeIndex: index, choice: [":open", ":choice", ":multichoice", ":veracity", ":caption", ":table", ":formula"][index] });
-    render() {
-      return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("b", null, "Select the type:"), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
-        name: "Open",
-        index: 0,
-        isActive: this.state.activeIndex === 0,
-        onClick: this.handleClick
-      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
-        name: "Choice",
-        index: 1,
-        isActive: this.state.activeIndex === 1,
-        onClick: this.handleClick
-      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
-        name: "Multi-Choice",
-        index: 2,
-        isActive: this.state.activeIndex === 2,
-        onClick: this.handleClick
-      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
-        name: "Veracity",
-        index: 3,
-        isActive: this.state.activeIndex === 3,
-        onClick: this.handleClick
-      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
-        name: "Caption",
-        index: 4,
-        isActive: this.state.activeIndex === 4,
-        onClick: this.handleClick
-      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
-        name: "Table",
-        index: 5,
-        isActive: this.state.activeIndex === 5,
-        onClick: this.handleClick
-      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
-        name: "Formula",
-        index: 6,
-        isActive: this.state.activeIndex === 6,
-        onClick: this.handleClick
-      }), /* @__PURE__ */ import_react.default.createElement("input", {
-        name: "type",
-        value: this.state.choice,
-        type: "hidden"
-      }));
-    }
-  };
-  var Level = class extends import_react.default.Component {
-    state = {
-      level
-    };
-    handleClick = (index) => this.setState({ level: index });
-    render() {
-      return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("b", null, "And the level:"), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
-        name: "1",
-        index: 1,
-        isActive: this.state.level === 1,
-        onClick: this.handleClick
-      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
-        name: "2",
-        index: 2,
-        isActive: this.state.level === 2,
-        onClick: this.handleClick
-      }), /* @__PURE__ */ import_react.default.createElement(MyClickable, {
-        name: "Exam",
-        index: 3,
-        isActive: this.state.level === 3,
-        onClick: this.handleClick
-      }), /* @__PURE__ */ import_react.default.createElement("input", {
-        name: "level",
-        value: this.state.level,
-        type: "hidden"
-      }));
-    }
-  };
-  var MyClickable = class extends import_react.default.Component {
-    handleClick = () => this.props.onClick(this.props.index);
-    render() {
-      return /* @__PURE__ */ import_react.default.createElement("button", {
-        type: "button",
-        className: this.props.isActive ? "btnType onType" : "btnType offType",
-        onClick: this.handleClick
-      }, /* @__PURE__ */ import_react.default.createElement("span", null, this.props.name));
-    }
-  };
-  if (document.getElementById("questiontype") != null) {
-    import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(QType, null), document.getElementById("questiontype"));
-    import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(Level, null), document.getElementById("levels"));
-  }
-
-  // app/javascript/components/timer.jsx
-  var import_react2 = __toESM(require_react());
-  var import_react_dom2 = __toESM(require_react_dom());
-  var Timer = class extends import_react2.default.Component {
+  var Timer = class extends import_react.default.Component {
     constructor(props) {
       super(props);
       this.state = { time: quiz_timer * 60 };
@@ -20542,15 +20447,217 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       clearInterval(this.interval);
     }
     render() {
-      return /* @__PURE__ */ import_react2.default.createElement("div", null, Math.trunc(this.state.time / 60).toLocaleString("en-US", {
+      return /* @__PURE__ */ import_react.default.createElement("div", null, Math.trunc(this.state.time / 60).toLocaleString("en-US", {
         minimumIntegerDigits: 2,
         useGrouping: false
       }), ":", (this.state.time % 60).toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false }));
     }
   };
   if (document.getElementById("timer") != null) {
-    import_react_dom2.default.render(/* @__PURE__ */ import_react2.default.createElement(Timer, null), document.getElementById("timer"));
+    import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(Timer, null), document.getElementById("timer"));
   }
+
+  // app/javascript/components/data_choices.jsx
+  var import_react2 = __toESM(require_react());
+  var import_react_dom2 = __toESM(require_react_dom());
+  var Choices = class extends import_react2.default.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        other_fields: []
+      };
+    }
+    addMoreFields() {
+      var newArr = {
+        filed: ""
+      };
+      this.setState({
+        other_fields: this.state.other_fields.concat(newArr)
+      });
+    }
+    removeOther(index) {
+      this.state.other_fields[index].delete = true;
+      this.setState((prevState) => ({
+        other_fields: [...prevState.other_fields]
+      }));
+    }
+    render() {
+      return /* @__PURE__ */ import_react2.default.createElement("div", {
+        className: "wrapper"
+      }, this.state.other_fields.map((item, index) => item.delete !== true ? /* @__PURE__ */ import_react2.default.createElement("div", {
+        className: "col-12"
+      }, /* @__PURE__ */ import_react2.default.createElement("label", {
+        htmlFor: "inputEmailAddress",
+        className: "form-label wd-100 fl"
+      }, "Choice:"), /* @__PURE__ */ import_react2.default.createElement("input", {
+        type: "text",
+        name: "choice[]",
+        className: "input-data"
+      }), /* @__PURE__ */ import_react2.default.createElement("span", {
+        className: "addotherurl",
+        onClick: () => this.removeOther(index)
+      }, "  ", /* @__PURE__ */ import_react2.default.createElement("i", {
+        className: "fa fa-minus"
+      }))) : null), /* @__PURE__ */ import_react2.default.createElement("div", {
+        className: "col-13",
+        onClick: () => this.addMoreFields()
+      }, /* @__PURE__ */ import_react2.default.createElement("label", {
+        className: "add-more"
+      }, /* @__PURE__ */ import_react2.default.createElement("i", {
+        className: "fa fa-plus"
+      }), " Add Choice")));
+    }
+  };
+  if (document.getElementById("choices") != null) {
+    import_react_dom2.default.render(/* @__PURE__ */ import_react2.default.createElement(Choices, null), document.getElementById("choices"));
+  }
+
+  // app/javascript/components/data_leveltype.jsx
+  var import_react3 = __toESM(require_react());
+  var import_react_dom3 = __toESM(require_react_dom());
+  var QType = class extends import_react3.default.Component {
+    state = {
+      activeIndex: type,
+      choice: type_choice
+    };
+    handleClick = (index) => this.setState({ activeIndex: index, choice: [":open", ":choice", ":multichoice", ":veracity", ":caption", ":table", ":formula"][index] });
+    render() {
+      return /* @__PURE__ */ import_react3.default.createElement("div", null, /* @__PURE__ */ import_react3.default.createElement("b", null, "Select the type:"), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
+        name: "Open",
+        index: 0,
+        isActive: this.state.activeIndex === 0,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
+        name: "Choice",
+        index: 1,
+        isActive: this.state.activeIndex === 1,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
+        name: "Multi-Choice",
+        index: 2,
+        isActive: this.state.activeIndex === 2,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
+        name: "Veracity",
+        index: 3,
+        isActive: this.state.activeIndex === 3,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
+        name: "Caption",
+        index: 4,
+        isActive: this.state.activeIndex === 4,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
+        name: "Table",
+        index: 5,
+        isActive: this.state.activeIndex === 5,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
+        name: "Formula",
+        index: 6,
+        isActive: this.state.activeIndex === 6,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement("input", {
+        name: "type",
+        value: this.state.choice,
+        type: "hidden"
+      }));
+    }
+  };
+  var Level = class extends import_react3.default.Component {
+    state = {
+      level
+    };
+    handleClick = (index) => this.setState({ level: index });
+    render() {
+      return /* @__PURE__ */ import_react3.default.createElement("div", null, /* @__PURE__ */ import_react3.default.createElement("b", null, "And the level:"), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
+        name: "First",
+        index: 1,
+        isActive: this.state.level === 1,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
+        name: "Second",
+        index: 2,
+        isActive: this.state.level === 2,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
+        name: "Exam",
+        index: 3,
+        isActive: this.state.level === 3,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement("input", {
+        name: "level",
+        value: this.state.level,
+        type: "hidden"
+      }));
+    }
+  };
+  var MyClickable = class extends import_react3.default.Component {
+    handleClick = () => this.props.onClick(this.props.index);
+    render() {
+      return /* @__PURE__ */ import_react3.default.createElement("button", {
+        type: "button",
+        className: this.props.isActive ? "btnType onType" : "btnType offType",
+        onClick: this.handleClick
+      }, /* @__PURE__ */ import_react3.default.createElement("span", null, this.props.name));
+    }
+  };
+  if (document.getElementById("questiontype") != null) {
+    import_react_dom3.default.render(/* @__PURE__ */ import_react3.default.createElement(QType, null), document.getElementById("questiontype"));
+    import_react_dom3.default.render(/* @__PURE__ */ import_react3.default.createElement(Level, null), document.getElementById("levels"));
+  }
+
+  // app/javascript/components/data_parameters.jsx
+  var import_react4 = __toESM(require_react());
+  var import_react_dom4 = __toESM(require_react_dom());
+  var Parameters = class extends import_react4.default.Component {
+    state = {
+      activeIndexD: 0,
+      choiceD: ""
+    };
+    handleClick = (index) => this.setState({ activeIndexD: index, choiceD: ["", ":strict_order"][index] });
+    render() {
+      return /* @__PURE__ */ import_react4.default.createElement("div", null, /* @__PURE__ */ import_react4.default.createElement("b", null, "Select the parameters:"), /* @__PURE__ */ import_react4.default.createElement(MyClickable2, {
+        name: "Strict Order",
+        index: 1,
+        isActive: this.state.activeIndexD === 1,
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react4.default.createElement("input", {
+        name: "type",
+        value: this.state.choiceD,
+        type: "hidden"
+      }));
+    }
+  };
+  var MyClickable2 = class extends import_react4.default.Component {
+    handleClick = () => this.props.onClick(this.props.index);
+    render() {
+      return /* @__PURE__ */ import_react4.default.createElement("button", {
+        type: "button",
+        className: this.props.isActive ? "btnType onType" : "btnType offType",
+        onClick: this.handleClick
+      }, /* @__PURE__ */ import_react4.default.createElement("span", null, this.props.name));
+    }
+  };
+  if (document.getElementById("parameters") != null) {
+    import_react_dom4.default.render(/* @__PURE__ */ import_react4.default.createElement(Parameters, null), document.getElementById("parameters"));
+  }
+
+  // app/javascript/controllers/paste_image.js
+  if (document.getElementById("image") != null) {
+    item = document.getElementById("image");
+    window.addEventListener("paste", (e) => {
+      item.files = e.clipboardData.files;
+      var img = new Image();
+      var bg = Array.from(e.clipboardData.items).find((x) => /^image\//.test(x.type));
+      var blob = bg.getAsFile();
+      img.src = URL.createObjectURL(blob);
+      img.onload = function() {
+        document.getElementById("haer").style.backgroundImage = "url('" + img.src + "')";
+      };
+    });
+  }
+  var item;
 })();
 /*
 object-assign

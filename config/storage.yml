@@ -6,6 +6,22 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
+b2cloud:
+  service: S3
+  endpoint: https://s3.us-west-004.backblazeb2.com
+  access_key_id: 00401ac0d7d7dc40000000001
+  secret_access_key: K004AS33pkBImfpjH1dpoJS5G5PELds
+  region: us-west-004
+  bucket: standard-xp
+
+exiter:
+  service: S3
+  endpoint: https://s3.us-west-004.backblazeb2.com 
+  access_key_id: 0045bf4629942cc0000000001
+  secret_access_key: K004xglXeJ4kBbhSvnvAav8GeE6wXEQ
+  region: us-west-004
+  bucket: viridian
+
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
 #   service: S3

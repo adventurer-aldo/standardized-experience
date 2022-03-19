@@ -10,10 +10,10 @@ class HomeController < ApplicationController
     def submit_question
         @question = params[:question]
         unless params[:image] == "" || params[:image].nil?
-            @question << "<br><img class='qImage' src='#{params[:image]}'>"
+            
         end
 
-        Question.create(question: @question,
+        @newQuestion = Question.create(question: @question,
         questiontype: "[#{params[:type]}]",
         answer: params[:answer],
         choices: params[:choices],
@@ -23,6 +23,7 @@ class HomeController < ApplicationController
         frequency: 0,
         parameters: '[]'
         )
+        @newQuestion.image.attach(params[:image])
 
         cookies[:level] = params[:level]
         cookies[:type] = params[:type]
@@ -32,5 +33,6 @@ class HomeController < ApplicationController
     end
 
     def about
+
     end
 end

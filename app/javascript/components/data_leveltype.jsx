@@ -31,8 +31,8 @@ class Level extends React.Component {
 
   render() {
     return <div><b>And the level:</b> 
-      <MyClickable name="1" index={1} isActive={ this.state.level===1 } onClick={this.handleClick} />
-      <MyClickable name="2" index={2} isActive={ this.state.level===2 } onClick={this.handleClick} />
+      <MyClickable name="First" index={1} isActive={ this.state.level===1 } onClick={this.handleClick} />
+      <MyClickable name="Second" index={2} isActive={ this.state.level===2 } onClick={this.handleClick} />
       <MyClickable name="Exam" index={3} isActive={ this.state.level===3 } onClick={this.handleClick} />
       <input name='level' value={this.state.level} type='hidden' />
     </div>
