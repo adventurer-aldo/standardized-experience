@@ -1,6 +1,6 @@
 <% unless @grade.nil? %><span class='score'><%= number_with_precision @grade, significant: true, precision: 2, separator: ',' %>/20</span><% end %>
-<div id='bioborder'><p><b>SE</b></p>
-<p><b>STANDARDIZED EXPERIENCE</b></p>
+<div id='bioborder'><p align='center'><b>SE</b></p>
+<p align='center'<b>STANDARDIZED EXPERIENCE</b></p>
 <p style='float: left'>Disciplina: <%=@currentQuiz.subject%><br>
 Curso: Medicina Geral<br>
 Variante <%=%W(A B C D).sample %>
@@ -8,7 +8,7 @@ Variante <%=%W(A B C D).sample %>
 Ano lectivo: <%=@quizStart.year%><br>
 Data: <%=@quizStart.day%>/<%=@quizStart.month%>/<%=@quizStart.year%>
 </p>
-<p><%= @testName[@currentQuiz.level].upcase %></p></div>
+<p><br><br><br><%= @testName[@currentQuiz.level].upcase %></p></div>
 <p> <%= form_with id: :name, html: { autocomplete: 'off' } do |form| %>
         <%= form.label :name, "Nome: ", class: 'bold'%>
         <% unless @currentQuiz.timestarted == @currentQuiz.timeended %>

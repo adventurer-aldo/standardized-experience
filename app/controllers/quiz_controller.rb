@@ -65,7 +65,8 @@ class QuizController < ApplicationController
             params[:level] = 0
         end
 
-        #params[:level] = 2
+        params[:level] = 2
+        params[:subject] = "Bioquímica II"
 
         if params[:level] == 0
             @format = rand(@formats).round(0)

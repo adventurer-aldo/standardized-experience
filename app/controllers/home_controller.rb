@@ -8,28 +8,33 @@ class HomeController < ApplicationController
     end
 
     def submit_question
-        @question = params[:question]
-        unless params[:image] == "" || params[:image].nil?
-            
-        end
-
-        @newQuestion = Question.create(question: @question,
+        @newQuestion = Question.create(question: params[:question],
         questiontype: "[#{params[:type]}]",
         answer: params[:answer],
-        choices: params[:choices],
         subject: params[:subject],
         level: params[:level].to_i,
         tags: '[]',
         frequency: 0,
-        parameters: '[]'
+        parameters: "[#{params[:parameters].join(',')}]"
         )
-        @newQuestion.image.attach(params[:image])
+        case params[:old_image]
+        when "0"
+            @newQuestion.image.attach(params[:image]) unless params[:image] == nil
+        when "1"
+            @newQuestion.image.attach(Question.last.image) unless Question.last.image == nil
+        end
+
+        unless params[:choice] == nil
+            params[:choice].uniq.each do |choice|
+                Choice.create(decoy: choice, question: @newQuestion.id)
+            end
+        end
 
         cookies[:level] = params[:level]
         cookies[:type] = params[:type]
         cookies[:subject] = params[:subject]
 
-    redirect_to data_path
+        redirect_to data_path
     end
 
     def about
