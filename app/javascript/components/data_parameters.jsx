@@ -12,7 +12,7 @@ class Parameters extends React.Component {
     render() {
       return <div><b>Select the parameters:</b> 
         <MyClickable name="Strict Order" index={1} isActive={ this.state.activeIndexD===1 } onClick={ this.handleClick } />
-        <input name='type' value={this.state.choiceD} type='hidden' />
+        <input name='parameters' value={this.state.choiceD} type='hidden' />
       </div>
     }
 }

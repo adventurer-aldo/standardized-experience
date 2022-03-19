@@ -20623,7 +20623,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         isActive: this.state.activeIndexD === 1,
         onClick: this.handleClick
       }), /* @__PURE__ */ import_react4.default.createElement("input", {
-        name: "type",
+        name: "parameters",
         value: this.state.choiceD,
         type: "hidden"
       }));

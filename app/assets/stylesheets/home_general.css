@@ -94,15 +94,3 @@ ul {
     padding-top: 30px;
 }
 
-label[for='image'] {
-    cursor: pointer;
-    font-size: 12px;
-    border: 2px solid black;
-    padding: 7px 15px;
-    background-size: 100%;
-}
-
-#image {
-    visibility: none;
-    display: none;
-}
