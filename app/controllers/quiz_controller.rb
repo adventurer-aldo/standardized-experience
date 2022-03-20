@@ -156,7 +156,7 @@ class QuizController < ApplicationController
             if %I(choice multichoice veracity).include? @parameters[:type]
                 @que = Question.find_by(id: @ans.questionid)
                 @sourceAnswers = @que.answer.split("|")
-                @sourceChoices = @que.choices.split("|")
+                @sourceChoices = (Choice.select(:decoy).where(question: @que.id).order(:id)).map{|n| n.decoy }
                 @choices = eval(params[:choices]["#{@answers.index(answer_id)}"])
                 @order = []
 
