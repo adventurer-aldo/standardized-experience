@@ -3,7 +3,7 @@ module QuizHelper
     def sort_choices
         @choices = []
         @qChoices = Choice.select(:decoy).where(question:@question.id)
-        @qChoices = @qChoices.map{ |choice| choice.decoy }
+        @qChoices = @qChoices.map { |choice| choice.decoy }
         @qAnswers = @question.answer.split('|')
         if @type == :veracity
             rand(0..@qAnswers.size).times { @choices << (@qAnswers - @choices).sample }
@@ -22,7 +22,7 @@ module QuizHelper
         @choices = []
         @answer = @question.answer.split("|")
         @realChoices = Choice.select(:decoy).where(question:@question.id).order(:id)
-        @realChoices = @realChoices.(&:decoy)
+        @realChoices = @realChoices.map { |choice| choice.decoy }
         @parameters[:order].each do |choice|
             @choices << if choice.class == String
                             @answer[choice.to_i]
