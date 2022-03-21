@@ -212,12 +212,12 @@ class QuizController < ApplicationController
 
         if @grade < 7
             @fanfare = "https://vgmsite.com/soundtracks/fire-emblem-awakening/hjmlcdyjor/1-16%20-%20Farewell...my%20friends....mp3"
-        elsif  @grade < 10
-            @fanfare = "https://vgmsite.com/soundtracks/rpg-maker-mv-ost/nybqpgcdjt/Gameover1.mp3"
+        elsif  @grade < 9.5
+            @fanfare = "https://cdn.discordapp.com/attachments/812356352323223572/955411728341020692/fail.mp3"
         elsif @grade < 15
-            @fanfare = "https://vgmsite.com/soundtracks/rpg-maker-mv-ost/tksshzgtjq/Fanfare3.mp3"
+            @fanfare = "https://cdn.discordapp.com/attachments/812356352323223572/955412082449317908/succeed.mp3"
         elsif @grade < 18
-            @fanfare = "https://vgmsite.com/soundtracks/rpg-maker-mv-ost/ewqgncnoxb/Jingle%20Fantasy1%2001.mp3"
+            @fanfare = "https://cdn.discordapp.com/attachments/812356352323223572/955412286976176148/succeedhard.mp3"
         elsif @grade < 20
             @fanfare = "https://vgmsite.com/soundtracks/rpg-maker-mv-ost/ccttepsreq/Jingle%20Fantasy1%2004.mp3"
         else
