@@ -1,6 +1,6 @@
 <%= render "navbar"%><head><title><%=@currentQuiz.subject%> | <%=@testName[@currentQuiz.level]%></title></head><div id='page'><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
-<%= audio_tag("https://vgmsite.com/soundtracks/fire-emblem-fates-if-original-soundtrack/netjqrpdlt/2-08%20Justice%20RIP.mp3",autoplay: true, loop: true)%>
+<%= audio_tag("https://vgmsite.com/soundtracks/fire-emblem-fates-if-original-soundtrack/netjqrpdlt/2-08%20Justice%20RIP.mp3",autoplay: true, loop: true, id: 'bgm')%>
 <%= form_with id: :quiz, html: { autocomplete: 'off' } do |form| %>
     <%= form.hidden_field :quizID, value: @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
