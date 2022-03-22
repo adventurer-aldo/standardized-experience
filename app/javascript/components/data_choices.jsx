@@ -29,7 +29,7 @@ class Choices extends React.Component {
     }
 
     componentDidMount() {
-      for (var i=0;i==this.choices;i++) {
+      for (var i=0;i===this.choices;i++) {
         this.addMoreFields();
       }
     }
