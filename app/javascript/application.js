@@ -20489,7 +20489,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }));
     }
     componentDidMount() {
-      this.addMoreFields();
+      for (var i = 0; i < choices; i++) {
+        this.addMoreFields();
+      }
     }
     render() {
       return /* @__PURE__ */ import_react2.default.createElement("div", {
