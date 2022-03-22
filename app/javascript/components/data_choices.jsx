@@ -29,9 +29,7 @@ class Choices extends React.Component {
     }
 
     componentDidMount() {
-      for (var i=0;i>choices;i++) {
         this.addMoreFields();
-      }
     }
     
     render() { return <div className="wrapper">
