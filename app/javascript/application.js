@@ -45,8 +45,8 @@
             return false;
           }
           var test2 = {};
-          for (var i2 = 0; i2 < 10; i2++) {
-            test2["_" + String.fromCharCode(i2)] = i2;
+          for (var i = 0; i < 10; i++) {
+            test2["_" + String.fromCharCode(i)] = i;
           }
           var order2 = Object.getOwnPropertyNames(test2).map(function(n) {
             return test2[n];
@@ -79,9 +79,9 @@
           }
           if (getOwnPropertySymbols) {
             symbols = getOwnPropertySymbols(from);
-            for (var i2 = 0; i2 < symbols.length; i2++) {
-              if (propIsEnumerable.call(from, symbols[i2])) {
-                to[symbols[i2]] = from[symbols[i2]];
+            for (var i = 0; i < symbols.length; i++) {
+              if (propIsEnumerable.call(from, symbols[i])) {
+                to[symbols[i]] = from[symbols[i]];
               }
             }
           }
@@ -528,8 +528,8 @@
               props.children = children;
             } else if (childrenLength > 1) {
               var childArray = Array(childrenLength);
-              for (var i2 = 0; i2 < childrenLength; i2++) {
-                childArray[i2] = arguments[i2 + 2];
+              for (var i = 0; i < childrenLength; i++) {
+                childArray[i] = arguments[i + 2];
               }
               {
                 if (Object.freeze) {
@@ -603,8 +603,8 @@
               props.children = children;
             } else if (childrenLength > 1) {
               var childArray = Array(childrenLength);
-              for (var i2 = 0; i2 < childrenLength; i2++) {
-                childArray[i2] = arguments[i2 + 2];
+              for (var i = 0; i < childrenLength; i++) {
+                childArray[i] = arguments[i + 2];
               }
               props.children = childArray;
             }
@@ -684,9 +684,9 @@
             var subtreeCount = 0;
             var nextNamePrefix = nameSoFar === "" ? SEPARATOR : nameSoFar + SUBSEPARATOR;
             if (Array.isArray(children)) {
-              for (var i2 = 0; i2 < children.length; i2++) {
-                child = children[i2];
-                nextName = nextNamePrefix + getElementKey(child, i2);
+              for (var i = 0; i < children.length; i++) {
+                child = children[i];
+                nextName = nextNamePrefix + getElementKey(child, i);
                 subtreeCount += mapIntoArray(child, array, escapedPrefix, nextName, callback);
               }
             } else {
@@ -1447,8 +1447,8 @@
               return;
             }
             if (Array.isArray(node)) {
-              for (var i2 = 0; i2 < node.length; i2++) {
-                var child = node[i2];
+              for (var i = 0; i < node.length; i++) {
+                var child = node[i];
                 if (isValidElement(child)) {
                   validateExplicitKey(child, parentType);
                 }
@@ -1502,8 +1502,8 @@
           function validateFragmentProps(fragment) {
             {
               var keys = Object.keys(fragment.props);
-              for (var i2 = 0; i2 < keys.length; i2++) {
-                var key = keys[i2];
+              for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
                 if (key !== "children" && key !== "key") {
                   setCurrentlyValidatingElement$1(fragment);
                   error("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", key);
@@ -1551,8 +1551,8 @@
               return element;
             }
             if (validType) {
-              for (var i2 = 2; i2 < arguments.length; i2++) {
-                validateChildKeys(arguments[i2], type2);
+              for (var i = 2; i < arguments.length; i++) {
+                validateChildKeys(arguments[i], type2);
               }
             }
             if (type2 === exports.Fragment) {
@@ -1586,8 +1586,8 @@
           }
           function cloneElementWithValidation(element, props, children) {
             var newElement = cloneElement.apply(this, arguments);
-            for (var i2 = 2; i2 < arguments.length; i2++) {
-              validateChildKeys(arguments[i2], newElement.type);
+            for (var i = 2; i < arguments.length; i++) {
+              validateChildKeys(arguments[i], newElement.type);
             }
             validatePropTypes(newElement);
             return newElement;
@@ -1811,8 +1811,8 @@
               return null;
             }
           }
-          function siftUp(heap, node, i2) {
-            var index = i2;
+          function siftUp(heap, node, i) {
+            var index = i;
             while (true) {
               var parentIndex = index - 1 >>> 1;
               var parent = heap[parentIndex];
@@ -1825,8 +1825,8 @@
               }
             }
           }
-          function siftDown(heap, node, i2) {
-            var index = i2;
+          function siftDown(heap, node, i) {
+            var index = i;
             var length = heap.length;
             while (index < length) {
               var leftIndex = (index + 1) * 2 - 1;
@@ -2531,8 +2531,8 @@
                 possibleRegistrationNames.ondblclick = registrationName;
               }
             }
-            for (var i2 = 0; i2 < dependencies.length; i2++) {
-              allNativeEvents.add(dependencies[i2]);
+            for (var i = 0; i < dependencies.length; i++) {
+              allNativeEvents.add(dependencies[i]);
             }
           }
           var canUseDOM = !!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
@@ -3663,8 +3663,8 @@
                 queryRoot = queryRoot.parentNode;
               }
               var group = queryRoot.querySelectorAll("input[name=" + JSON.stringify("" + name) + '][type="radio"]');
-              for (var i2 = 0; i2 < group.length; i2++) {
-                var otherNode = group[i2];
+              for (var i = 0; i < group.length; i++) {
+                var otherNode = group[i];
                 if (otherNode === rootNode || otherNode.form !== rootNode.form) {
                   continue;
                 }
@@ -3755,8 +3755,8 @@
           function checkSelectPropTypes(props) {
             {
               checkControlledValueProps("select", props);
-              for (var i2 = 0; i2 < valuePropNames.length; i2++) {
-                var propName = valuePropNames[i2];
+              for (var i = 0; i < valuePropNames.length; i++) {
+                var propName = valuePropNames[i];
                 if (props[propName] == null) {
                   continue;
                 }
@@ -3774,8 +3774,8 @@
             if (multiple) {
               var selectedValues = propValue;
               var selectedValue = {};
-              for (var i2 = 0; i2 < selectedValues.length; i2++) {
-                selectedValue["$" + selectedValues[i2]] = true;
+              for (var i = 0; i < selectedValues.length; i++) {
+                selectedValue["$" + selectedValues[i]] = true;
               }
               for (var _i = 0; _i < options2.length; _i++) {
                 var selected = selectedValue.hasOwnProperty("$" + options2[_i].value);
@@ -4250,8 +4250,8 @@
             var expanded = {};
             for (var key in styles) {
               var longhands = shorthandToLonghand[key] || [key];
-              for (var i2 = 0; i2 < longhands.length; i2++) {
-                expanded[longhands[i2]] = key;
+              for (var i = 0; i < longhands.length; i++) {
+                expanded[longhands[i]] = key;
               }
             }
             return expanded;
@@ -5152,8 +5152,8 @@
             restoreQueue = null;
             restoreStateOfTarget(target);
             if (queuedTargets) {
-              for (var i2 = 0; i2 < queuedTargets.length; i2++) {
-                restoreStateOfTarget(queuedTargets[i2]);
+              for (var i = 0; i < queuedTargets.length; i++) {
+                restoreStateOfTarget(queuedTargets[i]);
               }
             }
           }
@@ -5937,8 +5937,8 @@
           function retryIfBlockedOn(unblocked) {
             if (queuedDiscreteEvents.length > 0) {
               scheduleCallbackIfUnblocked(queuedDiscreteEvents[0], unblocked);
-              for (var i2 = 1; i2 < queuedDiscreteEvents.length; i2++) {
-                var queuedEvent = queuedDiscreteEvents[i2];
+              for (var i = 1; i < queuedDiscreteEvents.length; i++) {
+                var queuedEvent = queuedDiscreteEvents[i];
                 if (queuedEvent.blockedOn === unblocked) {
                   queuedEvent.blockedOn = null;
                 }
@@ -6099,9 +6099,9 @@
           var userBlockingPairsForSimpleEventPlugin = ["drag", "drag", "dragenter", "dragEnter", "dragexit", "dragExit", "dragleave", "dragLeave", "dragover", "dragOver", "mousemove", "mouseMove", "mouseout", "mouseOut", "mouseover", "mouseOver", "pointermove", "pointerMove", "pointerout", "pointerOut", "pointerover", "pointerOver", "scroll", "scroll", "toggle", "toggle", "touchmove", "touchMove", "wheel", "wheel"];
           var continuousPairsForSimpleEventPlugin = ["abort", "abort", ANIMATION_END, "animationEnd", ANIMATION_ITERATION, "animationIteration", ANIMATION_START, "animationStart", "canplay", "canPlay", "canplaythrough", "canPlayThrough", "durationchange", "durationChange", "emptied", "emptied", "encrypted", "encrypted", "ended", "ended", "error", "error", "gotpointercapture", "gotPointerCapture", "load", "load", "loadeddata", "loadedData", "loadedmetadata", "loadedMetadata", "loadstart", "loadStart", "lostpointercapture", "lostPointerCapture", "playing", "playing", "progress", "progress", "seeking", "seeking", "stalled", "stalled", "suspend", "suspend", "timeupdate", "timeUpdate", TRANSITION_END, "transitionEnd", "waiting", "waiting"];
           function registerSimplePluginEventsAndSetTheirPriorities(eventTypes, priority) {
-            for (var i2 = 0; i2 < eventTypes.length; i2 += 2) {
-              var topEvent = eventTypes[i2];
-              var event = eventTypes[i2 + 1];
+            for (var i = 0; i < eventTypes.length; i += 2) {
+              var topEvent = eventTypes[i];
+              var event = eventTypes[i + 1];
               var capitalizedEvent = event[0].toUpperCase() + event.slice(1);
               var reactName = "on" + capitalizedEvent;
               eventPriorities.set(topEvent, priority);
@@ -6110,8 +6110,8 @@
             }
           }
           function setEventPriorities(eventTypes, priority) {
-            for (var i2 = 0; i2 < eventTypes.length; i2++) {
-              eventPriorities.set(eventTypes[i2], priority);
+            for (var i = 0; i < eventTypes.length; i++) {
+              eventPriorities.set(eventTypes[i], priority);
             }
           }
           function getEventPriorityForPluginSystem(domEventName) {
@@ -6535,7 +6535,7 @@
           }
           function createLaneMap(initial) {
             var laneMap = [];
-            for (var i2 = 0; i2 < TotalLanes; i2++) {
+            for (var i = 0; i < TotalLanes; i++) {
               laneMap.push(initial);
             }
             return laneMap;
@@ -7545,8 +7545,8 @@
             if (keysA.length !== keysB.length) {
               return false;
             }
-            for (var i2 = 0; i2 < keysA.length; i2++) {
-              if (!hasOwnProperty$2.call(objB, keysA[i2]) || !objectIs(objA[keysA[i2]], objB[keysA[i2]])) {
+            for (var i = 0; i < keysA.length; i++) {
+              if (!hasOwnProperty$2.call(objB, keysA[i]) || !objectIs(objA[keysA[i]], objB[keysA[i]])) {
                 return false;
               }
             }
@@ -7762,8 +7762,8 @@
               if (typeof priorFocusedElem.focus === "function") {
                 priorFocusedElem.focus();
               }
-              for (var i2 = 0; i2 < ancestors.length; i2++) {
-                var info = ancestors[i2];
+              for (var i = 0; i < ancestors.length; i++) {
+                var info = ancestors[i];
                 info.element.scrollLeft = info.left;
                 info.element.scrollTop = info.top;
               }
@@ -8004,8 +8004,8 @@
           function processDispatchQueueItemsInOrder(event, dispatchListeners, inCapturePhase) {
             var previousInstance;
             if (inCapturePhase) {
-              for (var i2 = dispatchListeners.length - 1; i2 >= 0; i2--) {
-                var _dispatchListeners$i = dispatchListeners[i2], instance = _dispatchListeners$i.instance, currentTarget = _dispatchListeners$i.currentTarget, listener = _dispatchListeners$i.listener;
+              for (var i = dispatchListeners.length - 1; i >= 0; i--) {
+                var _dispatchListeners$i = dispatchListeners[i], instance = _dispatchListeners$i.instance, currentTarget = _dispatchListeners$i.currentTarget, listener = _dispatchListeners$i.listener;
                 if (instance !== previousInstance && event.isPropagationStopped()) {
                   return;
                 }
@@ -8025,8 +8025,8 @@
           }
           function processDispatchQueue(dispatchQueue, eventSystemFlags) {
             var inCapturePhase = (eventSystemFlags & IS_CAPTURE_PHASE) !== 0;
-            for (var i2 = 0; i2 < dispatchQueue.length; i2++) {
-              var _dispatchQueue$i = dispatchQueue[i2], event = _dispatchQueue$i.event, listeners = _dispatchQueue$i.listeners;
+            for (var i = 0; i < dispatchQueue.length; i++) {
+              var _dispatchQueue$i = dispatchQueue[i], event = _dispatchQueue$i.event, listeners = _dispatchQueue$i.listeners;
               processDispatchQueueItemsInOrder(event, listeners, inCapturePhase);
             }
             rethrowCaughtError();
@@ -8443,9 +8443,9 @@
             }
           }
           function updateDOMProperties(domElement, updatePayload, wasCustomComponentTag, isCustomComponentTag) {
-            for (var i2 = 0; i2 < updatePayload.length; i2 += 2) {
-              var propKey = updatePayload[i2];
-              var propValue = updatePayload[i2 + 1];
+            for (var i = 0; i < updatePayload.length; i += 2) {
+              var propKey = updatePayload[i];
+              var propValue = updatePayload[i + 1];
               if (propKey === STYLE) {
                 setValueForStyles(domElement, propValue);
               } else if (propKey === DANGEROUSLY_SET_INNER_HTML) {
@@ -8528,8 +8528,8 @@
                 break;
               case "video":
               case "audio":
-                for (var i2 = 0; i2 < mediaEventTypes.length; i2++) {
-                  listenToNonDelegatedEvent(mediaEventTypes[i2], domElement);
+                for (var i = 0; i < mediaEventTypes.length; i++) {
+                  listenToNonDelegatedEvent(mediaEventTypes[i], domElement);
                 }
                 props = rawProps;
                 break;
@@ -8788,8 +8788,8 @@
                 break;
               case "video":
               case "audio":
-                for (var i2 = 0; i2 < mediaEventTypes.length; i2++) {
-                  listenToNonDelegatedEvent(mediaEventTypes[i2], domElement);
+                for (var i = 0; i < mediaEventTypes.length; i++) {
+                  listenToNonDelegatedEvent(mediaEventTypes[i], domElement);
                 }
                 break;
               case "source":
@@ -10141,14 +10141,14 @@
           function flushSyncCallbackQueueImpl() {
             if (!isFlushingSyncQueue && syncQueue !== null) {
               isFlushingSyncQueue = true;
-              var i2 = 0;
+              var i = 0;
               {
                 try {
                   var _isSync2 = true;
                   var _queue = syncQueue;
                   runWithPriority$1(ImmediatePriority$1, function() {
-                    for (; i2 < _queue.length; i2++) {
-                      var callback = _queue[i2];
+                    for (; i < _queue.length; i++) {
+                      var callback = _queue[i];
                       do {
                         callback = callback(_isSync2);
                       } while (callback !== null);
@@ -10157,7 +10157,7 @@
                   syncQueue = null;
                 } catch (error2) {
                   if (syncQueue !== null) {
-                    syncQueue = syncQueue.slice(i2 + 1);
+                    syncQueue = syncQueue.slice(i + 1);
                   }
                   Scheduler_scheduleCallback(Scheduler_ImmediatePriority, flushSyncCallbackQueue);
                   throw error2;
@@ -10884,8 +10884,8 @@
             var effects = finishedQueue.effects;
             finishedQueue.effects = null;
             if (effects !== null) {
-              for (var i2 = 0; i2 < effects.length; i2++) {
-                var effect = effects[i2];
+              for (var i = 0; i < effects.length; i++) {
+                var effect = effects[i];
                 var callback = effect.callback;
                 if (callback !== null) {
                   effect.callback = null;
@@ -11822,8 +11822,8 @@
             function reconcileChildrenArray(returnFiber, currentFirstChild, newChildren, lanes) {
               {
                 var knownKeys = null;
-                for (var i2 = 0; i2 < newChildren.length; i2++) {
-                  var child = newChildren[i2];
+                for (var i = 0; i < newChildren.length; i++) {
+                  var child = newChildren[i];
                   knownKeys = warnOnInvalidKey(child, knownKeys, returnFiber);
                 }
               }
@@ -12552,8 +12552,8 @@
             workInProgressSources.push(mutableSource);
           }
           function resetWorkInProgressVersions() {
-            for (var i2 = 0; i2 < workInProgressSources.length; i2++) {
-              var mutableSource = workInProgressSources[i2];
+            for (var i = 0; i < workInProgressSources.length; i++) {
+              var mutableSource = workInProgressSources[i];
               {
                 mutableSource._workInProgressVersionPrimary = null;
               }
@@ -12636,10 +12636,10 @@
                 if (hookTypesDev !== null) {
                   var table = "";
                   var secondColumnStart = 30;
-                  for (var i2 = 0; i2 <= hookTypesUpdateIndexDev; i2++) {
-                    var oldHookName = hookTypesDev[i2];
-                    var newHookName = i2 === hookTypesUpdateIndexDev ? currentHookName : oldHookName;
-                    var row = i2 + 1 + ". " + oldHookName;
+                  for (var i = 0; i <= hookTypesUpdateIndexDev; i++) {
+                    var oldHookName = hookTypesDev[i];
+                    var newHookName = i === hookTypesUpdateIndexDev ? currentHookName : oldHookName;
+                    var row = i + 1 + ". " + oldHookName;
                     while (row.length < secondColumnStart) {
                       row += " ";
                     }
@@ -12675,8 +12675,8 @@
                 error("The final argument passed to %s changed size between renders. The order and size of this array must remain constant.\n\nPrevious: %s\nIncoming: %s", currentHookNameInDev, "[" + prevDeps.join(", ") + "]", "[" + nextDeps.join(", ") + "]");
               }
             }
-            for (var i2 = 0; i2 < prevDeps.length && i2 < nextDeps.length; i2++) {
-              if (objectIs(nextDeps[i2], prevDeps[i2])) {
+            for (var i = 0; i < prevDeps.length && i < nextDeps.length; i++) {
+              if (objectIs(nextDeps[i], prevDeps[i])) {
                 continue;
               }
               return false;
@@ -14669,9 +14669,9 @@
               {
                 var mutableSourceEagerHydrationData = root2.mutableSourceEagerHydrationData;
                 if (mutableSourceEagerHydrationData != null) {
-                  for (var i2 = 0; i2 < mutableSourceEagerHydrationData.length; i2 += 2) {
-                    var mutableSource = mutableSourceEagerHydrationData[i2];
-                    var version = mutableSourceEagerHydrationData[i2 + 1];
+                  for (var i = 0; i < mutableSourceEagerHydrationData.length; i += 2) {
+                    var mutableSource = mutableSourceEagerHydrationData[i];
+                    var version = mutableSourceEagerHydrationData[i + 1];
                     setWorkInProgressVersion(mutableSource, version);
                   }
                 }
@@ -15245,8 +15245,8 @@
             {
               if ((revealOrder === "forwards" || revealOrder === "backwards") && children !== void 0 && children !== null && children !== false) {
                 if (Array.isArray(children)) {
-                  for (var i2 = 0; i2 < children.length; i2++) {
-                    if (!validateSuspenseListNestedChild(children[i2], i2)) {
+                  for (var i = 0; i < children.length; i++) {
+                    if (!validateSuspenseListNestedChild(children[i], i)) {
                       return;
                     }
                   }
@@ -18219,8 +18219,8 @@
                 if (spawnedWorkDuringRender !== null) {
                   var expirationTimes = spawnedWorkDuringRender;
                   spawnedWorkDuringRender = null;
-                  for (var i2 = 0; i2 < expirationTimes.length; i2++) {
-                    scheduleInteractions(root2, expirationTimes[i2], root2.memoizedInteractions);
+                  for (var i = 0; i < expirationTimes.length; i++) {
+                    scheduleInteractions(root2, expirationTimes[i], root2.memoizedInteractions);
                   }
                 }
                 schedulePendingInteractions(root2, remainingLanes);
@@ -18422,9 +18422,9 @@
             var prevInteractions = pushInteractions(root2);
             var unmountEffects = pendingPassiveHookEffectsUnmount;
             pendingPassiveHookEffectsUnmount = [];
-            for (var i2 = 0; i2 < unmountEffects.length; i2 += 2) {
-              var _effect = unmountEffects[i2];
-              var fiber = unmountEffects[i2 + 1];
+            for (var i = 0; i < unmountEffects.length; i += 2) {
+              var _effect = unmountEffects[i];
+              var fiber = unmountEffects[i + 1];
               var destroy = _effect.destroy;
               _effect.destroy = void 0;
               {
@@ -19938,8 +19938,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
                 warn("copyWithRename() expects paths of the same length");
                 return;
               } else {
-                for (var i2 = 0; i2 < newPath.length - 1; i2++) {
-                  if (oldPath[i2] !== newPath[i2]) {
+                for (var i = 0; i < newPath.length - 1; i++) {
+                  if (oldPath[i] !== newPath[i]) {
                     warn("copyWithRename() expects paths to be the same except for the deepest key");
                     return;
                   }
@@ -20112,8 +20112,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               listenToAllSupportedEvents(rootContainerElement);
             }
             if (mutableSources) {
-              for (var i2 = 0; i2 < mutableSources.length; i2++) {
-                var mutableSource = mutableSources[i2];
+              for (var i = 0; i < mutableSources.length; i++) {
+                var mutableSource = mutableSources[i];
                 registerMutableSourceForHydration(root2, mutableSource);
               }
             }
@@ -20473,7 +20473,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         other_fields: []
       };
       this.choices = choices;
-      for (i = 0; i == this.choices; i++) {
+      for (var i = 0; i == this.choices; i++) {
         this.addMoreFields();
       }
     }

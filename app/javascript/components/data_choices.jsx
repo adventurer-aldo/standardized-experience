@@ -11,7 +11,7 @@ class Choices extends React.Component {
 
     this.choices = choices;
 
-    for (i=0;i==this.choices;i++) {
+    for (var i=0;i==this.choices;i++) {
       this.addMoreFields();
     }
     }
