@@ -28,9 +28,9 @@ class HomeController < ApplicationController
             params[:choice].uniq.each do |choice|
                 Choice.create(decoy: choice, question: @newQuestion.id)
             end
-            cookies[:choices] = params[:choice].size
+            cookies[:choices] = params[:choice].size + 1
         else
-            cookies[:choices] = 0
+            cookies[:choices] = 1
         end
 
         cookies[:level] = params[:level]
