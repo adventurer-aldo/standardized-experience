@@ -17,19 +17,21 @@
     <div id='parameters'></div><br>
     <%= form.submit "Submit question", class: 'submitBtn' %>
 <% end %>
-<% if cookies[:level] != nil && cookies[:type] != nil %>
+<% if cookies[:level] != nil && cookies[:type] != nil && cookies[:choices] != nil %>
 <% @arr = [':open',':choice',':multichoice',':veracity',':caption',':table',':formula'] %>
 <% @index = @arr.index(cookies[:type]) %>
 <script>
 var level = <%= cookies[:level].to_i %>;
 var type = <%= @index %>
 var type_choice = "<%= @arr[@index] %>"
+var choices = <%= cookies[:choices] %>;
 </script>
 <% else %>
 <script>
 var level = 1;
 var type = 0;
 var type_choice = ":open";
+var choices = 0;
 </script>
 <% end %>
 </div>

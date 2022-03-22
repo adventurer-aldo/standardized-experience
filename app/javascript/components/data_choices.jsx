@@ -8,6 +8,12 @@ class Choices extends React.Component {
     this.state = {
       other_fields: [],
     };
+
+    this.choices = choices;
+
+    for (i=0;i==this.choices;i++) {
+      this.addMoreFields();
+    }
     }
     
     addMoreFields() {
