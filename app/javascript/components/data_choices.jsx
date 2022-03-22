@@ -10,10 +10,6 @@ class Choices extends React.Component {
     };
 
     this.choices = choices;
-
-    for (var i=0;i==this.choices;i++) {
-      this.addMoreFields();
-    }
     }
     
     addMoreFields() {
@@ -30,6 +26,12 @@ class Choices extends React.Component {
     this.setState((prevState) => ({
       other_fields: [...prevState.other_fields],
     }));
+    }
+
+    componentDidMount() {
+      for (var i=0;i==this.choices;i++) {
+        this.addMoreFields();
+      }
     }
     
     render() { return <div className="wrapper">
