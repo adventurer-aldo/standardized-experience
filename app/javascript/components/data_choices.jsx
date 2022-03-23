@@ -30,7 +30,11 @@ class Choices extends React.Component {
 
     componentDidMount() {
       for (var i=0;i<choices;i++) {
-        this.addMoreFields();
+        this.setState({
+          other_fields: this.state.other_fields.concat({
+            filed: ""
+          })
+        });
         console.log("Did this once.")
       }
     }
