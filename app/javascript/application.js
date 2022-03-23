@@ -20490,7 +20490,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }
     componentDidMount() {
       for (var i = 0; i < choices; i++) {
-        this.addMoreFields();
+        this.setState({
+          other_fields: this.state.other_fields.concat({
+            filed: ""
+          })
+        });
         console.log("Did this once.");
       }
     }
