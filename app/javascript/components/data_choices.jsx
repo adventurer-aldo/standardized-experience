@@ -51,7 +51,7 @@ class Choices extends React.Component {
                         </label>
                         <input
                         type="text"
-                        key={index}
+                        key={"" + index}
                         name='choice[]'
                         className="input-data"
                         />
