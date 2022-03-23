@@ -29,7 +29,7 @@ class Choices extends React.Component {
     }
 
     componentDidMount() {
-      allArr = [];
+      var allArr = [];
       for (var i=0;i<choices;i++) {
         allArr.concat({filed: ""})
         console.log("Did this once."+i)

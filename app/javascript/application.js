@@ -20489,7 +20489,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }));
     }
     componentDidMount() {
-      allArr = [];
+      var allArr = [];
       for (var i = 0; i < choices; i++) {
         allArr.concat({ filed: "" });
         console.log("Did this once." + i);
