@@ -32,7 +32,7 @@ class Choices extends React.Component {
       for (var i=0;i<choices;i++) {
         this.setState({
           other_fields: this.state.other_fields.concat({
-            filed: "" + i
+            filed: "" 
           })
         });
         console.log("Did this once.")
