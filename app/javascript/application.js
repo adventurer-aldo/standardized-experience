@@ -20508,6 +20508,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         className: "form-label wd-100 fl"
       }, "Choice:"), /* @__PURE__ */ import_react2.default.createElement("input", {
         type: "text",
+        key: index,
         name: "choice[]",
         className: "input-data"
       }), /* @__PURE__ */ import_react2.default.createElement("span", {
