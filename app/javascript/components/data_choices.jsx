@@ -28,17 +28,6 @@ class Choices extends React.Component {
     }));
     }
 
-    componentDidMount() {
-      for (var i=0;i<choices;i++) {
-        this.setState({
-          other_fields: this.state.other_fields.concat({
-            filed: "" 
-          })
-        });
-        console.log("Did this once."+i)
-        console.log(this.state.other_fields)
-      }
-    }
     
     render() { return <div className="wrapper">
     
