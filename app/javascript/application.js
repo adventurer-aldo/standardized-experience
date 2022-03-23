@@ -20495,7 +20495,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             filed: ""
           })
         });
-        console.log("Did this once.");
+        console.log("Did this once." + i);
+        console.log(this.state.other_fields);
       }
     }
     render() {

@@ -35,7 +35,8 @@ class Choices extends React.Component {
             filed: "" 
           })
         });
-        console.log("Did this once.")
+        console.log("Did this once."+i)
+        console.log(this.state.other_fields)
       }
     }
     
