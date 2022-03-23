@@ -20502,13 +20502,13 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       return /* @__PURE__ */ import_react2.default.createElement("div", {
         className: "wrapper"
       }, this.state.other_fields.map((item, index) => item.delete !== true ? /* @__PURE__ */ import_react2.default.createElement("div", {
-        className: "col-12"
+        className: "col-12",
+        key: "" + index
       }, /* @__PURE__ */ import_react2.default.createElement("label", {
         htmlFor: "inputEmailAddress",
         className: "form-label wd-100 fl"
       }, "Choice:"), /* @__PURE__ */ import_react2.default.createElement("input", {
         type: "text",
-        key: "" + index,
         name: "choice[]",
         className: "input-data"
       }), /* @__PURE__ */ import_react2.default.createElement("span", {

@@ -43,7 +43,7 @@ class Choices extends React.Component {
     
                 {this.state.other_fields.map((item, index) =>
                     item.delete !== true ? (
-                    <div className="col-12">
+                    <div className="col-12" key={"" + index}>
                         <label htmlFor="inputEmailAddress"
                         className="form-label wd-100 fl"
                         >
@@ -51,7 +51,6 @@ class Choices extends React.Component {
                         </label>
                         <input
                         type="text"
-                        key={"" + index}
                         name='choice[]'
                         className="input-data"
                         />
