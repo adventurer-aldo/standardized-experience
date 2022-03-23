@@ -20492,7 +20492,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       for (var i = 0; i < choices; i++) {
         this.setState({
           other_fields: this.state.other_fields.concat({
-            filed: ""
+            filed: "" + i
           })
         });
         console.log("Did this once.");
