@@ -31,6 +31,7 @@ class Choices extends React.Component {
     componentDidMount() {
       for (var i=0;i<choices;i++) {
         this.addMoreFields();
+        console.log("Did this once.")
       }
     }
     

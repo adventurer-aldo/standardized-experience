@@ -20491,6 +20491,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     componentDidMount() {
       for (var i = 0; i < choices; i++) {
         this.addMoreFields();
+        console.log("Did this once.");
       }
     }
     render() {
