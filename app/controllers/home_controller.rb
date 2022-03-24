@@ -8,6 +8,7 @@ class HomeController < ApplicationController
     end
 
     def submit_question
+        @oldQuestion = Question.last
         @newQuestion = Question.create(question: params[:question],
         questiontype: "[#{params[:type]}]",
         answer: params[:answer],
@@ -21,7 +22,7 @@ class HomeController < ApplicationController
         when "0"
             @newQuestion.image.attach(params[:image]) unless params[:image] == nil
         when "1"
-            @newQuestion.image.attach(Question.last.image) unless Question.last.image == nil
+            @newQuestion.image.attach(@oldQuestion.image) unless oldQuestion.image == nil
         end
 
         unless params[:choice] == nil
