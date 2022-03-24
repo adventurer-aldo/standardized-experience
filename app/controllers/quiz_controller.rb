@@ -86,7 +86,7 @@ class QuizController < ApplicationController
         when 2 # baseQuery.where(%Q(level=1)).limit(rand(0..7)) + 
             allQuestions = baseQuery.where(%Q(level=2)).limit(rand(10..28))
         when 3
-            allQuestions = baseQuery.excluding(%Q(level=3)).limit(rand(10..40))
+            allQuestions = baseQuery.where.not(%Q(level=3)).limit(rand(10..40))
         when 4
             allQuestions = baseQuery.where(%Q(level=3)).limit(rand(5..30)) + baseQuery.excluding(%Q(level=3)).limit(rand(10..20))
         when 5
