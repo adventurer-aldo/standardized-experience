@@ -20677,7 +20677,6 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var item;
   if (document.getElementById("question") != null) {
     document.getElementById("question").focus();
-    document.getElementById("question").select();
   }
 })();
 /*

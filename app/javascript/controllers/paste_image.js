@@ -14,5 +14,4 @@ if (document.getElementById('image') != null) {
 
 if (document.getElementById('question') != null) {
     document.getElementById('question').focus();
-    document.getElementById('question').select();
  }
