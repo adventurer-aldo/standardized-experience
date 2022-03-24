@@ -31,7 +31,7 @@ class HomeController < ApplicationController
             end
             cookies[:choices] = params[:choice].size
         else
-            cookies[:choices] = 1
+            cookies[:choices] = 0
         end
 
         cookies[:level] = params[:level]
