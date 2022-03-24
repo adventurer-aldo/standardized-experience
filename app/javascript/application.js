@@ -20492,8 +20492,6 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       var allArr = [];
       for (var i = 0; i < choices; i++) {
         allArr = allArr.concat([{ filed: "" }]);
-        console.log("Did this once." + i);
-        console.log(allArr);
       }
       this.setState({
         other_fields: this.state.other_fields.concat(allArr)
