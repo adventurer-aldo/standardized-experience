@@ -1,5 +1,5 @@
 <head><title>Data | SE</title></head><%=render 'header'%>
-<p><b>Create a new question.</b>--<%=cookies[:choices]%></p>
+<p><b>Create a new question.</b></p>
 <%= form_with html: { autocomplete: 'off' } do |form| %>
     <%= form.label :question, "Question:"%>
     <%= form.text_field :question, required: true, class: 'input-data'  %><br>
