@@ -1,7 +1,7 @@
 <head><title>Data | SE</title></head><%=render 'header'%>
 <p><b>Create a new question.</b></p>
 <%= form_with html: { autocomplete: 'off' } do |form| %>
-    <%= form.label :question, "Question:", id: 'question', autofocus:'autofocus' %>
+    <%= form.label :question, "Question:", id: 'question', autofocus: true %>
     <%= form.text_field :question, required: true, class: 'input-data'  %><br>
     <%= form.label :image, fa_icon('plus'), id: 'haer' %>
     <%= form.file_field :image %>
