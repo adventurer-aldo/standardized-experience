@@ -20489,11 +20489,15 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }));
     }
     componentDidMount() {
+      var allArr = [];
       for (var i = 0; i < choices; i++) {
-        this.setState({
-          other_fields: this.state.other_fields.concat([{ filed: "" }])
-        });
+        allArr = allArr.concat([{ filed: "" }]);
+        console.log("Did this once." + i);
+        console.log(allArr);
       }
+      this.setState({
+        other_fields: this.state.other_fields.concat(allArr)
+      });
     }
     render() {
       return /* @__PURE__ */ import_react2.default.createElement("div", {
