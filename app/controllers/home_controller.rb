@@ -36,6 +36,7 @@ class HomeController < ApplicationController
         cookies[:level] = params[:level]
         cookies[:type] = params[:type]
         cookies[:subject] = params[:subject]
+        cookies[:reuse_image] = params[:old_image]
 
         redirect_to data_path
     end
