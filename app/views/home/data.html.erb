@@ -2,7 +2,7 @@
 <p><b>Create a new question.</b></p>
 <%= form_with html: { autocomplete: 'off' } do |form| %>
     <%= form.label :question, "Question:"%>
-    <%= form.text_field :question, required: true, class: 'input-data', autofocus: true   %><br>
+    <%= form.text_field :question, required: true, class: 'input-data', autofocus: true %><br>
     <%= form.label :image, fa_icon('plus'), id: 'haer' %>
     <%= form.file_field :image %>
     <%= form.label :old_image, 'Would you like to use the previous image?'%>
