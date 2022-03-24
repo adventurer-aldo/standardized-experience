@@ -16,7 +16,7 @@ class QuizController < ApplicationController
             "Teste 2",
             "Teste de Reposição",
             "Exame Normal",
-            "Exame de Reposição"
+            "Exame de Recorrência"
         ]
 
         @quizDurations = [5,9,9,10,15,20]
@@ -65,7 +65,7 @@ class QuizController < ApplicationController
             params[:level] = 0
         end
 
-        params[:level] = [3,4].sample
+        params[:level] = [4,5].sample
 
         if params[:level] == 0
             @format = rand(@formats).round(0)
