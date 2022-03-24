@@ -20,7 +20,7 @@ class Timer extends React.Component {
             }));
             if (this.state.time == 5*60) {
                 var ost = document.getElementById('bgm')
-                ost.src='https://vgmsite.com/soundtracks/fire-emblem-fates-if-original-soundtrack/trnkkwmkwv/2-09%20Justice%20RIP%20%28Storm%29.mp3';
+                ost.src='https://vgmsite.com/soundtracks/fire-emblem-awakening/zgytnmtkmb/1-20%20-%20Duty~Ablaze.mp3';
                 ost.load();
             };
         }
