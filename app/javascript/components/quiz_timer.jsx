@@ -19,7 +19,7 @@ class Timer extends React.Component {
                 time: state.time - 1
             }));
             if (this.state.time == 2*60) {
-                document.getElementById('navbar').style = 'display: block'
+                document.getElementById('navbar').style = 'display: block; background-color: black;'
                 var ost = document.getElementById('bgm')
                 ost.src=fire;
                 ost.load();
