@@ -20,7 +20,7 @@ class Timer extends React.Component {
             }));
             if (this.state.time == 2*60) {
                 var ost = document.getElementById('bgm')
-                ost.src='https://vgmsite.com/soundtracks/metal-gear-rising-revengeance-vocal-tracks/wnsohrke/05%20A%20Stranger%20I%20Remain%20%28Manic%20Agenda%20Mix%29.mp3';
+                ost.src=fire;
                 ost.load();
             };
         }

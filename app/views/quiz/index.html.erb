@@ -1,6 +1,6 @@
 <%= render "navbar"%><head><title><%=@currentQuiz.subject%> | <%=@testName[@currentQuiz.level]%></title></head><div id='page'><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
-<%= audio_tag("https://vgmsite.com/soundtracks/metal-gear-rising-revengeance-the-complete-soundtrack/etfjblugpl/2-03%20A%20Stranger%20I%20Remain%20%28Maniac%20Agenda%20Mix%29%20%5Bvs.%20Mistral%5D.mp3",autoplay: true, loop: true, id: 'bgm')%>
+<%= audio_tag(@ost[@currentQuiz.level][0],autoplay: true, loop: true, id: 'bgm')%>
 <%= form_with id: :quiz, html: { autocomplete: 'off' } do |form| %>
     <%= form.hidden_field :quizID, value: @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
@@ -51,3 +51,6 @@
     <%= form.submit "Deliver", class: 'submitBtn' %>
 <% end %>
 </div></div>
+<script>
+var fire = '<%=@ost[@currentQuiz.level][1]%>'
+</script>
