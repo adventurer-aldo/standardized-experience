@@ -98,7 +98,7 @@ class QuizController < ApplicationController
         when 5
             allQuestions = baseQuery.limit(rand(50..100))
         end
-        allQuestions.shuffle!
+        allQuestions = allQuestions.order(Arel.sql('RANDOM()'))
         @fullQuery = allQuestions.sort_by(&:tags)
 
         @questionsArray = []
