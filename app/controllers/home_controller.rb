@@ -22,7 +22,7 @@ class HomeController < ApplicationController
         when "0"
             @newQuestion.image.attach(params[:image]) unless params[:image] == nil
         when "1"
-            @newQuestion.image.attach(@oldQuestion.image) unless @oldQuestion.image == nil
+            @newQuestion.image.attach(@oldQuestion.image.blob) unless @oldQuestion.image == nil
         end
 
         unless params[:choice] == nil
