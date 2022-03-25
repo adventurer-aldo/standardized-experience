@@ -29,9 +29,9 @@ class QuizController < ApplicationController
             @testName[2] = "2º Teste de Frequência"
         end
 
-        @ost = {4 => ["https://vgmsite.com/soundtracks/metal-gear-rising-revengeance-the-complete-soundtrack/anyxmdrlde/4-19%20A%20Stranger%20I%20Remain%20%28Original%20Version%29.mp3",
+        @ost = {4 => ["https://vgmsite.com/soundtracks/metal-gear-rising-revengeance-vocal-tracks/ysguiyjp/22%20A%20Stranger%20I%20Remain%20%28Maniac%20Agenda%20Mix%20%E2%80%93%20Instrumental%29.mp3",
         'https://vgmsite.com/soundtracks/metal-gear-rising-revengeance-vocal-tracks/wnsohrke/05%20A%20Stranger%20I%20Remain%20%28Manic%20Agenda%20Mix%29.mp3'],
-        5 => ["https://downloads.khinsider.com/game-soundtracks/album/metal-gear-rising-revengeance-the-complete-soundtrack/4-23%2520It%2520Has%2520To%2520Be%2520This%2520Way%2520%2528Original%2520Version%2529.mp3",
+        5 => ["https://downloads.khinsider.com/game-soundtracks/album/metal-gear-rising-revengeance-vocal-tracks/28%2520It%2520Has%2520To%2520Be%2520This%2520Way%2520%2528Platinum%2520Mix%2520%25E2%2580%2593%2520Instrumental%2529.mp3",
         'https://vgmsite.com/soundtracks/metal-gear-rising-revengeance-vocal-tracks/qlkfclue/11%20It%20Has%20To%20Be%20This%20Way%20%28Platinum%20Mix%29.mp3']
         }
 
