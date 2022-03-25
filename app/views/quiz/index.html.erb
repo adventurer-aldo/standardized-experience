@@ -5,7 +5,7 @@
     <%= form.hidden_field :quizID, value: @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
             <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.html_safe %><br>
-            <% unless question.image == nil %><%=image_tag(question.image.url)%> <% end %> </p>
+            <% if question.image.attached? %><%=image_tag(question.image.url)%> <% end %> </p>
             <% @type = eval(question.questiontype).sample
             @question = question
             case @type
