@@ -18,9 +18,9 @@ class Timer extends React.Component {
             this.setState( state=> ({
                 time: state.time - 1
             }));
-            if (this.state.time == 5*60) {
+            if (this.state.time == 2*60) {
                 var ost = document.getElementById('bgm')
-                ost.src='https://vgmsite.com/soundtracks/fire-emblem-awakening/zgytnmtkmb/1-20%20-%20Duty~Ablaze.mp3';
+                ost.src='https://vgmsite.com/soundtracks/metal-gear-rising-revengeance-vocal-tracks/wnsohrke/05%20A%20Stranger%20I%20Remain%20%28Manic%20Agenda%20Mix%29.mp3';
                 ost.load();
             };
         }
