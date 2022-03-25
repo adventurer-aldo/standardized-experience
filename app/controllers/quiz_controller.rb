@@ -97,8 +97,8 @@ class QuizController < ApplicationController
             allQuestions = baseQuery.where(%Q(level=3)).limit(rand(5..30)) + baseQuery.where.not(%Q(level=3)).limit(rand(10..20))
         when 5
             allQuestions = baseQuery.limit(rand(50..100))
-        end        
-        
+        end
+        allQuestions.shuffle!
         @fullQuery = allQuestions.sort_by(&:tags)
 
         @questionsArray = []
