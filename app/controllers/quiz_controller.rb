@@ -29,10 +29,13 @@ class QuizController < ApplicationController
             @testName[2] = "2º Teste de Frequência"
         end
 
-        @ost = {4 => ["https://cdn.discordapp.com/attachments/812356300796461076/956885114787348530/strange.mp3",
-        'https://vgmsite.com/soundtracks/metal-gear-rising-revengeance-vocal-tracks/wnsohrke/05%20A%20Stranger%20I%20Remain%20%28Manic%20Agenda%20Mix%29.mp3'],
-        5 => ["https://cdn.discordapp.com/attachments/812356300796461076/956885115307454474/realize.mp3",
-        'https://vgmsite.com/soundtracks/metal-gear-rising-revengeance-vocal-tracks/qlkfclue/11%20It%20Has%20To%20Be%20This%20Way%20%28Platinum%20Mix%29.mp3']
+        @ost = {
+        0 => [helpers.audio_path("prac.mp3"),""],
+        1 => [helpers.audio_path("test1.mp3"),helpers.audio_path("rushtest1.mp3")],
+        2 => [helpers.audio_path("test2.mp3"),helpers.audio_path("rushtest2.mp3")],
+        3 => [helpers.audio_path("test2.mp3"),helpers.audio_path("rushtest2.mp3")],
+        4 => [helpers.audio_path("exam.mp3"),helpers.audio_path("rushexam.mp3")],
+        5 => [helpers.audio_path("examrec.mp3"),helpers.audio_path("rushexam.mp3")]
         }
 
 
@@ -64,14 +67,15 @@ class QuizController < ApplicationController
         @journeyProgress = Statistic.first["activejourneylevel"]
 
         if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject]) == false
-            params[:subject] = Subject.where("title LIKE '%natomia%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
+            params[:subject] = Subject.where("title LIKE '%trodu%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
         end
 
-        if params[:level].nil? || (@journeyProgress != params[:level] && @journeyProgress != 0)
-            params[:level] = 0
+        if params[:level].nil? || (@journeyProgress <= params[:level] && @journeyProgress != 0)
+            params[:level] = @journeyProgress
         end
 
-        params[:level] = [4,5].sample
+        arr = [0,0,1,0,2,0,3,0,4,0,5,0]
+        Statistic.update(activejourneylevel: arr[arr.index(@journeyProgress)+1] )
 
         if params[:level] == 0
             @format = rand(@formats).round(0)
@@ -86,15 +90,15 @@ class QuizController < ApplicationController
         
         case params[:level]
         when 0
-            allQuestions = baseQuery.limit(rand(5..10)) #)
+            allQuestions = baseQuery.where("questiontype='[:multichoice]'").limit(rand(5..10)) #)
         when 1
-            allQuestions = baseQuery.where(%Q(level=1)).limit(rand(10..35))
+            allQuestions = baseQuery.where('level=1').limit(rand(10..35))
         when 2 
-            allQuestions = baseQuery.where(%Q(level=1)).limit(rand(0..7)) + baseQuery.where(%Q(level=2)).limit(rand(10..28))
+            allQuestions = baseQuery.where('level=1').limit(rand(0..7)) + baseQuery.where('level=2').limit(rand(10..28))
         when 3
-            allQuestions = baseQuery.where.not(%Q(level=3)).limit(rand(10..40))
+            allQuestions = baseQuery.where.not('level=3').limit(rand(10..40))
         when 4
-            allQuestions = baseQuery.where(%Q(level=3)).limit(rand(5..30)) + baseQuery.where.not(%Q(level=3)).limit(rand(10..20))
+            allQuestions = baseQuery.where('level=3').limit(rand(5..30)) + baseQuery.where.not('level=3').limit(rand(10..20))
         when 5
             allQuestions = baseQuery.limit(rand(50..100))
         end
@@ -162,18 +166,25 @@ class QuizController < ApplicationController
                 @que = Question.find_by(id: @ans.questionid)
                 @sourceAnswers = @que.answer.split("|")
                 @sourceChoices = (Choice.select(:decoy).where(question: @que.id).order(:id)).map{|n| n.decoy }
-                @choices = eval(params[:choices]["#{@answers.index(answer_id)}"])
+                @choices = eval(params[:choices][@answers.index(answer_id).to_s])
+                puts "Choices are #{@choices}"
                 @order = []
 
                 @choices.each do |choose|
                     @order << @sourceChoices.index(choose) if @sourceChoices.include?(choose)
                     @order << "#{@sourceAnswers.index(choose)}" if @sourceAnswers.include?(choose)
-
                 end
+                puts "Order is #{@order}"
 
                 @parameters[:order] = @order
-            elsif %I(caption multichoice veracity).include? @parameters[:type]
-                @answer = eval(@answer).join('|') if eval(@answer).size > 1
+            end
+            if %I(caption choice multichoice veracity).include? @parameters[:type]
+                puts "Converting array into |string|"
+                puts @answer
+                @answer = (eval(@answer)).join('|')
+                puts "Conversion complete!"
+                puts @answer
+                
             end
 
             @ans.update(attempt: @answer,
@@ -215,19 +226,19 @@ class QuizController < ApplicationController
             end
         end
 
-        if @grade < 7
-            @fanfare = "https://vgmsite.com/soundtracks/fire-emblem-awakening/hjmlcdyjor/1-16%20-%20Farewell...my%20friends....mp3"
-        elsif  @grade < 9.5
-            @fanfare = "https://cdn.discordapp.com/attachments/812356352323223572/955411728341020692/fail.mp3"
-        elsif @grade < 15
-            @fanfare = "https://cdn.discordapp.com/attachments/812356352323223572/955412082449317908/succeed.mp3"
-        elsif @grade < 18
-            @fanfare = "https://cdn.discordapp.com/attachments/812356352323223572/955412286976176148/succeedhard.mp3"
-        elsif @grade < 20
-            @fanfare = "https://vgmsite.com/soundtracks/rpg-maker-mv-ost/ccttepsreq/Jingle%20Fantasy1%2004.mp3"
-        else
-            @fanfare = "https://vgmsite.com/soundtracks/fire-emblem-awakening/ewwjfbcsyp/4-11%20-%20Grima.%20It%27s%20all%20over....mp3"
-        end
+         @fanfare = if @grade < 7
+                        helpers.audio_path("failhard.mp3")
+                    elsif @grade < 9.5
+                        helpers.audio_path("fail.mp3")
+                    elsif @grade < 15
+                        helpers.audio_path("succeed.mp3")
+                    elsif @grade < 18
+                        helpers.audio_path("succeedhard.mp3")
+                    elsif @grade < 20
+                        helpers.audio_path("succeedharder.mp3")
+                    else
+                        helpers.audio_path("succeedhardest.mp3")
+                    end
     end
  
 end

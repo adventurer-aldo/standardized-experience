@@ -12,7 +12,10 @@ module QuizHelper
             @choices += @qAnswers
             @min = 1
         end
-        rand(@min..@qChoices.size).times { @choices << (@qChoices - @choices).sample }
+        random = rand(@min..@qChoices.size)
+        unless random.nil?
+            random.times { @choices << (@qChoices - @choices).sample }
+        end
         @choices << (@qAnswers + @qAnswers).sample unless @choices.size > 0
         @choices.shuffle!
         return @choices

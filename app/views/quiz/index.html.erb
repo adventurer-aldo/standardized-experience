@@ -5,7 +5,7 @@
     <%= form.hidden_field :quizID, value: @currentQuiz.id %>
         <% @questionObjects.each do |question| %>
             <p><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.html_safe %><br>
-            <% if question.image.attached? %><%=image_tag(question.image.url, class: 'qImage')%> <% end %> </p>
+            <% %Q(if question.image.attached? %><%=image_tag(question.image.url, class: 'qImage')%> <% end) %> </p>
             <% @type = eval(question.questiontype).sample
             @question = question
             case @type
@@ -15,13 +15,13 @@
                 sort_choices
                 %><%= form.hidden_field "choices[#{(@questionObjects.index(question))}]", value: @choices.to_s %><%
 
-                %><%= form.collection_radio_buttons "answer[#{(@questionObjects.index(question))}]", @choices, :to_s, :to_s %><%
+                %><%= form.collection_radio_buttons "answer[#{(@questionObjects.index(question))}][]", @choices, :to_s, :to_s %><%
 
             when :multichoice
                 sort_choices
                 %><%= form.hidden_field "choices[#{(@questionObjects.index(question))}]", value: @choices.to_s %><%
 
-                %><%= form.collection_check_boxes "answer[#{(@questionObjects.index(question))}]", @choices, :to_s, :to_s %><%
+                %><%= form.collection_check_boxes "answer[#{(@questionObjects.index(question))}][]", @choices, :to_s, :to_s %><%
 
             when :veracity
                 sort_choices
@@ -29,9 +29,9 @@
                 @choices.each do |choose|
                     %><%= form.label choose %><%
                     if question.answer.split("|").include?(choose)
-                        %><%= form.select "answer[#{(@questionObjects.index(question))}]", [["V",choose],["F"," "]] %><%
+                        %><%= form.select "answer[#{(@questionObjects.index(question))}][]", [["V",choose],["F",""]] %><%
                     else
-                        %><%= form.select "answer[#{(@questionObjects.index(question))}]", [["V"," "],["F",choose]] %><%
+                        %><%= form.select "answer[#{(@questionObjects.index(question))}][]", [["V",choose],["F",""]] %><%
                     end
                 end
                 

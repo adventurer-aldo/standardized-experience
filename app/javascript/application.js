@@ -20440,9 +20440,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         }));
         if (this.state.time == 2 * 60) {
           document.getElementById("navbar").style = "display: block; background-color: black;";
-          var ost = document.getElementById("bgm");
-          ost.src = fire;
-          ost.load();
+          if (fire != "") {
+            var ost = document.getElementById("bgm");
+            ost.src = fire;
+            ost.load();
+          }
         }
         ;
       }

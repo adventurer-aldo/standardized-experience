@@ -27,9 +27,9 @@
         @parameters = eval(@ans.parameters)
         @type = @parameters[:type]
         @right= if eval(question.parameters).include?(:strict_order)
-                    question.answer.split('|') == @ans.attempt.split('|')
+                    question.answer.downcase.split('|') == @ans.attempt.downcase.split('|')
                 else
-                    question.answer.split('|').sort == @ans.attempt.split('|').sort
+                    question.answer.downcase.split('|').sort == @ans.attempt.downcase.split('|').sort
                 end
         if @right
             %><span style='position: relative'><span class='grade'><%=%><%=number_with_precision @ans.grade, significant: true, precision: 2, separator: ',' %></span></span><%
@@ -37,7 +37,7 @@
             %><span style='position: relative'><span class='grade'>0,0</span></span><%
         end
         %><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.html_safe %><br>
-        <% if question.image.attached? %><%=image_tag(question.image.url, class: 'qImage')%><br><% end %>
+        <% %Q(if question.image.attached? %><%=image_tag(question.image.url, class: 'qImage')%><br><% end) %>
         <%
 
         case @type

@@ -15,7 +15,6 @@ default: &default
 
 development:
   <<: *default
-  database: d61ef2o6sb5m2g
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
