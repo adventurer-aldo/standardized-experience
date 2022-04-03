@@ -102,3 +102,47 @@ button[name='1'] {
   border-top-right-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
 }
+
+/* ============================================================ */
+/* ------------ Image Modal ----------- */
+/* ============================================================ */
+
+.modal {
+  background-color: white;
+  width: 100%;
+  margin: auto;
+  border-radius: 30px;
+}
+
+.modal > .header {
+  border-bottom: 1px solid gray;
+  width: 90%;
+  margin: auto;
+  font-size: xx-large;
+  text-align: center;
+  padding: 5px;
+}
+.modal > .content {
+  width: 100%;
+  padding: 15px;
+  margin: auto;
+}
+.modal > .actions {
+  max-width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+.modal > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
+}
