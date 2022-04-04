@@ -18,7 +18,7 @@ class HomeController < ApplicationController
         frequency: 0,
         parameters: "[#{params[:parameters].join(',')}]"
         )
-        case params[:old_image]
+        case params[:reuse_image]
         when "0"
             @newQuestion.image.attach(params[:image]) unless params[:image] == nil
         when "1"
@@ -37,7 +37,7 @@ class HomeController < ApplicationController
         cookies[:level] = params[:level]
         cookies[:type] = params[:type]
         cookies[:subject] = params[:subject]
-        cookies[:reuse_image] = params[:old_image]
+        cookies[:reuse_image] = params[:reuse_image]
 
         redirect_to data_path
     end

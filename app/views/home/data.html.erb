@@ -1,13 +1,13 @@
 <head><title>Data | SE</title></head><%=render 'header'%>
 <p><b>Create a new question.</b></p>
-<%= form_with html: { autocomplete: 'off' } do |form| %>
-    <%= form.label :question, "Question:"%>
-    <%= form.text_field :question, required: true, class: 'input-data', autofocus: true %>
-    <%= form.label :image, fa_icon('plus'), id: 'haer' %>
-    <%= form.file_field :image %>
-    <%= form.label :old_image, 'Would you like to use the previous image?'%>
-    <% cookies[:reuse_image] == "1" ? @checked = true : @checked = false %>
-    <%= form.check_box :old_image, checked: @checked %><br>
+<%= form_with html: { autocomplete: 'off' }, novalidate: true  do |form| %>
+    <%= form.label :question, "Question:"%> 
+    <%= form.text_field :question, required: true, class: 'input-data', autofocus: true %> 
+    <%= form.file_field :image, id: 'image'%>
+    <%= image_tag('',id: 'hiddenImage')%>
+    <% cookies[:reuse_image] == "1" ? @checked = "1" : @checked = "0" %>
+    <%= form.hidden_field 'reuse_image', value: @checked %>
+    <div id='imaging'></div><br>
     <%= form.label :answer, "Answer:" %>
     <%= form.text_field :answer, required: true, class: 'input-data'   %><br>
     <div id='choices'></div>
@@ -18,21 +18,23 @@
     <div id='parameters'></div><br>
     <%= form.submit "Submit question", class: 'submitBtn' %>
 <% end %>
-<% if cookies[:level] != nil && cookies[:type] != nil && cookies[:choices] != nil %>
+<% if cookies[:level] && cookies[:type] && cookies[:choices] && cookies[:reuse_image] %>
 <% @arr = [':open',':choice',':multichoice',':veracity',':caption',':table',':formula'] %>
 <% @index = @arr.index(cookies[:type]) %>
 <script>
-var level = <%= cookies[:level].to_i %>;
-var type = <%= @index %>
-var type_choice = "<%= @arr[@index] %>"
-var choices = <%= cookies[:choices] %>;
+const level = <%= cookies[:level].to_i %>;
+const type = <%= @index %>
+const type_choice = "<%= @arr[@index] %>";
+const choices = <%= cookies[:choices] %>;
+const reuse_image = <%= cookies[:reuse_image] %>
 </script>
 <% else %>
 <script>
-var level = 1;
-var type = 0;
-var type_choice = ":open";
-var choices = 0;
+const level = 1;
+const type = 0;
+const type_choice = ":open";
+const choices = 0;
+const reuse_image = "0";
 </script>
 <% end %>
 </div>

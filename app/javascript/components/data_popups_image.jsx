@@ -3,49 +3,54 @@ import ReactDOM from 'react-dom'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
+class OldImage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: reuse_image
+    }
+  }
+
+  handleOld() {
+    let temp = this.state.checked == "0" ? "1" : "0"
+    this.setState({checked: temp })
+    const hidden = document.getElementById("reuse_image");
+    hidden.value = temp
+  }
+
+  render() {
+    return (<input id='old_image' 
+    type='checkbox' 
+    value={this.state.checked} 
+    onChange={() => this.handleOld() }
+    checked={this.state.checked == "1"} />
+    )
+  }
+}
+
 ReactDOM.render(
   <Popup
-    trigger={<button className="button"> Open Modal </button>}
+    trigger={<button id='imagingButton' type='button' ><i className="fa fa-plus"></i></button>}
     modal
     nested
   >
     {close => (
       <div className="modal">
         <button className="close" onClick={close}>
-          &times;
+          X
         </button>
         <div className="header"> Attach Image </div>
         <div className="content">
           {' '}
-          IMAGE FILE
+          <img className='imageData' src={document.getElementById('image').src} />
           <br />
-          Use previous image?<br />
+          Previous image? <OldImage /><br />
           Use image from set question:
-        </div>
-        <div className="actions">
-          <Popup
-            trigger={<button className="button"> Trigger </button>}
-            position="top center"
-            nested
-          >
-            <span>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae
-              magni omnis delectus nemo, maxime molestiae dolorem numquam
-              mollitia, voluptate ea, accusamus excepturi deleniti ratione
-              sapiente! Laudantium, aperiam doloribus. Odit, aut.
-            </span>
-          </Popup>
-          <button
-            className="button"
-            onClick={() => {
-              console.log('modal closed ');
-              close();
-            }}
-          >
-            close modal
-          </button>
+          <br /><span>Set as 0 to use the last known message or specify an exact question ID. <br />
+            Must have Previous Image enabled. [NOT IMPLEMENTED!]
+          </span>
         </div>
       </div>
     )}
   </Popup>,
-document.getElementById("timer-example"))
+document.getElementById("imaging"))

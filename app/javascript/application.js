@@ -21173,10 +21173,36 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var reactjs_popup_esm_default = Popup;
 
   // app/javascript/components/data_popups_image.jsx
+  var OldImage = class extends import_react6.default.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        checked: reuse_image
+      };
+    }
+    handleOld() {
+      let temp = this.state.checked == "0" ? "1" : "0";
+      this.setState({ checked: temp });
+      const hidden = document.getElementById("reuse_image");
+      hidden.value = temp;
+    }
+    render() {
+      return /* @__PURE__ */ import_react6.default.createElement("input", {
+        id: "old_image",
+        type: "checkbox",
+        value: this.state.checked,
+        onChange: () => this.handleOld(),
+        checked: this.state.checked == "1"
+      });
+    }
+  };
   import_react_dom6.default.render(/* @__PURE__ */ import_react6.default.createElement(reactjs_popup_esm_default, {
     trigger: /* @__PURE__ */ import_react6.default.createElement("button", {
-      className: "button"
-    }, " Open Modal "),
+      id: "imagingButton",
+      type: "button"
+    }, /* @__PURE__ */ import_react6.default.createElement("i", {
+      className: "fa fa-plus"
+    })),
     modal: true,
     nested: true
   }, (close) => /* @__PURE__ */ import_react6.default.createElement("div", {
@@ -21184,38 +21210,31 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   }, /* @__PURE__ */ import_react6.default.createElement("button", {
     className: "close",
     onClick: close
-  }, "\xD7"), /* @__PURE__ */ import_react6.default.createElement("div", {
+  }, "X"), /* @__PURE__ */ import_react6.default.createElement("div", {
     className: "header"
   }, " Attach Image "), /* @__PURE__ */ import_react6.default.createElement("div", {
     className: "content"
-  }, " ", "IMAGE FILE", /* @__PURE__ */ import_react6.default.createElement("br", null), "Use previous image?", /* @__PURE__ */ import_react6.default.createElement("br", null), "Use image from set question:"), /* @__PURE__ */ import_react6.default.createElement("div", {
-    className: "actions"
-  }, /* @__PURE__ */ import_react6.default.createElement(reactjs_popup_esm_default, {
-    trigger: /* @__PURE__ */ import_react6.default.createElement("button", {
-      className: "button"
-    }, " Trigger "),
-    position: "top center",
-    nested: true
-  }, /* @__PURE__ */ import_react6.default.createElement("span", null, "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni omnis delectus nemo, maxime molestiae dolorem numquam mollitia, voluptate ea, accusamus excepturi deleniti ratione sapiente! Laudantium, aperiam doloribus. Odit, aut.")), /* @__PURE__ */ import_react6.default.createElement("button", {
-    className: "button",
-    onClick: () => {
-      console.log("modal closed ");
-      close();
-    }
-  }, "close modal")))), document.getElementById("timer-example"));
+  }, " ", /* @__PURE__ */ import_react6.default.createElement("img", {
+    className: "imageData",
+    src: document.getElementById("image").src
+  }), /* @__PURE__ */ import_react6.default.createElement("br", null), "Previous image? ", /* @__PURE__ */ import_react6.default.createElement(OldImage, null), /* @__PURE__ */ import_react6.default.createElement("br", null), "Use image from set question:", /* @__PURE__ */ import_react6.default.createElement("br", null), /* @__PURE__ */ import_react6.default.createElement("span", null, "Set as 0 to use the last known message or specify an exact question ID. ", /* @__PURE__ */ import_react6.default.createElement("br", null), "Must have Previous Image enabled. [NOT IMPLEMENTED!]")))), document.getElementById("imaging"));
 
   // app/javascript/controllers/paste_image.js
-  if (document.getElementById("image") != null) {
+  if (document.getElementById("image")) {
     item = document.getElementById("image");
     window.addEventListener("paste", (e) => {
       item.files = e.clipboardData.files;
       var img = new Image();
       var bg = Array.from(e.clipboardData.items).find((x) => /^image\//.test(x.type));
-      var blob = bg.getAsFile();
-      img.src = URL.createObjectURL(blob);
-      img.onload = function() {
-        document.getElementById("haer").style.backgroundImage = "url('" + img.src + "')";
-      };
+      if (bg) {
+        var blob = bg.getAsFile();
+        img.src = URL.createObjectURL(blob);
+        img.onload = function() {
+          document.getElementById("image").src = img.src;
+        };
+      } else {
+        console.log("No image was pasted!");
+      }
     });
   }
   var item;
