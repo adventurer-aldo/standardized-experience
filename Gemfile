@@ -3,7 +3,7 @@ source "https://rubygems.org"
 
 ruby "3.1.1"
 
-gem "aws-sdk-s3", require: false
+gem "aws-sdk-s3", require: false, :source => "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.2", ">= 7.0.2.2"
