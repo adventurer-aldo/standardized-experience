@@ -8,7 +8,7 @@ Variante <%=%W(A B C D).sample %>
 Ano lectivo: <%=@quizStart.year%><br>
 Data: <%=@quizStart.day%>/<%=@quizStart.month%>/<%=@quizStart.year%>
 </p>
-<p><br><br><br><br><span align='center'><%= @testName[@currentQuiz.level].upcase %></span></p></div>
+<p><br><br><br><%= @testName[@currentQuiz.level].upcase %></p></div>
 <p> <%= form_with id: :name, html: { autocomplete: 'off' } do |form| %>
         <%= form.label :name, "Nome: ", class: 'bold'%>
         <% unless @currentQuiz.timestarted == @currentQuiz.timeended %>
