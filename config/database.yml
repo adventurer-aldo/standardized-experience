@@ -6,10 +6,10 @@
 #
 default: &default
   adapter: postgresql
-  host: ec2-34-241-19-183.eu-west-1.compute.amazonaws.com
-  username: tnipywjteanmkp
-  database: d61ef2o6sb5m2g
-  password: 764e981a8b7d2da20c28bc8d2d3aa6500f39c7840cd26da03a796a78007f30ae
+  host: ec2-3-248-121-12.eu-west-1.compute.amazonaws.com
+  username: nlugclnaytctvp
+  database: dbek9rt1fuq28n
+  password: 3a48d74a2823dcbf7f5eac420d9acaf1afadd79b79f850c759cb0ea44f3961bd
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
