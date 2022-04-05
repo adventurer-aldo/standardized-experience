@@ -1,6 +1,4 @@
-puts "Before!"
 source "https://rubygems.org"
-puts "After"
 #git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.1.1"
