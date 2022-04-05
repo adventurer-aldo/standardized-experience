@@ -37,7 +37,7 @@
             %><span style='position: relative'><span class='grade'>0,0</span></span><%
         end
         %><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= question.question.html_safe %><br>
-        <% %Q(if question.image.attached? %><%=image_tag(question.image.url, class: 'qImage')%><br><% end) %>
+        <% if question.image.attached? %><%=image_tag(question.image.url, class: 'qImage')%><br><% end %>
         <%
 
         case @type
