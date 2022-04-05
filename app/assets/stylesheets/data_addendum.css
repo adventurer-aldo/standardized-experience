@@ -65,13 +65,23 @@
   padding: 5px;
 }
 
-label[for='image'] {
+#imagingButton {
   cursor: pointer;
   font-size: 12px;
   border: 3px solid black;
   border-radius: 50%;
   padding: 5px 8px;
   background-size: 100%;
+  display: inline-block;
+  transition: background-color 100ms linear;
+  -webkit-transition: background-color 100ms linear;
+  -moz-transition: background-color 100ms linear;
+}
+
+#imagingButton:hover {
+  background-color: #1a3351;
+  border-color: #1a3351;
+  color: white;
 }
 
 #image {
@@ -101,4 +111,67 @@ label[for='image'] {
 button[name='1'] {
   border-top-right-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
+}
+
+/* ============================================================ */
+/* ------------ Image Modal ----------- */
+/* ============================================================ */
+
+.popup-overlay {
+  background-color: rgba(0,0,0,0.6);
+}
+
+.popup-content {
+  max-width: 87%;
+}
+
+.modal {
+  background-color: white;
+  width: 100%;
+  max-width: ;
+  margin: auto;
+  min-width: 50vw;
+}
+
+.modal > .header {
+  border-bottom: 1px solid gray;
+  width: 90%;
+  margin: auto;
+  font-size: xx-large;
+  text-align: center;
+  padding: 5px;
+}
+.modal > .content {
+  width: 100%;
+  padding: 15px;
+  margin: auto;
+}
+.modal > .actions {
+  max-width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+
+.modal > .imageData {
+  margin: auto;
+  max-width: 100%;
+}
+
+.modal > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
+}
+
+#imaging {
+  display: inline-block;
 }
