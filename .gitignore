@@ -12,7 +12,7 @@
 /db/*.sqlite3-*
 
 /app/assets/javascripts/*.js
-/app/build_file.js
+/app/build*.js
 /*.cmd
 
 # Ignore all logfiles and tempfiles.
