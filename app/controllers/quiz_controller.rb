@@ -94,7 +94,7 @@ class QuizController < ApplicationController
         
         case params[:level]
         when 0
-            allQuestions = baseQuery.where("questiontype='[:multichoice]'").limit(rand(5..10)) #)
+            allQuestions = baseQuery.limit(rand(5..10)) #)
         when 1
             allQuestions = baseQuery.where('level=1').limit(rand(10..35))
         when 2 
