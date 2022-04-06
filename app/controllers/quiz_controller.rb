@@ -208,9 +208,11 @@ class QuizController < ApplicationController
             if %I(caption choice multichoice veracity).include? @parameters[:type]
                 puts "Converting array into |string|"
                 puts @answer
-                @answer = (eval(@answer)-[""]).join('|')
-                puts "Conversion complete!"
+                @answer[@answer.index('[""]')..@answer.index('[""]')+'[""]'.length] = ""
                 puts @answer
+                @answer = (eval(@answer)).join('|')
+                puts "Conversion complete!"
+                puts @answer.to_s
                 
             end
 
