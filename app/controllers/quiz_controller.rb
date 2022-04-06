@@ -72,8 +72,8 @@ class QuizController < ApplicationController
             params[:subject] = Subject.where("title LIKE 'Bioes%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
         end
 
-        if !params[:level] || (@journeyProgress <= params[:level] && @journeyProgress > 0)
-            params[:level] = @journeyProgress
+        if !params[:level] || (@journeyProgress <= params[:level].to_i && @journeyProgress > 0)
+            params[:level] = 0
         end
 
         # arr = [0,1,2,3,4,5,0]
