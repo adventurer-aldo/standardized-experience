@@ -69,7 +69,7 @@ class QuizController < ApplicationController
         @journeyProgress = Statistic.first["activejourneylevel"]
 
         if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject]) == false
-            params[:subject] = Subject.where("title LIKE '%stica%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
+            params[:subject] = Subject.where("title LIKE '%tro%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
         end
 
         if !params[:level] || (@journeyProgress <= params[:level] && @journeyProgress > 0)
@@ -79,7 +79,7 @@ class QuizController < ApplicationController
         # arr = [0,1,2,3,4,5,0]
         # Statistic.update(activejourneylevel: arr[arr.index(@journeyProgress)+1] )
 
-        params[:level] = 4
+        params[:level] = 0
 
         if params[:level] == 0
             @format = rand(@formats).round(0)
@@ -208,7 +208,7 @@ class QuizController < ApplicationController
             if %I(caption choice multichoice veracity).include? @parameters[:type]
                 puts "Converting array into |string|"
                 puts @answer
-                @answer = (eval(@answer)).join('|')
+                @answer = (eval(@answer)-[""]).join('|')
                 puts "Conversion complete!"
                 puts @answer
                 
