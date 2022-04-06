@@ -70,12 +70,14 @@ class QuizController < ApplicationController
             params[:subject] = Subject.where("title LIKE '%trodu%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
         end
 
-        if params[:level].nil? || (@journeyProgress <= params[:level] && @journeyProgress != 0)
+        if !params[:level] || (@journeyProgress <= params[:level] && @journeyProgress > 0)
             params[:level] = @journeyProgress
         end
 
-        arr = [0,0,1,0,2,0,3,0,4,0,5,0]
+        arr = [0,1,2,3,4,5,0]
         Statistic.update(activejourneylevel: arr[arr.index(@journeyProgress)+1] )
+
+        params[:level] = 3
 
         if params[:level] == 0
             @format = rand(@formats).round(0)
@@ -110,16 +112,29 @@ class QuizController < ApplicationController
         @fullQuery.each do |query|
             @questionsArray << query['id']
         end
-        
+
         @questionsArray.each do |n|
-            @tempQuestion = Question.select(:frequency).where(id: n)[0]
-            @tempQuestion['frequency'] += 1
-            @tempQuestion.save
-            
+            @tempQuestion = Question.find_by(id: n)
+            @tempQuestion.update(frequency: (@tempQuestion.frequency += 1))
+            parameters = {}
+            parameters[:type] = eval(@tempQuestion.questiontypes).sample
+
+            if %I(formula).include? @parameters[:type]
+                que = (@tempQuestion.question).dup
+                randoms = que.question.count("#")
+                data = []
+                randoms.times do 
+                    data << "[#{que[/#<(.*?)>/,1]}]"
+                    que[que.index("#<")..que.index(">")] = ""
+                end
+                parameters[:data] = data
+            end
+
             @answer = Answer.create(
                 attempt: "",
                 questionid: n,
-                grade: (Float(20)/@questionsArray.size)
+                grade: (Float(20)/@questionsArray.size),
+                parameters: parameters
             )
             @answersArray << @answer.id
         end
