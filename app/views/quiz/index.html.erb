@@ -4,10 +4,17 @@
 <%= form_with id: :quiz, html: { autocomplete: 'off' } do |form| %>
     <%= form.hidden_field :quizID, value: @currentQuiz.id %>
         <% @questionObjects.each do |question|
-           @index = @questionObjects.index(question) %>
-            <p><b><%=(@index + 1 ).to_s + '. ' %></b> <%= question.question.html_safe %><br>
-            <% if question.image.attached? %><%=image_tag(question.image.url, class: 'qImage')%> <% end %> </p>
-            <% @type = eval(question.questiontype).sample
+           @index = @questionObjects.index(question)
+           @parameters = eval(@answerObjects[@index].parameters)
+           if @parameters[:data]
+                @data = @parameters[:data]
+           else
+                @data = false
+           end
+            %>
+            <p><b><%=(@index + 1 ).to_s + '. ' %></b> <%= @data ? eval("sprint(#{question.question.gsub(/#<(.*?)>/,"%d")},#{@data.join(',')})").html_safe  : question.question.html_safe %>
+            <br><% if question.image.attached? %><%=image_tag(question.image.url, class: 'qImage')%> <% end %> </p>
+            <% @type = @parameters[:type]
             @question = question
             case @type
             when :open
@@ -44,7 +51,7 @@
             when :table
 
             when :formula
-
+                %><%= form.number_field "answer[#{(@questionObjects.index(question))}]", class: 'input-answer widther' %><%
             end
             %><%= form.hidden_field "type[#{(@questionObjects.index(question))}]", value: @type %><%
         end %>

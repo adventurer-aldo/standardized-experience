@@ -50,8 +50,10 @@ class QuizController < ApplicationController
     #=======================================================================================
     def shift
         @questionObjects = []
+        @answerObjects = []
         @answersArray.each do |answerID|
             @answerObject = Answer.find_by(id: answerID)
+            @answerObjects << @answerObject
             @questionObjects << Question.find_by(id: @answerObject.questionid)
         end
 
@@ -67,7 +69,7 @@ class QuizController < ApplicationController
         @journeyProgress = Statistic.first["activejourneylevel"]
 
         if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject]) == false
-            params[:subject] = Subject.where("title LIKE '%trodu%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
+            params[:subject] = Subject.where("title LIKE '%stica%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
         end
 
         if !params[:level] || (@journeyProgress <= params[:level] && @journeyProgress > 0)
@@ -122,12 +124,23 @@ class QuizController < ApplicationController
             if %I(formula).include? @parameters[:type]
                 que = (@tempQuestion.question).dup
                 randoms = que.question.count("#")
-                data = []
+                temp = []
                 randoms.times do 
-                    data << "[#{que[/#<(.*?)>/,1]}]"
+                    temp << "[#{que[/#<(.*?)>/,1]}]".split(',')
                     que[que.index("#<")..que.index(">")] = ""
                 end
-                parameters[:data] = data
+                temp.map! do |n|
+                    c = n.map(&:to_i)
+                    if n.size == 1
+                        rand(c.first)
+                    elsif n.size > 1
+                        rand(c.first..c.last)
+                    else
+                        rand(20000)
+                    end
+                end
+                
+                parameters[:data] = temp
             end
 
             @answer = Answer.create(
