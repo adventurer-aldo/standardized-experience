@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     def data
         @subjects = Subject.select(:title).order(title: 'asc')
 
-        anatos = Question.where("subject LIKE '%Prática%'")
+        anatos = Question.where("subject LIKE 'Biologia%'")
         anatos.each do |question|
             puts "Beginning migration of ibb to b2cloud."
             @link = ""
@@ -18,27 +18,31 @@ class HomeController < ApplicationController
                     puts "Sauce had apparently double quotation. Issue solved."
                     sauce = question.question[/src="(.*?)"/,1]
                 end
-                if sauce == @link
-                    puts "It shares the image from the previous question. This will be simple..."
-                    question.image.attach(@prev_question.image.blob)
-                    puts "DONE!"
+                unless sauce.nil?
+                    if sauce == @link
+                        puts "It shares the image from the previous question. This will be simple..."
+                        question.image.attach(@prev_question.image.blob)
+                        puts "DONE!"
+                    else
+                        puts "Gotta create a new image for this one..."
+                        @link = sauce
+                        downloaded_sauce = URI.open(URI.parse(sauce))
+                        question.image.attach(io: downloaded_sauce, filename: "image.png")
+                        puts "Done!"
+                    end
+                    predicament = question.question[/<br><img(.*?)>/]
+                    if predicament == nil
+                        predicament = question.question[/<img(.*?)>/]
+                    end
+                    fix = question.question.dup
+                    fix[fix.index(predicament)..(fix.index(predicament)+predicament.size)] = ""
+                    puts "Removed the html tags."
+                    question.update(question: fix)
+                    @prev_question = question
+                    puts "Saved previous question and moving on..."
                 else
-                    puts "Gotta create a new image for this one..."
-                    @link = sauce
-                    downloaded_sauce = URI.open(URI.parse(sauce))
-                    question.image.attach(io: downloaded_sauce, filename: "image.png")
-                    puts "Done!"
+                    puts "Skipped. This one didn't have an image."
                 end
-                predicament = question.question[/<br><img(.*?)>/]
-                if predicament == nil
-                    predicament = question.question[/<img(.*?)>/]
-                end
-                fix = question.question.dup
-                fix[fix.index(predicament)..(fix.index(predicament)+predicament.size)] = ""
-                puts "Removed the html tags."
-                question.update(question: fix)
-                @prev_question = question
-                puts "Saved previous question and moving on..."
             end
         end
     end
