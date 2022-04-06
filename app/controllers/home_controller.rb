@@ -26,6 +26,9 @@ class HomeController < ApplicationController
                     else
                         puts "Gotta create a new image for this one..."
                         @link = sauce
+                        unless sauce.include? "http"
+                            sauce = helpers.image_url(sauce)
+                        end
                         downloaded_sauce = URI.open(URI.parse(sauce))
                         question.image.attach(io: downloaded_sauce, filename: "image.png")
                         puts "Done!"
