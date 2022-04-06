@@ -123,7 +123,7 @@ class QuizController < ApplicationController
 
             if %I(formula).include? parameters[:type]
                 que = (@tempQuestion.question).dup
-                randoms = que.question.count("#")
+                randoms = que.count("#")
                 temp = []
                 randoms.times do 
                     temp << "[#{que[/#<(.*?)>/,1]}]".split(',')
@@ -132,11 +132,11 @@ class QuizController < ApplicationController
                 temp.map! do |n|
                     c = n.map(&:to_i)
                     if n.size == 1
-                        rand(c.first)
+                        Float(rand(0-c.first..c.first)).round(2)
                     elsif n.size > 1
-                        rand(c.first..c.last)
+                        Float(rand(c.first..c.last)).round(2)
                     else
-                        rand(20000)
+                        Float(rand(20000)).round(2)
                     end
                 end
                 
@@ -187,8 +187,7 @@ class QuizController < ApplicationController
         @answers = eval(@currentQuiz.answerarray)
         @answers.each do |answer_id|
             @ans = Answer.find_by(id: answer_id)
-            @parameters = {}
-            @parameters[:type] = params[:type]["#{@answers.index(answer_id)}"].to_sym
+            @parameters = eval(@ans.parameters)
             @answer = "#{params[:answer]["#{@answers.index(answer_id)}"]}"
             if %I(choice multichoice veracity).include? @parameters[:type]
                 @que = Question.find_by(id: @ans.questionid)
@@ -247,10 +246,16 @@ class QuizController < ApplicationController
         shift
         @answerObjects.each do |anst|
             quest = @questionObjects[@answerObjects.index(anst)]
-            if eval(quest.parameters).include?(:strict_order)
-                @grade += anst.grade if anst.attempt.split('|') == quest.answer.split('|')
+            @parameters = eval(anst.parameters)
+            if @parameters[:type] == :formula
+                truth = eval(eval(%Q(sprintf('#{quest.answer}',#{@parameters[:data].join(',')}))))
+                @grade += anst.grade if anst.attempt.to_i == truth
             else
-                @grade += anst.grade if anst.attempt.split('|').sort == quest.answer.split('|').sort
+                if @parameters.include?(:strict_order)
+                    @grade += anst.grade if anst.attempt.split('|') == quest.answer.split('|')
+                else
+                    @grade += anst.grade if anst.attempt.split('|').sort == quest.answer.split('|').sort
+                end
             end
         end
 

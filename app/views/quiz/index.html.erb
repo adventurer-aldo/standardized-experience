@@ -6,13 +6,13 @@
         <% @questionObjects.each do |question|
            @index = @questionObjects.index(question)
            @parameters = eval(@answerObjects[@index].parameters)
-           if @parameters[:data]
+           if @parameters[:data] 
                 @data = @parameters[:data]
            else
                 @data = false
            end
             %>
-            <p><b><%=(@index + 1 ).to_s + '. ' %></b> <%= @data ? eval("sprint(#{question.question.gsub(/#<(.*?)>/,"%d")},#{@data.join(',')})").html_safe  : question.question.html_safe %>
+            <p><b><%=(@index + 1 ).to_s + '. ' %></b> <%= @data ? eval(%Q(sprintf("#{question.question.gsub(/#<(.*?)>/,"%d")}",#{@data.join(',')}))).html_safe  : question.question.html_safe %>
             <br><% if question.image.attached? %><%=image_tag(question.image.url, class: 'qImage')%> <% end %> </p>
             <% @type = @parameters[:type]
             @question = question
