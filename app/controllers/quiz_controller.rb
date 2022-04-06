@@ -76,10 +76,10 @@ class QuizController < ApplicationController
             params[:level] = @journeyProgress
         end
 
-        arr = [0,1,2,3,4,5,0]
-        Statistic.update(activejourneylevel: arr[arr.index(@journeyProgress)+1] )
+        # arr = [0,1,2,3,4,5,0]
+        # Statistic.update(activejourneylevel: arr[arr.index(@journeyProgress)+1] )
 
-        params[:level] = 3
+        params[:level] = 4
 
         if params[:level] == 0
             @format = rand(@formats).round(0)
@@ -102,7 +102,7 @@ class QuizController < ApplicationController
         when 3
             allQuestions = baseQuery.where.not('level=3').limit(rand(10..40))
         when 4
-            allQuestions = baseQuery.where('level=3').limit(rand(5..30)) + baseQuery.where.not('level=3').limit(rand(10..20))
+            allQuestions = baseQuery.where('level=3').limit(rand(5..30)) # + baseQuery.where.not('level=3').limit(rand(10..20))
         when 5
             allQuestions = baseQuery.limit(rand(50..100))
         end
@@ -119,9 +119,9 @@ class QuizController < ApplicationController
             @tempQuestion = Question.find_by(id: n)
             @tempQuestion.update(frequency: (@tempQuestion.frequency += 1))
             parameters = {}
-            parameters[:type] = eval(@tempQuestion.questiontypes).sample
+            parameters[:type] = eval(@tempQuestion.questiontype).sample
 
-            if %I(formula).include? @parameters[:type]
+            if %I(formula).include? parameters[:type]
                 que = (@tempQuestion.question).dup
                 randoms = que.question.count("#")
                 temp = []
