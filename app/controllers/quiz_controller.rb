@@ -79,7 +79,7 @@ class QuizController < ApplicationController
         # arr = [0,1,2,3,4,5,0]
         # Statistic.update(activejourneylevel: arr[arr.index(@journeyProgress)+1] )
 
-        params[:level] = 3
+        params[:level] = 4
 
         if params[:level] == 0
             @format = rand(@formats).round(0)
