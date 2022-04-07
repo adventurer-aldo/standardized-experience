@@ -14,6 +14,9 @@ gem "sprockets-rails"
 # Use PostgreSQL as the database for Active Record
 gem 'pg'
 
+# Biostatistics hand
+gem 'ruby-statistics'
+
 # Use FontAwesome icons
 gem "font-awesome-rails"
 
