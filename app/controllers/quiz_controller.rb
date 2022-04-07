@@ -125,14 +125,19 @@ class QuizController < ApplicationController
                 que = (@tempQuestion.question).dup
                 randoms = que.count("#")
                 temp = []
+                puts "#{randoms} times!"
                 randoms.times do 
-                    temp << "[#{que[/#<(.*?)>/,1]}]".split(',')
+                    temp << "#{que[/#<(.*?)>/,1]}".split(',')
+                    puts "Adding [#{que[/#<(.*?)>/,1]}]"
                     que[que.index("#<")..que.index(">")] = ""
                 end
+                puts temp.to_s
                 temp.map! do |n|
                     c = n.map(&:to_i)
+                    puts c.to_s
+                    puts n.to_s
                     if n.size == 1
-                        Float(rand(0-c.first..c.first)).round(2)
+                        Float(rand(1..(c.first))).round(2)
                     elsif n.size == 2
                         Float(rand(c.first..c.last)).round
                     elsif n.size == 3
@@ -254,6 +259,8 @@ class QuizController < ApplicationController
             quest = @questionObjects[@answerObjects.index(anst)]
             @parameters = eval(anst.parameters)
             if @parameters[:type] == :formula
+                puts @parameters[:data].to_s
+                puts quest.answer.to_s
                 truth = eval(eval(%Q(sprintf('#{quest.answer}',#{@parameters[:data].join(',')}))))
                 @grade += anst.grade if anst.attempt.to_i == truth
             else
