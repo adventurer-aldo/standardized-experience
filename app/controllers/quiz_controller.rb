@@ -134,9 +134,9 @@ class QuizController < ApplicationController
                     if n.size == 1
                         Float(rand(0-c.first..c.first)).round(2)
                     elsif n.size == 2
-                        Float(rand(c.first..c.last)).round(2)
-                    elsif n.size == 3
                         Float(rand(c.first..c.last)).round
+                    elsif n.size == 3
+                        Float(rand(c.first..c.last)).round(2)
                     else
                         Float(rand(20000)).round(2)
                     end
