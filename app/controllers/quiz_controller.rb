@@ -133,8 +133,10 @@ class QuizController < ApplicationController
                     c = n.map(&:to_i)
                     if n.size == 1
                         Float(rand(0-c.first..c.first)).round(2)
-                    elsif n.size > 1
+                    elsif n.size == 2
                         Float(rand(c.first..c.last)).round(2)
+                    elsif n.size == 3
+                        Float(rand(c.first..c.last)).round()
                     else
                         Float(rand(20000)).round(2)
                     end
