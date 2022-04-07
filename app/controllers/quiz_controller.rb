@@ -133,7 +133,7 @@ class QuizController < ApplicationController
                 end
                 puts temp.to_s
                 temp.map! do |n|
-                    c = n.map(&:to_i)
+                    c = n.map(&:to_f)
                     puts c.to_s
                     puts n.to_s
                     if n.size == 1
