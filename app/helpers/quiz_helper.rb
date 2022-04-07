@@ -35,4 +35,12 @@ module QuizHelper
         end
     end
 
+    def sort_solves
+        @in_maths.times do
+            @temp = "#{@que[/$$(.*?)$/,1]}"
+            puts @temp.to_s
+            puts "Solving [#{@que[/$$(.*?)$/,1]}]"
+            @que[@que.index("$$")..(@que.index("$$")+@temp.length)] = eval(@temp).to_s
+        end
+    end
 end

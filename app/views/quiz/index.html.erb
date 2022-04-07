@@ -6,6 +6,8 @@
         <% @questionObjects.each do |question|
            @index = @questionObjects.index(question)
            @parameters = eval(@answerObjects[@index].parameters)
+           @question = question
+           @type = @parameters[:type]
            if @parameters[:data] 
                 @data = @parameters[:data]
                 @in_maths = question.question.count("$$")
@@ -18,14 +20,9 @@
                 if @in_maths > 0
                     puts @que.to_s
                     @que = eval(%Q(sprintf("#{question.question.gsub(/#<(.*?)>/,"%d")}",#{@data.join(',')})))
-                    temp = ""
+                    @temp = ""
 
-                    @in_maths.times do
-                        temp = "#{@que[/$$(.*?)$/,1]}"
-                        puts temp.to_s
-                        puts "Solving [#{@que[/$$(.*?)$/,1]}]"
-                        @que[@que.index("$$")..(@que.index("$$")+temp.length)] = eval(temp).to_s
-                    end
+                    sort_solves
                     
                     @que.html_safe  
                 else
@@ -35,8 +32,7 @@
                 question.question.html_safe
             end %>
             <br><% if question.image.attached? %><%=image_tag(question.image.url, class: 'qImage')%> <% end %> </p>
-            <% @type = @parameters[:type]
-            @question = question
+            <% 
             case @type
             when :open
                 %><%= form.text_field "answer[#{(@questionObjects.index(question))}]", class: 'input-answer widther' %><%

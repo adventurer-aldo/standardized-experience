@@ -55,13 +55,8 @@
                 puts "There were some maths!"
                 @que = eval(%Q(sprintf("#{question.question.gsub(/#<(.*?)>/,"%d")}",#{@data.join(',')})))
                 temp = ""
-                
-                @in_maths.times do
-                    temp = "#{@que[/#$(.*?)$/,1]}"
-                    puts "Solving [#{@que[/#$(.*?)$/,1]}]"
-                    @que[@que.index("#«")..(@que.index("#$")+temp.length)] = eval(temp).to_s
-                end
 
+                sort_solves
                 @que.html_safe  
             else
                 puts "There were no maths...Well, that's less work then!"
