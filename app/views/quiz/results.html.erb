@@ -36,6 +36,7 @@
                     puts @parameters[:data].to_s
                     truth = eval(eval(%Q(sprintf('#{question.answer}',#{@parameters[:data].join(',')}))))
                     @ans.attempt.to_i == truth
+                    @in_maths = question.question.count("#«")
                 else 
                     if eval(question.parameters).include?(:strict_order)
                         question.answer.downcase.split('|') == @ans.attempt.downcase.split('|')
@@ -48,7 +49,24 @@
         else
             %><span style='position: relative'><span class='grade'>0,0</span></span><%
         end
-        %><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= @data ? eval(%Q(sprintf("#{question.question.gsub(/#<(.*?)>/,"%d")}",#{@data.join(',')}))).html_safe  : question.question.html_safe %><br>
+        %><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= 
+        if @data
+            if @in_maths > 0
+                @que = eval(%Q(sprintf("#{question.question.gsub(/#<(.*?)>/,"%d")}",#{@data.join(',')})))
+                temp = ""
+                @in_maths.times do
+                    temp = "#{@que[/#«(.*?)»/,1]}"
+                    puts "Solving [#{@que[/#«(.*?)»/,1]}]"
+                    @que[@que.index("#«")..@que.index("»")] = eval(temp).to_s
+                end
+                
+                @que.html_safe  
+            else
+                eval(%Q(sprintf("#{question.question.gsub(/#<(.*?)>/,"%d")}",#{@data.join(',')}))).html_safe  
+            end
+        else 
+            question.question.html_safe
+        end %><br>
         <% if question.image.attached? %><%=image_tag(question.image.url, class: 'qImage')%><br><% end %>
         <%
 

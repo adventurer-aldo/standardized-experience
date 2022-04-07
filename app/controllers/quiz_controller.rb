@@ -123,7 +123,7 @@ class QuizController < ApplicationController
 
             if %I(formula).include? parameters[:type]
                 que = (@tempQuestion.question).dup
-                randoms = que.count("#")
+                randoms = que.count("#<")
                 temp = []
                 puts "#{randoms} times!"
                 randoms.times do 
