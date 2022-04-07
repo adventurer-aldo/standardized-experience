@@ -24,6 +24,7 @@
     <% @questionObjects.each do |question| %>
         <p style='position: relative'><% 
         @ans = @answerObjects[@questionObjects.index(question)]
+        @question = question
         @parameters = eval(@ans.parameters)
            if @parameters[:data] 
                 @data = @parameters[:data]
@@ -32,11 +33,9 @@
            end
         @type = @parameters[:type]
         @right= if @type == :formula
-                    puts "HEY"
-                    puts @parameters[:data].to_s
                     truth = eval(eval(%Q(sprintf('#{question.answer}',#{@parameters[:data].join(',')}))))
+                    @in_maths = question.question.count("~")
                     @ans.attempt.to_i == truth
-                    @in_maths = question.question.count("#«")
                 else 
                     if eval(question.parameters).include?(:strict_order)
                         question.answer.downcase.split('|') == @ans.attempt.downcase.split('|')
@@ -52,10 +51,6 @@
         %><b><%=(@questionObjects.index(question) + 1 ).to_s + '. ' %></b> <%= 
         if @data
             if @in_maths > 0
-                puts "There were some maths!"
-                @que = eval(%Q(sprintf("#{question.question.gsub(/#<(.*?)>/,"%d")}",#{@data.join(',')})))
-                temp = ""
-
                 sort_solves
                 @que.html_safe  
             else
@@ -80,7 +75,6 @@
             </p><%
 
         when :choice
-            @question = question
             order_choices
             @choices.each do |choice|
                 %><b><% 
@@ -98,7 +92,6 @@
             end
 
         when :multichoice
-            @question = question
             order_choices
             @choices.each do |choice|
                 %><b><% 
@@ -116,7 +109,6 @@
             end
 
         when :veracity
-            @question = question
             order_choices
             @choices.each do |choice|
                 %><b><% 

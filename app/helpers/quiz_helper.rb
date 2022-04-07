@@ -36,11 +36,12 @@ module QuizHelper
     end
 
     def sort_solves
-        @in_maths.times do
-            @temp = "#{@que[/$$(.*?)$/,1]}"
-            puts @temp.to_s
-            puts "Solving [#{@que[/$$(.*?)$/,1]}]"
-            @que[@que.index("$$")..(@que.index("$$")+@temp.length)] = eval(@temp).to_s
+        @que = eval(%Q(sprintf("#{@question.question.gsub(/#<(.*?)>/,"%d")}",#{@data.join(',')})))
+        @temp = ""
+
+        @in_maths.times do |i|
+            @temp = "#{@que[/~&(.*?)&/,1]}"
+            @que[@que.index("~&")..(@que.index("~&")+"#{@que[/~&(.*?)&/]}".length)] = eval(@temp).to_s
         end
     end
 end

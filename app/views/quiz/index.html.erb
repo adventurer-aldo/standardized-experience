@@ -10,7 +10,7 @@
            @type = @parameters[:type]
            if @parameters[:data] 
                 @data = @parameters[:data]
-                @in_maths = question.question.count("$$")
+                @in_maths = question.question.count("~")
            else
                 @data = false
            end
@@ -18,12 +18,7 @@
             <p><b><%=(@index + 1 ).to_s + '. ' %></b> <%= 
             if @data
                 if @in_maths > 0
-                    puts @que.to_s
-                    @que = eval(%Q(sprintf("#{question.question.gsub(/#<(.*?)>/,"%d")}",#{@data.join(',')})))
-                    @temp = ""
-
-                    sort_solves
-                    
+                    sort_solves                    
                     @que.html_safe  
                 else
                     eval(%Q(sprintf("#{question.question.gsub(/#<(.*?)>/,"%d")}",#{@data.join(',')}))).html_safe  
