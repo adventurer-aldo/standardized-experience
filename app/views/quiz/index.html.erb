@@ -8,7 +8,7 @@
            @parameters = eval(@answerObjects[@index].parameters)
            if @parameters[:data] 
                 @data = @parameters[:data]
-                @in_maths = question.question.count("#«")
+                @in_maths = question.question.count("$$")
            else
                 @data = false
            end
@@ -16,12 +16,15 @@
             <p><b><%=(@index + 1 ).to_s + '. ' %></b> <%= 
             if @data
                 if @in_maths > 0
+                    puts @que.to_s
                     @que = eval(%Q(sprintf("#{question.question.gsub(/#<(.*?)>/,"%d")}",#{@data.join(',')})))
                     temp = ""
+
                     @in_maths.times do
-                        temp = "#{@que[/#«(.*?)»/,1]}"
-                        puts "Solving [#{@que[/#«(.*?)»/,1]}]"
-                        @que[@que.index("#«")..@que.index("»")] = eval(temp).to_s
+                        temp = "#{@que[/$$(.*?)$/,1]}"
+                        puts temp.to_s
+                        puts "Solving [#{@que[/$$(.*?)$/,1]}]"
+                        @que[@que.index("$$")..(@que.index("$$")+temp.length)] = eval(temp).to_s
                     end
                     
                     @que.html_safe  
