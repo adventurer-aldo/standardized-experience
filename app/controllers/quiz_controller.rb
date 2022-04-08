@@ -127,9 +127,9 @@ class QuizController < ApplicationController
                 temp = []
                 puts "#{randoms} times!"
                 randoms.times do 
-                    temp << "#{que[/#\\(.*?)|/,1]}".split(',')
-                    puts "Adding [#{que[/#\\(.*?)|/,1]}]"
-                    que[que.index("#\\")..que.index("|")] = ""
+                    temp << "#{que[/#£(.*?)§/,1]}".split(',')
+                    puts "Adding [#{que[/#£(.*?)§/,1]}]"
+                    que[que.index("#£")..que.index("§")] = ""
                 end
                 puts temp.to_s
                 temp.map! do |n|

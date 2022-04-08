@@ -36,7 +36,7 @@ module QuizHelper
     end
 
     def sort_solves
-        @que = eval(%Q(sprintf("#{@question.question.gsub(/#\\(.*?)|/,"%d")}",#{@data.join(',')})))
+        @que = eval(%Q(sprintf("#{@question.question.gsub(/#£(.*?)§/,"%d")}",#{@data.join(',')})))
         @temp = ""
 
         @in_maths.times do |i|
