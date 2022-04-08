@@ -30,12 +30,12 @@ class QuizController < ApplicationController
         end
 
         @ost = {
-        0 => [helpers.audio_path("prac.mp3"),""],
-        1 => [helpers.audio_path("test1.mp3"),helpers.audio_path("rushtest1.mp3")],
-        2 => [helpers.audio_path("test2.mp3"),helpers.audio_path("rushtest2.mp3")],
-        3 => [helpers.audio_path("test2.mp3"),helpers.audio_path("rushtest2.mp3")],
-        4 => [helpers.audio_path("exam.mp3"),helpers.audio_path("rushexam.mp3")],
-        5 => [helpers.audio_path("examrec.mp3"),helpers.audio_path("rushexam.mp3")]
+        0 => [helpers.audio_path("prac.ogg"),""],
+        1 => [helpers.audio_path("test1.ogg"),helpers.audio_path("rushtest1.ogg")],
+        2 => [helpers.audio_path("test2.ogg"),helpers.audio_path("rushtest2.ogg")],
+        3 => [helpers.audio_path("test2.ogg"),helpers.audio_path("rushtest2.ogg")],
+        4 => [helpers.audio_path("exam.ogg"),helpers.audio_path("rushexam.ogg")],
+        5 => [helpers.audio_path("examrec.ogg"),helpers.audio_path("rushexam.ogg")]
         }
 
 
@@ -277,17 +277,17 @@ class QuizController < ApplicationController
         end
 
          @fanfare = if @grade < 7
-                        helpers.audio_path("failhard.mp3")
+                        helpers.audio_path("failhard.ogg")
                     elsif @grade < 9.5
-                        helpers.audio_path("fail.mp3")
+                        helpers.audio_path("fail.ogg")
                     elsif @grade < 15
-                        helpers.audio_path("succeed.mp3")
+                        helpers.audio_path("succeed.ogg")
                     elsif @grade < 18
-                        helpers.audio_path("succeedhard.mp3")
+                        helpers.audio_path("succeedhard.ogg")
                     elsif @grade < 20
-                        helpers.audio_path("succeedharder.mp3")
+                        helpers.audio_path("succeedharder.ogg")
                     else
-                        helpers.audio_path("succeedhardest.mp3")
+                        helpers.audio_path("succeedhardest.ogg")
                     end
     end
  
