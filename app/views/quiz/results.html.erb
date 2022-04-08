@@ -54,8 +54,7 @@
                 sort_solves
                 @que.html_safe  
             else
-                puts "There were no maths...Well, that's less work then!"
-                eval(%Q(sprintf("#{question.question.gsub(/#<(.*?)>/,"%d")}",#{@data.join(',')}))).html_safe  
+                eval(%Q(sprintf("#{question.question.gsub(/#<(.*?)>/,"%g")}",#{@data.join(',')}))).html_safe  
             end
         else 
             question.question.html_safe
