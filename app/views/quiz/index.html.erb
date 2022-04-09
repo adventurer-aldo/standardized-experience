@@ -63,7 +63,7 @@
             when :table
 
             when :formula
-                %><%= form.number_field "answer[#{(@questionObjects.index(question))}]", class: 'input-answer widther' %><%
+                %><%= form.text_field "answer[#{(@questionObjects.index(question))}]", class: 'input-answer widther' %><%
             end
             %><%= form.hidden_field "type[#{(@questionObjects.index(question))}]", value: @type %><%
         end %>

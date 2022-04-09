@@ -35,7 +35,7 @@
         @right= if @type == :formula
                     truth = eval(eval(%Q(sprintf('#{question.answer}',#{@parameters[:data].join(',')}))))
                     @in_maths = question.question.count("~")
-                    @ans.attempt.to_i == truth
+                    @ans.attempt == truth.to_s
                 else 
                     if eval(question.parameters).include?(:strict_order)
                         question.answer.downcase.split('|') == @ans.attempt.downcase.split('|')
