@@ -47,6 +47,7 @@ module Biostatistics
         def t_student(i)
             u = Float(i).round(2)
             z = sprintf("%0.02f",u)
+            puts "Looking for t_student of #{z}"
             negative = false
             if u < 0
                 negative = true
