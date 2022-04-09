@@ -51,20 +51,20 @@ module Biostatistics
             negative = false
             if u < 0
                 negative = true
-                u = u * (-1)
+                u = u * Float(-1)
             end
 
             if u < 3.1 && u >= 0
                 unless negative
                     return @t_table[z[0..2]][z[3].to_i] 
                 else
-                    return 0 - @t_table[z[0..2]][z[3].to_i] 
+                    return Float(0) - @t_table[z[0..2]][z[3].to_i] 
                 end
             elsif u > 3.09
                 unless negative
                     return @t_table['*'][0]
                 else
-                    return 0 - @t_table['*'][0]
+                    return Float(0) - @t_table['*'][0]
                 end
             else
                 return "Impossível"
