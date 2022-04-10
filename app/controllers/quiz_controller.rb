@@ -270,7 +270,7 @@ class QuizController < ApplicationController
                 truth = eval(eval(%Q(sprintf('#{quest.answer}',#{@parameters[:data].join(',')}))))
                 @grade += anst.grade if anst.attempt.to_i == truth
             elsif %I(multichoice veracity).include? @parameters[:type]
-                @grade += anst.grade if quest.answer.split('|').intersection(anst.split('|')) == anst.split('|')
+                @grade += anst.grade if quest.answer.split('|').intersection(anst.attempt.split('|')) == anst.attempt.split('|')
             else
                 if @parameters.include?(:strict_order)
                     @grade += anst.grade if anst.attempt.split('|') == quest.answer.split('|')
