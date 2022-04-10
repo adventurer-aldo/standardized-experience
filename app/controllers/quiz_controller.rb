@@ -216,7 +216,7 @@ class QuizController < ApplicationController
 
                 @parameters[:order] = @order
             end
-            if %I(caption choice multichoice veracity).include? @parameters[:type]
+            if %I(caption multichoice veracity).include? @parameters[:type]
                 puts "Converting array into |string|"
                 puts @answer
                 if @answer.include? '[""]'
