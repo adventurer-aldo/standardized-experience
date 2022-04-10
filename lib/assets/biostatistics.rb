@@ -53,20 +53,24 @@ module Biostatistics
                 negative = true
                 u = u * Float(-1)
                 z = sprintf("%0.02f",u)
-                puts u.to_s
             end
+            puts "#{z} is the Number."
 
             if u < 3.1 && u >= 0
                 unless negative
                     return @t_table[z[0..2]][z[3].to_i] 
+                    puts @t_table[z[0..2]][z[3].to_i] .to_s + " is the T_Student of #{z}"
                 else
                     return Float(0) - @t_table[z[0..2]][z[3].to_i] 
+                    puts (Float(0) - @t_table[z[0..2]][z[3].to_i] ).to_s + " is the T_Student of #{z}"
                 end
             elsif u > 3.09
                 unless negative
                     return @t_table['*'][0]
+                    puts @t_table['*'][0].to_s + " is the T_Student of #{z}"
                 else
                     return Float(0) - @t_table['*'][0]
+                    puts (Float(0) - @t_table['*'][0]).to_s + " is the T_Student of #{z}"
                 end
             else
                 return "Impossível"
