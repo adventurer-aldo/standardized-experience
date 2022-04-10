@@ -88,10 +88,10 @@ module Biostatistics
                 break unless rest == ""
             end
             if rest == ""
-                u = u.round(3)
+                u = u.truncate(3)
                 @t_table.each do |key, value|
                     value_three = value.map do |z|
-                        z.round(3)
+                        z.truncate(3)
                     end
         
                     if value_three.index(u)
@@ -102,10 +102,10 @@ module Biostatistics
                 end
             end
             if rest == ""
-                u = u.round(2)
+                u = u.truncate(2)
                 @t_table.each do |key, value|
                     value_two = value.map do |z|
-                        z.round(2)
+                        z.truncate(2)
                     end
         
                     if value_two.index(u)
@@ -116,10 +116,10 @@ module Biostatistics
                 end
             end
             if rest == ""
-                u = u.round(1)
+                u = u.truncate(1)
                 @t_table.each do |key, value|
                     value_one = value.map do |z|
-                        z.round(1)
+                        z.truncate(1)
                     end
         
                     if value_one.index(u)
