@@ -223,9 +223,7 @@ class QuizController < ApplicationController
                     @answer[@answer.index('[""]')..(@answer.index('[""]')+('[""]'.length))] = ""
                 end
                 puts @answer
-                @answer = eval(@answer)
-                @answer -= [""]
-                @answer = @answer.join('|')
+                @answer = params[:answer]["#{@answers.index(answer_id)}"].join('|')
                 puts "Conversion complete!"
                 puts @answer.to_s
                 
