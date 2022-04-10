@@ -52,6 +52,8 @@ module Biostatistics
             if u < 0
                 negative = true
                 u = u * Float(-1)
+                z = sprintf("%0.02f",u)
+                puts u.to_s
             end
 
             if u < 3.1 && u >= 0
