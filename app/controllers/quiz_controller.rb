@@ -34,7 +34,7 @@ class QuizController < ApplicationController
         1 => [helpers.audio_path("test1.ogg"),helpers.audio_path("rushtest1.ogg")],
         2 => [helpers.audio_path("test2.ogg"),helpers.audio_path("rushtest2.ogg")],
         3 => [helpers.audio_path("test2.ogg"),helpers.audio_path("rushtest2.ogg")],
-        4 => [helpers.audio_path("exam.ogg"),helpers.audio_path("rushexam.ogg")],
+        4 => [helpers.audio_path("https://cdn.discordapp.com/attachments/962345540962639922/962815230658875422/1-09_Dusk_Falls.ogg"),helpers.audio_path("https://cdn.discordapp.com/attachments/962345540962639922/962815231065726996/1-10_Dusk_Falls_Fire.ogg")],
         5 => [helpers.audio_path("examrec.ogg"),helpers.audio_path("rushexam.ogg")]
         }
 
