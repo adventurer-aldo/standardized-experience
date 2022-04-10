@@ -216,7 +216,7 @@ class QuizController < ApplicationController
 
                 @parameters[:order] = @order
             end
-            if %I(caption multichoice veracity).include? @parameters[:type]
+            if %I(caption choice multichoice veracity).include? @parameters[:type]
                 puts "Converting array into |string|"
                 puts @answer
                 if @answer.include? '[""]'
@@ -269,11 +269,13 @@ class QuizController < ApplicationController
                 puts quest.answer.to_s
                 truth = eval(eval(%Q(sprintf('#{quest.answer}',#{@parameters[:data].join(',')}))))
                 @grade += anst.grade if anst.attempt.to_i == truth
+            elsif %I(multichoice veracity).include? @parameters[:type]
+                @grade += anst.grade if quest.answer.split('|').intersection(anst.split('|')) == anst.split('|')
             else
                 if @parameters.include?(:strict_order)
                     @grade += anst.grade if anst.attempt.split('|') == quest.answer.split('|')
                 else
-                    @grade += anst.grade if anst.attempt.split('|').sort == quest.answer.split('|').sort
+                    @grade += anst.grade if anst.attempt.downcase.split('|').sort == quest.answer.downcase.split('|').sort
                 end
             end
         end
