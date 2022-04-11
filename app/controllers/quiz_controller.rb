@@ -285,6 +285,9 @@ class QuizController < ApplicationController
                                     chooses[choice]
                                 end
                 end
+                puts @choices.to_s
+                puts @choices.intersection(quest.answer.split('|')).to_s
+                puts anst.attempt.split('|').to_s
                 @grade += anst.grade if @choices.intersection(quest.answer.split('|')).sort == anst.attempt.split('|').sort
             else
                 if @parameters.include?(:strict_order)
