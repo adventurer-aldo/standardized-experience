@@ -79,7 +79,7 @@ class QuizController < ApplicationController
         # arr = [0,1,2,3,4,5,0]
         # Statistic.update(activejourneylevel: arr[arr.index(@journeyProgress)+1] )
 
-        params[:level] = 4
+        params[:level] = 5
 
         if params[:level] == 0
             @format = rand(@formats).round(0)
@@ -219,13 +219,9 @@ class QuizController < ApplicationController
             if %I(caption choice multichoice veracity).include? @parameters[:type]
                 puts "Converting array into |string|"
                 puts @answer
-                if @answer.include? '[""]'
-                    @answer[@answer.index('[""]')..(@answer.index('[""]')+('[""]'.length))] = ""
-                end
-                puts @answer
                 @answer = eval(@answer)
                 unless @answer.nil?
-                    @answer -= [""]
+                    @answer.delete("")
                     @answer = @answer.join('|')
                     puts "Conversion complete!"
                     puts @answer.to_s
