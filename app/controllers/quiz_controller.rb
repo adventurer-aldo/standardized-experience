@@ -34,7 +34,7 @@ class QuizController < ApplicationController
         1 => [helpers.audio_path("test1.ogg"),helpers.audio_path("rushtest1.ogg")],
         2 => [helpers.audio_path("test2.ogg"),helpers.audio_path("rushtest2.ogg")],
         3 => [helpers.audio_path("test2.ogg"),helpers.audio_path("rushtest2.ogg")],
-        4 => [helpers.audio_path("https://cdn.discordapp.com/attachments/962345540962639922/962815230658875422/1-09_Dusk_Falls.ogg"),helpers.audio_path("https://cdn.discordapp.com/attachments/962345540962639922/962815231065726996/1-10_Dusk_Falls_Fire.ogg")],
+        4 => [helpers.audio_path("https://cdn.discordapp.com/attachments/962345491704733737/963104748398055444/2-15_-_Divine_Decree.ogg"),helpers.audio_path("https://cdn.discordapp.com/attachments/962345491704733737/963104747974455346/2-16_-_Divine_Decree.ogg")],
         5 => [helpers.audio_path("examrec.ogg"),helpers.audio_path("rushexam.ogg")]
         }
 
@@ -285,6 +285,7 @@ class QuizController < ApplicationController
                                     chooses[choice]
                                 end
                 end
+                @choices.delete(nil)
                 puts @choices.to_s
                 puts @choices.intersection(quest.answer.split('|')).to_s
                 puts anst.attempt.split('|').to_s
