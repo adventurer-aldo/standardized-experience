@@ -223,8 +223,8 @@ class QuizController < ApplicationController
                     @answer[@answer.index('[""]')..(@answer.index('[""]')+('[""]'.length))] = ""
                 end
                 puts @answer
-                if @answer
-                    @answer = eval(@answer)
+                @answer = eval(@answer)
+                unless @answer.nil?
                     @answer -= [""]
                     @answer = @answer.join('|')
                     puts "Conversion complete!"
