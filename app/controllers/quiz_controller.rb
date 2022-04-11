@@ -231,6 +231,7 @@ class QuizController < ApplicationController
                     puts @answer.to_s
                 else
                     "No answer was selected."
+                    @answer = ""
                 end
                 
             end
