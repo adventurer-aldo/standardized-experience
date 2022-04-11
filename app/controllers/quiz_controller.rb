@@ -275,7 +275,17 @@ class QuizController < ApplicationController
                 truth = eval(eval(%Q(sprintf('#{quest.answer}',#{@parameters[:data].join(',')}))))
                 @grade += anst.grade if anst.attempt.to_i == truth
             elsif %I(multichoice veracity).include? @parameters[:type]
-                @grade += anst.grade if anst.attempt.split('|').intersection(quest.answer.split('|')) == anst.attempt.split('|')
+                chooses = Choice.select(:decoy).where(question: quest.id).order(:id)
+                chooses = chooses.map { |choice| choice.decoy }
+                @choices = []
+                @parameters[:order].each do |choice|
+                    @choices << if choice.class == String
+                                    anst.attempt.split('|')[choice.to_i]
+                                else
+                                    chooses[choice]
+                                end
+                end
+                @grade += anst.grade if @choices.intersection(quest.answer.split('|')).sort == anst.attempt.split('|').sort
             else
                 if @parameters.include?(:strict_order)
                     @grade += anst.grade if anst.attempt.split('|') == quest.answer.split('|')

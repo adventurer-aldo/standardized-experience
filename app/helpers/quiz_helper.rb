@@ -2,7 +2,7 @@ module QuizHelper
 
     def sort_choices
         @choices = []
-        @qChoices = Choice.select(:decoy).where(question:@question.id)
+        @qChoices = Choice.select(:decoy).where(question:@question.id).order(:id)
         @qChoices = @qChoices.map { |choice| choice.decoy }
         @qAnswers = @question.answer.split('|')
         if @type == :veracity
