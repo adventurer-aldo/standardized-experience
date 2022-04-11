@@ -69,7 +69,7 @@ class QuizController < ApplicationController
         @journeyProgress = Statistic.first["activejourneylevel"]
 
         if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject]) == false
-            params[:subject] = Subject.where("title LIKE 'Bioes%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
+            params[:subject] = Subject.where("title LIKE '% Sa%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
         end
 
         if !params[:level] || (@journeyProgress <= params[:level].to_i && @journeyProgress > 0)
@@ -275,7 +275,7 @@ class QuizController < ApplicationController
                 truth = eval(eval(%Q(sprintf('#{quest.answer}',#{@parameters[:data].join(',')}))))
                 @grade += anst.grade if anst.attempt.to_i == truth
             elsif %I(multichoice veracity).include? @parameters[:type]
-                @grade += anst.grade if quest.answer.split('|').intersection(anst.attempt.split('|')) == anst.attempt.split('|')
+                @grade += anst.grade if anst.attempt.split('|').intersection(quest.answer.split('|')) == anst.attempt.split('|')
             else
                 if @parameters.include?(:strict_order)
                     @grade += anst.grade if anst.attempt.split('|') == quest.answer.split('|')
