@@ -212,6 +212,7 @@ class QuizController < ApplicationController
                     @order << @sourceChoices.index(choose) if @sourceChoices.include?(choose)
                     @order << "#{@sourceAnswers.index(choose)}" if @sourceAnswers.include?(choose)
                 end
+                @order.delete(nil)
                 puts "Order is #{@order}"
 
                 @parameters[:order] = @order
