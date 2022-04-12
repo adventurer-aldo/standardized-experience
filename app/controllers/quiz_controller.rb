@@ -301,7 +301,7 @@ class QuizController < ApplicationController
                         helpers.audio_path("failhard.ogg")
                     elsif @grade < 9.5
                         helpers.audio_path("fail.ogg")
-                    elsif @grade < 15
+                    elsif @grade < 14.5
                         helpers.audio_path("succeed.ogg")
                     elsif @grade < 18
                         helpers.audio_path("succeedhard.ogg")
