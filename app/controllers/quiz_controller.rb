@@ -233,6 +233,7 @@ class QuizController < ApplicationController
                 end
                 
             end
+            @answer[0] = "" if @answer[0] == "|"
 
             @ans.update(attempt: @answer,
             parameters: @parameters.to_s )
