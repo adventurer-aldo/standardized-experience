@@ -270,7 +270,7 @@ class QuizController < ApplicationController
                 puts quest.answer.to_s
                 truth = eval(eval(%Q(sprintf('#{quest.answer}',#{@parameters[:data].join(',')}))))
                 @grade += anst.grade if anst.attempt.to_i == truth
-            elsif %I(multichoice veracity).include? @parameters[:type]
+            elsif %I(veracity).include? @parameters[:type]
                 chooses = Choice.select(:decoy).where(question: quest.id).order(:id)
                 chooses = chooses.map { |choice| choice.decoy }
                 @choices = []
