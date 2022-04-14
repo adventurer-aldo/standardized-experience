@@ -19,7 +19,7 @@ class QuizController < ApplicationController
             "Exame de Recorrência"
         ]
 
-        @quizDurations = [5,9,9,10,7,20]
+        @quizDurations = [5,9,9,10,15,20]
 
         case @formats
         when 0
