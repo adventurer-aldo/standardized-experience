@@ -69,7 +69,7 @@ class QuizController < ApplicationController
         @journeyProgress = Statistic.first["activejourneylevel"]
 
         if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject]) == false
-            params[:subject] = Subject.where("title LIKE '% Sa%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
+            params[:subject] = Subject.where("title LIKE 'Bioq%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
         end
 
         if !params[:level] || (@journeyProgress <= params[:level].to_i && @journeyProgress > 0)
