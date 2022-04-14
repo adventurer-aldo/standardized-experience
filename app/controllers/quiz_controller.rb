@@ -34,7 +34,8 @@ class QuizController < ApplicationController
         1 => [helpers.audio_path("test1.ogg"),helpers.audio_path("rushtest1.ogg")],
         2 => [helpers.audio_path("test2.ogg"),helpers.audio_path("rushtest2.ogg")],
         3 => [helpers.audio_path("test2.ogg"),helpers.audio_path("rushtest2.ogg")],
-        4 => [helpers.audio_path("https://cdn.discordapp.com/attachments/962345491704733737/963104748398055444/2-15_-_Divine_Decree.ogg"),helpers.audio_path("https://cdn.discordapp.com/attachments/962345491704733737/963104747974455346/2-16_-_Divine_Decree.ogg")],
+        4 => [helpers.audio_path("https://cdn.discordapp.com/attachments/962345513825468456/964202769382793276/exam.ogg"),
+        helpers.audio_path("https://cdn.discordapp.com/attachments/962345513825468456/964202769064034315/rushexam.ogg")],
         5 => [helpers.audio_path("examrec.ogg"),helpers.audio_path("rushexam.ogg")]
         }
 
@@ -49,10 +50,12 @@ class QuizController < ApplicationController
     # Answers array.
     #=======================================================================================
     def shift
+        puts "Shifting"
         @questionObjects = []
         @answerObjects = []
         @answersArray.each do |answerID|
             @answerObject = Answer.find_by(id: answerID)
+            puts @answerObject.to_s
             @answerObjects << @answerObject
             @questionObjects << Question.find_by(id: @answerObject.questionid)
         end
@@ -112,7 +115,7 @@ class QuizController < ApplicationController
         @questionsArray = []
         @answersArray = []
         @fullQuery.each do |query|
-            @questionsArray << query['id']
+            @questionsArray << query.id
         end
 
         @questionsArray.each do |n|
