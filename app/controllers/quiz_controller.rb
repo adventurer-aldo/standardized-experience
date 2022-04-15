@@ -110,7 +110,7 @@ class QuizController < ApplicationController
             allQuestions = baseQuery.limit(rand(50..100))
         end
         allQuestions.shuffle
-        @fullQuery = allQuestions.sort_by(&:tags)
+        @fullQuery = allQuestions
 
         @questionsArray = []
         @answersArray = []
