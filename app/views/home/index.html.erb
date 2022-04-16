@@ -1,5 +1,9 @@
 <head><title>Home | SE</title></head><%=render 'header'%>
-<p>Your last test was of :NIL:, with a score of :NIL:.<br>:NIL:</p>
-<p>Click here to start a new Journey!</p>
-<p><%= Biostatistics::TStudent.new.t_student(3.25) %> or 
- </p>
+<p>Your last test was of <%= Quiz.last.subject %>, with a score of :NIL:.<br>:NIL:</p>
+<p><%=link_to '/quiz/?level=0' do %>
+<strong>Practice some more!</strong>
+<% end %> </p>
+<p><strong>Tip: </strong> <%= @tip.question %><br><%= @tip.answer %> </p>
+<%=audio_tag((@ost+'.ogg'), autoplay: true, loop: true)%>
+<p> <strong>Level <%= @journeyProgress %></strong><br>
+ <%= @cheer[@journeyProgress].sample %></p>

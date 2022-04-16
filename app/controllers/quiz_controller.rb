@@ -30,13 +30,17 @@ class QuizController < ApplicationController
         end
 
         @ost = {
-        0 => [helpers.audio_path("prac.ogg"),""],
-        1 => [helpers.audio_path("test1.ogg"),helpers.audio_path("rushtest1.ogg")],
-        2 => [helpers.audio_path("test2.ogg"),helpers.audio_path("rushtest2.ogg")],
-        3 => [helpers.audio_path("test2.ogg"),helpers.audio_path("rushtest2.ogg")],
-        4 => [helpers.audio_path("https://cdn.discordapp.com/attachments/962345513825468456/964202769382793276/exam.ogg"),
-        helpers.audio_path("https://cdn.discordapp.com/attachments/962345513825468456/964202769064034315/rushexam.ogg")],
-        5 => [helpers.audio_path("examrec.ogg"),helpers.audio_path("rushexam.ogg")]
+        0 => ["https://cdn.discordapp.com/attachments/962345513825468456/964949971344441405/prac.ogg",""],
+        1 => ["https://cdn.discordapp.com/attachments/962345513825468456/964949973357707304/test1.ogg",
+        "https://cdn.discordapp.com/attachments/962345513825468456/964949972938280970/rushtest1.ogg"],
+        2 => ["https://cdn.discordapp.com/attachments/962345513825468456/964950421808484382/test2.ogg",
+        "https://cdn.discordapp.com/attachments/962345513825468456/964949973147983952/rushtest2.ogg"],
+        3 => ["https://cdn.discordapp.com/attachments/962345513825468456/964950421808484382/test2.ogg",
+        "https://cdn.discordapp.com/attachments/962345513825468456/964949973147983952/rushtest2.ogg"],
+        4 => ["https://cdn.discordapp.com/attachments/962345513825468456/964202769382793276/exam.ogg",
+        "https://cdn.discordapp.com/attachments/962345513825468456/964202769064034315/rushexam.ogg"],
+        5 => ["https://cdn.discordapp.com/attachments/962345513825468456/964949970941792256/examrec.ogg",
+        "https://cdn.discordapp.com/attachments/962345513825468456/964202769064034315/rushexam.ogg"]
         }
 
 
@@ -69,20 +73,21 @@ class QuizController < ApplicationController
     # extra transitions.
     #=======================================================================================
     def index
-        @journeyProgress = Statistic.first["activejourneylevel"]
+        @journeyProgress = Statistic.first.activejourneylevel
 
         if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject]) == false
             params[:subject] = Subject.where("title LIKE 'Bioq%'").order(Arel.sql('RANDOM()')).limit(1)[0]['title']
         end
 
         if !params[:level] || (@journeyProgress <= params[:level].to_i && @journeyProgress > 0)
-            params[:level] = 0
+            #params[:level] = 0
+            arr = [0,1,2,3,4,5,0]
+            Statistic.update(activejourneylevel: arr[arr.index(@journeyProgress)+1] )
+            params[:level] = @journeyProgress
+        else
+            params[:level] = params[:level].to_i
         end
 
-        # arr = [0,1,2,3,4,5,0]
-        # Statistic.update(activejourneylevel: arr[arr.index(@journeyProgress)+1] )
-
-        params[:level] = 4
 
         if params[:level] == 0
             @format = rand(@formats).round(0)
@@ -97,7 +102,7 @@ class QuizController < ApplicationController
         
         case params[:level]
         when 0
-            allQuestions = baseQuery.limit(rand(5..10)) #)
+            allQuestions = baseQuery.limit(rand(3..10)) #)
         when 1
             allQuestions = baseQuery.where('level=1').limit(rand(10..35))
         when 2 
@@ -109,8 +114,8 @@ class QuizController < ApplicationController
         when 5
             allQuestions = baseQuery.limit(rand(50..100))
         end
-        allQuestions.shuffle
-        @fullQuery = allQuestions
+        
+        @fullQuery = allQuestions.shuffle
 
         @questionsArray = []
         @answersArray = []
