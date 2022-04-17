@@ -4,6 +4,6 @@
 <strong>Practice some more!</strong>
 <% end %> </p>
 <p><strong>Tip: </strong> <%= @tip.question %><br><%= @tip.answer %> </p>
-<%=audio_tag((@ost+'.ogg'), autoplay: true, loop: true)%>
+<%=audio_tag((@ost), autoplay: true, loop: true)%>
 <p> <strong>Level <%= @journeyProgress %></strong><br>
  <%= @cheer[@journeyProgress].sample %></p>
