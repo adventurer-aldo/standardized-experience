@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root "home#index"
   
   get "/about", to: "home#about"
-  get "/data", to: "home#data", as: "data"
+  get "/data", to: "home#question", as: "data"
 
   get "/quiz(/:subject/:level)", to: "quiz#index", as: "quiz"
   get "/results/:id", to: "quiz#results", as: "results"

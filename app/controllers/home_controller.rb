@@ -37,8 +37,15 @@ class HomeController < ApplicationController
                     ['Esperava não ter que vir aqui...']]
     end
 
-    def data
+    def question
         @subjects = Subject.select(:title).order(title: 'asc')
+    end
+
+    def subject
+        @subjects = Subject.all
+    end
+
+    def submit_subject
     end
 
     def submit_question
