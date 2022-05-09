@@ -71,6 +71,7 @@ ul {
 
 .midbox {
     max-width: 50%;
+    display: inline-block;
 }
 
 @media screen and (max-width: 768px) {
