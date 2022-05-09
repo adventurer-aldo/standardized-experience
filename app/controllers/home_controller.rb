@@ -48,7 +48,11 @@ class HomeController < ApplicationController
     def submit_subject
         case params[:operation]
         when 'add'
-            Subject.create(title: params[:title], preferredformat: params[:preferredformat])
+            Subject.create(
+                title: params[:title], 
+                preferredformat: params[:preferredformat],
+                difficulty: rand(1..5)
+            )
         when 'delete'
             Question.where(subject: params[:id].to_i).destroy
             Subject.where(id: params[:id].to_i).destroy

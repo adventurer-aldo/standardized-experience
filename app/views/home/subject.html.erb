@@ -10,7 +10,8 @@
 <% end %>
 <p>
 <% @subjects.each do |subject| %>
-	<strong>Name:</strong> <% subject.name %><br>
+	<strong>Name:</strong> <% subject.title %><br> 
+	<strong>Name:</strong> <%= '★' * subject.difficulty  %><%= '☆' * (5 - subject.difficulty)  %>
 	<strong>Preferred Format:</strong> <%= subject.preferredformat %>
 	<%= form_with html: { autocomplete: 'off' } do |form| %>
 	<%= form.hidden_field 'id', value: subject.id.to_s %>
