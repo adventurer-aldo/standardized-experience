@@ -54,8 +54,8 @@ class HomeController < ApplicationController
                 difficulty: rand(1..5)
             )
         when 'delete'
-            Question.where(subject: params[:id].to_i).destroy
-            Subject.where(id: params[:id].to_i).destroy
+            Question.destroy_by(subject: params[:id].to_i)
+            Subject.destroy_by(id: params[:id].to_i)
         end
         redirect_to subject_path
     end
