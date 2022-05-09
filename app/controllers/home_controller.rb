@@ -42,7 +42,7 @@ class HomeController < ApplicationController
     end
 
     def subject
-        @subjects = Subject.all
+        @subjects = Subject.all.order(title: :asc)
     end
 
     def submit_subject
