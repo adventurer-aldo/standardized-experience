@@ -10,6 +10,7 @@
 <% end %>
 <p>
 <% @subjects.each do |subject| %>
+	<div class='midbox'>
 	<strong><%= subject.title %>:</strong> <br> 
 	<strong>Difficulty:</strong> <%= '★' * subject.difficulty  %><%= '☆' * (5 - subject.difficulty)  %>
 	<strong>Preferred Format:</strong> <%= subject.preferredformat %>
@@ -17,7 +18,7 @@
 	<%= form.hidden_field 'id', value: subject.id.to_s %>
 	<%= form.hidden_field 'operation', value: 'delete' %>
 	<%= form.submit "Delete", class: 'submitBtn' %>
-
+	</div>
 	<% end %>
 
 

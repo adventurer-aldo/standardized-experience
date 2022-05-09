@@ -69,6 +69,10 @@ ul {
     font-size: x-large;
 }
 
+.midbox {
+    max-width: 50%;
+}
+
 @media screen and (max-width: 768px) {
     .erasable {
         font-size: 0px;
@@ -81,6 +85,10 @@ ul {
     #logoimage {
         margin: 0 auto;
         display: block;
+    }
+
+    .midbox {
+    max-width: 100%;
     }
 }
 /* ==================================================== */
