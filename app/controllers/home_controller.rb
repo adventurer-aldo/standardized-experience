@@ -46,6 +46,14 @@ class HomeController < ApplicationController
     end
 
     def submit_subject
+        case params[:operation]
+        when 'add'
+            Subject.create(title: params[:title], preferredformat: params[:preferredformat])
+        when 'delete'
+            Question.where(subject: params[:id].to_i).destroy
+            Subject.where(id: params[:id].to_i).destroy
+        end
+        redirect_to subject_path
     end
 
     def submit_question

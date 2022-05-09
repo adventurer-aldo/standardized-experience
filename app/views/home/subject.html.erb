@@ -1,3 +1,24 @@
 <head><title>Data-Subject | SE</title></head><%=render 'header'%>
 <p>Manipulate Subjects</p>
-<% @subjects.map(&:title)
+<%= form_with html: { autocomplete: 'off' } do |form| %>
+	<%= form.label :title, 'Name: ' %>
+	<%= form.text_field :title, required: true %>
+	<%= form.label :format, 'Preferred format: ' %>
+	<%= form.number_field :title, required: true, in: 0..100, value: 0 %>
+	<%= form.hidden_field 'operation', value: 'add' %>
+	<%= form.submit "Submit subject", class: 'submitBtn' %>
+<% end %>
+<p>
+<% @subjects.each do |subject| %>
+	<strong>Name:</strong> <% subject.name %><br>
+	<strong>Preferred Format:</strong> <%= subject.preferredformat %>
+	<%= form_with html: { autocomplete: 'off' } do |form| %>
+	<%= form.hidden_field 'id', value: subject.id.to_s %>
+	<%= form.hidden_field 'operation', value: 'delete' %>
+	<%= form.submit "Delete", class: 'submitBtn' %>
+
+	<% end %>
+
+
+<% end %>
+</p>
