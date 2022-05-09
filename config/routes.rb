@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "/results/:id", to: "quiz#results", as: "results"
   post "/quiz", to: "quiz#submit"
   post "/data/question", to: "home#submit_question"
+  post "/data/subject", to: "home#submit_subject"
 
   # Defines the root path route ("/")
   # root "articles#index"
