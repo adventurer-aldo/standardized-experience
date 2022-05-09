@@ -8,7 +8,7 @@
 	<%= form.hidden_field 'operation', value: 'add' %>
 	<%= form.submit "Submit subject", class: 'submitBtn' %>
 <% end %>
-<p>
+<p style='margin: auto'>
 <% @subjects.each do |subject| %>
 	<div class='midbox'>
 	<strong><%= subject.title %>:</strong> <br> 
@@ -24,3 +24,4 @@
 
 <% end %>
 </p>
+</div>
