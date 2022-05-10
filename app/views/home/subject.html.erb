@@ -1,8 +1,8 @@
 <head><title>Data-Subject | SE</title></head><%=render 'header'%>
-<p>Manipulate Subjects</p>
+<p><b>Manipulate Subjects</b></p>
 <%= form_with html: { autocomplete: 'off' } do |form| %>
 	<%= form.label :title, 'Name: ' %>
-	<%= form.text_field :title, required: true %>
+	<%= form.text_field :title, required: true, autofocus: true %>
 	<%= form.label :format, 'Preferred format: ' %>
 	<%= form.number_field :format, required: true, in: 0..100, value: 0 %>
 	<%= form.hidden_field 'operation', value: 'add' %>
@@ -13,7 +13,7 @@
 	<div class='midbox'>
 	<strong><%= subject.title %>:</strong> <br> 
 	<strong>Difficulty:</strong> <%= '★' * subject.difficulty  %><%= '☆' * (5 - subject.difficulty)  %>
-	<strong>Preferred Format:</strong> <%= subject.preferredformat %>
+	<strong>Preferred Format:</strong> <%= subject.preferredformat.to_s %>
 	<%= form_with html: { autocomplete: 'off' } do |form| %>
 	<%= form.hidden_field 'id', value: subject.id.to_s %>
 	<%= form.hidden_field 'operation', value: 'delete' %>

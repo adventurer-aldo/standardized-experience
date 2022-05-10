@@ -2,16 +2,16 @@ class HomeController < ApplicationController
     def index
         @journeyProgress = Statistic.first.activejourneylevel
         @ost =  if @journeyProgress == 0
-                    @ost = 'https://cdn.discordapp.com/attachments/962345513825468456/964951311831416922/home.ogg'
+                    'https://cdn.discordapp.com/attachments/962345513825468456/964951311831416922/home.ogg'
                 elsif @journeyProgress == 1
-                    @ost = 'https://cdn.discordapp.com/attachments/962345513825468456/964951312083062844/prep.ogg'
+                    'https://cdn.discordapp.com/attachments/962345513825468456/964951312083062844/prep.ogg'
                 elsif @journeyProgress < 4
-                    @ost = 'https://cdn.discordapp.com/attachments/962345513825468456/964951311294537768/prep2.ogg'
+                    'https://cdn.discordapp.com/attachments/962345513825468456/964951311294537768/prep2.ogg'
                 elsif @journeyProgress > 3
-                    @ost = 'https://cdn.discordapp.com/attachments/962345513825468456/964951311542026250/prepexam.ogg'
+                    'https://cdn.discordapp.com/attachments/962345513825468456/964951311542026250/prepexam.ogg'
                 end
         
-        @tip = Question.where("subject LIKE 'Bioq%'").order(Arel.sql('RANDOM()')).limit(1)[0]
+        @tip = Question.all.order(Arel.sql('RANDOM()')).limit(1)
         
         @cheer = [["Este é apenas o começo...Tente ver o seu potencial.",
                     "Teste as suas habilidades.",
@@ -98,4 +98,23 @@ class HomeController < ApplicationController
     def about
 
     end
+
+    def new_journey
+        subjects = Subject.all.order(title: :asc)
+        journey = Journey.create(
+            type: 'short',
+            subjects: subjects.map(&:id),
+            start_time: Time.now,
+            level: 1
+        )
+        subjects.each do |subject|
+            Chair.create(subject: subject.id,
+                journey: journey.id,
+                format: rand(0..1).round,
+            )
+        end
+
+        Statistic.last.update(active_journey: journey.id)
+    end
+
 end

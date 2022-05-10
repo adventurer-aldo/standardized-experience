@@ -5,5 +5,11 @@
 <% end %> </p>
 <p><strong>Tip: </strong> <%= @tip.question %><br><%= @tip.answer %> </p>
 <%=audio_tag((@ost), autoplay: true, loop: true)%>
+<% if Statistic.last.activejourneyid == 0 %>
+    <%= form_with do |form| %>
+    You're not undergoing any journeys at this time. <%= form.submit 'Click here to begin one!' %>
+    <% end %>
+<% else %>
 <p> <strong>Level <%= @journeyProgress %></strong><br>
  <%= @cheer[@journeyProgress].sample %></p>
+ <% end %>
