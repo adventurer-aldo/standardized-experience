@@ -1,0 +1,3 @@
+class Chair < ApplicationRecord
+    
+end
