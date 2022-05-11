@@ -73,7 +73,7 @@ class QuizController < ApplicationController
     # extra transitions.
     #=======================================================================================
     def index
-        @journeyProgress = Statistic.first.activejourneylevel
+        @journeyProgress = Stat.first.activejourneylevel
 
         if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject]) == false
             params[:subject] = Subject.all.order(Arel.sql('RANDOM()')).limit(1).first.title
@@ -93,7 +93,7 @@ class QuizController < ApplicationController
             @format = 0 unless @formats.include?(@format)
         end
         
-        params[:level] == 0 ? @journey = 0 : @journey = Statistic.first.activejourneyid
+        params[:level] == 0 ? @journey = 0 : @journey = Stat.first.activejourneyid
 
         baseQuery = Question.select(:id, :tags).where(%Q(subject='#{params[:subject]}')).order(Arel.sql('RANDOM()')).group(:id)
         
@@ -181,7 +181,7 @@ class QuizController < ApplicationController
         
         @currentQuiz = Quiz.last
 
-        @stats = Statistic.first
+        @stats = Stat.first
         @stats.increment!(:lastquizid)
         @stats.increment!(:totalquizzes)
 

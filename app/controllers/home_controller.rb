@@ -1,40 +1,18 @@
 class HomeController < ApplicationController
     def index
-        @journeyProgress = Statistic.first.activejourneylevel
-        @ost =  if @journeyProgress == 0
-                    'https://cdn.discordapp.com/attachments/962345513825468456/964951311831416922/home.ogg'
-                elsif @journeyProgress == 1
-                    'https://cdn.discordapp.com/attachments/962345513825468456/964951312083062844/prep.ogg'
-                elsif @journeyProgress < 4
-                    'https://cdn.discordapp.com/attachments/962345513825468456/964951311294537768/prep2.ogg'
-                elsif @journeyProgress > 3
-                    'https://cdn.discordapp.com/attachments/962345513825468456/964951311542026250/prepexam.ogg'
-                end
-        
+        @journeyProgress = Journey.find_by(id: Stat.first.current_journey).level
+        @ost = if @journeyProgress == 0
+                   'https://cdn.discordapp.com/attachments/962345513825468456/964951311831416922/home.ogg'
+               elsif @journeyProgress == 1
+                   'https://cdn.discordapp.com/attachments/962345513825468456/964951312083062844/prep.ogg'
+               elsif @journeyProgress < 4
+                   'https://cdn.discordapp.com/attachments/962345513825468456/964951311294537768/prep2.ogg'
+               elsif @journeyProgress > 3
+                   'https://cdn.discordapp.com/attachments/962345513825468456/964951311542026250/prepexam.ogg'
+               end
+
         @tip = Question.all.order(Arel.sql('RANDOM()')).limit(1)
-        
-        @cheer = [["Este é apenas o começo...Tente ver o seu potencial.",
-                    "Teste as suas habilidades.",
-                    "O nível mais básicos dos básicos...Como você se sairá frente a este desafio?",
-                    "Sem mais delongas. Vamos."],
-                    ["A luta está para começar.",
-                    "O primeiro obstáculo encontra-se a frente. Siga-o!",
-                    "A hora do treino acabou. Começemos!",
-                    "Será que você conseguirá vencer? Não é mais brincadeira."],
-                    ["A primeira batalha terminou, mas ainda tem mais pela frente.",
-                    "Uma batalha completamente diferente espera-o...Mas o que aprendeu antes também será usado.",
-                    "O segundo obstáculo está aqui. Prepare-se.",
-                    "Sem mais delongas. Vamos."],
-                    ["Quê? Falhou um dos desafios anteriores? Talvez este campo de batalha não seja para você.",
-                    "Esqueca os fracassos e pense em como transformá-los em oportunidades.",
-                    "Melhor revisar os seus erros antes de prosseguir.",
-                    "Ah, ainda não desistiu? Veremos por quanto tempo aguenta..."],
-                    ['Está aqui...A "última" batalha...',
-                    'Não passamos por todos aqueles obstáculos para cair em frente ao final.',
-                    'Sem mais delongas...Pela última vez, vamos!',
-                    'Hora de reivindicar a nossa vitória merecida.',
-                    'Sem pensamentos. Mente vazia.'],
-                    ['Esperava não ter que vir aqui...']]
+
     end
 
     def question
@@ -61,26 +39,28 @@ class HomeController < ApplicationController
     end
 
     def submit_question
-        @oldQuestion = Question.last
-        @newQuestion = Question.create(question: params[:question],
-        questiontype: "[#{params[:type]}]",
-        answer: params[:answer],
-        subject: params[:subject],
-        level: params[:level].to_i,
-        tags: '[]',
-        frequency: 0,
-        parameters: "[#{params[:parameters].join(',')}]"
-        )
+        @old_question = Question.last
+        @new_question = Question.create(
+            question: params[:question],
+            questiontype: "[#{params[:type]}]",
+            answer: params[:answer],
+            subject: params[:subject],
+            level: params[:level].to_i,
+            tags: '[]',
+            frequency: 0,
+            parameters: "[#{params[:parameters].join(',')}]"
+                                      )
+
         case params[:reuse_image]
-        when "0"
-            @newQuestion.image.attach(params[:image]) unless params[:image] == nil
-        when "1"
-            @newQuestion.image.attach(@oldQuestion.image.blob) unless @oldQuestion.image == nil
+        when '0'
+            @new_question.image.attach(params[:image]) unless params[:image].nil?
+        when '1'
+            @new_question.image.attach(@old_question.image.blob) unless @old_question.image.nil?
         end
 
-        unless params[:choice] == nil
+        if !params[:choice].nil?
             params[:choice].uniq.each do |choice|
-                Choice.create(decoy: choice, question: @newQuestion.id)
+                Choice.create(decoy: choice, question: @new_question.id)
             end
             cookies[:choices] = params[:choice].size
         else
@@ -95,26 +75,17 @@ class HomeController < ApplicationController
         redirect_to data_path
     end
 
-    def about
-
-    end
+    def about; end
 
     def new_journey
         subjects = Subject.all.order(title: :asc)
-        journey = Journey.create(
-            type: 'short',
-            subjects: subjects.map(&:id),
-            start_time: Time.now,
-            level: 1
-        )
+        journey = Journey.create(type: 'short', start_time: Time.now)
+
         subjects.each do |subject|
-            Chair.create(subject: subject.id,
-                journey: journey.id,
-                format: rand(0..1).round,
-            )
+            Chair.create(subject: subject.id, journey: journey.id, format: rand(0..1).round)
         end
 
-        Statistic.last.update(active_journey: journey.id)
+        Stat.last.update(current_journey: journey.id)
     end
 
 end
