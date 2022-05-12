@@ -1,5 +1,6 @@
-class Text
+module Misc
 
+  class Text
     def self.cheer
         return [['Este é apenas o começo...Tente ver o seu potencial.',
                  'Teste as suas habilidades.',
@@ -24,5 +25,6 @@ class Text
                  'Sem pensamentos. Mente vazia.'],
                 ['Esperava não ter que vir aqui...']]
     end
+  end
 
 end

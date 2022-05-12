@@ -35,6 +35,9 @@ gem "importmap-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# Require all files in one go.
+gem 'require_all'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

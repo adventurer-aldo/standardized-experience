@@ -1,9 +1,10 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
-require "font-awesome-rails"
+require 'rails/all'
+require 'font-awesome-rails'
 require 'statistics'
-require './lib/assets/biostatistics'
+require 'require_all'
+require_all './lib'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

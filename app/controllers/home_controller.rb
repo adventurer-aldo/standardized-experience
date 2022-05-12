@@ -14,6 +14,9 @@ class HomeController < ApplicationController
              when 5, 6
                sound.preparations_exam
              end
+      puts @ost.to_s
+      @ost = Soundtrack.first.home if @ost.nil?
+      puts @ost.to_s
     end
 
     @tip = Question.all.order(Arel.sql('RANDOM()')).limit(1)
