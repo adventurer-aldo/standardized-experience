@@ -20,7 +20,7 @@ class HomeController < ApplicationController
 
     quiz = Quiz.last
 
-    @last_quiz = if Quiz.last.subject
+    @last_quiz = if quiz
                    format('Your last test was of %s, with a score of %s.', quiz.subject.title, helpers.grade(quiz))
                  else
                    "You haven't done any test yet. Practice or start a journey!"
