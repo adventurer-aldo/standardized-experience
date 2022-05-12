@@ -21,6 +21,8 @@ class HomeController < ApplicationController
                    "You haven't done any test yet. Practice or start a journey!"
                  end
 
+    @journey_check = Journey.where(id: Stat.last.current_journey).exists?
+
   end
 
   def question

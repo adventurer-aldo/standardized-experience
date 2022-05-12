@@ -2,7 +2,7 @@
 <p><%= @last_quiz %></p>
 <p><strong>Tip: </strong> <%= @tip.question %><br><%= @tip.answer %> </p>
 <%=audio_tag((@ost), autoplay: true, loop: true)%>
-<% if Journey.find_by(id: Stat.last.current_journey).level == 0 %>
+<% if @journey_check %>
     <%= form_with do |form| %>
     You're not undergoing any journeys at this time. <%= form.submit 'Click here to begin one!' %>
     <% end %>
