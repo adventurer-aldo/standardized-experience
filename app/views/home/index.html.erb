@@ -1,12 +1,5 @@
 <head><title>Home | SE</title></head><%=render 'header'%>
-<% if Quiz.last.subject %>
-<p>Your last test was of <%= Quiz.last.subject %>, with a score of :NIL:.<br>:NIL:</p>
-<% else %>
-<p>You haven't done any test yet. Practice or start a journey!</p>
-<% end %>
-<p><%=link_to '/quiz/?level=0' do %>
-<strong>Practice some more!</strong>
-<% end %> </p>
+<p><%= @last_quiz %></p>
 <p><strong>Tip: </strong> <%= @tip.question %><br><%= @tip.answer %> </p>
 <%=audio_tag((@ost), autoplay: true, loop: true)%>
 <% if Journey.find_by(id: Stat.last.current_journey).level == 0 %>

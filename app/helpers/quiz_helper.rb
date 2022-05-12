@@ -45,7 +45,7 @@ module QuizHelper
   end
 
   def correct(answer)
-    question = Question.find_by(id: answer.question)
+    question = Question.find_by(id: answer.question_id)
 
     case answer.question_type.to_sym
     when :open
@@ -84,7 +84,7 @@ module QuizHelper
 
   def grade(quiz)
     total = 0
-    answers = Answer.where(quiz: quiz.id)
+    answers = Answer.where(quiz_id: quiz.id)
     answers.each do |answer|
       total += answer.grade if correct(answer) == true
     end
