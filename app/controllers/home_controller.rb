@@ -5,13 +5,13 @@ class HomeController < ApplicationController
       journey = Journey.find_by(id: Stat.first.current_journey)
       sound = Soundtrack.find_by(id: @journey.soundtrack_id)
       @ost = case journey.level
-             when 0, 5
+             when 0, 7
                sound.home
              when 1
                sound.preparations
              when 2, 3
                sound.preparations_second
-             when 4, 5
+             when 5, 6
                sound.preparations_exam
              end
     end
