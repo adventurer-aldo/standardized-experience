@@ -1,15 +1,20 @@
 class HomeController < ApplicationController
   def index
-    @journeyProgress = Journey.find_by(id: Stat.first.current_journey).level
-    @ost = if @journeyProgress == 0
-             'https://cdn.discordapp.com/attachments/962345513825468456/964951311831416922/home.ogg'
-           elsif @journeyProgress == 1
-             'https://cdn.discordapp.com/attachments/962345513825468456/964951312083062844/prep.ogg'
-           elsif @journeyProgress < 4
-             'https://cdn.discordapp.com/attachments/962345513825468456/964951311294537768/prep2.ogg'
-           elsif @journeyProgress > 3
-             'https://cdn.discordapp.com/attachments/962345513825468456/964951311542026250/prepexam.ogg'
-           end
+    @journey_check = Journey.where(id: Stat.last.current_journey).exists?
+    if @journey_check
+      journey = Journey.find_by(id: Stat.first.current_journey)
+      sound = Soundtrack.find_by(id: @journey.soundtrack_id)
+      @ost = case journey.level
+             when 0, 5
+               sound.home
+             when 1
+               sound.preparations
+             when 2, 3
+               sound.preparations_second
+             when 4, 5
+               sound.preparations_exam
+             end
+    end
 
     @tip = Question.all.order(Arel.sql('RANDOM()')).limit(1)
 
@@ -21,7 +26,6 @@ class HomeController < ApplicationController
                    "You haven't done any test yet. Practice or start a journey!"
                  end
 
-    @journey_check = Journey.where(id: Stat.last.current_journey).exists?
 
   end
 
