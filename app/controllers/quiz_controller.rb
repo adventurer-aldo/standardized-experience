@@ -1,70 +1,53 @@
 class QuizController < ApplicationController
-    before_action :setup
+  before_action :setup
 
-    #=======================================================================================
-    # -- SETUP
-    # Common for all methods of the controller. Defines common variables such as the formats
-    # names and the endings of the tests, as wll as the time the quizzes will take.
-    #=======================================================================================
-    def setup
-        @formats = 1..1
-        @ending = [""]
+  #=======================================================================================
+  # -- SETUP
+  # Common for all methods of the controller. Defines common variables such as the formats
+  # names and the endings of the tests, as wll as the time the quizzes will take.
+  #=======================================================================================
+  def setup
+    @formats = 1..1
+    @ending = ['']
 
-        @testName = [
-            "Exercícios",
-            "Teste 1",
-            "Teste 2",
-            "Teste de Reposição",
-            "Exame Normal",
-            "Exame de Recorrência"
-        ]
+    @test_name = [
+      'Exercícios',
+      'Teste 1',
+      'Teste 2',
+      'Teste de Reposição',
+      'Exame Normal',
+      'Exame de Recorrência'
+    ]
 
-        @quizDurations = [5,9,9,10,15,20]
+    @quiz_durations = [5, 9, 9, 10, 15, 20]
 
-        case @formats
-        when 0
-            @ending = ["RR/BM",'center']
-        when 1
-            @testName[1] = "1º Teste de Frequência"
-            @testName[2] = "2º Teste de Frequência"
-        end
-
-        @ost = {
-        0 => ["https://cdn.discordapp.com/attachments/962345513825468456/964949971344441405/prac.ogg",""],
-        1 => ["https://cdn.discordapp.com/attachments/962345513825468456/964949973357707304/test1.ogg",
-        "https://cdn.discordapp.com/attachments/962345513825468456/964949972938280970/rushtest1.ogg"],
-        2 => ["https://cdn.discordapp.com/attachments/962345513825468456/964950421808484382/test2.ogg",
-        "https://cdn.discordapp.com/attachments/962345513825468456/964949973147983952/rushtest2.ogg"],
-        3 => ["https://cdn.discordapp.com/attachments/962345513825468456/964950421808484382/test2.ogg",
-        "https://cdn.discordapp.com/attachments/962345513825468456/964949973147983952/rushtest2.ogg"],
-        4 => ["https://cdn.discordapp.com/attachments/962345513825468456/964202769382793276/exam.ogg",
-        "https://cdn.discordapp.com/attachments/962345513825468456/964202769064034315/rushexam.ogg"],
-        5 => ["https://cdn.discordapp.com/attachments/962345513825468456/964949970941792256/examrec.ogg",
-        "https://cdn.discordapp.com/attachments/962345513825468456/964202769064034315/rushexam.ogg"]
-        }
-
-
+    case @formats
+    when 0
+      @ending = ['RR/BM', 'center']
+    when 1
+      @test_name[1] = '1º Teste de Frequência'
+      @test_name[2] = '2º Teste de Frequência'
     end
+  end
 
     
 
-    #=======================================================================================
-    # -- SHIFT
-    # Creates an array of Question objects from the database that matches each ID of the
-    # Answers array.
-    #=======================================================================================
-    def shift
-        puts "Shifting"
-        @questionObjects = []
-        @answerObjects = []
-        @answersArray.each do |answerID|
-            @answerObject = Answer.find_by(id: answerID)
-            puts @answerObject.to_s
-            @answerObjects << @answerObject
-            @questionObjects << Question.find_by(id: @answerObject.questionid)
-        end
-
+  #=======================================================================================
+  # -- SHIFT
+  # Creates an array of Question objects from the database that matches each ID of the
+  # Answers array.
+  #=======================================================================================
+  def shift
+    puts 'Shifting'
+    @question_objects = []
+    @answer_objects = []
+    @answers_array.each do |answer_id|
+      @answer_object = Answer.find_by(id: answer_id)
+      puts @answer_object.to_s
+      @answer_objects << @answer_object
+      @question_objects << Question.find_by(id: @answer_object.questionid)
     end
+  end
 
     #=======================================================================================
     # -- INDEX
@@ -73,122 +56,121 @@ class QuizController < ApplicationController
     # extra transitions.
     #=======================================================================================
     def index
-        @journey = Stat.last.journey
+      @journey = Stat.last.journey
 
-        if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject]) == false
-            params[:subject] = Subject.all.order(Arel.sql('RANDOM()')).limit(1).first.title
-        end
+      if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject]) == false
+        params[:subject] = Subject.all.order(Arel.sql('RANDOM()')).limit(1).first.title
+      end
 
-        if !params[:level] || (@journeyProgress <= params[:level].to_i && @journeyProgress > 0)
-            params[:level] = 0
-        else
-            params[:level] = params[:level].to_i
-        end
+      if !params[:level] || (@journeyProgress <= params[:level].to_i && @journeyProgress > 0)
+        params[:level] = 0
+      else
+        params[:level] = params[:level].to_i
+      end
 
+      if params[:level].zero?
+        @format = rand(@formats).round(0)
+      else
+        @format = Subject.find_by(title: params[:subject]).preferredformat
+        @format = 0 unless @formats.include?(@format)
+      end
+      
+      @journey = params[:level] == 0 ?  0 : Stat.last.journey
 
-        if params[:level] == 0
-            @format = rand(@formats).round(0)
-        else
-            @format = Subject.find_by(title: params[:subject]).preferredformat
-            @format = 0 unless @formats.include?(@format)
-        end
-        
-        params[:level] == 0 ? @journey = 0 : @journey = Stat.first.activejourneyid
+      base_query = Question.select(:id, :tags).where(subject: params[:subject]).order(Arel.sql('RANDOM()')).group(:id)
+      
+      case params[:level]
+      when 0
+        all_questions = base_query.limit(rand(3..10)) #)
+      when 1
+        all_questions = base_query.where('level=1').limit(rand(10..35))
+      when 2
+        all_questions = base_query.where('level=2').limit(rand(10..28)) + base_query.where('level=1').limit(rand(0..7))
+      when 3
+        all_questions = base_query.where.not('level=3').limit(rand(10..40))
+      when 4
+        all_questions = base_query.where('level=3').limit(rand(5..30)) + base_query.where.not('level=3').limit(rand(10..20))
+      when 5
+        all_questions = base_query.limit(rand(50..100))
+      end
+      
+      @full_query = all_questions.shuffle
 
-        baseQuery = Question.select(:id, :tags).where(%Q(subject='#{params[:subject]}')).order(Arel.sql('RANDOM()')).group(:id)
-        
-        case params[:level]
-        when 0
-            allQuestions = baseQuery.limit(rand(3..10)) #)
-        when 1
-            allQuestions = baseQuery.where('level=1').limit(rand(10..35))
-        when 2 
-            allQuestions = baseQuery.where('level=2').limit(rand(10..28)) + baseQuery.where('level=1').limit(rand(0..7))
-        when 3
-            allQuestions = baseQuery.where.not('level=3').limit(rand(10..40))
-        when 4
-            allQuestions = baseQuery.where('level=3').limit(rand(5..30)) + baseQuery.where.not('level=3').limit(rand(10..20))
-        when 5
-            allQuestions = baseQuery.limit(rand(50..100))
-        end
-        
-        @fullQuery = allQuestions.shuffle
+      @questions_array = []
+      @answers_array = []
+      @full_query.each do |query|
+        @questions_array << query.id
+      end
 
-        @questionsArray = []
-        @answersArray = []
-        @fullQuery.each do |query|
-            @questionsArray << query.id
-        end
+      @questions_array.each do |n|
+        @temp_question = Question.find_by(id: n)
+        @temp_question.update(frequency: (@temp_question.frequency += 1))
+        parameters = {}
+        parameters[:type] = eval(@temp_question.questiontype).sample
 
-        @questionsArray.each do |n|
-            @tempQuestion = Question.find_by(id: n)
-            @tempQuestion.update(frequency: (@tempQuestion.frequency += 1))
-            parameters = {}
-            parameters[:type] = eval(@tempQuestion.questiontype).sample
-
-            if %I(formula).include? parameters[:type]
-                que = (@tempQuestion.question).dup
-                randoms = que.count("#")
-                temp = []
-                puts "#{randoms} times!"
-                randoms.times do 
-                    temp << "#{que[/#£(.*?)§/,1]}".split(',')
-                    puts "Adding [#{que[/#£(.*?)§/,1]}]"
-                    que[que.index("#£")..que.index("§")] = ""
-                end
-                puts temp.to_s
-                temp.map! do |n|
-                    c = n.map(&:to_f)
-                    puts c.to_s
-                    puts n.to_s
-                    if n.size == 1
-                        Float(rand(1..(c.first))).round(2)
-                    elsif n.size == 2
-                        Float(rand(c.first..c.last)).round
-                    elsif n.size == 3
-                        Float(rand(c.first..c.last)).round(1)
-                    elsif n.size == 4
-                        Float(rand(c.first..c.last)).round(2)
-                    elsif n.size == 5
-                        Float(rand(c.first..c.last)).round(3)
-                    else
-                        Float(rand(20000)).round(2)
-                    end
-                end
-                
-                parameters[:data] = temp
+        if %I(formula).include? parameters[:type]
+            que = (@temp_question.question).dup
+            randoms = que.count("#")
+            temp = []
+            puts "#{randoms} times!"
+            randoms.times do 
+              temp << "#{que[/#£(.*?)§/,1]}".split(',')
+              puts "Adding [#{que[/#£(.*?)§/,1]}]"
+              que[que.index("#£")..que.index("§")] = ""
             end
+            puts temp.to_s
+            temp.map! do |n|
+              c = n.map(&:to_f)
+              puts c.to_s
+              puts n.to_s
+              if n.size == 1
+                Float(rand(1..(c.first))).round(2)
+              elsif n.size == 2
+                Float(rand(c.first..c.last)).round
+              elsif n.size == 3
+                Float(rand(c.first..c.last)).round(1)
+              elsif n.size == 4
+                Float(rand(c.first..c.last)).round(2)
+              elsif n.size == 5
+                Float(rand(c.first..c.last)).round(3)
+              else
+                Float(rand(20000)).round(2)
+              end
+            end
+            
+            parameters[:data] = temp
+          end
 
-            @answer = Answer.create(
-                attempt: "",
-                questionid: n,
-                grade: (Float(20)/@questionsArray.size),
-                parameters: parameters
-            )
-            @answersArray << @answer.id
-        end
-
-        Quiz.create(
-            subject: params[:subject],
-            name: "", surname: "",
-            journey: @journey,
-            answerarray: @answersArray.to_s,
-            timestarted: Time.now.to_i,
-            timeended: Time.now.to_i,
-            format: @format,
-            level: params[:level]
+        @answer = Answer.create(
+          attempt: "",
+          questionid: n,
+          grade: (Float(20)/@questions_array.size),
+          parameters: parameters
         )
-        
-        @currentQuiz = Quiz.last
+        @answers_array << @answer.id
+      end
 
-        @stats = Stat.first
-        @stats.increment!(:lastquizid)
-        @stats.increment!(:totalquizzes)
+      Quiz.create(
+        subject: params[:subject],
+        name: "", surname: "",
+        journey: @journey,
+        answerarray: @answers_array.to_s,
+        timestarted: Time.now.to_i,
+        timeended: Time.now.to_i,
+        format: @format,
+        level: params[:level]
+      )
+      
+      @current_quiz = Quiz.last
 
-        @quizStart = Time.at(@currentQuiz.timestarted)
-        @quizEnd = Time.at(@quizStart.to_i + @quizDurations[params[:level]]*60)
+      @stats = Stat.first
+      @stats.increment!(:lastquizid)
+      @stats.increment!(:totalquizzes)
 
-        shift
+      @quiz_start = Time.at(@current_quiz.timestarted)
+      @quiz_end = Time.at(@quiz_start.to_i + @quiz_durations[params[:level]]*60)
+
+      shift
     end
 
     #=======================================================================================
@@ -197,10 +179,10 @@ class QuizController < ApplicationController
     # to display the data.
     #=======================================================================================
     def submit
-        @currentQuiz = Quiz.find_by(id: params[:quizID])
-        @currentQuiz.update(timeended: Time.now.to_i)
+        @current_quiz = Quiz.find_by(id: params[:quizID])
+        @current_quiz.update(timeended: Time.now.to_i)
 
-        @answers = eval(@currentQuiz.answerarray)
+        @answers = eval(@current_quiz.answerarray)
         @answers.each do |answer_id|
             @ans = Answer.find_by(id: answer_id)
             @parameters = eval(@ans.parameters)
@@ -256,22 +238,22 @@ class QuizController < ApplicationController
     # determine the grade.
     #=======================================================================================
     def results
-        @currentQuiz = Quiz.find_by(id: params[:id])
+        @current_quiz = Quiz.find_by(id: params[:id])
         @grade = Float(0)
 
-        @quizStart = Time.at(@currentQuiz.timestarted)
-        @quizEnd = Time.at(@quizStart.to_i + @quizDurations[@currentQuiz.level]*60)
-        @duration = Time.at(@currentQuiz.timeended - @currentQuiz.timestarted)
+        @quiz_start = Time.at(@current_quiz.timestarted)
+        @quiz_end = Time.at(@quiz_start.to_i + @quiz_durations[@current_quiz.level]*60)
+        @duration = Time.at(@current_quiz.timeended - @current_quiz.timestarted)
 
-        @answersArray = eval(@currentQuiz.answerarray)
-        @answerObjects = []
-        @answersArray.each do |a_id|
-            @answerObjects << Answer.find_by(id: a_id)
+        @answers_array = eval(@current_quiz.answerarray)
+        @answer_objects = []
+        @answers_array.each do |a_id|
+            @answer_objects << Answer.find_by(id: a_id)
         end
 
         shift
-        @answerObjects.each do |anst|
-            quest = @questionObjects[@answerObjects.index(anst)]
+        @answer_objects.each do |anst|
+            quest = @question_objects[@answer_objects.index(anst)]
             @parameters = eval(anst.parameters)
             if @parameters[:type] == :formula
                 puts @parameters[:data].to_s

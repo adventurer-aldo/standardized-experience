@@ -1,11 +1,11 @@
-<%= render "navbar"%><head><title><%=@currentQuiz.subject%> | <%=@testName[@currentQuiz.level]%></title></head><div id='page'><div style='padding: 30px'>
+<%= render "navbar"%><head><title><%=@current_quiz.subject%> | <%=@test_name[@current_quiz.level]%></title></head><div id='page'><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
-<%= audio_tag(@ost[@currentQuiz.level][0],autoplay: true, loop: true, id: 'bgm')%>
+<%= audio_tag(@ost[@current_quiz.level][0],autoplay: true, loop: true, id: 'bgm')%>
 <%= form_with id: :quiz, html: { autocomplete: 'off' } do |form| %>
-    <%= form.hidden_field :quizID, value: @currentQuiz.id %>
-        <% @questionObjects.each do |question|
-           @index = @questionObjects.index(question)
-           @parameters = eval(@answerObjects[@index].parameters)
+    <%= form.hidden_field :quizID, value: @current_quiz.id %>
+        <% @question_objects.each do |question|
+           @index = @question_objects.index(question)
+           @parameters = eval(@answer_objects[@index].parameters)
            @question = question
            @type = @parameters[:type]
            if @parameters[:data] 
@@ -30,47 +30,47 @@
             <% 
             case @type
             when :open
-                %><%= form.text_field "answer[#{(@questionObjects.index(question))}]", class: 'input-answer widther' %><%
+                %><%= form.text_field "answer[#{(@question_objects.index(question))}]", class: 'input-answer widther' %><%
             when :choice
                 sort_choices
-                %><%= form.hidden_field "choices[#{(@questionObjects.index(question))}]", value: @choices.to_s %><%
+                %><%= form.hidden_field "choices[#{(@question_objects.index(question))}]", value: @choices.to_s %><%
 
-                %><%= form.collection_radio_buttons "answer[#{(@questionObjects.index(question))}][]", @choices, :to_s, :to_s %><%
+                %><%= form.collection_radio_buttons "answer[#{(@question_objects.index(question))}][]", @choices, :to_s, :to_s %><%
 
             when :multichoice
                 sort_choices
-                %><%= form.hidden_field "choices[#{(@questionObjects.index(question))}]", value: @choices.to_s %><%
+                %><%= form.hidden_field "choices[#{(@question_objects.index(question))}]", value: @choices.to_s %><%
 
-                %><%= form.collection_check_boxes "answer[#{(@questionObjects.index(question))}][]", @choices, :to_s, :to_s %><%
+                %><%= form.collection_check_boxes "answer[#{(@question_objects.index(question))}][]", @choices, :to_s, :to_s %><%
 
             when :veracity
                 sort_choices
-                %><%= form.hidden_field "choices[#{(@questionObjects.index(question))}]", value: @choices.to_s %><%
+                %><%= form.hidden_field "choices[#{(@question_objects.index(question))}]", value: @choices.to_s %><%
                 @choices.each do |choose|
                     %><%= form.label choose %><%
                     if question.answer.split("|").include?(choose)
-                        %><%= form.select "answer[#{(@questionObjects.index(question))}][]", [["V",choose],["F",""]] %><%
+                        %><%= form.select "answer[#{(@question_objects.index(question))}][]", [["V",choose],["F",""]] %><%
                     else
-                        %><%= form.select "answer[#{(@questionObjects.index(question))}][]", [["V",choose],["F",""]] %><%
+                        %><%= form.select "answer[#{(@question_objects.index(question))}][]", [["V",choose],["F",""]] %><%
                     end
                 end
                 
             when :caption
                 question.answer.split("|").each do
-                    %><%= form.text_field "answer[#{(@questionObjects.index(question))}][]", class: 'input-answer widther' %><br><%
+                    %><%= form.text_field "answer[#{(@question_objects.index(question))}][]", class: 'input-answer widther' %><br><%
                 end
 
             when :table
 
             when :formula
-                %><%= form.text_field "answer[#{(@questionObjects.index(question))}]", class: 'input-answer widther' %><%
+                %><%= form.text_field "answer[#{(@question_objects.index(question))}]", class: 'input-answer widther' %><%
             end
-            %><%= form.hidden_field "type[#{(@questionObjects.index(question))}]", value: @type %><%
+            %><%= form.hidden_field "type[#{(@question_objects.index(question))}]", value: @type %><%
         end %>
     <br><br><p align=<%=@ending[1]%>><%=@ending[0]%></p><br>
     <%= form.submit "Deliver", class: 'submitBtn' %>
 <% end %>
 </div></div>
 <script>
-var fire = '<%=@ost[@currentQuiz.level][1]%>'
+var fire = '<%=@ost[@current_quiz.level][1]%>'
 </script>

@@ -1,15 +1,13 @@
 <head><title>Home | SE</title></head><%=render 'header'%>
 <p><%= @last_quiz %></p>
 <% unless @tip.empty? %><p><strong>Tip: </strong> <%= @tip.question %><br><%= @tip.answer %> </p><% end %>
-<% if @journey.nil? %>
-  <% if [0,7].include? @journey.level %>
-    <%= form_with do |form| %>
-      You're not undergoing any journeys at this time. <%= form.submit 'Click here to begin one!', class: 'inherit' %>
-    <% end %>
-  <% else %>
-    <p><strong>Level <%= @journey.level %></strong><br>
-    <%= Misc::Text.cheer[@journey.level].sample %></p>
+<% if [0,7].include? @journey.level %>
+  <%= form_with do |form| %>
+    You're not undergoing any journeys at this time. <%= form.submit 'Click here to begin one!', class: 'inherit' %>
   <% end %>
+<% else %>
+  <p><strong>Level <%= @journey.level %></strong><br>
+  <%= Misc::Text.cheer[@journey.level].sample %></p>
 <% end %>
 <% if @journey_check %>
   <%= audio_tag(@ost, autoplay: true, loop: true)%>
