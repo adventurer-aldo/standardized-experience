@@ -233,7 +233,7 @@ class QuizController < ApplicationController
                     puts "Conversion complete!"
                     puts @answer.to_s
                 else
-                    "No answer was selected."
+                    'No answer was selected.'
                     @answer = ""
                 end
                 
