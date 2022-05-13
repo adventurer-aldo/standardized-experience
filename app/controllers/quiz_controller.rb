@@ -30,205 +30,204 @@ class QuizController < ApplicationController
     end
   end
 
-    
-
   #=======================================================================================
   # -- SHIFT
   # Creates an array of Question objects from the database that matches each ID of the
   # Answers array.
   #=======================================================================================
+
   def shift
     puts 'Shifting'
     @question_objects = []
     @answer_objects = []
     @answers_array.each do |answer_id|
       @answer_object = Answer.find_by(id: answer_id)
-      puts @answer_object.to_s
       @answer_objects << @answer_object
       @question_objects << Question.find_by(id: @answer_object.questionid)
     end
   end
 
-    #=======================================================================================
-    # -- INDEX
-    # The main page. Takes parameters LEVEL and SUBJECT before choosing which questions to
-    # show. Randomly selects questions based on those parameters and takes care of other
-    # extra transitions.
-    #=======================================================================================
-    def index
-      @journey = Stat.last.journey
+  #=======================================================================================
+  # -- INDEX
+  # The main page. Takes parameters LEVEL and SUBJECT before choosing which questions to
+  # show. Randomly selects questions based on those parameters and takes care of other
+  # extra transitions.
+  #=======================================================================================
 
-      if params[:subject].nil? || Question.select(:subject).exists?(subject: params[:subject]) == false
-        params[:subject] = Subject.all.order(Arel.sql('RANDOM()')).limit(1).first.title
-      end
+  def index
+    @journey = Stat.last.journey
 
-      if !params[:level] || (@journeyProgress <= params[:level].to_i && @journeyProgress > 0)
-        params[:level] = 0
-      else
-        params[:level] = params[:level].to_i
-      end
+    @subject = if params[:subject].nil? || Subject.where(title: params[:subject]).exists? == false
+                 params[:subject] = Subject.all.order(Arel.sql('RANDOM()')).limit(1).first
+               else
+                 Subject.where(title: params[:subject]).first
+               end
 
-      if params[:level].zero?
-        @format = rand(@formats).round(0)
-      else
-        @format = Subject.find_by(title: params[:subject]).preferredformat
-        @format = 0 unless @formats.include?(@format)
-      end
-      
-      @journey = params[:level] == 0 ?  0 : Stat.last.journey
+    @level = if !params[:level] || (@journey.level < params[:level].to_i)
+               0
+             else
+               params[:level].to_i
+             end
 
-      base_query = Question.select(:id, :tags).where(subject: params[:subject]).order(Arel.sql('RANDOM()')).group(:id)
-      
-      case params[:level]
-      when 0
-        all_questions = base_query.limit(rand(3..10)) #)
-      when 1
-        all_questions = base_query.where('level=1').limit(rand(10..35))
-      when 2
-        all_questions = base_query.where('level=2').limit(rand(10..28)) + base_query.where('level=1').limit(rand(0..7))
-      when 3
-        all_questions = base_query.where.not('level=3').limit(rand(10..40))
-      when 4
-        all_questions = base_query.where('level=3').limit(rand(5..30)) + base_query.where.not('level=3').limit(rand(10..20))
-      when 5
-        all_questions = base_query.limit(rand(50..100))
-      end
-      
-      @full_query = all_questions.shuffle
-
-      @questions_array = []
-      @answers_array = []
-      @full_query.each do |query|
-        @questions_array << query.id
-      end
-
-      @questions_array.each do |n|
-        @temp_question = Question.find_by(id: n)
-        @temp_question.update(frequency: (@temp_question.frequency += 1))
-        parameters = {}
-        parameters[:type] = eval(@temp_question.questiontype).sample
-
-        if %I(formula).include? parameters[:type]
-            que = (@temp_question.question).dup
-            randoms = que.count("#")
-            temp = []
-            puts "#{randoms} times!"
-            randoms.times do 
-              temp << "#{que[/#£(.*?)§/,1]}".split(',')
-              puts "Adding [#{que[/#£(.*?)§/,1]}]"
-              que[que.index("#£")..que.index("§")] = ""
-            end
-            puts temp.to_s
-            temp.map! do |n|
-              c = n.map(&:to_f)
-              puts c.to_s
-              puts n.to_s
-              if n.size == 1
-                Float(rand(1..(c.first))).round(2)
-              elsif n.size == 2
-                Float(rand(c.first..c.last)).round
-              elsif n.size == 3
-                Float(rand(c.first..c.last)).round(1)
-              elsif n.size == 4
-                Float(rand(c.first..c.last)).round(2)
-              elsif n.size == 5
-                Float(rand(c.first..c.last)).round(3)
+    @format = if params[:level].zero?
+                rand(@formats).round(0)
+              elsif @journey.chairs.where(subject_id: params[:subject].id).exists?
+                @journey.chairs.find_by(subject_id: params[:subject].id)
               else
-                Float(rand(20000)).round(2)
+                0 unless @formats.include? @format
               end
+
+    base_query = Question.where(subject_id: params[:subject]).order(Arel.sql('RANDOM()')).group(:id)
+
+    all_questions = case params[:level]
+                    when 0
+                      base_query.limit(rand(3..10))
+                    when 1
+                      base_query.where(level: 1).limit(rand(10..35))
+                    when 2
+                      base_query.where(level: 2).limit(rand(10..28)) + base_query.where(level: 1).limit(rand(0..7))
+                    when 3
+                      base_query.where.not(level: 3).limit(rand(10..40))
+                    when 4
+                      base_query.where(level: 3).limit(rand(5..30)) + base_query.where.not(level: 3).limit(rand(10..20))
+                    when 5
+                      base_query.limit(rand(50..100))
+                    end
+
+    @full_query = all_questions.shuffle
+
+    @questions_array = []
+    @answers_array = []
+    @full_query.each do |query|
+      @questions_array << query.id
+    end
+
+    @questions_array.each do |n|
+      @temp_question = Question.find_by(id: n)
+      @temp_question.update(frequency: (@temp_question.frequency += 1))
+      parameters = {}
+      parameters[:type] = eval(@temp_question.questiontype).sample
+
+      if %I[formula].include? parameters[:type]
+          que = @temp_question.question.dup
+          randoms = que.count('#')
+          temp = []
+          puts "#{randoms} times!"
+          randoms.times do 
+            temp << "#{que[/#£(.*?)§/,1]}".split(',')
+            puts "Adding [#{que[/#£(.*?)§/,1]}]"
+            que[que.index('#£')..que.index('§')] = ''
+          end
+          puts temp.to_s
+          temp.map! do |n|
+            c = n.map(&:to_f)
+            puts c.to_s
+            puts n.to_s
+            case n.size
+            when 1
+              Float(rand(1..(c.first))).round(2)
+            when 2
+              Float(rand(c.first..c.last)).round
+            when 3
+              Float(rand(c.first..c.last)).round(1)
+            when 4
+              Float(rand(c.first..c.last)).round(2)
+            when 5
+              Float(rand(c.first..c.last)).round(3)
+            else
+              Float(rand(200_00)).round(2)
             end
-            
-            parameters[:data] = temp
           end
 
-        @answer = Answer.create(
-          attempt: "",
-          questionid: n,
-          grade: (Float(20)/@questions_array.size),
-          parameters: parameters
-        )
-        @answers_array << @answer.id
-      end
-
-      Quiz.create(
-        subject: params[:subject],
-        name: "", surname: "",
-        journey: @journey,
-        answerarray: @answers_array.to_s,
-        timestarted: Time.now.to_i,
-        timeended: Time.now.to_i,
-        format: @format,
-        level: params[:level]
-      )
-      
-      @current_quiz = Quiz.last
-
-      @stats = Stat.first
-      @stats.increment!(:lastquizid)
-      @stats.increment!(:totalquizzes)
-
-      @quiz_start = Time.at(@current_quiz.timestarted)
-      @quiz_end = Time.at(@quiz_start.to_i + @quiz_durations[params[:level]]*60)
-
-      shift
-    end
-
-    #=======================================================================================
-    # -- SUBMIT
-    # Takes forms from index and updates the database accordingly, then redirects to /result
-    # to display the data.
-    #=======================================================================================
-    def submit
-        @current_quiz = Quiz.find_by(id: params[:quizID])
-        @current_quiz.update(timeended: Time.now.to_i)
-
-        @answers = eval(@current_quiz.answerarray)
-        @answers.each do |answer_id|
-            @ans = Answer.find_by(id: answer_id)
-            @parameters = eval(@ans.parameters)
-            @answer = "#{params[:answer]["#{@answers.index(answer_id)}"]}"
-            if %I(choice multichoice veracity).include? @parameters[:type]
-                @que = Question.find_by(id: @ans.questionid)
-                @sourceAnswers = @que.answer.split("|")
-                @sourceChoices = (Choice.select(:decoy).where(question: @que.id).order(:id)).map{|n| n.decoy }
-                @choices = eval(params[:choices][@answers.index(answer_id).to_s])
-                puts "Choices are #{@choices}"
-                @order = []
-
-                @choices.each do |choose|
-                    @order << @sourceChoices.index(choose) if @sourceChoices.include?(choose)
-                    @order << "#{@sourceAnswers.index(choose)}" if @sourceAnswers.include?(choose)
-                end
-                @order.delete(nil)
-                @order.delete("")
-                puts "Order is #{@order}"
-
-                @parameters[:order] = @order
-            end
-            if %I(caption choice multichoice veracity).include? @parameters[:type]
-                puts "Converting array into |string|"
-                puts @answer
-                @answer = eval(@answer)
-                unless @answer.nil?
-                    @answer.delete("")
-                    @answer = @answer.join('|')
-                    puts "Conversion complete!"
-                    puts @answer.to_s
-                else
-                    'No answer was selected.'
-                    @answer = ""
-                end
-                
-            end
-            @answer[0] = "" if @answer[0] == "|"
-
-            @ans.update(attempt: @answer,
-            parameters: @parameters.to_s )
-             
+          parameters[:data] = temp
         end
 
-        redirect_to results_path(id: params[:quizID])
+      @answer = Answer.create(
+        attempt: '',
+        questionid: n,
+        grade: (Float(20) / @questions_array.size),
+        parameters: parameters
+      )
+      @answers_array << @answer.id
     end
+
+    Quiz.create(
+      subject: params[:subject],
+      name: '', surname: '',
+      journey: @journey,
+      answerarray: @answers_array.to_s,
+      timestarted: Time.now.to_i,
+      timeended: Time.now.to_i,
+      format: @format,
+      level: params[:level]
+    )
+    
+    @current_quiz = Quiz.last
+
+    @stats = Stat.first
+    @stats.increment!(:lastquizid)
+    @stats.increment!(:totalquizzes)
+
+    @quiz_start = Time.at(@current_quiz.timestarted)
+    @quiz_end = Time.at(@quiz_start.to_i + @quiz_durations[params[:level]]*60)
+
+    shift
+  end
+
+  #=======================================================================================
+  # -- SUBMIT
+  # Takes forms from index and updates the database accordingly, then redirects to /result
+  # to display the data.
+  #=======================================================================================
+  def submit
+    @current_quiz = Quiz.find_by(id: params[:quizID])
+    @current_quiz.update(timeended: Time.now.to_i)
+
+    @answers = eval(@current_quiz.answerarray)
+    @answers.each do |answer_id|
+      @ans = Answer.find_by(id: answer_id)
+      @parameters = eval(@ans.parameters)
+      @answer = "#{params[:answer]["#{@answers.index(answer_id)}"]}"
+      if %I(choice multichoice veracity).include? @parameters[:type]
+        @que = Question.find_by(id: @ans.questionid)
+        @sourceAnswers = @que.answer.split('|')
+        @sourceChoices = (Choice.select(:decoy).where(question: @que.id).order(:id)).map{|n| n.decoy }
+        @choices = eval(params[:choices][@answers.index(answer_id).to_s])
+        puts "Choices are #{@choices}"
+        @order = []
+
+        @choices.each do |choose|
+          @order << @sourceChoices.index(choose) if @sourceChoices.include?(choose)
+          @order << "#{@sourceAnswers.index(choose)}" if @sourceAnswers.include?(choose)
+        end
+        @order.delete(nil)
+        @order.delete("")
+        puts "Order is #{@order}"
+
+        @parameters[:order] = @order
+      end
+      if %I(caption choice multichoice veracity).include? @parameters[:type]
+        puts 'Converting array into |string|'
+        puts @answer
+        @answer = eval(@answer)
+        unless @answer.nil?
+          @answer.delete('')
+          @answer = @answer.join('|')
+          puts "Conversion complete!"
+          puts @answer.to_s
+        else
+          'No answer was selected.'
+          @answer = ""
+        end
+      end
+      @answer[0] = '' if @answer[0] == '|'
+
+      @ans.update(attempt: @answer,
+                  parameters: @parameters )
+    end
+
+    redirect_to results_path(id: params[:quizID])
+  end
 
     #=======================================================================================
     # -- RESULT

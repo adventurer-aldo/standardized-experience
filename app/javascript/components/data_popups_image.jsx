@@ -27,7 +27,7 @@ class OldImage extends React.Component {
     )
   }
 }
-
+if (document.getElementById('imaging') != null ) {
 ReactDOM.render(
   <Popup
     trigger={<button id='imagingButton' type='button' ><i className="fa fa-plus"></i></button>}
@@ -54,3 +54,4 @@ ReactDOM.render(
     )}
   </Popup>,
 document.getElementById("imaging"))
+}

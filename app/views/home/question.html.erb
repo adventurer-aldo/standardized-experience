@@ -12,14 +12,15 @@
     <%= form.text_field :answer, required: true, class: 'input-data'   %><br>
     <div id='choices'></div>
     <div id='questiontype'></div><br>
+    <div id='tags'></div><br>
     <%= form.label :subject, "For which subject?" %>
-    <%= form.collection_select :subject, @subjects, :title, :title, selected: cookies[:subject] %>
+    <%= form.collection_select :subject, @subjects, :id, :title, selected: cookies[:subject] %>
     <div id='levels'></div>
     <div id='parameters'></div><br>
     <%= form.submit "Submit question", class: 'submitBtn' %>
 <% end %>
 <% if cookies[:level] && cookies[:type] && cookies[:choices] && cookies[:reuse_image] %>
-<% @arr = [':open',':choice',':multichoice',':veracity',':caption',':table',':formula'] %>
+<% @arr = %W[open choice multichoice veracity caption formula table] %>
 <% @index = @arr.index(cookies[:type]) %>
 <script>
 const level = <%= cookies[:level].to_i %>;

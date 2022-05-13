@@ -31,7 +31,7 @@ class HomeController < ApplicationController
   end
 
   def question
-    @subjects = Subject.select(:title).order(title: 'asc')
+    @subjects = Subject.all.order(title: 'asc')
   end
 
   def subject
@@ -54,26 +54,24 @@ class HomeController < ApplicationController
   end
 
   def submit_question
-    @old_question = Question.last
-    @new_question = Question.create(
-        question: params[:question],
-        questiontype: params[:type],
-        answer: params[:answer],
-        subject: params[:subject],
-        level: params[:level].to_i,
-        parameters: params[:parameters]
-                                  )
+    old_question = Question.last
+    new_question = Question.create(question: params[:question],
+                                   questiontype: params[:type],
+                                   answer: params[:answer],
+                                   subject: params[:subject],
+                                   level: params[:level].to_i,
+                                   parameters: params[:parameters])
 
     case params[:reuse_image]
     when '0'
-      @new_question.image.attach(params[:image]) unless params[:image].nil?
+      new_question.image.attach(params[:image]) unless params[:image].nil?
     when '1'
-      @new_question.image.attach(@old_question.image.blob) unless @old_question.image.nil?
+      new_question.image.attach(old_question.image.blob) unless old_question.image.nil?
     end
 
     if !params[:choice].nil?
       params[:choice].uniq.each do |choice|
-        Choice.create(decoy: choice, question: @new_question.id)
+        Choice.create(decoy: choice, question: new_question.id)
       end
       cookies[:choices] = params[:choice].size
     else
