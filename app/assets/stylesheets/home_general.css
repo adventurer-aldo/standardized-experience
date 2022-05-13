@@ -80,6 +80,14 @@ ul {
 
 }
 
+.inherit {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  background-color: inherit;
+  border: none;
+}
+
 @media screen and (max-width: 768px) {
     .erasable {
         font-size: 0px;

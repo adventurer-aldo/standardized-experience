@@ -1,10 +1,11 @@
 class HomeController < ApplicationController
   def index
+    puts Stat.last.journey.to_s
     @journey_check = Journey.where(id: Stat.last.current_journey).exists?
     if @journey_check
-      journey = Journey.find_by(id: Stat.first.current_journey)
-      sound = Soundtrack.find_by(id: @journey.soundtrack_id)
-      @ost = case journey.level
+      @journey = Journey.find_by(id: Stat.first.current_journey)
+      sound = @journey.soundtrack
+      @ost = case @journey.level
              when 0, 7
                sound.home
              when 1
@@ -14,11 +15,9 @@ class HomeController < ApplicationController
              when 5, 6
                sound.preparations_exam
              end
-      puts @ost.to_s
-      @ost = Soundtrack.first.home if @ost.nil?
-      puts @ost.to_s
     end
-
+            
+    @ost = Soundtrack.first.home if @ost.nil?
     @tip = Question.all.order(Arel.sql('RANDOM()')).limit(1)
 
     quiz = Quiz.last
@@ -93,11 +92,11 @@ class HomeController < ApplicationController
   def about; end
 
   def new_journey
-    subjects = Subject.all.order(title: :asc)
-    journey = Journey.create(type: 'short', start_time: Time.now)
+    subjects = Subject.where(evaluable: 1).order(title: :asc)
+    journey = Journey.create(duration: 0, start_time: Time.now, soundtrack_id: Soundtrack.order(Arel.sql('RANDOM()')).limit(1).first.id)
 
     subjects.each do |subject|
-      Chair.create(subject: subject.id, journey: journey.id, format: rand(0..1).round)
+      Chair.create(subject_id: subject.id, journey_id: journey.id, format: rand(0..1).round)
     end
 
     Stat.last.update(current_journey: journey.id)
