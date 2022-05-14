@@ -1,12 +1,12 @@
-<head><title>Home | SE</title></head><%=render 'header'%>
+<head><title>Principal | SE</title></head><%=render 'header'%>
 <p><%= @last_quiz %></p>
-<% unless @tip.empty? %><p><strong>Tip: </strong> <%= @tip.question %><br><%= @tip.answer %> </p><% end %>
+<% unless @tip.empty? %><p><strong>Dica: </strong> <%= @tip.first.question %><br><%= @tip.first.answers.sample %> </p><% end %>
 <% if [0,7].include? @journey.level %>
   <%= form_with do |form| %>
-    You're not undergoing any journeys at this time. <%= form.submit 'Click here to begin one!', class: 'inherit' %>
+    Você não está em nenhuma jornada agora. <%= form.submit 'Clique aqui para iniciar uma!', class: 'inherit' %>
   <% end %>
 <% else %>
-  <p><strong>Level <%= @journey.level %></strong><br>
+  <p><strong>Nível <%= @journey.level %></strong><br>
   <%= Misc::Text.cheer[@journey.level].sample %></p>
 <% end %>
 <% if @journey_check %>

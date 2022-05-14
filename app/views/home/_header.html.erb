@@ -1,18 +1,18 @@
 <div id='navbar'><ul>
     <%=link_to '/' do %>
-        <li id='nav-li-Home' class='li-home'><%=fa_icon 'home'%> <span class='erasable'>Home</span></li>
+        <li id='nav-li-Home' class='li-home'><%=fa_icon 'home'%> <span class='erasable'>Principal</span></li>
     <% end %>
 
     <%=link_to '/data/question' do %>
-        <li id='nav-li-Data' class='li-home'><%=fa_icon 'file'%> <span class='erasable'>Data</span></li>
+        <li id='nav-li-Data' class='li-home'><%=fa_icon 'file'%> <span class='erasable'>Dados</span></li>
     <% end %>
 
     <%=link_to '/quiz' do %>
-        <li id='nav-li-Practice' class='li-home'><%=fa_icon 'align-left'%> <span class='erasable'>Practice</span></li>
+        <li id='nav-li-Practice' class='li-home'><%=fa_icon 'align-left'%> <span class='erasable'>Praticar</span></li>
     <% end %>
 
     <%=link_to '/about' do %>
-        <li id='nav-li-About' class='li-home'><%=fa_icon 'question'%> <span class='erasable'>About</span></li>
+        <li id='nav-li-About' class='li-home'><%=fa_icon 'question'%> <span class='erasable'>Sobre</span></li>
     <% end %>
 
     <li id='demo' class='li-home time li-right'><%=Time.now.hour%>h <%=Time.now.min%>m</li>

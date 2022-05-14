@@ -37,17 +37,17 @@ ReactDOM.render(
     {close => (
       <div className="modal">
         <button className="close" onClick={close}>
-          X
+          ✕
         </button>
-        <div className="header"> Attach Image </div>
+        <div className="header"> Anexar Imagem </div>
         <div className="content">
           {' '}
           <img className='imageData' src={document.getElementById('image').src} />
           <br />
-          Previous image? <OldImage /><br />
-          Use image from set question:
-          <br /><span>Set as 0 to use the last known message or specify an exact question ID. <br />
-            Must have Previous Image enabled. [NOT IMPLEMENTED!]
+          Imagem anterior? <OldImage /><br />
+          Usar imagem de questão específica:
+          <br /><span>Use 0 para usar a última messagem submetida ou especifique uma ID exata. <br />
+            Deve ter (Imagem anterior) selecionado. [NOT IMPLEMENTED!]
           </span>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-class Choices extends React.Component {
+class Answers extends React.Component {
     constructor(props) {
     super(props);
     
@@ -9,30 +9,33 @@ class Choices extends React.Component {
       other_fields: [],
     };
 
-    this.choices = choices;
+    this.choices = 1;
     }
     
     addMoreFields() {
-    var newArr = {
-      filed: "",
-    };
-    this.setState({
-      other_fields: this.state.other_fields.concat(newArr),
-    });
+      this.choices++
+      var newArr = {
+        filed: "",
+      };
+      this.setState({
+        other_fields: this.state.other_fields.concat(newArr),
+      });
     }
     
     removeOther(index) {
-    this.state.other_fields[index].delete = true;
-    this.setState((prevState) => ({
-      other_fields: [...prevState.other_fields],
-    }));
+      if (this.choices > 1) {
+        this.choices--;
+        console.log(this.state.other_fields);
+        this.state.other_fields[index].delete = true;
+        this.setState((prevState) => ({
+          other_fields: [...prevState.other_fields],
+        }));
+      };
     }
 
     componentDidMount() {
       var allArr = [];
-      for (var i=0;i<choices;i++) {
-        allArr = allArr.concat([{filed: ""}]);
-      }
+      allArr = allArr.concat([{filed: ""}]);
       this.setState({
         other_fields: this.state.other_fields.concat(allArr)
       });
@@ -46,11 +49,11 @@ class Choices extends React.Component {
                         <label htmlFor="inputEmailAddress"
                         className="form-label wd-100 fl"
                         >
-                        Escolha: 
+                        Resposta: 
                         </label>
                         <input
                         type="text"
-                        name='choices[]'
+                        name='answers[]'
                         className="input-data"
                         />
 
@@ -69,14 +72,14 @@ class Choices extends React.Component {
                 >
                   
                     <label className="add-more">
-                    <i className="fa fa-plus"></i> Escolha
+                    <i className="fa fa-plus"></i> Resposta
                     </label>
                 </div>
             </div>
      }
 }
     
-if (document.getElementById('choices') != null) {
-    ReactDOM.render(<Choices />,
-    document.getElementById('choices'))
+if (document.getElementById('answers') != null) {
+    ReactDOM.render(<Answers />,
+    document.getElementById('answers'))
 };

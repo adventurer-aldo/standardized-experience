@@ -70,7 +70,7 @@ ul {
 }
 
 .midbox {
-    max-width: 50%;
+    width: 45%;
     display: inline-block;
     padding: 10px;
     margin: 10px;
@@ -103,7 +103,7 @@ ul {
     }
 
     .midbox {
-    max-width: 100%;
+    width: 89%;
     }
 }
 /* ==================================================== */
@@ -117,3 +117,31 @@ ul {
     padding-top: 30px;
 }
 
+.bozo {
+  color: #3182ce;
+}
+
+.rti--input {
+  border: solid 1px black !important;
+  padding: 3px !important;
+  font-size: medium !important;
+  border-radius: 10px !important;
+}
+
+.rti--tag {
+  background-color: #215b91 !important;
+  color: white !important;
+  border-radius: 10px !important;
+  padding: 2px !important;
+
+}
+
+.rti--container {
+  --rti-bg: "#3182ce",
+  --rti-border: solid black 2px,
+  --rti-main: "#3182ce",
+  --rti-radius: "10px",
+  --rti-s: "0.5rem", /* spacing */
+  --rti-tag: "#0051B5",
+  --rti-tag-remove: "#ee0505",
+}

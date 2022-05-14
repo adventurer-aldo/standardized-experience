@@ -3,16 +3,24 @@ import ReactDOM from 'react-dom'
 
 class Parameters extends React.Component {
     state = {
-        activeIndexD: 0,
-        choiceD: ''
+        activeIndexesD: parameters
       }
   
-    handleClick = (index) => this.setState({ activeIndexD: index, choiceD: ['',':strict_order'][index] })
+    handleClick = (index) => { 
+      let b = this.state.activeIndexesD;
+      if (this.state.activeIndexesD.includes(index) ) {
+        b.splice(b.indexOf(index), 1)
+      } else {
+        b.push(index)
+      };
+      this.setState({ activeIndexesD: b });
+    }
+  
   
     render() {
-      return <div><b>Select the parameters:</b> 
-        <MyClickable name="Strict Order" index={1} isActive={ this.state.activeIndexD===1 } onClick={ this.handleClick } />
-        <input name='parameters[]' value={this.state.choiceD} type='hidden' />
+      return <div><b>Selecione os parâmetros:</b> 
+        <MyClickable name="Rigoroso" index={0} isActive={ this.state.activeIndexesD.includes(0) } onClick={ this.handleClick } />
+        <input name='parameters' value={JSON.stringify(this.state.activeIndexesD)} type='hidden' />
       </div>
     }
 }

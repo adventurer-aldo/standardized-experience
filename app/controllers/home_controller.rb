@@ -32,6 +32,8 @@ class HomeController < ApplicationController
 
   def question
     @subjects = Subject.all.order(title: 'asc')
+    puts cookies[:tags]
+    puts cookies[:types]
   end
 
   def subject
@@ -43,24 +45,26 @@ class HomeController < ApplicationController
     when 'add'
       Subject.create(
         title: params[:title], 
-        preferredformat: params[:preferredformat],
+        formula: params[:formula],
         difficulty: rand(1..5)
       )
     when 'delete'
-      Question.destroy_by(subject: params[:id].to_i)
       Subject.destroy_by(id: params[:id].to_i)
     end
     redirect_to subject_path
   end
 
   def submit_question
+    types = %w[open choice multichoice veracity caption formula table]
+    parameters = %w[strict]
     old_question = Question.last
     new_question = Question.create(question: params[:question],
-                                   questiontype: params[:type],
-                                   answer: params[:answer],
-                                   subject: params[:subject],
+                                   question_types: eval(params[:types]).map { |i| types[i] },
+                                   answers: params[:answers],
+                                   subject_id: params[:subject],
                                    level: params[:level].to_i,
-                                   parameters: params[:parameters])
+                                   tags: eval(params[:tags]),
+                                   parameters: eval(params[:parameters]).map { |i| parameters[i] })
 
     case params[:reuse_image]
     when '0'
@@ -71,7 +75,7 @@ class HomeController < ApplicationController
 
     if !params[:choice].nil?
       params[:choice].uniq.each do |choice|
-        Choice.create(decoy: choice, question: new_question.id)
+        Choice.create(decoy: choice, question_id: new_question.id)
       end
       cookies[:choices] = params[:choice].size
     else
@@ -79,9 +83,11 @@ class HomeController < ApplicationController
     end
 
     cookies[:level] = params[:level]
-    cookies[:type] = params[:type]
+    cookies[:types] = params[:types]
+    cookies[:parameters] = params[:parameters]
     cookies[:subject] = params[:subject]
     cookies[:reuse_image] = params[:reuse_image]
+    cookies[:tags] = params[:tags]
 
     redirect_to data_path
   end

@@ -47,7 +47,7 @@
   font-size: large;
   font-family: inherit;
   min-width: 50%;
-  border-radius: 30px;
+  border-radius: 10px;
   vertical-align: middle;
 }
 
@@ -59,11 +59,24 @@
   color: white;
   padding: 5px;
   border-radius: 10px;
+  transition: background-color 100ms linear;
+  -webkit-transition: background-color 100ms linear;
+  -moz-transition: background-color 100ms linear;
+}
+
+.add-more:hover {
+  background-color: #15a1bd;
+}
+
+.add-more:active {
+  background-color: #00bde3;
 }
 
 .col-13 {
   padding: 5px;
+  display: inline-block;
 }
+
 
 #imagingButton {
   cursor: pointer;
@@ -128,7 +141,6 @@ button[name='1'] {
 .modal {
   background-color: white;
   width: 100%;
-  max-width: ;
   margin: auto;
   min-width: 50vw;
 }
@@ -162,13 +174,13 @@ button[name='1'] {
   cursor: pointer;
   position: absolute;
   display: block;
-  padding: 2px 5px;
+  padding: 1% 1%;
   line-height: 20px;
   right: -10px;
   top: -10px;
   font-size: 24px;
   background: #ffffff;
-  border-radius: 18px;
+  border-radius: 50%;
   border: 1px solid #cfcece;
 }
 

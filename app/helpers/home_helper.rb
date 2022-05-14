@@ -1,5 +1,12 @@
 module HomeHelper
 
+  def formula(i)
+    case i
+    when 0
+      "(T1 + T2) * 0.8 + D * 0.2"
+    end
+  end
+
   def media(chair)
     if chair.first && chair.second && chair.dissertation
       case chair.subject.formula
@@ -26,10 +33,10 @@ module HomeHelper
   def recurrence(chair)
     return '---' if exame(chair).is_a?(String)
 
-    if exame(chair) > 9.5
+    if exame(chair) > 9.5 || chair.recurrence.nil?
       '---'
     else
-      chair.recurrence.nil? ? '---' : chair.recurrence
+      chair.recurrence
     end
   end
 
@@ -37,8 +44,8 @@ module HomeHelper
     content_tag(:table,
       content_tag(:thead,
                   content_tag(:tr,
-                              content_tag(:th, 'Chair', rowspan: '2') +
-                              content_tag(:th, 'Grades', colspan: '7')
+                              content_tag(:th, 'Cadeira', rowspan: '2') +
+                              content_tag(:th, 'Notas', colspan: '7')
                             ) +
                   content_tag(:tr,
                               content_tag(:th, '1º Teste') +
