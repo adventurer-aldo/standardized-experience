@@ -18,7 +18,7 @@
     <div id='parameters'></div><br>
     <%= form.submit "Submeter Questão", class: 'submitBtn' %>
 <% end %>
-<br>
+<br></div>
 <div id='navigate_questions'></div>
 <script>
 <% if cookies[:level] && cookies[:types] && cookies[:choices] && cookies[:reuse_image] && cookies[:tags] && %>
@@ -39,10 +39,10 @@ const parameters = [];
 <% end %>
 let questions = [];
 let subjects = [];
-
 <% Question.all.each do |question| %>
-  questions.push({id: <% question.id %>, subject: <% question.subject_id%>, 
-  question: "<% question.question.to_s %>", answers: <% question.answers.to_s %> })
+questions.push({id: <%= raw question.id.to_s %>, subject: <%= question.subject_id%>, level: <%= question.level.to_s %>,
+question: "<%= question.question.to_s %>", answers: <%= raw question.answer.to_s %>, 
+tags: <%= raw question.tags.to_s %>, frequency: <%= question.frequency.to_s %>,
+parameters: <%= raw question.parameters.to_s %> })
 <% end %>
 </script>
-</div>

@@ -20468,7 +20468,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         className: "form-label wd-100 fl"
       }, "Resposta:"), /* @__PURE__ */ import_react.default.createElement("input", {
         type: "text",
-        name: "answers[]",
+        name: "answer[]",
         className: "input-data"
       }), /* @__PURE__ */ import_react.default.createElement("span", {
         className: "addotherurl",
@@ -21265,9 +21265,40 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   // app/javascript/components/data_questions.jsx
   var import_react7 = __toESM(require_react());
   var import_react_dom7 = __toESM(require_react_dom());
+  function chunkArrayInGroups(arr, size) {
+    var myArray = [];
+    for (var i2 = 0; i2 < arr.length; i2 += size) {
+      myArray.push(arr.slice(i2, i2 + size));
+    }
+    return myArray;
+  }
+  var pages = chunkArrayInGroups(questions, 10);
   var Question = class extends import_react7.default.Component {
+    constructor(props) {
+      super(props);
+      this.state = { page: 1, max: pages.length };
+    }
+    handleClick = (operation) => {
+      let a2 = this.state.page;
+      if (operation == "+") {
+        this.setState({ page: a2 + 1, max: this.state.max });
+      } else if (operation == "-" && this.state.page > 1) {
+        this.setState({ page: a2 - 1, max: this.state.max });
+      } else if (operation == "++") {
+        this.setState({ page: this.state.max, max: this.state.max });
+      } else if (operation == "--") {
+        this.setState({ page: 1, max: this.state.max });
+      }
+      ;
+    };
     render() {
-      return /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("p", null, "Hi. My name is lil' Jordan. I need more than a week to rest from everything that's happening.", /* @__PURE__ */ import_react7.default.createElement("br", null), "I long for the one day where I have the day completely empty, devoid of any future tasks, one that I could even complete Emalia. Sigh. Guess my About Me wasn't lying about tired being my eternal mood."));
+      return /* @__PURE__ */ import_react7.default.createElement("div", {
+        id: "page_questions"
+      }, /* @__PURE__ */ import_react7.default.createElement("div", {
+        id: "divider"
+      }, /* @__PURE__ */ import_react7.default.createElement("button", {
+        onClick: () => this.handleClick("+")
+      })), /* @__PURE__ */ import_react7.default.createElement("p", null, this.state.max));
     }
   };
   if (document.getElementById("navigate_questions") != null) {

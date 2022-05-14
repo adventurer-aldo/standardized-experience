@@ -53,7 +53,7 @@ class Answers extends React.Component {
                         </label>
                         <input
                         type="text"
-                        name='answers[]'
+                        name='answer[]'
                         className="input-data"
                         />
 
