@@ -1,24 +1,28 @@
-<head><title>Dados | SE</title></head><%=render 'header'%>
-<p><b>Questão</b> | <%= link_to '/data/subject' do %> Disciplina <% end %></p>
+<head><title>Dados | SE</title></head><%=render 'header'%><%= render 'datas' %>
 <%= form_with html: { autocomplete: 'off' }, novalidate: true  do |form| %>
     <%= form.label :question, "Questão:"%> 
     <%= form.text_field :question, required: true, class: 'input-data', autofocus: true %> 
-    <%= form.file_field :image, id: 'image'%>
-    <%= image_tag('',id: 'hiddenImage')%>
-    <% cookies[:reuse_image] == "1" ? @checked = "1" : @checked = "0" %>
-    <%= form.hidden_field 'reuse_image', value: @checked %>
-    <div id='imaging'></div><br>
-    <div id='answers' style='margin-bottom: 2px'></div>
-    <div id='choices'></div>
+    <%= form.file_field :image, id: 'image', class: 'd-none'%>
+    <%= image_tag('', id: 'hiddenImage')%>
+    <% cookies[:reuse_image] == '1' ? @checked = '1' : @checked = '0' %>
+    <div id='imaging' class='d-inline-block'></div><br>
+    <div id='ansices'></div>
     <div id='questiontype'></div><br>
     <div id='tags'></div><br>
     <%= form.label :subject, "Para que disciplina?" %>
-    <%= form.collection_select :subject, @subjects, :id, :title, selected: cookies[:subject] %>
+    <select name='subject' class='form-select'>
+    <% @subjects.each do |subject|%>
+    <option value='<%= subject.id %>'<%= cookies[:subject] == subject.id.to_s ? ' selected' : ''%> ><%= subject.title %></option>
+    <% end %>
+    </select>
     <div id='levels'></div>
     <div id='parameters'></div><br>
-    <%= form.submit "Submeter Questão", class: 'submitBtn' %>
+    <div class='d-grid'>
+      <%= form.submit "Submeter Questão", class: 'btn btn-primary' %>
+    </div>
 <% end %>
 <br></div>
+<div class='bg-primary p-1 text-white align-middle'><b><%= fa_icon 'comment', class: 'align-middle'%> Questões Definidas</b></div>
 <div id='navigate_questions'></div>
 <script>
 <% if cookies[:level] && cookies[:types] && cookies[:choices] && cookies[:reuse_image] && cookies[:tags] && %>
@@ -33,12 +37,15 @@ const parameters = <%= cookies[:parameters] %>;
 const level = 1;
 const types = [0];
 const choices = 0;
-const reuse_image = "0";
+const reuse_image = "false";
 const tags = [];
 const parameters = [];
 <% end %>
 let questions = [];
-let subjects = [];
+let subjects = {};
+<% Subject.all.each do |subject| %>
+subjects[<%= subject.id.to_s %>] = "<%= subject.title.to_s %>";
+<% end %>
 <% Question.all.each do |question| %>
 questions.push({id: <%= raw question.id.to_s %>, subject: <%= question.subject_id%>, level: <%= question.level.to_s %>,
 question: "<%= question.question.to_s %>", answers: <%= raw question.answer.to_s %>, 

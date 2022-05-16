@@ -9,12 +9,12 @@ function chunkArrayInGroups(arr, size) {
   return myArray;
 }
 
-const pages = chunkArrayInGroups(questions, 10)
 
 class Question extends React.Component {
+  
   constructor(props) {
     super(props);
-    this.state = { page: 1, max: pages.length }
+    this.state = { page: 1, max: this.props.pages.length }
   };
 
   handleClick = (operation) => {
@@ -31,13 +31,16 @@ class Question extends React.Component {
   }
 
   render() { return <div id='page_questions'><div id='divider'><button onClick={() => this.handleClick('+') }/></div>
-    
-    <p>{this.state.max}
-    </p>
+    {this.props.pages[this.state.page - 1].map((item, index) => 
+    (<div key={index}><b>{subjects[item.id]}</b>
+      {item.question}
+    </div>)
+    )}
   </div>
   }
 }
 
 if (document.getElementById('navigate_questions') != null) {
-  ReactDOM.render(<Question />, document.getElementById('navigate_questions'))
+  ReactDOM.render(<Question pages={chunkArrayInGroups(questions, 10)} />,
+  document.getElementById('navigate_questions'))
 }

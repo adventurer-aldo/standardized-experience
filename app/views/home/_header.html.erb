@@ -1,22 +1,27 @@
-<div id='navbar'><ul>
-    <%=link_to '/' do %>
-        <li id='nav-li-Home' class='li-home'><%=fa_icon 'home'%> <span class='erasable'>Principal</span></li>
+<nav class='navbar navbar-expand-lg navbar-dark bg-primary py-0'><ul class='navbar-nav'>
+    <%=link_to '/', class: "nav-link #{current_page?(root_path) ? 'active' : ''}" do %>
+        <li class='nav-item'>
+        <%=fa_icon 'home', class: 'align-middle'%> <span class='align-middle'>Principal</span></li>
     <% end %>
 
-    <%=link_to '/data/question' do %>
-        <li id='nav-li-Data' class='li-home'><%=fa_icon 'file'%> <span class='erasable'>Dados</span></li>
+    <%=link_to '/data/question', class: "nav-link #{current_page?(question_path) || current_page?(subject_path) ? 'active' : ''}" do %>
+        <li class='nav-item'>
+        <%=fa_icon 'file', class: 'align-middle'%> <span class='align-middle'>Dados</span></li>
     <% end %>
 
-    <%=link_to '/quiz' do %>
-        <li id='nav-li-Practice' class='li-home'><%=fa_icon 'align-left'%> <span class='erasable'>Praticar</span></li>
+    <%=link_to '/quiz', class: "nav-link #{current_page?(quiz_path) ? 'active' : ''}" do %>
+        <li class='nav-item'>
+        <%=fa_icon 'align-left', class: 'align-middle'%> <span class='align-middle'>Praticar</span></li>
     <% end %>
 
-    <%=link_to '/about' do %>
-        <li id='nav-li-About' class='li-home'><%=fa_icon 'question'%> <span class='erasable'>Sobre</span></li>
+    <%=link_to '/about', class: "nav-link #{current_page?(about_path) ? 'active' : ''}" do %>
+        <li class='nav-item'>
+        <%=fa_icon 'question', class: 'align-middle'%> <span class='align-middle'>Sobre</span></li>
     <% end %>
 
-    <li id='demo' class='li-home time li-right'><%=Time.now.hour%>h <%=Time.now.min%>m</li>
-</ul></div>
-<div id='page'>
-    <div id='logoimage'></div>
-    <h1 id='logotext'>Standardized Experience</h1>
+</ul>
+    <div class='text-white nav-item navbar-text ms-auto me-0 bold pe-2'><b><%=Time.now.hour%>h <%=Time.now.min%>m</b></div>
+</nav>
+<div id='page'><div class='p-3'>
+    <div id='standardized-image'></div>
+    <h1 id='standardized-text'>Standardized Experience</h1>

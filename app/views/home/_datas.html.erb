@@ -1,0 +1,7 @@
+<div class="btn-group d-flex" role="group" aria-label="Basic example">
+  <% [[question_path, 'Questão'], [subject_path, 'Disciplina']].each do |data_button| %>
+    <%= link_to (current_page?(data_button[0]) ? '#' : data_button[0]), class: "btn btn-primary #{current_page?(data_button[0]) ? 'active w-100 text-info' : 'text-white'}" do %>
+      <%= data_button[1] %>
+    <% end %>
+  <% end %>
+</div>

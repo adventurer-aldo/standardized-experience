@@ -58,20 +58,26 @@ class HomeController < ApplicationController
     types = %w[open choice multichoice veracity caption formula table]
     parameters = %w[strict]
     puts params[:answers].class
-    old_question = Question.last
     new_question = Question.create(question: params[:question],
                                    question_types: eval(params[:types]).map { |i| types[i] },
                                    answer: params[:answer],
                                    subject_id: params[:subject],
                                    level: params[:level].to_i,
                                    tags: eval(params[:tags]),
-                                   parameters: eval(params[:parameters]).map { |i| parameters[i] })
+                                   parameters: eval(params[:parameters]).map { |i| parameters[i] }
+                                  )
 
-    case params[:reuse_image]
-    when '0'
-      new_question.image.attach(params[:image]) unless params[:image].nil?
-    when '1'
+    if params[:reuse_image]
+      old_question = if params[:reuse_id] == '0' || Question.where(id: params[:reuse_id].to_i).exists? == false
+                       Question.last
+                     else
+                       Question.find_by(id: params[:reuse_id].to_i)
+                     end
       new_question.image.attach(old_question.image.blob) unless old_question.image.nil?
+      cookies[:reuse_image] = 'true'
+    else
+      new_question.image.attach(params[:image]) unless params[:image].nil?
+      cookies[:reuse_image] = 'false'
     end
 
     if !params[:choice].nil?
@@ -87,10 +93,9 @@ class HomeController < ApplicationController
     cookies[:types] = params[:types]
     cookies[:parameters] = params[:parameters]
     cookies[:subject] = params[:subject]
-    cookies[:reuse_image] = params[:reuse_image]
     cookies[:tags] = params[:tags]
 
-    redirect_to data_path
+    redirect_to q_path
   end
 
   def about; end
