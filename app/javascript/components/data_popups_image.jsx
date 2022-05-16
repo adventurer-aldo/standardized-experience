@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 class QuestionImage extends React.Component {
+  state = {image: null}
+
   onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
@@ -25,9 +27,9 @@ class QuestionImage extends React.Component {
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div className="modal-body text-start">
-          <img id="target" src={this.state.image}/>
+          <img id="target" className='w-100' src={this.state.image}/>
             <br />
-            <input type="file" onChange={this.onImageChange} className="filetype" id="group_image" accept="image/*" />
+            <input type="file" onChange={this.onImageChange} className='form-check-input' id="group_image" accept="image/*" />
             <div className="form-check form-switch">
               <input className="form-check-input" defaultChecked={reuse_image} name='reuse_image' type="checkbox" role="switch" id="flexSwitchCheckDefault" />
               <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Usar imagem anterior?</label>

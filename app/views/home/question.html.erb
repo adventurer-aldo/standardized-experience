@@ -1,13 +1,10 @@
 <head><title>Dados-Questão | SE</title></head><%=render 'header'%><%= render 'datas' %>
 <%= form_with html: { autocomplete: 'off', class: 'my-1' }, novalidate: true  do |form| %>
-  <div class="input-group">
+  <div class="input-group mb-1">
     <span class="input-group-text" id="basic-addon1">Pergunta</span>
     <input required='required' type="text" class="form-control" name='question' placeholder="O que será requisitado na resposta?" aria-label="Pergunta" aria-describedby="basic-addon1">
     <span class="input-group-text" id="basic-addon2"><div id='imaging' class='d-inline-block'></div></span>
   </div>
-  <%= form.file_field :image, id: 'image', class: 'd-none'%>
-  <%= image_tag('', id: 'hiddenImage')%>
-  <% cookies[:reuse_image] == '1' ? @checked = '1' : @checked = '0' %>
   <div id='ansices'></div>
   <div id='questiontype'></div>
   <div id='tags'></div>

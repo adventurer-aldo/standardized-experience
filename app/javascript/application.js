@@ -37803,6 +37803,15 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     constructor(props) {
       super(props);
     }
+    onImageChange = (event) => {
+      if (event.target.files && event.target.files[0]) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          this.setState({ image: e.target.result });
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    };
     render() {
       return /* @__PURE__ */ import_react.default.createElement("div", {
         className: "wrapper"
@@ -37850,10 +37859,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       })), /* @__PURE__ */ import_react.default.createElement("div", {
         className: "modal-body text-start"
       }, /* @__PURE__ */ import_react.default.createElement("img", {
-        className: "imageData",
-        src: document.getElementById("image").src
+        className: "w-100",
+        src: this.state.image
       }), /* @__PURE__ */ import_react.default.createElement("br", null), "Carregue a imagem: ", /* @__PURE__ */ import_react.default.createElement("input", {
         name: "choices[" + JSON.stringify(index) + "][image]",
+        onChange: this.onImageChange,
         className: "form-control",
         type: "file",
         accept: "image/*"
@@ -38305,6 +38315,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var import_react6 = __toESM(require_react());
   var import_react_dom4 = __toESM(require_react_dom());
   var QuestionImage = class extends import_react6.default.Component {
+    state = { image: null };
     onImageChange = (event) => {
       if (event.target.files && event.target.files[0]) {
         let reader = new FileReader();
@@ -38347,11 +38358,12 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         className: "modal-body text-start"
       }, /* @__PURE__ */ import_react6.default.createElement("img", {
         id: "target",
+        className: "w-100",
         src: this.state.image
       }), /* @__PURE__ */ import_react6.default.createElement("br", null), /* @__PURE__ */ import_react6.default.createElement("input", {
         type: "file",
         onChange: this.onImageChange,
-        className: "filetype",
+        className: "form-check-input",
         id: "group_image",
         accept: "image/*"
       }), /* @__PURE__ */ import_react6.default.createElement("div", {

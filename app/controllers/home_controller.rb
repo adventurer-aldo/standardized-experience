@@ -99,7 +99,7 @@ class HomeController < ApplicationController
     cookies[:subject] = params[:subject]
     cookies[:tags] = params[:tags]
 
-    redirect_to questison_path
+    redirect_to question_path
   end
 
   def about; end

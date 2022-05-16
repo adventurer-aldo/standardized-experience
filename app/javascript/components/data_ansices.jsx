@@ -31,6 +31,16 @@ class Choices extends React.Component {
   constructor(props) {
   super(props);
   }
+
+  onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.setState({image: e.target.result});
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
   
   render() { return <div className="wrapper">
     {this.props.options.map((item, index) =>
@@ -49,9 +59,9 @@ class Choices extends React.Component {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div className="modal-body text-start">
-                        <img className='imageData' src={document.getElementById('image').src} />
+                      <img className='w-100' src={this.state.image}/>
                         <br />
-                        Carregue a imagem: <input name={'choices[' + JSON.stringify(index)  + '][image]'} className='form-control' type='file' accept="image/*" />
+                        Carregue a imagem: <input name={'choices[' + JSON.stringify(index)  + '][image]'} onChange={this.onImageChange} className='form-control' type='file' accept="image/*" />
                         <span className='fs-7 text-muted'>Se quiser eliminar esta imagem por completo., terá que eliminar a escolha também.
                         </span>
                       </div>
