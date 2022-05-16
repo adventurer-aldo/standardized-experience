@@ -4,145 +4,77 @@ import ReactDOM from 'react-dom'
 class Answers extends React.Component {
     constructor(props) {
     super(props);
-    
-    this.state = {
-      other_fields: [{filed: ""}],
-    };
+    }
 
-    this.answers = 1;
-    }
-    
-    addMoreFields() {
-      this.answers++
-      var newArr = {
-        filed: "",
-      };
-      this.setState({
-        other_fields: this.state.other_fields.concat(newArr),
-      });
-    }
-    
-    removeOther(index) {
-      if (this.answers > 1) {
-        this.answers--;
-        console.log(this.state.other_fields);
-        this.state.other_fields[index].delete = true;
-        this.setState((prevState) => ({
-          other_fields: [...prevState.other_fields],
-        }));
-      };
-    }
-    
     render() { return <div className="wrapper">
-    
-                {this.state.other_fields.map((item, index) =>
-                    item.delete !== true ? (
-                    <div className="col-12" key={"" + index}>
-                        <label 
-                        className="form-label wd-100 fl"
-                        >
-                        Resposta: 
-                        </label>
-                        <input
-                        type="text"
-                        name='answer[]'
-                        className="input-data"
-                        />
-
-                        <span
-                        className="addotherurl"
-                        onClick={() => this.removeOther(index)}
-                        >  <i className="fa fa-minus"></i>
-                        </span>
-                    </div>
-                    ) : null
-                )}
-
-                <div
-                    className="col-13"
-                    onClick={() => this.addMoreFields()}
-                >
-                  
-                    <label className="add-more">
-                    <i className="fa fa-plus"></i> Resposta
-                    </label>
-                </div>
+    {this.props.options.map((item, index) =>
+          item.delete !== true ? (
+            <div className="input-group" key={"" + index}>
+              <input required='required' type="text" className="form-control rounded-0" name='answer[]' placeholder="Informação satisfaz a pergunta." aria-label="Resposta" aria-describedby="basic-addon1" />
+              {this.props.options.filter(function(answer){return !answer.delete}).length > 1 ? (
+              <span className="input-group-text rounded-0" id="basic-addon2">
+                <button
+                  type='button'
+                  className="bg-transparent border-0"
+                  onClick={() => this.props.onClick(index)}
+                ><i className="fa fa-minus"></i>
+                </button>
+              </span>) : null }
             </div>
-     }
+          ) : null
+      )}
+  </div>
+  }
 }
     
 class Choices extends React.Component {
   constructor(props) {
   super(props);
-  
-  this.state = {
-    other_fields: [],
-  };
-
-  this.choices = choices;
-  }
-  
-  addMoreFields() {
-  var newArr = {
-    filed: "",
-  };
-  this.setState({
-    other_fields: this.state.other_fields.concat(newArr),
-  });
-  }
-  
-  removeOther(index) {
-  this.state.other_fields[index].delete = true;
-  this.setState((prevState) => ({
-    other_fields: [...prevState.other_fields],
-  }));
-  }
-
-  componentDidMount() {
-    var allArr = [];
-    for (var i=0;i<choices;i++) {
-      allArr = allArr.concat([{filed: ""}]);
-    }
-    this.setState({
-      other_fields: this.state.other_fields.concat(allArr)
-    });
   }
   
   render() { return <div className="wrapper">
-              <div
-                  className="col-13"
-                  onClick={() => this.addMoreFields()}
-              >
-                
-                  <label className="add-more">
-                  <i className="fa fa-plus"></i> Escolha
-                  </label>
-              </div>
-  
-              {this.state.other_fields.map((item, index) =>
-                  item.delete !== true ? (
-                  <div className="col-12" key={"" + index}>
-                      <label
-                      className="form-label wd-100 fl"
-                      >
-                      Escolha: 
-                      </label>
-                      <input
-                      type="text"
-                      name='choices[]'
-                      className="input-data"
-                      />
-
-                      <span
-                      className="addotherurl"
-                      onClick={() => this.removeOther(index)}
-                      >  <i className="fa fa-minus"></i>
-                      </span>
+    {this.props.options.map((item, index) =>
+          item.delete !== true ? (
+            <div className="input-group" key={"" + index}>
+              <input required='required' type="text" className="form-control rounded-0" name={'choices[' + JSON.stringify(index)  + '][text]'} placeholder="Alternativa que iludirá o leitor." aria-label="Escolha" aria-describedby="basic-addon1" />
+              <span className="input-group-text" id="basic-addon2">
+                <button type="button" className='bg-transparent border-0' data-bs-toggle="modal" data-bs-target={'#choiceImage' + JSON.stringify(index)}>
+                  <i className="fa fa-picture-o"></i>
+                </button>
+                <div className="bg-opacity-50 bg-dark modal fade" id={'choiceImage' + JSON.stringify(index)} tabIndex="-1" aria-labelledby={'choiceLabel' + JSON.stringify(index)} aria-hidden="true">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title text-center" id={'choiceLabel' + JSON.stringify(index)}>Anexar Imagem à Escolha</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div className="modal-body text-start">
+                        <img className='imageData' src={document.getElementById('image').src} />
+                        <br />
+                        Carregue a imagem: <input name={'choices[' + JSON.stringify(index)  + '][image]'} className='form-control' type='file' accept="image/*" />
+                        <span className='fs-7 text-muted'>Se quiser eliminar esta imagem por completo., terá que eliminar a escolha também.
+                        </span>
+                      </div>
+                      <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
                   </div>
-                  ) : null
-              )}
-          </div>
-   }
+                </div>
+              </span>
+                <span className="input-group-text rounded-0" id="basic-addon2">
+                  <button
+                    type='button'
+                    className="bg-transparent border-0"
+                    onClick={() => this.props.onClick(index)}
+                  ><i className="fa fa-minus"></i>
+                  </button>
+                </span>
+            </div>
+          ) : null
+      )}
+  </div>
+  }
 }
 
 class Ansices extends React.Component {
@@ -150,14 +82,61 @@ class Ansices extends React.Component {
     super(props)
     this.state = {
       answers: [{filed: ""}],
-      choices: [],
-      choices_cookies: choices}
+      choices: []
+    }
+  }
+  
+  componentDidMount() {
+    var allArr = [];
+    for (var i=0;i<choices;i++) {
+      allArr = allArr.concat([{filed: ""}]);
+    }
+    this.setState({ answers: this.state.answers,
+      choices: this.state.choices.concat(allArr)
+    });
+  }
+  
+  handleAddAnswer = () => {
+    var newArr = {
+      filed: "",
+    };
+    this.setState({
+      answers: this.state.answers.concat(newArr),
+      choices: this.state.choices
+    });
+  }
+  
+  handleAddChoice = () => {
+    var newArr = {
+      filed: "",
+    };
+    this.setState({ answers: this.state.answers,
+      choices: this.state.choices.concat(newArr),
+    });
   }
 
-  render() { return <div>
-    <Answers options={this.state.answers} />
-    rarar
-    <Choices options={this.state.choices} />
+  handleRemoveAnswer = (index) => {
+    this.state.answers[index].delete = true;
+    this.setState((prevState) => ({
+      answers: [...prevState.answers],
+      choices: this.state.choices
+    }));
+  }
+  
+  handleRemoveChoice = (index) => {
+    this.state.choices[index].delete = true;
+    this.setState((prevState) => ({ answers: this.state.answers,
+      choices: [...prevState.choices],
+    }));
+  }
+
+  render() { return <div className='d-grid rounded overflow-hidden'>
+    <button type='button' className="btn btn-primary rounded-0" onClick={ this.handleAddAnswer } tabIndex='-1'>
+      <i className="fa fa-plus align-middle"></i>&ensp;Respostas</button>
+    <Answers options={this.state.answers} onClick={ this.handleRemoveAnswer }/>
+    <button type='button' className="btn btn-primary rounded-0" onClick={ this.handleAddChoice } tabIndex='-1'>
+      <i className="fa fa-plus align-middle"></i>&ensp;Escolhas</button>
+    <Choices options={this.state.choices} onClick={ this.handleRemoveChoice } />
   </div>
 
   }

@@ -34,15 +34,12 @@ class HomeController < ApplicationController
     @subjects = Subject.all.order(title: 'asc')
     puts cookies[:tags]
     puts cookies[:types]
-
     @tags = []
-    if Question.exists?
-      Question.all.map(&:tags).each do |tagging|
-        @tags += tagging
-      end
+    return unless Question.exists?
+
+    Question.all.map(&:tags).each do |tagging|
+      @tags += tagging
     end
-    puts "halleliah"
-    puts @tags.to_s
   end
 
   def subject
@@ -52,11 +49,7 @@ class HomeController < ApplicationController
   def submit_subject
     case params[:operation]
     when 'add'
-      Subject.create(
-        title: params[:title], 
-        formula: params[:formula],
-        difficulty: rand(1..5)
-      )
+      Subject.create(title: params[:title], formula: params[:formula], difficulty: rand(1..5))
     when 'delete'
       Subject.destroy_by(id: params[:id].to_i)
     end
@@ -89,11 +82,13 @@ class HomeController < ApplicationController
       cookies[:reuse_image] = 'false'
     end
 
-    if !params[:choice].nil?
-      params[:choice].uniq.each do |choice|
-        Choice.create(decoy: choice, question_id: new_question.id)
+    if !params[:choices].nil?
+      params[:choices].each do |_key, choice|
+        decoy = Choice.create(decoy: choice['text'], question_id: new_question.id)
+        decoy.image.attach(choice['image']) if choice['image']
+        
       end
-      cookies[:choices] = params[:choice].size
+      cookies[:choices] = params[:choices].size
     else
       cookies[:choices] = 0
     end
@@ -104,16 +99,15 @@ class HomeController < ApplicationController
     cookies[:subject] = params[:subject]
     cookies[:tags] = params[:tags]
 
-    redirect_to question_path
+    redirect_to questison_path
   end
 
   def about; end
 
   def new_journey
-    subjects = Subject.where(evaluable: 1).order(title: :asc)
     journey = Journey.create(duration: 0, start_time: Time.now, soundtrack_id: Soundtrack.order(Arel.sql('RANDOM()')).limit(1).first.id)
 
-    subjects.each do |subject|
+    Subject.where(evaluable: 1).order(title: :asc).each do |subject|
       Chair.create(subject_id: subject.id, journey_id: journey.id, format: rand(0..1).round)
     end
 

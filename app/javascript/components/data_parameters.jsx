@@ -1,19 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import Button from 'react-bootstrap/Button'
-
-class Butao extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  handleClick = () => this.props.onClick(this.props.index)
-
-  render() { 
-    return <Button variant='outline-primary' type='button' active={this.props.active} onClick={this.handleClick}>{this.props.text}</Button>
-  }
-};
+import Butao from './butao.jsx'
 
 class Parameters extends React.Component {
     state = {
@@ -32,11 +19,9 @@ class Parameters extends React.Component {
   
   
     render() {
-      return <div>Selecione os parâmetros. &ensp;
-      <ButtonGroup>
-        <Butao text="Rigoroso" index={0} active={ this.state.activeIndexesD.includes(0) } onClick={ this.handleClick } />
-        <input name='parameters' value={JSON.stringify(this.state.activeIndexesD)} type='hidden' />
-      </ButtonGroup>
+      return <div>Parâmetros? &ensp;
+      <Butao text="Rigoroso" index={0} active={ this.state.activeIndexesD.includes(0) } onClick={ this.handleClick } />
+      <input name='parameters' value={JSON.stringify(this.state.activeIndexesD)} type='hidden' />
       </div>
     }
 }

@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import Button from 'react-bootstrap/Button'
+import Butao from './butao.jsx'
 
 class QType extends React.Component {
   state = {
@@ -35,19 +35,6 @@ class QType extends React.Component {
     </div>
   }
 }
-
-class Butao extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  handleClick = () => this.props.onClick(this.props.index)
-
-  render() { 
-    return <Button variant='outline-primary' type='button' active={this.props.active} onClick={this.handleClick}>{this.props.text}</Button>
-  }
-};
-
 
 class Level extends React.Component {
   state = {
