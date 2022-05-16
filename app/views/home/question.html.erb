@@ -1,5 +1,5 @@
 <head><title>Dados | SE</title></head><%=render 'header'%><%= render 'datas' %>
-<%= form_with html: { autocomplete: 'off' }, novalidate: true  do |form| %>
+<%= form_with html: { autocomplete: 'off', class: 'my-1' }, novalidate: true  do |form| %>
     <%= form.label :question, "Questão:"%> 
     <%= form.text_field :question, required: true, class: 'input-data', autofocus: true %> 
     <%= form.file_field :image, id: 'image', class: 'd-none'%>
@@ -10,7 +10,7 @@
     <div id='questiontype'></div><br>
     <div id='tags'></div><br>
     <%= form.label :subject, "Para que disciplina?" %>
-    <select name='subject' class='form-select'>
+    <select name='subject' class='form-select mb-1'>
     <% @subjects.each do |subject|%>
     <option value='<%= subject.id %>'<%= cookies[:subject] == subject.id.to_s ? ' selected' : ''%> ><%= subject.title %></option>
     <% end %>

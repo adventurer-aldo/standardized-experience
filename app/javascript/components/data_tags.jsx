@@ -23,6 +23,16 @@ const KeyCodes = {
 
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
+class RemoveComponent extends React.Component {
+  render() {
+    const { className, onRemove } = this.props;
+     return (
+        <button type="button" className={className} onClick={onRemove} aria-label="Close"></button>
+
+     )
+  }
+}
+
 const App = () => {
   const [tags, setTags] = React.useState(pre_tags);
 
@@ -50,9 +60,7 @@ const App = () => {
   };
 
   return (
-    <div className="app">
-      <h1> React Tags Example </h1>
-      <input type='hidden' name="tags" value={JSON.stringify(tags.map(tema => {
+    <div className="app"><input type='hidden' name="tags" value={JSON.stringify(tags.map(tema => {
   return tema.text;
 })
 )} />
@@ -67,13 +75,14 @@ const App = () => {
           handleTagClick={handleTagClick}
           inputFieldPosition="bottom"
           autocomplete={false}
+          removeComponent={RemoveComponent}
           classNames={{
             tags: 'tagsClass',
             tagInput: 'tagInputClass',
             tagInputField: 'form-control form-control-sm',
             selected: 'selectedClass',
             tag: 'btn btn-warning p-1 m-1',
-            remove: 'removeClass',
+            remove: 'btn-close align-middle h-25',
             suggestions: 'suggestionsClass',
             activeSuggestion: 'activeSuggestionClass',
             editTagInput: 'editTagInputClass',
@@ -85,6 +94,7 @@ const App = () => {
     </div>
   );
 };
+
 
 if (document.getElementById('tags') != null) {
   ReactDOM.render(<App />,document.getElementById('tags'))

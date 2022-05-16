@@ -31936,7 +31936,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         return obj && obj.__esModule ? obj : { default: obj };
       }
       var crossStr = String.fromCharCode(215);
-      var RemoveComponent = function RemoveComponent2(props) {
+      var RemoveComponent2 = function RemoveComponent3(props) {
         var readOnly = props.readOnly, removeComponent = props.removeComponent, onRemove = props.onRemove, className = props.className, tag = props.tag, index = props.index;
         var onKeydown = function onKeydown2(event) {
           if (_constants.KEYS.ENTER.includes(event.keyCode) || event.keyCode === _constants.KEYS.SPACE) {
@@ -31971,7 +31971,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           "aria-label": ariaLabel
         }, crossStr);
       };
-      RemoveComponent.propTypes = {
+      RemoveComponent2.propTypes = {
         className: _propTypes2.default.string,
         onRemove: _propTypes2.default.func.isRequired,
         readOnly: _propTypes2.default.bool,
@@ -31983,7 +31983,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         }),
         index: _propTypes2.default.number.isRequired
       };
-      exports.default = RemoveComponent;
+      exports.default = RemoveComponent2;
     }
   });
 
@@ -38112,49 +38112,51 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       this.setState({ activeIndexes: a });
     };
     render() {
-      return /* @__PURE__ */ import_react3.default.createElement("div", null, /* @__PURE__ */ import_react3.default.createElement("b", null, "Select the type:"), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
-        name: "Aberto",
+      return /* @__PURE__ */ import_react3.default.createElement("div", null, "Selecione os tipos.", /* @__PURE__ */ import_react3.default.createElement("div", {
+        className: "overflow-auto"
+      }, /* @__PURE__ */ import_react3.default.createElement(ButtonGroup_default, null, /* @__PURE__ */ import_react3.default.createElement(Butao, {
+        text: "Aberto",
         index: 0,
-        isActive: this.state.activeIndexes.includes(0),
+        active: this.state.activeIndexes.includes(0),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
-        name: "M\xFAltiplas Abertas",
+      }), /* @__PURE__ */ import_react3.default.createElement(Butao, {
+        text: "M\xFAltiplas Abertas",
         index: 4,
-        isActive: this.state.activeIndexes.includes(4),
+        active: this.state.activeIndexes.includes(4),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
-        name: "Escolha",
+      }), /* @__PURE__ */ import_react3.default.createElement(Butao, {
+        text: "Escolha",
         index: 1,
-        isActive: this.state.activeIndexes.includes(1),
+        active: this.state.activeIndexes.includes(1),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
-        name: "Escolha-M\xFAltipla",
+      }), /* @__PURE__ */ import_react3.default.createElement(Butao, {
+        text: "Escolha-M\xFAltipla",
         index: 2,
-        isActive: this.state.activeIndexes.includes(2),
+        active: this.state.activeIndexes.includes(2),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
-        name: "Verdadeiro/Falso",
+      }), /* @__PURE__ */ import_react3.default.createElement(Butao, {
+        text: "Verdadeiro/Falso",
         index: 3,
-        isActive: this.state.activeIndexes.includes(3),
+        active: this.state.activeIndexes.includes(3),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
-        name: "Formula",
+      }), /* @__PURE__ */ import_react3.default.createElement(Butao, {
+        text: "Formula",
         index: 5,
-        isActive: this.state.activeIndexes.includes(6),
+        active: this.state.activeIndexes.includes(5),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(MyClickable, {
-        name: "Tabela",
+      }), /* @__PURE__ */ import_react3.default.createElement(Butao, {
+        text: "Tabela",
         index: 6,
-        isActive: this.state.activeIndexes.includes(5),
+        active: this.state.activeIndexes.includes(6),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement("input", {
+      })), /* @__PURE__ */ import_react3.default.createElement("input", {
         name: "types",
         value: JSON.stringify(this.state.activeIndexes),
         type: "hidden"
-      }));
+      })));
     }
   };
-  var Nivel = class extends import_react3.default.Component {
+  var Butao = class extends import_react3.default.Component {
     constructor(props) {
       super(props);
     }
@@ -38174,17 +38176,19 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     };
     handleClick = (index) => this.setState({ level: index });
     render() {
-      return /* @__PURE__ */ import_react3.default.createElement("div", null, /* @__PURE__ */ import_react3.default.createElement("b", null, "N\xEDvel: \u2002"), /* @__PURE__ */ import_react3.default.createElement(ButtonGroup_default, null, /* @__PURE__ */ import_react3.default.createElement(Nivel, {
+      return /* @__PURE__ */ import_react3.default.createElement("div", {
+        className: "mb-1"
+      }, "N\xEDvel? \u2002", /* @__PURE__ */ import_react3.default.createElement(ButtonGroup_default, null, /* @__PURE__ */ import_react3.default.createElement(Butao, {
         index: 1,
         active: this.state.level === 1,
         text: "1\xBA Teste",
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(Nivel, {
+      }), /* @__PURE__ */ import_react3.default.createElement(Butao, {
         index: 2,
         active: this.state.level === 2,
         text: "2\xBA Teste",
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(Nivel, {
+      }), /* @__PURE__ */ import_react3.default.createElement(Butao, {
         index: 3,
         active: this.state.level === 3,
         text: "Exame",
@@ -38196,23 +38200,6 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }));
     }
   };
-  var MyClickable = class extends import_react3.default.Component {
-    handleClick = () => this.props.onClick(this.props.index);
-    render() {
-      return /* @__PURE__ */ import_react3.default.createElement("span", null, /* @__PURE__ */ import_react3.default.createElement("input", {
-        type: "button",
-        className: "btn-check",
-        autoComplete: "off",
-        name: "level",
-        id: "btn-level" + JSON.stringify(this.props.index)
-      }), /* @__PURE__ */ import_react3.default.createElement("label", {
-        htmlFor: "btn-level" + JSON.stringify(this.props.index),
-        "aria-pressed": this.props.isActive ? "true" : "false",
-        onClick: this.handleClick,
-        className: "btn btn-outline-primary"
-      }, this.props.text), /* @__PURE__ */ import_react3.default.createElement("span", null, this.props.index));
-    }
-  };
   if (document.getElementById("questiontype") != null) {
     import_react_dom2.default.render(/* @__PURE__ */ import_react3.default.createElement(QType, null), document.getElementById("questiontype"));
     import_react_dom2.default.render(/* @__PURE__ */ import_react3.default.createElement(Level, null), document.getElementById("levels"));
@@ -38221,6 +38208,20 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   // app/javascript/components/data_parameters.jsx
   var import_react4 = __toESM(require_react());
   var import_react_dom3 = __toESM(require_react_dom());
+  var Butao2 = class extends import_react4.default.Component {
+    constructor(props) {
+      super(props);
+    }
+    handleClick = () => this.props.onClick(this.props.index);
+    render() {
+      return /* @__PURE__ */ import_react4.default.createElement(Button_default, {
+        variant: "outline-primary",
+        type: "button",
+        active: this.props.active,
+        onClick: this.handleClick
+      }, this.props.text);
+    }
+  };
   var Parameters = class extends import_react4.default.Component {
     state = {
       activeIndexesD: parameters
@@ -38236,26 +38237,16 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       this.setState({ activeIndexesD: b });
     };
     render() {
-      return /* @__PURE__ */ import_react4.default.createElement("div", null, /* @__PURE__ */ import_react4.default.createElement("b", null, "Selecione os par\xE2metros:"), /* @__PURE__ */ import_react4.default.createElement(MyClickable2, {
-        name: "Rigoroso",
+      return /* @__PURE__ */ import_react4.default.createElement("div", null, "Selecione os par\xE2metros. \u2002", /* @__PURE__ */ import_react4.default.createElement(ButtonGroup_default, null, /* @__PURE__ */ import_react4.default.createElement(Butao2, {
+        text: "Rigoroso",
         index: 0,
-        isActive: this.state.activeIndexesD.includes(0),
+        active: this.state.activeIndexesD.includes(0),
         onClick: this.handleClick
       }), /* @__PURE__ */ import_react4.default.createElement("input", {
         name: "parameters",
         value: JSON.stringify(this.state.activeIndexesD),
         type: "hidden"
-      }));
-    }
-  };
-  var MyClickable2 = class extends import_react4.default.Component {
-    handleClick = () => this.props.onClick(this.props.index);
-    render() {
-      return /* @__PURE__ */ import_react4.default.createElement("button", {
-        type: "button",
-        className: this.props.isActive ? "btnType onType" : "btnType offType",
-        onClick: this.handleClick
-      }, /* @__PURE__ */ import_react4.default.createElement("span", null, this.props.name));
+      })));
     }
   };
   if (document.getElementById("parameters") != null) {
@@ -38298,7 +38289,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   if (document.getElementById("imaging") != null) {
     import_react_dom5.default.render(/* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement("button", {
       type: "button",
-      id: "imagingButton",
+      className: "btn btn-success p-1",
       "data-bs-toggle": "modal",
       "data-bs-target": "#exampleModal"
     }, /* @__PURE__ */ import_react6.default.createElement("i", {
@@ -38345,7 +38336,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       type: "number",
       min: "0",
       defaultValue: "0"
-    }), /* @__PURE__ */ import_react6.default.createElement("br", null), /* @__PURE__ */ import_react6.default.createElement("span", null, "Use 0 para usar a \xFAltima messagem submetida ou especifique uma ID exata. ", /* @__PURE__ */ import_react6.default.createElement("br", null), "Deve ter (Imagem anterior) selecionado. [NOT IMPLEMENTED!]")), /* @__PURE__ */ import_react6.default.createElement("div", {
+    }), /* @__PURE__ */ import_react6.default.createElement("br", null), /* @__PURE__ */ import_react6.default.createElement("span", null, /* @__PURE__ */ import_react6.default.createElement("span", {
+      className: "fs-7"
+    }, "Use 0 para usar a \xFAltima messagem submetida ou especifique uma ID exata. ", /* @__PURE__ */ import_react6.default.createElement("br", null), "Deve ter (Imagem anterior) selecionado."))), /* @__PURE__ */ import_react6.default.createElement("div", {
       className: "modal-footer"
     }, /* @__PURE__ */ import_react6.default.createElement("button", {
       type: "button",
@@ -38421,6 +38414,17 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     enter: 13
   };
   var delimiters = [KeyCodes.comma, KeyCodes.enter];
+  var RemoveComponent = class extends import_react8.default.Component {
+    render() {
+      const { className, onRemove } = this.props;
+      return /* @__PURE__ */ import_react8.default.createElement("button", {
+        type: "button",
+        className,
+        onClick: onRemove,
+        "aria-label": "Close"
+      });
+    }
+  };
   var App = () => {
     const [tags, setTags] = import_react8.default.useState(pre_tags);
     const handleDelete = (i) => {
@@ -38440,7 +38444,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     };
     return /* @__PURE__ */ import_react8.default.createElement("div", {
       className: "app"
-    }, /* @__PURE__ */ import_react8.default.createElement("h1", null, " React Tags Example "), /* @__PURE__ */ import_react8.default.createElement("input", {
+    }, /* @__PURE__ */ import_react8.default.createElement("input", {
       type: "hidden",
       name: "tags",
       value: JSON.stringify(tags.map((tema) => {
@@ -38456,13 +38460,14 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       handleTagClick,
       inputFieldPosition: "bottom",
       autocomplete: false,
+      removeComponent: RemoveComponent,
       classNames: {
         tags: "tagsClass",
         tagInput: "tagInputClass",
         tagInputField: "form-control form-control-sm",
         selected: "selectedClass",
         tag: "btn btn-warning p-1 m-1",
-        remove: "removeClass",
+        remove: "btn-close align-middle h-25",
         suggestions: "suggestionsClass",
         activeSuggestion: "activeSuggestionClass",
         editTagInput: "editTagInputClass",

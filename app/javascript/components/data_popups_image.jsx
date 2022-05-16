@@ -31,7 +31,7 @@ class OldImage extends React.Component {
 
 if (document.getElementById('imaging') != null ) {
 ReactDOM.render( <div>
-  <button type="button" id='imagingButton' data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <button type="button" className='btn btn-success p-1' data-bs-toggle="modal" data-bs-target="#exampleModal">
     <i className="fa fa-plus"></i>
   </button>
   
@@ -51,8 +51,8 @@ ReactDOM.render( <div>
           </div>
 
           Usar imagem de questão específica: <input name='reuse_id' type='number' min='0' defaultValue='0' />
-          <br /><span>Use 0 para usar a última messagem submetida ou especifique uma ID exata. <br />
-            Deve ter (Imagem anterior) selecionado. [NOT IMPLEMENTED!]
+          <br /><span><span className='fs-7'>Use 0 para usar a última messagem submetida ou especifique uma ID exata. <br />
+            Deve ter (Imagem anterior) selecionado.</span>
           </span>
         </div>
         <div className="modal-footer">
