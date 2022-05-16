@@ -20,7 +20,7 @@ class QType extends React.Component {
 
   render() {
     return <div>Selecione os tipos.
-    <div className='overflow-auto'>
+    <div className='overflow-auto mb-1'>
     <ButtonGroup>
       <Butao text="Aberto" index={0} active={ this.state.activeIndexes.includes(0) } onClick={ this.handleClick } />
       <Butao text="Múltiplas Abertas" index={4} active={ this.state.activeIndexes.includes(4) } onClick={ this.handleClick }/>

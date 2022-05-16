@@ -31,7 +31,7 @@ class OldImage extends React.Component {
 
 if (document.getElementById('imaging') != null ) {
 ReactDOM.render( <div>
-  <button type="button" className='btn btn-success p-1' data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <button type="button" className='bg-transparent border-0' data-bs-toggle="modal" data-bs-target="#exampleModal">
     <i className="fa fa-plus"></i>
   </button>
   

@@ -38113,7 +38113,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     };
     render() {
       return /* @__PURE__ */ import_react3.default.createElement("div", null, "Selecione os tipos.", /* @__PURE__ */ import_react3.default.createElement("div", {
-        className: "overflow-auto"
+        className: "overflow-auto mb-1"
       }, /* @__PURE__ */ import_react3.default.createElement(ButtonGroup_default, null, /* @__PURE__ */ import_react3.default.createElement(Butao, {
         text: "Aberto",
         index: 0,
@@ -38289,7 +38289,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   if (document.getElementById("imaging") != null) {
     import_react_dom5.default.render(/* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement("button", {
       type: "button",
-      className: "btn btn-success p-1",
+      className: "bg-transparent border-0",
       "data-bs-toggle": "modal",
       "data-bs-target": "#exampleModal"
     }, /* @__PURE__ */ import_react6.default.createElement("i", {
@@ -38458,6 +38458,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       handleAddition,
       handleDrag,
       handleTagClick,
+      placeholder: "Pressione Enter ou , para introduzir um tema.",
       inputFieldPosition: "bottom",
       autocomplete: false,
       removeComponent: RemoveComponent,

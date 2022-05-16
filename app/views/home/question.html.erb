@@ -1,25 +1,28 @@
 <head><title>Dados | SE</title></head><%=render 'header'%><%= render 'datas' %>
 <%= form_with html: { autocomplete: 'off', class: 'my-1' }, novalidate: true  do |form| %>
-    <%= form.label :question, "Questão:"%> 
-    <%= form.text_field :question, required: true, class: 'input-data', autofocus: true %> 
-    <%= form.file_field :image, id: 'image', class: 'd-none'%>
-    <%= image_tag('', id: 'hiddenImage')%>
-    <% cookies[:reuse_image] == '1' ? @checked = '1' : @checked = '0' %>
-    <div id='imaging' class='d-inline-block'></div><br>
-    <div id='ansices'></div>
-    <div id='questiontype'></div><br>
-    <div id='tags'></div><br>
-    <%= form.label :subject, "Para que disciplina?" %>
-    <select name='subject' class='form-select mb-1'>
-    <% @subjects.each do |subject|%>
-    <option value='<%= subject.id %>'<%= cookies[:subject] == subject.id.to_s ? ' selected' : ''%> ><%= subject.title %></option>
-    <% end %>
-    </select>
-    <div id='levels'></div>
-    <div id='parameters'></div><br>
-    <div class='d-grid'>
-      <%= form.submit "Submeter Questão", class: 'btn btn-primary' %>
-    </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">Pergunta</span>
+    <input type="text" class="form-control" placeholder="O que será requisitado na resposta?" aria-label="Pergunta" aria-describedby="basic-addon1">
+    <span class="input-group-text" id="basic-addon2"><div id='imaging' class='d-inline-block'></div></span>
+  </div>
+  <%= form.file_field :image, id: 'image', class: 'd-none'%>
+  <%= image_tag('', id: 'hiddenImage')%>
+  <% cookies[:reuse_image] == '1' ? @checked = '1' : @checked = '0' %>
+ <br>
+  <div id='ansices'></div>
+  <div id='questiontype'></div>
+  <div id='tags'></div><br>
+  <%= form.label :subject, "Para que disciplina?" %>
+  <select name='subject' class='form-select mb-1'>
+  <% @subjects.each do |subject|%>
+  <option value='<%= subject.id %>'<%= cookies[:subject] == subject.id.to_s ? ' selected' : ''%> ><%= subject.title %></option>
+  <% end %>
+  </select>
+  <div id='levels'></div>
+  <div id='parameters'></div><br>
+  <div class='d-grid'>
+    <%= form.submit "Submeter Questão", class: 'btn btn-primary' %>
+  </div>
 <% end %>
 <br></div>
 <div class='bg-primary p-1 text-white align-middle'><b><%= fa_icon 'comment', class: 'align-middle'%> Questões Definidas</b></div>

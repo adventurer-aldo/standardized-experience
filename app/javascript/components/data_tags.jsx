@@ -73,6 +73,7 @@ const App = () => {
           handleAddition={handleAddition}
           handleDrag={handleDrag}
           handleTagClick={handleTagClick}
+          placeholder="Pressione Enter ou , para introduzir um tema."
           inputFieldPosition="bottom"
           autocomplete={false}
           removeComponent={RemoveComponent}
