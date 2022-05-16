@@ -31,16 +31,17 @@ const level = <%= cookies[:level].to_i %>;
 const types = <%= cookies[:types] %>;
 const choices = <%= cookies[:choices] %>;
 const reuse_image = <%= cookies[:reuse_image] %>;
-const tags = <%= raw cookies[:tags] %>;
+const temas = <%= raw cookies[:tags].to_s %>;
 const parameters = <%= cookies[:parameters] %>;
 <% else %>
 const level = 1;
 const types = [0];
 const choices = 0;
 const reuse_image = "false";
-const tags = [];
+const temas = [];
 const parameters = [];
 <% end %>
+let existing_tags = <%= raw @tags.to_s %>
 let questions = [];
 let subjects = {};
 <% Subject.all.each do |subject| %>

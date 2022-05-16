@@ -34,6 +34,15 @@ class HomeController < ApplicationController
     @subjects = Subject.all.order(title: 'asc')
     puts cookies[:tags]
     puts cookies[:types]
+
+    @tags = []
+    if Question.exists?
+      Question.all.map(&:tags).each do |tagging|
+        @tags += tagging
+      end
+    end
+    puts "halleliah"
+    puts @tags.to_s
   end
 
   def subject
@@ -95,7 +104,7 @@ class HomeController < ApplicationController
     cookies[:subject] = params[:subject]
     cookies[:tags] = params[:tags]
 
-    redirect_to q_path
+    redirect_to question_path
   end
 
   def about; end
