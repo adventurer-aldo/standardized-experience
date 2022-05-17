@@ -32,13 +32,15 @@ class Choices extends React.Component {
   super(props);
   }
 
-  state = {image: null}
+  state = {image: {"0": null}}
 
-  onImageChange = (event) => {
+  onImageChange = (event, index) => {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       reader.onload = (e) => {
-        this.setState({image: e.target.result});
+        let a = this.state.image
+        a[index] = e.target.result;
+        this.setState({image: a});
       };
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -61,14 +63,14 @@ class Choices extends React.Component {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div className="modal-body text-start">
-                      <img className='w-100' src={this.state.image}/>
+                      <img className='w-100' src={this.state.image[JSON.stringify(index)]}/>
                         <br />
-                        Carregue a imagem: <input name={'choices[' + JSON.stringify(index)  + '][image]'} onChange={this.onImageChange} className='form-control' type='file' accept="image/*" />
-                        <span className='fs-7 text-muted'>Se quiser eliminar esta imagem por completo., terá que eliminar a escolha também.
+                        Carregue a imagem: <input name={'choices[' + JSON.stringify(index)  + '][image]'} onChange={event => this.onImageChange(event, index)} className='form-control' type='file' accept="image/*" />
+                        <span className='fs-7 text-muted'>{index}Se quiser eliminar esta imagem por completo., terá que eliminar a escolha também.
                         </span>
                       </div>
                       <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                       </div>
                     </div>
                   </div>

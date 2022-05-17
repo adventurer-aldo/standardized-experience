@@ -1,4 +1,4 @@
-<head><title>Dados-Questão | SE</title></head><%=render 'header'%><%= render 'datas' %>
+<head><title>Dados-Questão | SE</title></head><%=render 'header'%><%= render 'nav_data' %>
 <%= form_with html: { autocomplete: 'off', class: 'my-1' }, novalidate: true  do |form| %>
   <div class="input-group mb-1">
     <span class="input-group-text" id="basic-addon1">Pergunta</span>
@@ -36,7 +36,7 @@ const parameters = <%= cookies[:parameters] %>;
 const level = 1;
 const types = [0];
 const choices = 0;
-const reuse_image = "false";
+const reuse_image = false;
 const temas = [];
 const parameters = [];
 <% end %>
@@ -52,7 +52,7 @@ questions.push({id: <%= raw question.id.to_s %>, subject: <%= question.subject_i
 types: <%= raw question.question_types.to_s %>, question: "<%= question.question.to_s %>", 
 answers: <%= raw question.answer.to_s %>, tags: <%= raw question.tags.to_s %>, 
 frequency: <%= question.frequency.to_s %>, parameters: <%= raw question.parameters.to_s %>,
-image: '<%= raw(question.image.attached? ? question.image.url : 'https://spng.subpng.com/20190528/hcb/kisspng-computer-icons-encapsulated-postscript-scalable-ve-cropped-site-icon-b-png-virgil-shelton-5ced041f718c54.1410056715590369594651.jpg') %>'
+image: '<%= raw(question.image.attached? ? question.image.url : 'https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg') %>'
 })
 
 <% end %>

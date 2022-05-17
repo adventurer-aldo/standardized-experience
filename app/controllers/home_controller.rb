@@ -15,16 +15,16 @@ class HomeController < ApplicationController
                sound.preparations_exam
              end
     end
-            
+
     @ost = Soundtrack.first.home if @ost.nil?
     @tip = Question.all.order(Arel.sql('RANDOM()')).limit(1)
 
     quiz = Quiz.last
 
     @last_quiz = if quiz
-                   format('Your last test was of %s, with a score of %s.', quiz.subject.title, helpers.grade(quiz))
+                   format('Seu último teste foi de %s, com nota %g.', quiz.subject.title, helpers.grade(quiz))
                  else
-                   "You haven't done any test yet. Practice or start a journey!"
+                   'Você ainda não fez nenhum teste. Comece um ou faça uma jornada!'
                  end
 
 

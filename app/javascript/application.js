@@ -539,10 +539,10 @@
               props.children = childArray;
             }
             if (type && type.defaultProps) {
-              var defaultProps3 = type.defaultProps;
-              for (propName in defaultProps3) {
+              var defaultProps = type.defaultProps;
+              for (propName in defaultProps) {
                 if (props[propName] === void 0) {
-                  props[propName] = defaultProps3[propName];
+                  props[propName] = defaultProps[propName];
                 }
               }
             }
@@ -584,14 +584,14 @@
               if (hasValidKey(config)) {
                 key = "" + config.key;
               }
-              var defaultProps3;
+              var defaultProps;
               if (element.type && element.type.defaultProps) {
-                defaultProps3 = element.type.defaultProps;
+                defaultProps = element.type.defaultProps;
               }
               for (propName in config) {
                 if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
-                  if (config[propName] === void 0 && defaultProps3 !== void 0) {
-                    props[propName] = defaultProps3[propName];
+                  if (config[propName] === void 0 && defaultProps !== void 0) {
+                    props[propName] = defaultProps[propName];
                   } else {
                     props[propName] = config[propName];
                   }
@@ -756,7 +756,7 @@
             }
             return children;
           }
-          function createContext2(defaultValue, calculateChangedBits) {
+          function createContext(defaultValue, calculateChangedBits) {
             if (calculateChangedBits === void 0) {
               calculateChangedBits = null;
             } else {
@@ -783,12 +783,12 @@
             var hasWarnedAboutUsingConsumerProvider = false;
             var hasWarnedAboutDisplayNameOnConsumer = false;
             {
-              var Consumer2 = {
+              var Consumer = {
                 $$typeof: REACT_CONTEXT_TYPE,
                 _context: context,
                 _calculateChangedBits: context._calculateChangedBits
               };
-              Object.defineProperties(Consumer2, {
+              Object.defineProperties(Consumer, {
                 Provider: {
                   get: function() {
                     if (!hasWarnedAboutUsingConsumerProvider) {
@@ -846,7 +846,7 @@
                   }
                 }
               });
-              context.Consumer = Consumer2;
+              context.Consumer = Consumer;
             }
             {
               context._currentRenderer = null;
@@ -902,17 +902,17 @@
               _init: lazyInitializer
             };
             {
-              var defaultProps3;
+              var defaultProps;
               var propTypes;
               Object.defineProperties(lazyType, {
                 defaultProps: {
                   configurable: true,
                   get: function() {
-                    return defaultProps3;
+                    return defaultProps;
                   },
                   set: function(newDefaultProps) {
                     error("React.lazy(...): It is not supported to assign `defaultProps` to a lazy component import. Either specify them where the component is defined, or create a wrapping component around it.");
-                    defaultProps3 = newDefaultProps;
+                    defaultProps = newDefaultProps;
                     Object.defineProperty(lazyType, "defaultProps", {
                       enumerable: true
                     });
@@ -935,7 +935,7 @@
             }
             return lazyType;
           }
-          function forwardRef5(render) {
+          function forwardRef(render) {
             {
               if (render != null && render.$$typeof === REACT_MEMO_TYPE) {
                 error("forwardRef requires a render function but received a `memo` component. Instead of forwardRef(memo(...)), use memo(forwardRef(...)).");
@@ -1027,7 +1027,7 @@
             }
             return dispatcher;
           }
-          function useContext2(Context, unstable_observedBits) {
+          function useContext(Context, unstable_observedBits) {
             var dispatcher = resolveDispatcher();
             {
               if (unstable_observedBits !== void 0) {
@@ -1068,7 +1068,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useCallback(callback, deps);
           }
-          function useMemo2(create, deps) {
+          function useMemo(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useMemo(create, deps);
           }
@@ -1615,21 +1615,21 @@
           exports.PureComponent = PureComponent;
           exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactSharedInternals;
           exports.cloneElement = cloneElement$1;
-          exports.createContext = createContext2;
+          exports.createContext = createContext;
           exports.createElement = createElement$1;
           exports.createFactory = createFactory;
           exports.createRef = createRef;
-          exports.forwardRef = forwardRef5;
+          exports.forwardRef = forwardRef;
           exports.isValidElement = isValidElement;
           exports.lazy = lazy;
           exports.memo = memo;
           exports.useCallback = useCallback;
-          exports.useContext = useContext2;
+          exports.useContext = useContext;
           exports.useDebugValue = useDebugValue;
           exports.useEffect = useEffect;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useLayoutEffect = useLayoutEffect;
-          exports.useMemo = useMemo2;
+          exports.useMemo = useMemo;
           exports.useReducer = useReducer;
           exports.useRef = useRef;
           exports.useState = useState;
@@ -2440,11 +2440,11 @@
       if (true) {
         (function() {
           "use strict";
-          var React13 = require_react();
+          var React9 = require_react();
           var _assign = require_object_assign();
           var Scheduler = require_scheduler();
           var tracing = require_tracing();
-          var ReactSharedInternals = React13.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React9.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function warn(format) {
             {
               for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -2476,7 +2476,7 @@
               Function.prototype.apply.call(console[level2], console, argsWithFormat);
             }
           }
-          if (!React13) {
+          if (!React9) {
             {
               throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
             }
@@ -3692,7 +3692,7 @@
           var didWarnInvalidChild = false;
           function flattenChildren(children) {
             var content = "";
-            React13.Children.forEach(children, function(child) {
+            React9.Children.forEach(children, function(child) {
               if (child == null) {
                 return;
               }
@@ -3703,7 +3703,7 @@
           function validateProps(element, props) {
             {
               if (typeof props.children === "object" && props.children !== null) {
-                React13.Children.forEach(props.children, function(child) {
+                React9.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -10367,10 +10367,10 @@
           function resolveDefaultProps(Component, baseProps) {
             if (Component && Component.defaultProps) {
               var props = _assign({}, baseProps);
-              var defaultProps3 = Component.defaultProps;
-              for (var propName in defaultProps3) {
+              var defaultProps = Component.defaultProps;
+              for (var propName in defaultProps) {
                 if (props[propName] === void 0) {
-                  props[propName] = defaultProps3[propName];
+                  props[propName] = defaultProps[propName];
                 }
               }
               return props;
@@ -10896,7 +10896,7 @@
           }
           var fakeInternalInstance = {};
           var isArray = Array.isArray;
-          var emptyRefsObject = new React13.Component().refs;
+          var emptyRefsObject = new React9.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -20425,7 +20425,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       (function() {
         "use strict";
         var hasOwn = {}.hasOwnProperty;
-        function classNames3() {
+        function classNames() {
           var classes = [];
           for (var i = 0; i < arguments.length; i++) {
             var arg = arguments[i];
@@ -20436,7 +20436,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               classes.push(arg);
             } else if (Array.isArray(arg)) {
               if (arg.length) {
-                var inner = classNames3.apply(null, arg);
+                var inner = classNames.apply(null, arg);
                 if (inner) {
                   classes.push(inner);
                 }
@@ -20456,14 +20456,14 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           return classes.join(" ");
         }
         if (typeof module !== "undefined" && module.exports) {
-          classNames3.default = classNames3;
-          module.exports = classNames3;
+          classNames.default = classNames;
+          module.exports = classNames;
         } else if (typeof define === "function" && typeof define.amd === "object" && define.amd) {
           define("classnames", [], function() {
-            return classNames3;
+            return classNames;
           });
         } else {
-          window.classNames = classNames3;
+          window.classNames = classNames;
         }
       })();
     }
@@ -20476,7 +20476,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       if (true) {
         (function() {
           "use strict";
-          var React13 = require_react();
+          var React9 = require_react();
           var _assign = require_object_assign();
           var REACT_ELEMENT_TYPE = 60103;
           var REACT_PORTAL_TYPE = 60106;
@@ -20533,7 +20533,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             }
             return null;
           }
-          var ReactSharedInternals = React13.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React9.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
@@ -21062,10 +21062,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
                 }
               }
               if (type && type.defaultProps) {
-                var defaultProps3 = type.defaultProps;
-                for (propName in defaultProps3) {
+                var defaultProps = type.defaultProps;
+                for (propName in defaultProps) {
                   if (props[propName] === void 0) {
-                    props[propName] = defaultProps3[propName];
+                    props[propName] = defaultProps[propName];
                   }
                 }
               }
@@ -23935,7 +23935,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       var _react = require_react();
       var _dndCore = require_cjs2();
       var _DndContext = require_DndContext();
-      var _excluded2 = ["children"];
+      var _excluded = ["children"];
       function _slicedToArray(arr, i) {
         return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
       }
@@ -23998,7 +23998,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       function _objectWithoutProperties(source, excluded) {
         if (source == null)
           return {};
-        var target = _objectWithoutPropertiesLoose2(source, excluded);
+        var target = _objectWithoutPropertiesLoose(source, excluded);
         var key, i;
         if (Object.getOwnPropertySymbols) {
           var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -24013,7 +24013,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         }
         return target;
       }
-      function _objectWithoutPropertiesLoose2(source, excluded) {
+      function _objectWithoutPropertiesLoose(source, excluded) {
         if (source == null)
           return {};
         var target = {};
@@ -24030,7 +24030,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       var refCount = 0;
       var INSTANCE_SYM = Symbol.for("__REACT_DND_CONTEXT_INSTANCE__");
       var DndProvider = (0, _react.memo)(function DndProvider2(_ref) {
-        var children = _ref.children, props = _objectWithoutProperties(_ref, _excluded2);
+        var children = _ref.children, props = _objectWithoutProperties(_ref, _excluded);
         var _getDndContextValue = getDndContextValue(props), _getDndContextValue2 = _slicedToArray(_getDndContextValue, 2), manager = _getDndContextValue2[0], isGlobalInstance = _getDndContextValue2[1];
         (0, _react.useEffect)(function() {
           if (isGlobalInstance) {
@@ -31776,9 +31776,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         }, {
           key: "componentDidUpdate",
           value: function componentDidUpdate(prevProps) {
-            var _props = this.props, selectedIndex = _props.selectedIndex, classNames3 = _props.classNames;
+            var _props = this.props, selectedIndex = _props.selectedIndex, classNames = _props.classNames;
             if (this.suggestionsContainer && prevProps.selectedIndex !== selectedIndex) {
-              var activeSuggestion = this.suggestionsContainer.querySelector(classNames3.activeSuggestion);
+              var activeSuggestion = this.suggestionsContainer.querySelector(classNames.activeSuggestion);
               if (activeSuggestion) {
                 maybeScrollSuggestionIntoView(activeSuggestion, this.suggestionsContainer);
               }
@@ -31789,7 +31789,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           value: function render() {
             var _this2 = this;
             var props = this.props;
-            var suggestions2 = props.suggestions.map(function(item, i) {
+            var suggestions = props.suggestions.map(function(item, i) {
               return _react2.default.createElement("li", {
                 key: i,
                 onMouseDown: props.handleClick.bind(null, i),
@@ -31799,7 +31799,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               }, this.renderSuggestion(item, props.query));
             }.bind(this));
             var shouldRenderSuggestions = props.shouldRenderSuggestions || this.shouldRenderSuggestions;
-            if (suggestions2.length === 0 || !shouldRenderSuggestions(props.query)) {
+            if (suggestions.length === 0 || !shouldRenderSuggestions(props.query)) {
               return null;
             }
             return _react2.default.createElement("div", {
@@ -31807,7 +31807,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
                 _this2.suggestionsContainer = elem;
               },
               className: this.props.classNames.suggestions
-            }, _react2.default.createElement("ul", null, " ", suggestions2, " "));
+            }, _react2.default.createElement("ul", null, " ", suggestions, " "));
           }
         }]);
         return Suggestions2;
@@ -31861,8 +31861,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       function _interopRequireDefault(obj) {
         return obj && obj.__esModule ? obj : { default: obj };
       }
-      function buildRegExpFromDelimiters(delimiters2) {
-        var delimiterChars = delimiters2.map(function(delimiter) {
+      function buildRegExpFromDelimiters(delimiters) {
+        var delimiterChars = delimiters.map(function(delimiter) {
           var chrCode = delimiter - 48 * Math.floor(delimiter / 48);
           return String.fromCharCode(96 <= delimiter ? chrCode : delimiter);
         }).join("");
@@ -32046,7 +32046,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       var ItemTypes = { TAG: "tag" };
       var Tag = function Tag2(props) {
         var tagRef = (0, _react.useRef)(null);
-        var readOnly = props.readOnly, tag = props.tag, classNames3 = props.classNames, index = props.index;
+        var readOnly = props.readOnly, tag = props.tag, classNames = props.classNames, index = props.index;
         var _useDrag = (0, _reactDnd.useDrag)(function() {
           return {
             type: ItemTypes.TAG,
@@ -32083,7 +32083,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         var opacity = isDragging ? 0 : 1;
         var tagComponent = _react2.default.createElement("span", {
           ref: tagRef,
-          className: (0, _classnames2.default)("tag-wrapper", classNames3.tag, className),
+          className: (0, _classnames2.default)("tag-wrapper", classNames.tag, className),
           style: {
             opacity,
             cursor: (0, _utils.canDrag)(props) ? "move" : "auto"
@@ -32092,7 +32092,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           onTouchStart: props.onTagClicked
         }, label, _react2.default.createElement(_RemoveComponent2.default, {
           tag: props.tag,
-          className: classNames3.remove,
+          className: classNames.remove,
           removeComponent: props.removeComponent,
           onRemove: props.onDelete,
           readOnly,
@@ -32243,9 +32243,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           if (!props.inline) {
             console.warn("[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.");
           }
-          var suggestions2 = props.suggestions;
+          var suggestions = props.suggestions;
           _this.state = {
-            suggestions: suggestions2,
+            suggestions,
             query: "",
             isFocused: false,
             selectedIndex: -1,
@@ -32362,7 +32362,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         }, {
           key: "handleKeyDown",
           value: function handleKeyDown(e) {
-            var _state = this.state, query = _state.query, selectedIndex = _state.selectedIndex, suggestions2 = _state.suggestions, selectionMode = _state.selectionMode;
+            var _state = this.state, query = _state.query, selectedIndex = _state.selectedIndex, suggestions = _state.suggestions, selectionMode = _state.selectionMode;
             if (e.keyCode === _constants.KEYS.ESCAPE) {
               e.preventDefault();
               e.stopPropagation();
@@ -32377,7 +32377,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               if (e.keyCode !== _constants.KEYS.TAB || query !== "") {
                 e.preventDefault();
               }
-              var selectedQuery = selectionMode && selectedIndex !== -1 ? suggestions2[selectedIndex] : _defineProperty({ id: query }, this.props.labelField, query);
+              var selectedQuery = selectionMode && selectedIndex !== -1 ? suggestions[selectedIndex] : _defineProperty({ id: query }, this.props.labelField, query);
               if (selectedQuery !== "") {
                 this.addTag(selectedQuery);
               }
@@ -32388,14 +32388,14 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             if (e.keyCode === _constants.KEYS.UP_ARROW) {
               e.preventDefault();
               this.setState({
-                selectedIndex: selectedIndex <= 0 ? suggestions2.length - 1 : selectedIndex - 1,
+                selectedIndex: selectedIndex <= 0 ? suggestions.length - 1 : selectedIndex - 1,
                 selectionMode: true
               });
             }
             if (e.keyCode === _constants.KEYS.DOWN_ARROW) {
               e.preventDefault();
               this.setState({
-                selectedIndex: suggestions2.length === 0 ? -1 : (selectedIndex + 1) % suggestions2.length,
+                selectedIndex: suggestions.length === 0 ? -1 : (selectedIndex + 1) % suggestions.length,
                 selectionMode: true
               });
             }
@@ -32444,15 +32444,15 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           value: function render() {
             var _this4 = this;
             var tagItems = this.getTagItems();
-            var classNames3 = _extends({}, _constants.DEFAULT_CLASSNAMES, this.props.classNames);
-            var query = this.state.query.trim(), selectedIndex = this.state.selectedIndex, suggestions2 = this.state.suggestions;
+            var classNames = _extends({}, _constants.DEFAULT_CLASSNAMES, this.props.classNames);
+            var query = this.state.query.trim(), selectedIndex = this.state.selectedIndex, suggestions = this.state.suggestions;
             var _props3 = this.props, placeholder = _props3.placeholder, inputName = _props3.name, inputId = _props3.id, maxLength = _props3.maxLength, inline = _props3.inline, inputFieldPosition = _props3.inputFieldPosition, inputValue = _props3.inputValue, inputProps = _props3.inputProps, clearAll = _props3.clearAll, tags = _props3.tags;
             var position = !inline ? _constants.INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
-            var tagInput = !this.props.readOnly ? _react2.default.createElement("div", { className: classNames3.tagInput }, _react2.default.createElement("input", _extends({}, inputProps, {
+            var tagInput = !this.props.readOnly ? _react2.default.createElement("div", { className: classNames.tagInput }, _react2.default.createElement("input", _extends({}, inputProps, {
               ref: function ref(input) {
                 _this4.textInput = input;
               },
-              className: classNames3.tagInputField,
+              className: classNames.tagInputField,
               type: "text",
               placeholder,
               "aria-label": placeholder,
@@ -32469,7 +32469,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               "data-testid": "input"
             })), _react2.default.createElement(_Suggestions2.default, {
               query,
-              suggestions: suggestions2,
+              suggestions,
               labelField: this.props.labelField,
               selectedIndex,
               handleClick: this.handleSuggestionClick,
@@ -32477,11 +32477,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               minQueryLength: this.props.minQueryLength,
               shouldRenderSuggestions: this.props.shouldRenderSuggestions,
               isFocused: this.state.isFocused,
-              classNames: classNames3,
+              classNames,
               renderSuggestion: this.props.renderSuggestion
-            }), clearAll && tags.length > 0 && _react2.default.createElement(_ClearAllTags2.default, { classNames: classNames3, onClick: this.clearAll })) : null;
+            }), clearAll && tags.length > 0 && _react2.default.createElement(_ClearAllTags2.default, { classNames, onClick: this.clearAll })) : null;
             return _react2.default.createElement("div", {
-              className: (0, _classnames2.default)(classNames3.tags, "react-tags-wrapper"),
+              className: (0, _classnames2.default)(classNames.tags, "react-tags-wrapper"),
               ref: this.reactTagsRef
             }, _react2.default.createElement("p", {
               role: "alert",
@@ -32496,7 +32496,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
                 height: "1px",
                 border: 0
               }
-            }, this.state.ariaLiveStatus), position === _constants.INPUT_FIELD_POSITIONS.TOP && tagInput, _react2.default.createElement("div", { className: classNames3.selected }, tagItems, position === _constants.INPUT_FIELD_POSITIONS.INLINE && tagInput), position === _constants.INPUT_FIELD_POSITIONS.BOTTOM && tagInput);
+            }, this.state.ariaLiveStatus), position === _constants.INPUT_FIELD_POSITIONS.TOP && tagInput, _react2.default.createElement("div", { className: classNames.selected }, tagItems, position === _constants.INPUT_FIELD_POSITIONS.INLINE && tagInput), position === _constants.INPUT_FIELD_POSITIONS.BOTTOM && tagInput);
           }
         }]);
         return ReactTags3;
@@ -32570,22 +32570,22 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       var _initialiseProps = function _initialiseProps2() {
         var _this5 = this;
         this.filteredSuggestions = function(query) {
-          var suggestions2 = _this5.props.suggestions;
+          var suggestions = _this5.props.suggestions;
           if (_this5.props.allowUnique) {
             var existingTags = _this5.props.tags.map(function(tag) {
               return tag.id.toLowerCase();
             });
-            suggestions2 = suggestions2.filter(function(suggestion) {
+            suggestions = suggestions.filter(function(suggestion) {
               return !existingTags.includes(suggestion.id.toLowerCase());
             });
           }
           if (_this5.props.handleFilterSuggestions) {
-            return _this5.props.handleFilterSuggestions(query, suggestions2);
+            return _this5.props.handleFilterSuggestions(query, suggestions);
           }
-          var exactSuggestions = suggestions2.filter(function(item) {
+          var exactSuggestions = suggestions.filter(function(item) {
             return _this5.getQueryIndex(query, item) === 0;
           });
-          var partialSuggestions = suggestions2.filter(function(item) {
+          var partialSuggestions = suggestions.filter(function(item) {
             return _this5.getQueryIndex(query, item) > 0;
           });
           return exactSuggestions.concat(partialSuggestions);
@@ -32602,10 +32602,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         };
         this.updateSuggestions = function() {
           var _state2 = _this5.state, query = _state2.query, selectedIndex = _state2.selectedIndex;
-          var suggestions2 = _this5.filteredSuggestions(query);
+          var suggestions = _this5.filteredSuggestions(query);
           _this5.setState({
-            suggestions: suggestions2,
-            selectedIndex: selectedIndex >= suggestions2.length ? suggestions2.length - 1 : selectedIndex
+            suggestions,
+            selectedIndex: selectedIndex >= suggestions.length ? suggestions.length - 1 : selectedIndex
           });
         };
         this.addTag = function(tag) {
@@ -32645,11 +32645,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         };
         this.getTagItems = function() {
           var _props5 = _this5.props, tags = _props5.tags, labelField = _props5.labelField, removeComponent = _props5.removeComponent, readOnly = _props5.readOnly, allowDragDrop = _props5.allowDragDrop;
-          var classNames3 = _extends({}, _constants.DEFAULT_CLASSNAMES, _this5.props.classNames);
+          var classNames = _extends({}, _constants.DEFAULT_CLASSNAMES, _this5.props.classNames);
           var _state3 = _this5.state, currentEditIndex = _state3.currentEditIndex, query = _state3.query;
           var moveTag = allowDragDrop ? _this5.moveTag : null;
           return tags.map(function(tag, index) {
-            return _react2.default.createElement(_react2.default.Fragment, { key: index }, currentEditIndex === index ? _react2.default.createElement("div", { className: classNames3.editTagInput }, _react2.default.createElement("input", {
+            return _react2.default.createElement(_react2.default.Fragment, { key: index }, currentEditIndex === index ? _react2.default.createElement("div", { className: classNames.editTagInput }, _react2.default.createElement("input", {
               ref: function ref(input) {
                 _this5.tagInput = input;
               },
@@ -32658,7 +32658,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               onChange: _this5.handleChange,
               onKeyDown: _this5.handleKeyDown,
               onBlur: _this5.handleBlur,
-              className: classNames3.editTagInputField,
+              className: classNames.editTagInputField,
               onPaste: _this5.handlePaste,
               "data-testid": "tag-edit"
             })) : _react2.default.createElement(_Tag2.default, {
@@ -32670,7 +32670,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               removeComponent,
               onTagClicked: _this5.handleTagClick.bind(_this5, index, tag),
               readOnly,
-              classNames: classNames3,
+              classNames,
               allowDragDrop
             }));
           });
@@ -34814,7 +34814,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         const CLASS_NAME_ACTIVE$3 = "active";
         const SELECTOR_DATA_TOGGLE$5 = '[data-bs-toggle="button"]';
         const EVENT_CLICK_DATA_API$6 = `click${EVENT_KEY$a}${DATA_API_KEY$6}`;
-        class Button3 extends BaseComponent {
+        class Button extends BaseComponent {
           static get NAME() {
             return NAME$e;
           }
@@ -34823,7 +34823,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           }
           static jQueryInterface(config) {
             return this.each(function() {
-              const data = Button3.getOrCreateInstance(this);
+              const data = Button.getOrCreateInstance(this);
               if (config === "toggle") {
                 data[config]();
               }
@@ -34833,10 +34833,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         EventHandler.on(document, EVENT_CLICK_DATA_API$6, SELECTOR_DATA_TOGGLE$5, (event) => {
           event.preventDefault();
           const button = event.target.closest(SELECTOR_DATA_TOGGLE$5);
-          const data = Button3.getOrCreateInstance(button);
+          const data = Button.getOrCreateInstance(button);
           data.toggle();
         });
-        defineJQueryPlugin(Button3);
+        defineJQueryPlugin(Button);
         const SelectorEngine = {
           find(selector, element = document.documentElement) {
             return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
@@ -37747,7 +37747,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         defineJQueryPlugin(Toast);
         const index_umd = {
           Alert,
-          Button: Button3,
+          Button,
           Carousel,
           Collapse,
           Dropdown,
@@ -37803,12 +37803,14 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     constructor(props) {
       super(props);
     }
-    state = { image: null };
-    onImageChange = (event) => {
+    state = { image: { "0": null } };
+    onImageChange = (event, index) => {
       if (event.target.files && event.target.files[0]) {
         let reader = new FileReader();
         reader.onload = (e) => {
-          this.setState({ image: e.target.result });
+          let a = this.state.image;
+          a[index] = e.target.result;
+          this.setState({ image: a });
         };
         reader.readAsDataURL(event.target.files[0]);
       }
@@ -37861,22 +37863,22 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         className: "modal-body text-start"
       }, /* @__PURE__ */ import_react.default.createElement("img", {
         className: "w-100",
-        src: this.state.image
+        src: this.state.image[JSON.stringify(index)]
       }), /* @__PURE__ */ import_react.default.createElement("br", null), "Carregue a imagem: ", /* @__PURE__ */ import_react.default.createElement("input", {
         name: "choices[" + JSON.stringify(index) + "][image]",
-        onChange: this.onImageChange,
+        onChange: (event) => this.onImageChange(event, index),
         className: "form-control",
         type: "file",
         accept: "image/*"
       }), /* @__PURE__ */ import_react.default.createElement("span", {
         className: "fs-7 text-muted"
-      }, "Se quiser eliminar esta imagem por completo., ter\xE1 que eliminar a escolha tamb\xE9m.")), /* @__PURE__ */ import_react.default.createElement("div", {
+      }, index, "Se quiser eliminar esta imagem por completo., ter\xE1 que eliminar a escolha tamb\xE9m.")), /* @__PURE__ */ import_react.default.createElement("div", {
         className: "modal-footer"
       }, /* @__PURE__ */ import_react.default.createElement("button", {
         type: "button",
         className: "btn btn-secondary",
         "data-bs-dismiss": "modal"
-      }, "Close")))))), /* @__PURE__ */ import_react.default.createElement("span", {
+      }, "Fechar")))))), /* @__PURE__ */ import_react.default.createElement("span", {
         className: "input-group-text rounded-0",
         id: "basic-addon2"
       }, /* @__PURE__ */ import_react.default.createElement("button", {
@@ -37969,212 +37971,20 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   }
 
   // app/javascript/components/data_level_type.jsx
-  var import_react4 = __toESM(require_react());
+  var import_react3 = __toESM(require_react());
   var import_react_dom2 = __toESM(require_react_dom());
 
-  // node_modules/react-bootstrap/esm/ButtonGroup.js
-  var import_classnames = __toESM(require_classnames());
-  var React3 = __toESM(require_react());
-
-  // node_modules/react-bootstrap/esm/ThemeProvider.js
-  var React2 = __toESM(require_react());
+  // app/javascript/components/butao.jsx
   var import_react2 = __toESM(require_react());
-  var import_jsx_runtime = __toESM(require_jsx_runtime());
-  var DEFAULT_BREAKPOINTS = ["xxl", "xl", "lg", "md", "sm", "xs"];
-  var ThemeContext = /* @__PURE__ */ React2.createContext({
-    prefixes: {},
-    breakpoints: DEFAULT_BREAKPOINTS
-  });
-  var {
-    Consumer,
-    Provider
-  } = ThemeContext;
-  function useBootstrapPrefix(prefix, defaultPrefix) {
-    const {
-      prefixes
-    } = (0, import_react2.useContext)(ThemeContext);
-    return prefix || prefixes[defaultPrefix] || defaultPrefix;
-  }
-
-  // node_modules/react-bootstrap/esm/ButtonGroup.js
-  var import_jsx_runtime2 = __toESM(require_jsx_runtime());
-  var defaultProps = {
-    vertical: false,
-    role: "group"
-  };
-  var ButtonGroup = /* @__PURE__ */ React3.forwardRef(({
-    bsPrefix,
-    size,
-    vertical,
-    className,
-    as: Component = "div",
-    ...rest
-  }, ref) => {
-    const prefix = useBootstrapPrefix(bsPrefix, "btn-group");
-    let baseClass = prefix;
-    if (vertical)
-      baseClass = `${prefix}-vertical`;
-    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Component, {
-      ...rest,
-      ref,
-      className: (0, import_classnames.default)(className, baseClass, size && `${prefix}-${size}`)
-    });
-  });
-  ButtonGroup.displayName = "ButtonGroup";
-  ButtonGroup.defaultProps = defaultProps;
-  var ButtonGroup_default = ButtonGroup;
-
-  // app/javascript/components/butao.jsx
-  var import_react3 = __toESM(require_react());
-
-  // node_modules/react-bootstrap/esm/Button.js
-  var import_classnames2 = __toESM(require_classnames());
-  var React5 = __toESM(require_react());
-
-  // node_modules/@restart/ui/esm/Button.js
-  var React4 = __toESM(require_react());
-  var import_jsx_runtime3 = __toESM(require_jsx_runtime());
-  var _excluded = ["as", "disabled"];
-  function _objectWithoutPropertiesLoose(source, excluded) {
-    if (source == null)
-      return {};
-    var target = {};
-    var sourceKeys = Object.keys(source);
-    var key, i;
-    for (i = 0; i < sourceKeys.length; i++) {
-      key = sourceKeys[i];
-      if (excluded.indexOf(key) >= 0)
-        continue;
-      target[key] = source[key];
-    }
-    return target;
-  }
-  function isTrivialHref(href) {
-    return !href || href.trim() === "#";
-  }
-  function useButtonProps({
-    tagName,
-    disabled,
-    href,
-    target,
-    rel,
-    onClick,
-    tabIndex = 0,
-    type
-  }) {
-    if (!tagName) {
-      if (href != null || target != null || rel != null) {
-        tagName = "a";
-      } else {
-        tagName = "button";
-      }
-    }
-    const meta = {
-      tagName
-    };
-    if (tagName === "button") {
-      return [{
-        type: type || "button",
-        disabled
-      }, meta];
-    }
-    const handleClick = (event) => {
-      if (disabled || tagName === "a" && isTrivialHref(href)) {
-        event.preventDefault();
-      }
-      if (disabled) {
-        event.stopPropagation();
-        return;
-      }
-      onClick == null ? void 0 : onClick(event);
-    };
-    const handleKeyDown = (event) => {
-      if (event.key === " ") {
-        event.preventDefault();
-        handleClick(event);
-      }
-    };
-    if (tagName === "a") {
-      href || (href = "#");
-      if (disabled) {
-        href = void 0;
-      }
-    }
-    return [{
-      role: "button",
-      disabled: void 0,
-      tabIndex: disabled ? void 0 : tabIndex,
-      href,
-      target: tagName === "a" ? target : void 0,
-      "aria-disabled": !disabled ? void 0 : disabled,
-      rel: tagName === "a" ? rel : void 0,
-      onClick: handleClick,
-      onKeyDown: handleKeyDown
-    }, meta];
-  }
-  var Button = /* @__PURE__ */ React4.forwardRef((_ref, ref) => {
-    let {
-      as: asProp,
-      disabled
-    } = _ref, props = _objectWithoutPropertiesLoose(_ref, _excluded);
-    const [buttonProps, {
-      tagName: Component
-    }] = useButtonProps(Object.assign({
-      tagName: asProp,
-      disabled
-    }, props));
-    return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Component, Object.assign({}, props, buttonProps, {
-      ref
-    }));
-  });
-  Button.displayName = "Button";
-
-  // node_modules/react-bootstrap/esm/Button.js
-  var import_jsx_runtime4 = __toESM(require_jsx_runtime());
-  var defaultProps2 = {
-    variant: "primary",
-    active: false,
-    disabled: false
-  };
-  var Button2 = /* @__PURE__ */ React5.forwardRef(({
-    as,
-    bsPrefix,
-    variant,
-    size,
-    active,
-    className,
-    ...props
-  }, ref) => {
-    const prefix = useBootstrapPrefix(bsPrefix, "btn");
-    const [buttonProps, {
-      tagName
-    }] = useButtonProps({
-      tagName: as,
-      ...props
-    });
-    const Component = tagName;
-    return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Component, {
-      ...buttonProps,
-      ...props,
-      ref,
-      className: (0, import_classnames2.default)(className, prefix, active && "active", variant && `${prefix}-${variant}`, size && `${prefix}-${size}`, props.href && props.disabled && "disabled")
-    });
-  });
-  Button2.displayName = "Button";
-  Button2.defaultProps = defaultProps2;
-  var Button_default = Button2;
-
-  // app/javascript/components/butao.jsx
-  var Butao = class extends import_react3.default.Component {
+  var Butao = class extends import_react2.default.Component {
     constructor(props) {
       super(props);
     }
     handleClick = () => this.props.onClick(this.props.index);
     render() {
-      return /* @__PURE__ */ import_react3.default.createElement(Button_default, {
-        variant: "outline-primary",
+      return /* @__PURE__ */ import_react2.default.createElement("button", {
+        className: "btn btn-outline-primary" + (this.props.active === true ? " active" : ""),
         type: "button",
-        active: this.props.active,
         onClick: this.handleClick
       }, this.props.text);
     }
@@ -38182,7 +37992,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var butao_default = Butao;
 
   // app/javascript/components/data_level_type.jsx
-  var QType = class extends import_react4.default.Component {
+  var QType = class extends import_react3.default.Component {
     state = {
       activeIndexes: types
     };
@@ -38199,74 +38009,82 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       this.setState({ activeIndexes: a });
     };
     render() {
-      return /* @__PURE__ */ import_react4.default.createElement("div", null, "Selecione os tipos.", /* @__PURE__ */ import_react4.default.createElement("div", {
+      return /* @__PURE__ */ import_react3.default.createElement("div", null, "Selecione os tipos.", /* @__PURE__ */ import_react3.default.createElement("div", {
         className: "overflow-auto mb-1"
-      }, /* @__PURE__ */ import_react4.default.createElement(ButtonGroup_default, null, /* @__PURE__ */ import_react4.default.createElement(butao_default, {
-        text: "Aberto",
+      }, /* @__PURE__ */ import_react3.default.createElement("div", {
+        className: "btn-group",
+        role: "group",
+        "aria-label": "Basic example"
+      }, /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+        text: "Aberta",
         index: 0,
         active: this.state.activeIndexes.includes(0),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
         text: "M\xFAltiplas Abertas",
         index: 4,
         active: this.state.activeIndexes.includes(4),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
         text: "Escolha",
         index: 1,
         active: this.state.activeIndexes.includes(1),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
         text: "Escolha-M\xFAltipla",
         index: 2,
         active: this.state.activeIndexes.includes(2),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
         text: "Verdadeiro/Falso",
         index: 3,
         active: this.state.activeIndexes.includes(3),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
         text: "Formula",
         index: 5,
         active: this.state.activeIndexes.includes(5),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
         text: "Tabela",
         index: 6,
         active: this.state.activeIndexes.includes(6),
         onClick: this.handleClick
-      })), /* @__PURE__ */ import_react4.default.createElement("input", {
+      })), /* @__PURE__ */ import_react3.default.createElement("input", {
         name: "types",
         value: JSON.stringify(this.state.activeIndexes),
         type: "hidden"
       })));
     }
   };
-  var Level = class extends import_react4.default.Component {
+  var Level = class extends import_react3.default.Component {
     state = {
       level
     };
     handleClick = (index) => this.setState({ level: index });
     render() {
-      return /* @__PURE__ */ import_react4.default.createElement("div", {
+      return /* @__PURE__ */ import_react3.default.createElement("div", {
         className: "mb-1"
-      }, "N\xEDvel? \u2002", /* @__PURE__ */ import_react4.default.createElement(ButtonGroup_default, null, /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      }, "N\xEDvel? \u2002", /* @__PURE__ */ import_react3.default.createElement("div", {
+        className: "btn-group",
+        role: "group",
+        "aria-label": "Basic example"
+      }, /* @__PURE__ */ import_react3.default.createElement(butao_default, {
         index: 1,
         active: this.state.level === 1,
         text: "1\xBA Teste",
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
         index: 2,
         active: this.state.level === 2,
         text: "2\xBA Teste",
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
         index: 3,
         active: this.state.level === 3,
         text: "Exame",
         onClick: this.handleClick
-      })), /* @__PURE__ */ import_react4.default.createElement("input", {
+      })), /* @__PURE__ */ import_react3.default.createElement("input", {
         name: "level",
         value: this.state.level,
         type: "hidden"
@@ -38274,14 +38092,14 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }
   };
   if (document.getElementById("questiontype") != null) {
-    import_react_dom2.default.render(/* @__PURE__ */ import_react4.default.createElement(QType, null), document.getElementById("questiontype"));
-    import_react_dom2.default.render(/* @__PURE__ */ import_react4.default.createElement(Level, null), document.getElementById("levels"));
+    import_react_dom2.default.render(/* @__PURE__ */ import_react3.default.createElement(QType, null), document.getElementById("questiontype"));
+    import_react_dom2.default.render(/* @__PURE__ */ import_react3.default.createElement(Level, null), document.getElementById("levels"));
   }
 
   // app/javascript/components/data_parameters.jsx
-  var import_react5 = __toESM(require_react());
+  var import_react4 = __toESM(require_react());
   var import_react_dom3 = __toESM(require_react_dom());
-  var Parameters = class extends import_react5.default.Component {
+  var Parameters = class extends import_react4.default.Component {
     state = {
       activeIndexesD: parameters
     };
@@ -38296,12 +38114,12 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       this.setState({ activeIndexesD: b });
     };
     render() {
-      return /* @__PURE__ */ import_react5.default.createElement("div", null, "Par\xE2metros? \u2002", /* @__PURE__ */ import_react5.default.createElement(butao_default, {
+      return /* @__PURE__ */ import_react4.default.createElement("div", null, "Par\xE2metros? \u2002", /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         text: "Rigoroso",
         index: 0,
         active: this.state.activeIndexesD.includes(0),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react5.default.createElement("input", {
+      }), /* @__PURE__ */ import_react4.default.createElement("input", {
         name: "parameters",
         value: JSON.stringify(this.state.activeIndexesD),
         type: "hidden"
@@ -38309,13 +38127,13 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }
   };
   if (document.getElementById("parameters") != null) {
-    import_react_dom3.default.render(/* @__PURE__ */ import_react5.default.createElement(Parameters, null), document.getElementById("parameters"));
+    import_react_dom3.default.render(/* @__PURE__ */ import_react4.default.createElement(Parameters, null), document.getElementById("parameters"));
   }
 
   // app/javascript/components/data_popups_image.jsx
-  var import_react6 = __toESM(require_react());
+  var import_react5 = __toESM(require_react());
   var import_react_dom4 = __toESM(require_react_dom());
-  var QuestionImage = class extends import_react6.default.Component {
+  var QuestionImage = class extends import_react5.default.Component {
     state = { image: null };
     onImageChange = (event) => {
       if (event.target.files && event.target.files[0]) {
@@ -38327,81 +38145,81 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }
     };
     render() {
-      return /* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement("button", {
+      return /* @__PURE__ */ import_react5.default.createElement("div", null, /* @__PURE__ */ import_react5.default.createElement("button", {
         type: "button",
         className: "bg-transparent border-0",
         "data-bs-toggle": "modal",
         "data-bs-target": "#exampleModal",
         tabIndex: "-1"
-      }, /* @__PURE__ */ import_react6.default.createElement("i", {
+      }, /* @__PURE__ */ import_react5.default.createElement("i", {
         className: "fa fa-picture-o"
-      })), /* @__PURE__ */ import_react6.default.createElement("div", {
+      })), /* @__PURE__ */ import_react5.default.createElement("div", {
         className: "bg-opacity-50 bg-dark modal fade",
         id: "exampleModal",
         tabIndex: "-1",
         "aria-labelledby": "exampleModalLabel",
         "aria-hidden": "true"
-      }, /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, /* @__PURE__ */ import_react5.default.createElement("div", {
         className: "modal-dialog"
-      }, /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, /* @__PURE__ */ import_react5.default.createElement("div", {
         className: "modal-content"
-      }, /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, /* @__PURE__ */ import_react5.default.createElement("div", {
         className: "modal-header"
-      }, /* @__PURE__ */ import_react6.default.createElement("h5", {
+      }, /* @__PURE__ */ import_react5.default.createElement("h5", {
         className: "modal-title text-center",
         id: "exampleModalLabel"
-      }, "Anexar Imagem"), /* @__PURE__ */ import_react6.default.createElement("button", {
+      }, "Anexar Imagem"), /* @__PURE__ */ import_react5.default.createElement("button", {
         type: "button",
         className: "btn-close",
         "data-bs-dismiss": "modal",
         "aria-label": "Close"
-      })), /* @__PURE__ */ import_react6.default.createElement("div", {
+      })), /* @__PURE__ */ import_react5.default.createElement("div", {
         className: "modal-body text-start"
-      }, /* @__PURE__ */ import_react6.default.createElement("img", {
+      }, /* @__PURE__ */ import_react5.default.createElement("img", {
         id: "target",
         className: "w-100",
         src: this.state.image
-      }), /* @__PURE__ */ import_react6.default.createElement("br", null), /* @__PURE__ */ import_react6.default.createElement("input", {
+      }), /* @__PURE__ */ import_react5.default.createElement("br", null), /* @__PURE__ */ import_react5.default.createElement("input", {
         type: "file",
         onChange: this.onImageChange,
         className: "form-control",
         id: "question_image",
         accept: "image/*"
-      }), /* @__PURE__ */ import_react6.default.createElement("div", {
+      }), /* @__PURE__ */ import_react5.default.createElement("div", {
         className: "form-check form-switch"
-      }, /* @__PURE__ */ import_react6.default.createElement("input", {
+      }, /* @__PURE__ */ import_react5.default.createElement("input", {
         className: "form-check-input",
         defaultChecked: reuse_image,
         name: "reuse_image",
         type: "checkbox",
         role: "switch",
         id: "flexSwitchCheckDefault"
-      }), /* @__PURE__ */ import_react6.default.createElement("label", {
+      }), /* @__PURE__ */ import_react5.default.createElement("label", {
         className: "form-check-label",
         htmlFor: "flexSwitchCheckDefault"
-      }, "Usar imagem anterior?")), "Usar imagem de quest\xE3o espec\xEDfica: ", /* @__PURE__ */ import_react6.default.createElement("input", {
+      }, "Usar imagem anterior?")), "Usar imagem de quest\xE3o espec\xEDfica: ", /* @__PURE__ */ import_react5.default.createElement("input", {
         name: "reuse_id",
         className: "form-control w-25 d-inline-block",
         type: "number",
         min: "0",
         defaultValue: "0"
-      }), /* @__PURE__ */ import_react6.default.createElement("br", null), /* @__PURE__ */ import_react6.default.createElement("div", {
+      }), /* @__PURE__ */ import_react5.default.createElement("br", null), /* @__PURE__ */ import_react5.default.createElement("div", {
         className: "fs-7 text-muted text-wrap"
-      }, "Use 0 para usar a \xFAltima messagem submetida ou especifique uma ID exata. Deve ter (Imagem anterior) selecionado.")), /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, "Use 0 para usar a \xFAltima messagem submetida ou especifique uma ID exata. Deve ter (Imagem anterior) selecionado.")), /* @__PURE__ */ import_react5.default.createElement("div", {
         className: "modal-footer"
-      }, /* @__PURE__ */ import_react6.default.createElement("button", {
+      }, /* @__PURE__ */ import_react5.default.createElement("button", {
         type: "button",
         className: "btn btn-secondary",
         "data-bs-dismiss": "modal"
-      }, "Close"))))));
+      }, "Fechar"))))));
     }
   };
   if (document.getElementById("imaging") != null) {
-    import_react_dom4.default.render(/* @__PURE__ */ import_react6.default.createElement(QuestionImage, null), document.getElementById("imaging"));
+    import_react_dom4.default.render(/* @__PURE__ */ import_react5.default.createElement(QuestionImage, null), document.getElementById("imaging"));
   }
 
   // app/javascript/components/data_questions.jsx
-  var import_react7 = __toESM(require_react());
+  var import_react6 = __toESM(require_react());
   var import_react_dom5 = __toESM(require_react_dom());
   function chunkArrayInGroups(arr, size) {
     var myArray = [];
@@ -38410,7 +38228,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }
     return myArray;
   }
-  var Question = class extends import_react7.default.Component {
+  var Question = class extends import_react6.default.Component {
     constructor(props) {
       super(props);
       this.state = { page: 1, max: this.props.pages.length };
@@ -38432,122 +38250,105 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       this.setState({ page: num, max: this.state.max });
     };
     render() {
-      return /* @__PURE__ */ import_react7.default.createElement("div", {
+      return /* @__PURE__ */ import_react6.default.createElement("div", {
         id: "page_questions",
         className: "p-1"
-      }, /* @__PURE__ */ import_react7.default.createElement("nav", {
+      }, /* @__PURE__ */ import_react6.default.createElement("nav", {
         "aria-label": "Page navigation example"
-      }, /* @__PURE__ */ import_react7.default.createElement("ul", {
+      }, /* @__PURE__ */ import_react6.default.createElement("ul", {
         className: "pagination"
-      }, /* @__PURE__ */ import_react7.default.createElement("li", {
+      }, /* @__PURE__ */ import_react6.default.createElement("li", {
         className: "page-item" + (this.state.page === 1 ? " disabled" : ""),
         onClick: () => this.handleClick("-")
-      }, /* @__PURE__ */ import_react7.default.createElement("a", {
+      }, /* @__PURE__ */ import_react6.default.createElement("a", {
         className: "page-link",
         href: "#navigate_questions"
-      }, "First")), /* @__PURE__ */ import_react7.default.createElement("li", {
+      }, "First")), /* @__PURE__ */ import_react6.default.createElement("li", {
         className: "page-item" + (this.state.page === 1 ? " disabled" : ""),
         onClick: () => this.handleClick("-")
-      }, /* @__PURE__ */ import_react7.default.createElement("a", {
+      }, /* @__PURE__ */ import_react6.default.createElement("a", {
         className: "page-link",
         href: "#navigate_questions"
       }, "Previous")), this.props.pages.map((_, index) => {
-        return /* @__PURE__ */ import_react7.default.createElement("li", {
+        return /* @__PURE__ */ import_react6.default.createElement("li", {
           className: "page-item" + (this.state.page === index + 1 ? " active" : ""),
           key: index,
           onClick: () => this.handleNumber(index + 1)
-        }, /* @__PURE__ */ import_react7.default.createElement("a", {
+        }, /* @__PURE__ */ import_react6.default.createElement("a", {
           className: "page-link",
           href: "#navigate_questions"
         }, index + 1));
-      }), /* @__PURE__ */ import_react7.default.createElement("li", {
+      }), /* @__PURE__ */ import_react6.default.createElement("li", {
         className: "page-item" + (this.state.page === this.state.max ? " disabled" : ""),
         onClick: () => this.handleClick("+")
-      }, /* @__PURE__ */ import_react7.default.createElement("a", {
+      }, /* @__PURE__ */ import_react6.default.createElement("a", {
         className: "page-link",
         href: "#navigate_questions"
-      }, "Next")), /* @__PURE__ */ import_react7.default.createElement("li", {
+      }, "Next")), /* @__PURE__ */ import_react6.default.createElement("li", {
         className: "page-item" + (this.state.page === this.state.max ? " disabled" : ""),
         onClick: () => this.handleClick("++")
-      }, /* @__PURE__ */ import_react7.default.createElement("a", {
+      }, /* @__PURE__ */ import_react6.default.createElement("a", {
         className: "page-link",
         href: "#navigate_questions"
-      }, "Last")))), /* @__PURE__ */ import_react7.default.createElement("br", null), /* @__PURE__ */ import_react7.default.createElement("div", {
+      }, "Last")))), /* @__PURE__ */ import_react6.default.createElement("br", null), /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "row row-cols-1 row-cols-md-2 g-4"
-      }, this.props.pages[this.state.page - 1].map((item, index) => /* @__PURE__ */ import_react7.default.createElement("div", {
+      }, this.props.pages[this.state.page - 1].map((item, index) => /* @__PURE__ */ import_react6.default.createElement("div", {
         key: index
-      }, /* @__PURE__ */ import_react7.default.createElement("div", {
+      }, /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "col"
-      }, /* @__PURE__ */ import_react7.default.createElement("div", {
+      }, /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "card"
-      }, /* @__PURE__ */ import_react7.default.createElement("form", {
+      }, /* @__PURE__ */ import_react6.default.createElement("form", {
         action: "/data/question",
         autoComplete: "off"
-      }, /* @__PURE__ */ import_react7.default.createElement("input", {
+      }, /* @__PURE__ */ import_react6.default.createElement("input", {
         type: "hidden",
         name: "id",
         value: JSON.stringify(item.id)
-      }), /* @__PURE__ */ import_react7.default.createElement("input", {
+      }), /* @__PURE__ */ import_react6.default.createElement("input", {
         type: "hidden",
         name: "operation",
         value: "delete"
-      }), /* @__PURE__ */ import_react7.default.createElement("input", {
+      }), /* @__PURE__ */ import_react6.default.createElement("input", {
         type: "submit",
         name: "commit",
         value: "",
         className: "btn-close m-1"
-      })), /* @__PURE__ */ import_react7.default.createElement("img", {
+      })), /* @__PURE__ */ import_react6.default.createElement("img", {
         src: item.image,
         className: "card-img-top",
         style: { height: "200px" },
         alt: "..."
-      }), /* @__PURE__ */ import_react7.default.createElement("div", {
+      }), /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "card-body"
-      }, /* @__PURE__ */ import_react7.default.createElement("h5", {
+      }, /* @__PURE__ */ import_react6.default.createElement("h5", {
         className: "card-title"
-      }, item.question), /* @__PURE__ */ import_react7.default.createElement("p", {
+      }, item.question), /* @__PURE__ */ import_react6.default.createElement("p", {
         className: "card-text"
-      }, item.answers[0]), item.types.map((type, index2) => /* @__PURE__ */ import_react7.default.createElement("div", {
+      }, item.answers[0]), item.types.map((type, index2) => /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "btn btn-success pe-none m-1",
         key: index2
-      }, type.charAt(0).toUpperCase() + type.slice(1))), /* @__PURE__ */ import_react7.default.createElement("p", {
+      }, type.charAt(0).toUpperCase() + type.slice(1))), /* @__PURE__ */ import_react6.default.createElement("p", {
         className: "card-text"
-      }, /* @__PURE__ */ import_react7.default.createElement("small", {
+      }, /* @__PURE__ */ import_react6.default.createElement("small", {
         className: "text-muted"
       }, subjects[item.subject])))))))));
     }
   };
   if (document.getElementById("navigate_questions") != null) {
-    import_react_dom5.default.render(/* @__PURE__ */ import_react7.default.createElement(Question, {
+    import_react_dom5.default.render(/* @__PURE__ */ import_react6.default.createElement(Question, {
       pages: chunkArrayInGroups(questions, 10)
     }), document.getElementById("navigate_questions"));
   }
 
   // app/javascript/components/data_tags.jsx
-  var import_react8 = __toESM(require_react());
+  var import_react7 = __toESM(require_react());
   var import_react_dom6 = __toESM(require_react_dom());
   var import_react_tag_input = __toESM(require_ReactTags());
-  var suggestions = existing_tags.map((tag) => {
-    return {
-      id: tag,
-      text: tag
-    };
-  });
-  var pre_tags = temas.map((tema) => {
-    return {
-      id: tema,
-      text: tema
-    };
-  });
-  var KeyCodes = {
-    comma: 188,
-    enter: 13
-  };
-  var delimiters = [KeyCodes.comma, KeyCodes.enter];
-  var RemoveComponent = class extends import_react8.default.Component {
+  var RemoveComponent = class extends import_react7.default.Component {
     render() {
       const { className, onRemove } = this.props;
-      return /* @__PURE__ */ import_react8.default.createElement("button", {
+      return /* @__PURE__ */ import_react7.default.createElement("button", {
         type: "button",
         className,
         onClick: onRemove,
@@ -38556,7 +38357,24 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }
   };
   var App = () => {
-    const [tags, setTags] = import_react8.default.useState(pre_tags);
+    const suggestions = existing_tags.map((tag) => {
+      return {
+        id: tag,
+        text: tag
+      };
+    });
+    const pre_tags = temas.map((tema) => {
+      return {
+        id: tema,
+        text: tema
+      };
+    });
+    const KeyCodes = {
+      comma: 188,
+      enter: 13
+    };
+    const delimiters = [KeyCodes.comma, KeyCodes.enter];
+    const [tags, setTags] = import_react7.default.useState(pre_tags);
     const handleDelete = (i) => {
       setTags(tags.filter((tag, index) => index !== i));
     };
@@ -38572,15 +38390,15 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     const handleTagClick = (index) => {
       console.log("The tag at index " + index + " was clicked");
     };
-    return /* @__PURE__ */ import_react8.default.createElement("div", {
+    return /* @__PURE__ */ import_react7.default.createElement("div", {
       className: "app"
-    }, /* @__PURE__ */ import_react8.default.createElement("input", {
+    }, /* @__PURE__ */ import_react7.default.createElement("input", {
       type: "hidden",
       name: "tags",
       value: JSON.stringify(tags.map((tema) => {
         return tema.text;
       }))
-    }), /* @__PURE__ */ import_react8.default.createElement("div", null, /* @__PURE__ */ import_react8.default.createElement(import_react_tag_input.WithContext, {
+    }), /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement(import_react_tag_input.WithContext, {
       tags,
       suggestions,
       delimiters,
@@ -38609,13 +38427,13 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     })));
   };
   if (document.getElementById("tags") != null) {
-    import_react_dom6.default.render(/* @__PURE__ */ import_react8.default.createElement(App, null), document.getElementById("tags"));
+    import_react_dom6.default.render(/* @__PURE__ */ import_react7.default.createElement(App, null), document.getElementById("tags"));
   }
 
   // app/javascript/components/quiz_timer.jsx
-  var import_react9 = __toESM(require_react());
+  var import_react8 = __toESM(require_react());
   var import_react_dom7 = __toESM(require_react_dom());
-  var Timer = class extends import_react9.default.Component {
+  var Timer = class extends import_react8.default.Component {
     constructor(props) {
       super(props);
       this.state = { time: quiz_timer * 60 };
@@ -38649,14 +38467,14 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       clearInterval(this.interval);
     }
     render() {
-      return /* @__PURE__ */ import_react9.default.createElement("div", null, Math.trunc(this.state.time / 60).toLocaleString("en-US", {
+      return /* @__PURE__ */ import_react8.default.createElement("div", null, Math.trunc(this.state.time / 60).toLocaleString("en-US", {
         minimumIntegerDigits: 2,
         useGrouping: false
       }), ":", (this.state.time % 60).toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false }));
     }
   };
   if (document.getElementById("timer") != null) {
-    import_react_dom7.default.render(/* @__PURE__ */ import_react9.default.createElement(Timer, null), document.getElementById("timer"));
+    import_react_dom7.default.render(/* @__PURE__ */ import_react8.default.createElement(Timer, null), document.getElementById("timer"));
   }
 
   // app/javascript/controllers/paste_image.js

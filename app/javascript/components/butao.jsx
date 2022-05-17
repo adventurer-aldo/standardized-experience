@@ -9,7 +9,7 @@ class Butao extends React.Component {
   handleClick = () => this.props.onClick(this.props.index)
 
   render() { 
-    return <Button variant='outline-primary' type='button' active={this.props.active} onClick={this.handleClick}>{this.props.text}</Button>
+    return <button className={'btn btn-outline-primary' + (this.props.active === true ? ' active' : '')} type='button' onClick={this.handleClick}>{this.props.text}</button>
   }
 };
 

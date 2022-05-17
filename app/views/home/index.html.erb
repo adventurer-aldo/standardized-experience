@@ -1,5 +1,4 @@
-<head><title>Principal | SE</title></head><%=render 'header'%>
-<p><%= @last_quiz %></p>
+<head><title>Principal | SE</title></head><%=render 'header'%><%=render 'nav_home'%>
 <% unless @tip.empty? %>
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
@@ -10,11 +9,12 @@
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-       sss
+       <%= @tip.first.question_types.intersect?(%w[multichoice caption veracity]) ? @tip.first.answer.join(' & ') : @tip.first.answer.sample %>
       </div>
     </div>
   </div><br>
 </div>
+<%= @last_quiz %>
 <% end %>
 <% if [0,7].include? @journey.level %>
   <%= form_with do |form| %>
