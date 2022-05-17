@@ -30,14 +30,14 @@ class Question extends React.Component {
     };
   }
 
-  render() { return <div id='page_questions' className='p-1'><div id='divider'><button /></div>
+  render() { return <div id='page_questions' className='p-1'>
   <nav aria-label="Page navigation example">
     <ul className="pagination">
-      <li className="page-item"onClick={() => this.handleClick('-') }><a className="page-link">Previous</a></li>
-      <li className="page-item"><a className="page-link" >1</a></li>
-      <li className="page-item"><a className="page-link" >2</a></li>
-      <li className="page-item"><a className="page-link" >3</a></li>
-      <li className="page-item" onClick={() => this.handleClick('+') }><a className="page-link">Next</a></li>
+      <li className="page-item"onClick={() => this.handleClick('-') }><a className="pe-auto page-link">Previous</a></li>
+      <li className="page-item"><a className="pe-auto page-link" >1</a></li>
+      <li className="page-item"><a className="pe-auto page-link" >2</a></li>
+      <li className="page-item"><a className="pe-auto page-link" >3</a></li>
+      <li className="page-item" onClick={() => this.handleClick('+') }><a className="pe-auto page-link">Next</a></li>
     </ul>
   </nav>
   <br />

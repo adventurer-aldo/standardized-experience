@@ -38432,9 +38432,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       return /* @__PURE__ */ import_react7.default.createElement("div", {
         id: "page_questions",
         className: "p-1"
-      }, /* @__PURE__ */ import_react7.default.createElement("div", {
-        id: "divider"
-      }, /* @__PURE__ */ import_react7.default.createElement("button", null)), /* @__PURE__ */ import_react7.default.createElement("nav", {
+      }, /* @__PURE__ */ import_react7.default.createElement("nav", {
         "aria-label": "Page navigation example"
       }, /* @__PURE__ */ import_react7.default.createElement("ul", {
         className: "pagination"
@@ -38442,24 +38440,24 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         className: "page-item",
         onClick: () => this.handleClick("-")
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "page-link"
+        className: "pe-auto page-link"
       }, "Previous")), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item"
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "page-link"
+        className: "pe-auto page-link"
       }, "1")), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item"
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "page-link"
+        className: "pe-auto page-link"
       }, "2")), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item"
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "page-link"
+        className: "pe-auto page-link"
       }, "3")), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item",
         onClick: () => this.handleClick("+")
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "page-link"
+        className: "pe-auto page-link"
       }, "Next")))), /* @__PURE__ */ import_react7.default.createElement("br", null), /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "row row-cols-1 row-cols-md-2 g-4"
       }, this.props.pages[this.state.page - 1].map((item, index) => /* @__PURE__ */ import_react7.default.createElement("div", {
