@@ -38428,6 +38428,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }
       ;
     };
+    handleNumber = (num) => {
+      this.setState({ page: num, max: this.state.max });
+    };
     render() {
       return /* @__PURE__ */ import_react7.default.createElement("div", {
         id: "page_questions",
@@ -38441,19 +38444,19 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         onClick: () => this.handleClick("-")
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
         className: "pe-auto page-link"
-      }, "Previous")), /* @__PURE__ */ import_react7.default.createElement("li", {
+      }, "Previous")), new Array(this.state.max).fill().map((_, index) => {
+        /* @__PURE__ */ import_react7.default.createElement("li", {
+          key: index,
+          onClick: () => this.handleNumber(index + 1),
+          className: "pe-auto page-item"
+        }, /* @__PURE__ */ import_react7.default.createElement("a", {
+          className: "page-link"
+        }, index + 1));
+      }), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item"
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
         className: "pe-auto page-link"
       }, "1")), /* @__PURE__ */ import_react7.default.createElement("li", {
-        className: "page-item"
-      }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "pe-auto page-link"
-      }, "2")), /* @__PURE__ */ import_react7.default.createElement("li", {
-        className: "page-item"
-      }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "pe-auto page-link"
-      }, "3")), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item",
         onClick: () => this.handleClick("+")
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
@@ -38485,7 +38488,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       })), /* @__PURE__ */ import_react7.default.createElement("img", {
         src: item.image,
         className: "card-img-top",
-        style: { maxHeight: "200px" },
+        style: { height: "200px" },
         alt: "..."
       }), /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "card-body"

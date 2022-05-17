@@ -30,13 +30,18 @@ class Question extends React.Component {
     };
   }
 
+  handleNumber = (num) => {
+    this.setState({page: num, max: this.state.max});
+  }
+
   render() { return <div id='page_questions' className='p-1'>
   <nav aria-label="Page navigation example">
     <ul className="pagination">
-      <li className="page-item"onClick={() => this.handleClick('-') }><a className="pe-auto page-link">Previous</a></li>
+      <li className="page-item" onClick={() => this.handleClick('-') }><a className="pe-auto page-link">Previous</a></li>
+      { new Array(this.state.max).fill().map((_, index) => {
+          <li key={index} onClick={() => this.handleNumber(index+1) } className="pe-auto page-item"><a className="page-link" >{index+1}</a></li>
+      })}
       <li className="page-item"><a className="pe-auto page-link" >1</a></li>
-      <li className="page-item"><a className="pe-auto page-link" >2</a></li>
-      <li className="page-item"><a className="pe-auto page-link" >3</a></li>
       <li className="page-item" onClick={() => this.handleClick('+') }><a className="pe-auto page-link">Next</a></li>
     </ul>
   </nav>
@@ -51,7 +56,7 @@ class Question extends React.Component {
               <input type='hidden' name='operation' value='delete' />
               <input type='submit' name='commit' value='' className='btn-close m-1' />
             </form>
-            <img src={item.image} className="card-img-top" style={{maxHeight: '200px'}} alt="..." />
+            <img src={item.image} className="card-img-top" style={{height: '200px'}} alt="..." />
             <div className="card-body">
               <h5 className="card-title">{item.question}</h5>
               <p className="card-text">{item.answers[0]}</p>
