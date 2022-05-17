@@ -46,9 +46,12 @@ class Question extends React.Component {
       (<div key={index}>
         <div className="col">
           <div className="card">
-            <form >
+            <form action="/data/question" autoComplete="off">
+              <input type='hidden' name='id' value={JSON.stringify(item.id)} />
+              <input type='hidden' name='operation' value='delete' />
+              <input type='submit' name='commit' value='' className='btn-close m-1' />
             </form>
-            <img src="..." className="card-img-top" alt="..." />
+            <img src={item.image} className="card-img-top" style={{maxHeight: '200px'}} alt="..." />
             <div className="card-body">
               <h5 className="card-title">{item.question}</h5>
               <p className="card-text">{item.answers[0]}</p>

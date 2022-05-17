@@ -31,6 +31,11 @@ class HomeController < ApplicationController
   end
 
   def question
+    if params[:operation] == 'delete'
+      Question.destroy_by(id: params[:id].to_i)
+      redirect_to question_path
+      return
+    end
     @subjects = Subject.all.order(title: 'asc')
     puts cookies[:tags]
     puts cookies[:types]
@@ -57,10 +62,6 @@ class HomeController < ApplicationController
   end
 
   def submit_question
-    if params[:operation] == 'delete'
-      Question.destroy_by(id: params[:id].to_i)
-      return
-    end
     types = %w[open choice multichoice veracity caption formula table]
     parameters = %w[strict]
     puts params[:answers].class

@@ -38473,9 +38473,26 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         className: "col"
       }, /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "card"
-      }, /* @__PURE__ */ import_react7.default.createElement("form", null), /* @__PURE__ */ import_react7.default.createElement("img", {
-        src: "...",
+      }, /* @__PURE__ */ import_react7.default.createElement("form", {
+        action: "/data/question",
+        autoComplete: "off"
+      }, /* @__PURE__ */ import_react7.default.createElement("input", {
+        type: "hidden",
+        name: "id",
+        value: JSON.stringify(item.id)
+      }), /* @__PURE__ */ import_react7.default.createElement("input", {
+        type: "hidden",
+        name: "operation",
+        value: "delete"
+      }), /* @__PURE__ */ import_react7.default.createElement("input", {
+        type: "submit",
+        name: "commit",
+        value: "",
+        className: "btn-close m-1"
+      })), /* @__PURE__ */ import_react7.default.createElement("img", {
+        src: item.image,
         className: "card-img-top",
+        style: { maxHeight: "200px" },
         alt: "..."
       }), /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "card-body"
