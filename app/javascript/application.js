@@ -38440,28 +38440,39 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }, /* @__PURE__ */ import_react7.default.createElement("ul", {
         className: "pagination"
       }, /* @__PURE__ */ import_react7.default.createElement("li", {
-        className: "page-item",
+        className: "page-item" + (this.state.page === 1 ? " disabled" : ""),
         onClick: () => this.handleClick("-")
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "pe-auto page-link"
-      }, "Previous")), new Array(this.state.max).fill().map((_, index) => {
-        true ? /* @__PURE__ */ import_react7.default.createElement("li", {
-          className: "pe-auto page-item",
-          key: index,
-          onClick: () => this.handleClick("+")
-        }, /* @__PURE__ */ import_react7.default.createElement("a", {
-          className: "page-link"
-        }, index + 1)) : null;
-      }), /* @__PURE__ */ import_react7.default.createElement("li", {
-        className: "page-item"
+        className: "page-link",
+        href: "#navigate_questions"
+      }, "First")), /* @__PURE__ */ import_react7.default.createElement("li", {
+        className: "page-item" + (this.state.page === 1 ? " disabled" : ""),
+        onClick: () => this.handleClick("-")
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "pe-auto page-link"
-      }, "155")), /* @__PURE__ */ import_react7.default.createElement("li", {
-        className: "page-item",
+        className: "page-link",
+        href: "#navigate_questions"
+      }, "Previous")), this.props.pages.map((_, index) => {
+        return /* @__PURE__ */ import_react7.default.createElement("li", {
+          className: "page-item" + (this.state.page === index + 1 ? " active" : ""),
+          key: index,
+          onClick: () => this.handleNumber(index + 1)
+        }, /* @__PURE__ */ import_react7.default.createElement("a", {
+          className: "page-link",
+          href: "#navigate_questions"
+        }, index + 1));
+      }), /* @__PURE__ */ import_react7.default.createElement("li", {
+        className: "page-item" + (this.state.page === this.state.max ? " disabled" : ""),
         onClick: () => this.handleClick("+")
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "pe-auto page-link"
-      }, "Next")))), /* @__PURE__ */ import_react7.default.createElement("br", null), /* @__PURE__ */ import_react7.default.createElement("div", {
+        className: "page-link",
+        href: "#navigate_questions"
+      }, "Next")), /* @__PURE__ */ import_react7.default.createElement("li", {
+        className: "page-item" + (this.state.page === this.state.max ? " disabled" : ""),
+        onClick: () => this.handleClick("++")
+      }, /* @__PURE__ */ import_react7.default.createElement("a", {
+        className: "page-link",
+        href: "#navigate_questions"
+      }, "Last")))), /* @__PURE__ */ import_react7.default.createElement("br", null), /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "row row-cols-1 row-cols-md-2 g-4"
       }, this.props.pages[this.state.page - 1].map((item, index) => /* @__PURE__ */ import_react7.default.createElement("div", {
         key: index

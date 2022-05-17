@@ -37,12 +37,13 @@ class Question extends React.Component {
   render() { return <div id='page_questions' className='p-1'>
   <nav aria-label="Page navigation example">
     <ul className="pagination">
-      <li className="page-item" onClick={() => this.handleClick('-') }><a className="pe-auto page-link">Previous</a></li>
-      { new Array(this.state.max).fill().map((_, index) => { 1 == 1 ? (
-          <li className="pe-auto page-item" key={index} onClick={() => this.handleClick('+')}><a className="page-link" >{index+1}</a></li>
-     ) : null })}
-      <li className="page-item"><a className="pe-auto page-link" >155</a></li>
-      <li className="page-item" onClick={() => this.handleClick('+') }><a className="pe-auto page-link">Next</a></li>
+    <li className={"page-item" + (this.state.page === 1 ? ' disabled' : '')} onClick={() => this.handleClick('-') }><a className="page-link" href='#navigate_questions'>First</a></li>
+      <li className={"page-item" + (this.state.page === 1 ? ' disabled' : '')} onClick={() => this.handleClick('-') }><a className="page-link" href='#navigate_questions'>Previous</a></li>
+      { this.props.pages.map((_, index) => { return ( 
+          <li className={"page-item" + (this.state.page === (index + 1) ? ' active' : '')} key={index} onClick={() => this.handleNumber(index+1)}><a className="page-link" href='#navigate_questions'>{index+1}</a></li>
+      )})}
+      <li className={"page-item" + (this.state.page === this.state.max ? ' disabled' : '')} onClick={() => this.handleClick('+') }><a className="page-link" href='#navigate_questions'>Next</a></li>
+      <li className={"page-item" + (this.state.page === this.state.max ? ' disabled' : '')} onClick={() => this.handleClick('++') }><a className="page-link" href='#navigate_questions'>Last</a></li>
     </ul>
   </nav>
   <br />
