@@ -57,6 +57,10 @@ class HomeController < ApplicationController
   end
 
   def submit_question
+    if params[:operation] == 'delete'
+      Question.destroy_by(id: params[:id].to_i)
+      return
+    end
     types = %w[open choice multichoice veracity caption formula table]
     parameters = %w[strict]
     puts params[:answers].class
@@ -82,11 +86,10 @@ class HomeController < ApplicationController
       cookies[:reuse_image] = 'false'
     end
 
-    if !params[:choices].nil?
+    if params[:choices]
       params[:choices].each do |_key, choice|
         decoy = Choice.create(decoy: choice['text'], question_id: new_question.id)
         decoy.image.attach(choice['image']) if choice['image']
-        
       end
       cookies[:choices] = params[:choices].size
     else

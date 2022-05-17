@@ -46,10 +46,12 @@ let subjects = {};
 <% Subject.all.each do |subject| %>
 subjects[<%= subject.id.to_s %>] = "<%= subject.title.to_s %>";
 <% end %>
+
 <% Question.all.each do |question| %>
 questions.push({id: <%= raw question.id.to_s %>, subject: <%= question.subject_id%>, level: <%= question.level.to_s %>,
-question: "<%= question.question.to_s %>", answers: <%= raw question.answer.to_s %>, 
-tags: <%= raw question.tags.to_s %>, frequency: <%= question.frequency.to_s %>,
-parameters: <%= raw question.parameters.to_s %> })
+types: <%= raw question.question_types.to_s %>, question: "<%= question.question.to_s %>", 
+answers: <%= raw question.answer.to_s %>, tags: <%= raw question.tags.to_s %>, 
+frequency: <%= question.frequency.to_s %>, parameters: <%= raw question.parameters.to_s %> })
+
 <% end %>
 </script>

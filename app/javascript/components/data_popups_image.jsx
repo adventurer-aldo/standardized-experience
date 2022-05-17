@@ -29,7 +29,7 @@ class QuestionImage extends React.Component {
           <div className="modal-body text-start">
           <img id="target" className='w-100' src={this.state.image}/>
             <br />
-            <input type="file" onChange={this.onImageChange} className='form-check-input' id="group_image" accept="image/*" />
+            <input type="file" onChange={this.onImageChange} className='form-control' id="group_image" accept="image/*" />
             <div className="form-check form-switch">
               <input className="form-check-input" defaultChecked={reuse_image} name='reuse_image' type="checkbox" role="switch" id="flexSwitchCheckDefault" />
               <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Usar imagem anterior?</label>

@@ -32,6 +32,8 @@ class Choices extends React.Component {
   super(props);
   }
 
+  state = {image: null}
+
   onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();

@@ -37803,6 +37803,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     constructor(props) {
       super(props);
     }
+    state = { image: null };
     onImageChange = (event) => {
       if (event.target.files && event.target.files[0]) {
         let reader = new FileReader();
@@ -38363,7 +38364,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }), /* @__PURE__ */ import_react6.default.createElement("br", null), /* @__PURE__ */ import_react6.default.createElement("input", {
         type: "file",
         onChange: this.onImageChange,
-        className: "form-check-input",
+        className: "form-control",
         id: "group_image",
         accept: "image/*"
       }), /* @__PURE__ */ import_react6.default.createElement("div", {
@@ -38434,9 +38435,60 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         id: "divider"
       }, /* @__PURE__ */ import_react7.default.createElement("button", {
         onClick: () => this.handleClick("+")
-      })), this.props.pages[this.state.page - 1].map((item, index) => /* @__PURE__ */ import_react7.default.createElement("div", {
+      })), /* @__PURE__ */ import_react7.default.createElement("nav", {
+        "aria-label": "Page navigation example"
+      }, /* @__PURE__ */ import_react7.default.createElement("ul", {
+        className: "pagination"
+      }, /* @__PURE__ */ import_react7.default.createElement("li", {
+        className: "page-item"
+      }, /* @__PURE__ */ import_react7.default.createElement("a", {
+        className: "page-link",
+        href: "#"
+      }, "Previous")), /* @__PURE__ */ import_react7.default.createElement("li", {
+        className: "page-item"
+      }, /* @__PURE__ */ import_react7.default.createElement("a", {
+        className: "page-link",
+        href: "#"
+      }, "1")), /* @__PURE__ */ import_react7.default.createElement("li", {
+        className: "page-item"
+      }, /* @__PURE__ */ import_react7.default.createElement("a", {
+        className: "page-link",
+        href: "#"
+      }, "2")), /* @__PURE__ */ import_react7.default.createElement("li", {
+        className: "page-item"
+      }, /* @__PURE__ */ import_react7.default.createElement("a", {
+        className: "page-link",
+        href: "#"
+      }, "3")), /* @__PURE__ */ import_react7.default.createElement("li", {
+        className: "page-item"
+      }, /* @__PURE__ */ import_react7.default.createElement("a", {
+        className: "page-link",
+        href: "#"
+      }, "Next")))), /* @__PURE__ */ import_react7.default.createElement("br", null), /* @__PURE__ */ import_react7.default.createElement("div", {
+        className: "row row-cols-1 row-cols-md-2 g-4"
+      }, this.props.pages[this.state.page - 1].map((item, index) => /* @__PURE__ */ import_react7.default.createElement("div", {
         key: index
-      }, /* @__PURE__ */ import_react7.default.createElement("b", null, subjects[item.id]), item.question)));
+      }, /* @__PURE__ */ import_react7.default.createElement("div", {
+        className: "col"
+      }, /* @__PURE__ */ import_react7.default.createElement("div", {
+        className: "card"
+      }, /* @__PURE__ */ import_react7.default.createElement("img", {
+        src: "...",
+        className: "card-img-top",
+        alt: "..."
+      }), /* @__PURE__ */ import_react7.default.createElement("div", {
+        className: "card-body"
+      }, /* @__PURE__ */ import_react7.default.createElement("h5", {
+        className: "card-title"
+      }, item.question), /* @__PURE__ */ import_react7.default.createElement("p", {
+        className: "card-text"
+      }, item.answers[0]), /* @__PURE__ */ import_react7.default.createElement("p", null, item.tags.map(function(tag) {
+        tag;
+      })), /* @__PURE__ */ import_react7.default.createElement("p", {
+        className: "card-text"
+      }, /* @__PURE__ */ import_react7.default.createElement("small", {
+        className: "text-muted"
+      }, subjects[item.subject])))))))));
     }
   };
   if (document.getElementById("navigate_questions") != null) {
