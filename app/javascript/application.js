@@ -38417,7 +38417,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }
     handleClick = (operation) => {
       let a = this.state.page;
-      if (operation == "+") {
+      if (operation == "+" && this.state.page < this.state.max) {
         this.setState({ page: a + 1, max: this.state.max });
       } else if (operation == "-" && this.state.page > 1) {
         this.setState({ page: a - 1, max: this.state.max });
@@ -38434,37 +38434,32 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         className: "p-1"
       }, /* @__PURE__ */ import_react7.default.createElement("div", {
         id: "divider"
-      }, /* @__PURE__ */ import_react7.default.createElement("button", {
-        onClick: () => this.handleClick("+")
-      })), /* @__PURE__ */ import_react7.default.createElement("nav", {
+      }, /* @__PURE__ */ import_react7.default.createElement("button", null)), /* @__PURE__ */ import_react7.default.createElement("nav", {
         "aria-label": "Page navigation example"
       }, /* @__PURE__ */ import_react7.default.createElement("ul", {
         className: "pagination"
       }, /* @__PURE__ */ import_react7.default.createElement("li", {
-        className: "page-item"
+        className: "page-item",
+        onClick: () => this.handleClick("-")
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "page-link",
-        href: "#"
+        className: "page-link"
       }, "Previous")), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item"
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "page-link",
-        href: "#"
+        className: "page-link"
       }, "1")), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item"
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "page-link",
-        href: "#"
+        className: "page-link"
       }, "2")), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item"
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "page-link",
-        href: "#"
+        className: "page-link"
       }, "3")), /* @__PURE__ */ import_react7.default.createElement("li", {
-        className: "page-item"
+        className: "page-item",
+        onClick: () => this.handleClick("+")
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
-        className: "page-link",
-        href: "#"
+        className: "page-link"
       }, "Next")))), /* @__PURE__ */ import_react7.default.createElement("br", null), /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "row row-cols-1 row-cols-md-2 g-4"
       }, this.props.pages[this.state.page - 1].map((item, index) => /* @__PURE__ */ import_react7.default.createElement("div", {

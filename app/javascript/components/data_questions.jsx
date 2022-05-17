@@ -19,7 +19,7 @@ class Question extends React.Component {
 
   handleClick = (operation) => {
     let a = this.state.page;
-    if (operation == '+') {
+    if (operation == '+' && this.state.page < this.state.max) {
       this.setState({page: a + 1, max: this.state.max});
     } else if (operation == '-' && this.state.page > 1) {
       this.setState({page: a - 1, max: this.state.max});
@@ -30,14 +30,14 @@ class Question extends React.Component {
     };
   }
 
-  render() { return <div id='page_questions' className='p-1'><div id='divider'><button onClick={() => this.handleClick('+') }/></div>
+  render() { return <div id='page_questions' className='p-1'><div id='divider'><button /></div>
   <nav aria-label="Page navigation example">
     <ul className="pagination">
-      <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-      <li className="page-item"><a className="page-link" href="#">1</a></li>
-      <li className="page-item"><a className="page-link" href="#">2</a></li>
-      <li className="page-item"><a className="page-link" href="#">3</a></li>
-      <li className="page-item"><a className="page-link" href="#">Next</a></li>
+      <li className="page-item"onClick={() => this.handleClick('-') }><a className="page-link">Previous</a></li>
+      <li className="page-item"><a className="page-link" >1</a></li>
+      <li className="page-item"><a className="page-link" >2</a></li>
+      <li className="page-item"><a className="page-link" >3</a></li>
+      <li className="page-item" onClick={() => this.handleClick('+') }><a className="page-link">Next</a></li>
     </ul>
   </nav>
   <br />
