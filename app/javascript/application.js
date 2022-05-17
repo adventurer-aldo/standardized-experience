@@ -38314,10 +38314,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         name: "commit",
         value: "",
         className: "btn-close m-1"
-      })), /* @__PURE__ */ import_react6.default.createElement("img", {
-        src: item.image,
+      })), /* @__PURE__ */ import_react6.default.createElement("div", {
+        style: { height: "200px", backgroundSize: "auto 100%", background: item.image, height: "200px" },
         className: "card-img-top",
-        style: { height: "200px" },
         alt: "..."
       }), /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "card-body"

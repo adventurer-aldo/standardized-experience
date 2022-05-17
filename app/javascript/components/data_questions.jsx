@@ -57,7 +57,7 @@ class Question extends React.Component {
               <input type='hidden' name='operation' value='delete' />
               <input type='submit' name='commit' value='' className='btn-close m-1' />
             </form>
-            <img src={item.image} className="card-img-top" style={{height: '200px'}} alt="..." />
+            <div style={{height: '200px', backgroundSize: 'auto 100%', background: item.image, height: '200px'}} className="card-img-top" alt="..." />
             <div className="card-body">
               <h5 className="card-title">{item.question}</h5>
               <p className="card-text">{item.answers[0]}</p>
