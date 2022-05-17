@@ -38365,7 +38365,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         type: "file",
         onChange: this.onImageChange,
         className: "form-control",
-        id: "group_image",
+        id: "question_image",
         accept: "image/*"
       }), /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "form-check form-switch"
@@ -38430,7 +38430,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     };
     render() {
       return /* @__PURE__ */ import_react7.default.createElement("div", {
-        id: "page_questions"
+        id: "page_questions",
+        className: "p-1"
       }, /* @__PURE__ */ import_react7.default.createElement("div", {
         id: "divider"
       }, /* @__PURE__ */ import_react7.default.createElement("button", {
@@ -38472,7 +38473,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         className: "col"
       }, /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "card"
-      }, /* @__PURE__ */ import_react7.default.createElement("img", {
+      }, /* @__PURE__ */ import_react7.default.createElement("form", null), /* @__PURE__ */ import_react7.default.createElement("img", {
         src: "...",
         className: "card-img-top",
         alt: "..."
@@ -38482,9 +38483,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         className: "card-title"
       }, item.question), /* @__PURE__ */ import_react7.default.createElement("p", {
         className: "card-text"
-      }, item.answers[0]), /* @__PURE__ */ import_react7.default.createElement("p", null, item.tags.map(function(tag) {
-        tag;
-      })), /* @__PURE__ */ import_react7.default.createElement("p", {
+      }, item.answers[0]), item.types.map((type, index2) => /* @__PURE__ */ import_react7.default.createElement("div", {
+        className: "btn btn-success pe-none m-1",
+        key: index2
+      }, type.charAt(0).toUpperCase() + type.slice(1))), /* @__PURE__ */ import_react7.default.createElement("p", {
         className: "card-text"
       }, /* @__PURE__ */ import_react7.default.createElement("small", {
         className: "text-muted"
@@ -38633,8 +38635,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   }
 
   // app/javascript/controllers/paste_image.js
-  if (document.getElementById("image")) {
-    item = document.getElementById("image");
+  if (document.getElementById("question_image")) {
+    item = document.getElementById("question_image");
     window.addEventListener("paste", (e) => {
       item.files = e.clipboardData.files;
       var img = new Image();
@@ -38642,15 +38644,18 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       if (bg) {
         var blob = bg.getAsFile();
         img.src = URL.createObjectURL(blob);
-        img.onload = function() {
-          document.getElementById("image").src = img.src;
-        };
       } else {
         console.log("No image was pasted!");
       }
     });
   }
   var item;
+  Object.defineProperty(String.prototype, "capitalize", {
+    value: function() {
+      return this.charAt(0).toUpperCase() + this.slice(1);
+    },
+    enumerable: false
+  });
 
   // app/build_file.js
   var import_bootstrap = __toESM(require_bootstrap());

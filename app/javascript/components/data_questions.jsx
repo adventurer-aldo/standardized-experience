@@ -30,7 +30,7 @@ class Question extends React.Component {
     };
   }
 
-  render() { return <div id='page_questions'><div id='divider'><button onClick={() => this.handleClick('+') }/></div>
+  render() { return <div id='page_questions' className='p-1'><div id='divider'><button onClick={() => this.handleClick('+') }/></div>
   <nav aria-label="Page navigation example">
     <ul className="pagination">
       <li className="page-item"><a className="page-link" href="#">Previous</a></li>
@@ -40,17 +40,21 @@ class Question extends React.Component {
       <li className="page-item"><a className="page-link" href="#">Next</a></li>
     </ul>
   </nav>
-<br />
+  <br />
   <div className="row row-cols-1 row-cols-md-2 g-4">
       {this.props.pages[this.state.page - 1].map((item, index) => 
       (<div key={index}>
         <div className="col">
           <div className="card">
+            <form >
+            </form>
             <img src="..." className="card-img-top" alt="..." />
             <div className="card-body">
               <h5 className="card-title">{item.question}</h5>
               <p className="card-text">{item.answers[0]}</p>
-              <p>{item.tags.map(function(tag) { tag })}</p>
+              {item.types.map((type, index) => <div className='btn btn-success pe-none m-1' key={index}>
+                {type.charAt(0).toUpperCase() + type.slice(1)}
+              </div>)}
               <p className="card-text"><small className="text-muted">{subjects[item.subject]}</small></p>
             </div>
           </div>
