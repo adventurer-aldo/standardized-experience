@@ -76,6 +76,7 @@ const App = () => {
           placeholder="Pressione Enter ou , para introduzir um tema."
           inputFieldPosition="bottom"
           autocomplete={false}
+          autofocus={false}
           removeComponent={RemoveComponent}
           classNames={{
             tags: 'tagsClass',

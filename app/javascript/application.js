@@ -38445,18 +38445,18 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
         className: "pe-auto page-link"
       }, "Previous")), new Array(this.state.max).fill().map((_, index) => {
-        /* @__PURE__ */ import_react7.default.createElement("li", {
+        true ? /* @__PURE__ */ import_react7.default.createElement("li", {
+          className: "pe-auto page-item",
           key: index,
-          onClick: () => this.handleNumber(index + 1),
-          className: "pe-auto page-item"
+          onClick: () => this.handleClick("+")
         }, /* @__PURE__ */ import_react7.default.createElement("a", {
           className: "page-link"
-        }, index + 1));
+        }, index + 1)) : null;
       }), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item"
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
         className: "pe-auto page-link"
-      }, "1")), /* @__PURE__ */ import_react7.default.createElement("li", {
+      }, "155")), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item",
         onClick: () => this.handleClick("+")
       }, /* @__PURE__ */ import_react7.default.createElement("a", {
@@ -38580,6 +38580,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       placeholder: "Pressione Enter ou , para introduzir um tema.",
       inputFieldPosition: "bottom",
       autocomplete: false,
+      autofocus: false,
       removeComponent: RemoveComponent,
       classNames: {
         tags: "tagsClass",

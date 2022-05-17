@@ -2,7 +2,7 @@
 <%= form_with html: { autocomplete: 'off', class: 'my-1' }, novalidate: true  do |form| %>
   <div class="input-group mb-1">
     <span class="input-group-text" id="basic-addon1">Pergunta</span>
-    <input required='required' type="text" class="form-control" name='question' placeholder="O que será requisitado na resposta?" aria-label="Pergunta" aria-describedby="basic-addon1">
+    <input autofocus='autofocus' required='required' type="text" class="form-control" name='question' placeholder="O que será requisitado na resposta?" aria-label="Pergunta" aria-describedby="basic-addon1">
     <span class="input-group-text" id="basic-addon2"><div id='imaging' class='d-inline-block'></div></span>
   </div>
   <div id='ansices'></div>

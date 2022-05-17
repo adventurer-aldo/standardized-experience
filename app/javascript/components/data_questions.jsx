@@ -38,10 +38,10 @@ class Question extends React.Component {
   <nav aria-label="Page navigation example">
     <ul className="pagination">
       <li className="page-item" onClick={() => this.handleClick('-') }><a className="pe-auto page-link">Previous</a></li>
-      { new Array(this.state.max).fill().map((_, index) => {
-          <li key={index} onClick={() => this.handleNumber(index+1) } className="pe-auto page-item"><a className="page-link" >{index+1}</a></li>
-      })}
-      <li className="page-item"><a className="pe-auto page-link" >1</a></li>
+      { new Array(this.state.max).fill().map((_, index) => { 1 == 1 ? (
+          <li className="pe-auto page-item" key={index} onClick={() => this.handleClick('+')}><a className="page-link" >{index+1}</a></li>
+     ) : null })}
+      <li className="page-item"><a className="pe-auto page-link" >155</a></li>
       <li className="page-item" onClick={() => this.handleClick('+') }><a className="pe-auto page-link">Next</a></li>
     </ul>
   </nav>
