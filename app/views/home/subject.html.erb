@@ -1,27 +1,30 @@
 <head><title>Dados-Disciplinas | SE</title></head><%=render 'header'%><%= render 'nav_data' %>
-<p><b>Configurar Disciplinas</b></p>
 <%= form_with html: { autocomplete: 'off' } do |form| %>
-	<%= form.label :title, 'Nome: ' %>
-	<%= form.text_field :title, required: true, class: 'input-data', autofocus: true %>
-	<%= form.label :formula, 'Formula: ' %>
-	<%= form.number_field :formula, required: true, in: 0..0, value: 0 %>
+<div class="input-group mb-3">
+  <span class="input-group-text">Título</span>
+  <input type="text" name="title" required="required" class="form-control" placeholder="Qual é o nome da cadeira?" aria-label="Título">
+  <span class="input-group-text">Fórmula</span>
+  <input type="number" min="0" max="0" value="0" required="required" name="formula" class="form-control" placeholder="Como se calcula a média?" aria-label="Fórmula">
+</div>
 	<%= form.hidden_field 'operation', value: 'add' %>
-	<%= form.submit "Submeter Disciplina", class: 'submitBtn' %>
-<% end %>
-<p style='margin: auto'>
+<div class='d-grid'>
+  <%= form.submit "Submeter Disciplina", class: 'btn btn-primary' %>
+</div>
+<% end %><br>
+<div class="row row-cols-1 row-cols-md-2 g-4">
 <% @subjects.each do |subject| %>
-	<div class='midbox'>
-	<strong><%= subject.title %>:</strong> <br> 
-	<strong>Dificuldade:</strong> <%= '★' * subject.difficulty  %><%= '☆' * (5 - subject.difficulty)  %><br>
-	<strong>Formula:</strong> <%= formula(subject.formula) %>
+<div class="card m-1" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= subject.title %></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><strong>Dificuldade:</strong> <%= '★' * subject.difficulty  %><%= '☆' * (5 - subject.difficulty)  %></h6>
+    <p class="card-text"><strong>Fórmula:</strong> <%= formula(subject.formula) %></p>
 	<%= form_with html: { autocomplete: 'off' } do |form| %>
 	<%= form.hidden_field 'id', value: subject.id.to_s %>
 	<%= form.hidden_field 'operation', value: 'delete' %>
-	<%= form.submit "Eliminar", class: 'submitBtn' %>
-	</div>
-	<% end %>
-
-
+	<%= form.submit "Eliminar", class: 'btn btn-danger' %>
+  </div>
+</div>
 <% end %>
-</p>
+<% end %>
+</div>
 </div>
