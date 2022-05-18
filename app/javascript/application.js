@@ -42114,40 +42114,40 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         type: "button",
         className: "btn-close m-1",
         "data-bs-toggle": "modal",
-        "data-bs-target": "#eraseModal"
+        "data-bs-target": "#eraseModal" + JSON.stringify(index)
       }), /* @__PURE__ */ import_react6.default.createElement("div", {
-        class: "bg-opacity-50 bg-dark modal fade",
-        id: "eraseModal",
-        tabindex: "-1",
-        "aria-labelledby": "eraseModalLabel",
+        className: "bg-opacity-50 bg-dark modal fade",
+        id: "eraseModal" + JSON.stringify(index),
+        tabIndex: "-1",
+        "aria-labelledby": "eraseModalLabel" + JSON.stringify(index),
         "aria-hidden": "true"
       }, /* @__PURE__ */ import_react6.default.createElement("div", {
-        class: "modal-dialog"
+        className: "modal-dialog"
       }, /* @__PURE__ */ import_react6.default.createElement("div", {
-        class: "modal-content"
+        className: "modal-content"
       }, /* @__PURE__ */ import_react6.default.createElement("div", {
-        class: "modal-header"
+        className: "modal-header"
       }, /* @__PURE__ */ import_react6.default.createElement("h5", {
-        class: "modal-title",
-        id: "eraseModalLabel"
+        className: "modal-title",
+        id: "eraseModalLabel" + JSON.stringify(index)
       }, "Confirma\xE7\xE3o"), /* @__PURE__ */ import_react6.default.createElement("button", {
         type: "button",
-        class: "btn-close",
+        className: "btn-close",
         "data-bs-dismiss": "modal",
         "aria-label": "Close"
       })), /* @__PURE__ */ import_react6.default.createElement("div", {
-        class: "modal-body"
+        className: "modal-body"
       }, "Tem certeza de que pretende apagar esta quest\xE3o?", /* @__PURE__ */ import_react6.default.createElement("br", null), item.question), /* @__PURE__ */ import_react6.default.createElement("div", {
-        class: "modal-footer"
+        className: "modal-footer"
       }, /* @__PURE__ */ import_react6.default.createElement("button", {
         type: "button",
-        class: "btn btn-secondary",
+        className: "btn btn-secondary",
         "data-bs-dismiss": "modal"
       }, "N\xE3o..."), /* @__PURE__ */ import_react6.default.createElement("button", {
         type: "submit",
         name: "commit",
         value: "",
-        class: "btn btn-danger"
+        className: "btn btn-danger"
       }, "Certeza!")))))), /* @__PURE__ */ import_react6.default.createElement("div", {
         style: { height: "200px", backgroundSize: "auto 100%", background: item.image },
         className: "card-img-top",

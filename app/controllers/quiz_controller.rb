@@ -95,6 +95,7 @@ class QuizController < ApplicationController
             when 6
               [@journey.soundtrack.recurrence, @journey.soundtrack.recurrence_rush]
             end
+    @ost_index = @ost[0].index(@ost[0].sample)
 
     @full_query = all_questions.shuffle
 
@@ -175,7 +176,7 @@ class QuizController < ApplicationController
   #=======================================================================================
   def submit
     @quiz = Quiz.find_by(id: params[:quizID])
-    @quiz.update(end_time: Time.now.to_i)
+    @quiz.update(end_time: Time.zone.now)
 
     @quiz.answers.each do |answer|
       @ans = Answer.find_by(id: answer_id)
@@ -224,60 +225,21 @@ class QuizController < ApplicationController
         @quiz = Quiz.find_by(id: params[:id].to_i)
         @grade = helpers.grade(@quiz)
 
-        @duration = Time.at(@quiz.start_time.to_time - @quiz.end_time.to_time)
+        @duration = Time.at(@quiz.start_time.time - @quiz.end_time.time)
 
-        @answers_array = eval(@quiz.answerarray)
-        @answer_objects = []
-        @answers_array.each do |a_id|
-            @answer_objects << Answer.find_by(id: a_id)
-        end
-
-        @answer_objects.each do |anst|
-            quest = @question_objects[@answer_objects.index(anst)]
-            @parameters = eval(anst.parameters)
-            if @parameters[:type] == :formula
-                puts @parameters[:data].to_s
-                puts quest.answer.to_s
-                truth = eval(eval(%Q(sprintf('#{quest.answer}',#{@parameters[:data].join(',')}))))
-                @grade += anst.grade if anst.attempt.to_i == truth
-            elsif %I(veracity).include? @parameters[:type]
-                chooses = Choice.select(:decoy).where(question: quest.id).order(:id)
-                chooses = chooses.map { |choice| choice.decoy }
-                @choices = []
-                @parameters[:order].each do |choice|
-                    @choices << if choice.class == String
-                                    anst.attempt.split('|')[choice.to_i]
-                                else
-                                    chooses[choice]
-                                end
-                end
-                @choices.delete(nil)
-                puts @choices.to_s
-                puts @choices.intersection(quest.answer.split('|')).to_s
-                puts anst.attempt.split('|').to_s
-                @grade += anst.grade if @choices.intersection(quest.answer.split('|')).sort == anst.attempt.split('|').sort
-            else
-                if @parameters.include?(:strict_order)
-                    @grade += anst.grade if anst.attempt.split('|') == quest.answer.split('|')
-                else
-                    @grade += anst.grade if anst.attempt.downcase.split('|').sort == quest.answer.downcase.split('|').sort
-                end
-            end
-        end
-
-         @fanfare = if @grade < 7
-                        helpers.audio_path("failhard.ogg")
-                    elsif @grade < 9.5
-                        helpers.audio_path("fail.ogg")
-                    elsif @grade < 14.5
-                        helpers.audio_path("succeed.ogg")
-                    elsif @grade < 18
-                        helpers.audio_path("succeedhard.ogg")
-                    elsif @grade < 20
-                        helpers.audio_path("succeedharder.ogg")
-                    else
-                        helpers.audio_path("succeedhardest.ogg")
-                    end
+        @fanfare = if @grade < 7
+                       helpers.audio_path("failhard.ogg")
+                   elsif @grade < 9.5
+                       helpers.audio_path("fail.ogg")
+                   elsif @grade < 14.5
+                       helpers.audio_path("succeed.ogg")
+                   elsif @grade < 18
+                       helpers.audio_path("succeedhard.ogg")
+                   elsif @grade < 20
+                       helpers.audio_path("succeedharder.ogg")
+                   else
+                       helpers.audio_path("succeedhardest.ogg")
+                   end
     end
  
 end

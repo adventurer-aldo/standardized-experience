@@ -2,13 +2,20 @@
     <%= render "format-#{@format}"%>
 
 <audio autoplay='autoplay' loop='loop' id="bgm" preload="auto">
-    <source src="<%=@ost[0]%>" type="audio/ogg">
+    <source src='<%= @ost[0][@ost_index] %>' type="audio/ogg">
 </audio>
-<%= form_with id: :quiz, html: { autocomplete: 'off' } do |form| %>
+<%= form_with id: :quiz, onsubmit: 'console.log("hi")' , html: { autocomplete: 'off'} do |form| %>
     <%= form.hidden_field :quizID, value: @quiz.id.to_s %>
     <% @quiz.answers.each_with_index do |answer, index| %>
-    <p><b><%= index + 1 %>.</b><%= answer.question %></p>
+    <p><b><%= index + 1 %>.</b><%= answer.question.question %></p>
     <%= input_answer(answer) %>
     <% end %>
-    <%= form.submit 'Entregar Teste', class: 'btn btn-success m-auto' %>
+    <div class="d-grid gap-2 col-7 mx-auto">
+      <%= form.submit 'Entregar Teste', class: 'btn btn-success' %>
+    </div>
 <% end %>
+
+<script>
+var fire = '<%= @ost[1][@ost_index] %>'
+document.getElementById('form').onsubmit
+</script>

@@ -55,22 +55,22 @@ class Question extends React.Component {
             <form action="/data/question" autoComplete="off">
               <input type='hidden' name='id' value={JSON.stringify(item.id)} />
               <input type='hidden' name='operation' value='delete' />
-              <input type='button' className='btn-close m-1' data-bs-toggle="modal" data-bs-target="#eraseModal" />
+              <input type='button' className='btn-close m-1' data-bs-toggle="modal" data-bs-target={"#eraseModal" + JSON.stringify(index)} />
               
-              <div class="bg-opacity-50 bg-dark modal fade" id="eraseModal" tabindex="-1" aria-labelledby="eraseModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="eraseModalLabel">Confirmação</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div className="bg-opacity-50 bg-dark modal fade" id={"eraseModal" + JSON.stringify(index)} tabIndex="-1" aria-labelledby={"eraseModalLabel" + JSON.stringify(index)} aria-hidden="true">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id={"eraseModalLabel" + JSON.stringify(index)}>Confirmação</h5>
+                      <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div className="modal-body">
                       Tem certeza de que pretende apagar esta questão?<br/>
                       {item.question}
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não...</button>
-                      <button type="submit" name='commit' value='' class="btn btn-danger">Certeza!</button>
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Não...</button>
+                      <button type="submit" name='commit' value='' className="btn btn-danger">Certeza!</button>
                     </div>
                   </div>
                 </div>
