@@ -37,14 +37,13 @@ class HomeController < ApplicationController
       return
     end
     @subjects = Subject.all.order(title: 'asc')
-    puts cookies[:tags]
-    puts cookies[:types]
     @tags = []
     return unless Question.exists?
 
     Question.all.map(&:tags).each do |tagging|
       @tags += tagging
     end
+    @tags.uniq!
   end
 
   def subject

@@ -76,7 +76,7 @@ class Question extends React.Component {
                 </div>
               </div>
             </form>
-            <div style={{height: '200px', backgroundSize: 'auto 100%', background: item.image, height: '200px'}} className="card-img-top" alt="..." />
+            <div style={{height: '200px', backgroundSize: 'auto 100%', background: item.image}} className="card-img-top" alt="..." />
             <div className="card-body">
               <h5 className="card-title">{item.question}</h5>
               <p className="card-text">{item.answers[0]}</p>
@@ -95,7 +95,9 @@ class Question extends React.Component {
   }
 }
 
-if (document.getElementById('navigate_questions') != null) {
-  ReactDOM.render(<Question pages={chunkArrayInGroups(questions, 10)} />,
-  document.getElementById('navigate_questions'))
-}
+document.addEventListener('turbo:load', () => {
+  if (document.getElementById('navigate_questions') != null) {
+    ReactDOM.render(<Question pages={chunkArrayInGroups(questions, 10)} />,
+    document.getElementById('navigate_questions'))
+  }
+})

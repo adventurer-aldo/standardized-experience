@@ -50,7 +50,9 @@ class QuestionImage extends React.Component {
   }
 }
 
-if (document.getElementById('imaging') != null ) {
-ReactDOM.render(<QuestionImage /> ,
-document.getElementById("imaging"))
-}
+document.addEventListener('turbo:load', () => {
+  if (document.getElementById('imaging') != null ) {
+    ReactDOM.render(<QuestionImage /> ,
+    document.getElementById("imaging"))
+  }
+})

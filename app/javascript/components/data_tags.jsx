@@ -98,6 +98,8 @@ const App = () => {
 };
 
 
-if (document.getElementById('tags') != null) {
-  ReactDOM.render(<App />,document.getElementById('tags'))
-};
+document.addEventListener('turbo:load', () => {
+  if (document.getElementById('tags') != null) {
+    ReactDOM.render(<App />,document.getElementById('tags'))
+  };
+})

@@ -155,8 +155,9 @@ class Ansices extends React.Component {
 
   }
 }
-
-if (document.getElementById('ansices') != null) {
-    ReactDOM.render(<Ansices />,
-    document.getElementById('ansices'))
-};
+document.addEventListener('turbo:load', () => {
+  if (document.getElementById('ansices') != null) {
+      ReactDOM.render(<Ansices />,
+      document.getElementById('ansices'))
+  };
+})

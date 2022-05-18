@@ -50,6 +50,8 @@ class Timer extends React.Component {
 
 }
 
-if (document.getElementById('timer') != null) {
-    ReactDOM.render(<Timer />,document.getElementById('timer'))
-};
+document.addEventListener('turbo:load', () => {
+  if (document.getElementById('timer') != null) {
+      ReactDOM.render(<Timer />,document.getElementById('timer'))
+  };
+})

@@ -26,6 +26,8 @@ class Parameters extends React.Component {
     }
 }
 
-if (document.getElementById('parameters') != null ) {
-    ReactDOM.render(<Parameters />, document.getElementById('parameters'))
-}
+document.addEventListener('turbo:load', () => {
+  if (document.getElementById('parameters') != null ) {
+      ReactDOM.render(<Parameters />, document.getElementById('parameters'))
+  }
+})

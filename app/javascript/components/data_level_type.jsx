@@ -1,6 +1,5 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Butao from './butao.jsx'
 
 class QType extends React.Component {
@@ -55,7 +54,9 @@ class Level extends React.Component {
   }
 }
 
-if (document.getElementById('questiontype') != null) {
-  ReactDOM.render(<QType />, document.getElementById('questiontype'))
-  ReactDOM.render(<Level />, document.getElementById('levels'))
-}
+document.addEventListener('turbo:load', () => {
+  if (document.getElementById('questiontype') != null) {
+    ReactDOM.render(<QType />, document.getElementById('questiontype'))
+    ReactDOM.render(<Level />, document.getElementById('levels'))
+  }
+})

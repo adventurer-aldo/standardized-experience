@@ -1,5 +1,5 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-//import "@hotwired/turbo-rails"
+import "@hotwired/turbo-rails"
 import "./javascript/components/data_ansices.jsx"
 import "./javascript/components/data_level_type.jsx"
 import "./javascript/components/data_parameters.jsx"
