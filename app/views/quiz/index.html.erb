@@ -7,7 +7,7 @@
 <%= form_with id: :quiz, onsubmit: 'console.log("hi")' , html: { autocomplete: 'off'} do |form| %>
     <%= form.hidden_field :quizID, value: @quiz.id.to_s %>
     <% @quiz.answers.each_with_index do |answer, index| %>
-    <p><b><%= index + 1 %>.</b><%= answer.question.question %></p>
+    <p><b><%= index + 1 %>.</b> <%= answer.question.question %></p>
     <%= input_answer(answer) %>
     <% end %>
     <div class="d-grid gap-2 col-7 mx-auto">
