@@ -1,4 +1,4 @@
-module QuizHelper
+module InputAnswerHelper
 
   def input_answer(answer)
     case answer.question_type

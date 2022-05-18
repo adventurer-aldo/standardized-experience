@@ -22,7 +22,7 @@ class HomeController < ApplicationController
     quiz = Quiz.last
 
     @last_quiz = if quiz
-                   format('Seu último teste foi de %s, com nota %g.', quiz.subject.title, helpers.grade(quiz))
+                   format('Seu último teste foi de %s, com nota %g. ', quiz.subject.title, helpers.grade(quiz)) + Misc::Text.evaluate(helpers.grade(quiz))
                  else
                    'Você ainda não fez nenhum teste. Comece um ou faça uma jornada!'
                  end

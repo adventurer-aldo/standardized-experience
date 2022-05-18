@@ -1,4 +1,4 @@
-module QuizHelper
+module CorrectingHelper
   
   def correct(answer)
     question = Question.find_by(id: answer.question_id)

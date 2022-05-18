@@ -27,4 +27,41 @@ module Misc
     end
   end
 
+  def self.evaluate(grade)
+    return  case grade.round
+            when 0..4
+              [
+                "...Tem um longo caminho pela frente."
+              ].sample
+            when 3..6
+              [
+                "Precisará esforçar-se ainda mais!"
+              ].sample
+            when 7..9
+              [
+                "Está melhorando, mas ainda está longe de ser bom."
+              ].sample
+            when 10..12
+              [
+                "Boa! Agora tente ganhar mais #{rand(1..8)} na próxima vez."
+              ].sample
+            when 13..14
+              [
+                "Bem acima da média. Talvez você seja capaz de dispensar."
+              ].sample
+            when 15..17
+              [
+                "Incrível! Porquê não tenta alcançar uma nota ainda melhor? Você é capaz!"
+              ].sample
+            when 18..19
+              [
+                "Gostei! Mandou muito bem mesmo! E agora, consegue ver rolar um 20?"
+              ].sample
+            when 20
+              [
+                "Perfeito! Simplesmente perfeito! Você arrasou nessa!"
+              ].sample
+            end
+  end
+
 end

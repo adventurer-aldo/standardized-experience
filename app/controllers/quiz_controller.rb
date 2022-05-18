@@ -74,7 +74,7 @@ class QuizController < ApplicationController
                     when 4
                       base_query.where(level: 3).limit(rand(10..40)) # Dissertação
                     when 5
-                      base_query.where(level: 4).limit(rand(5..30)) + base_query.where.not(level: [3,4]).limit(rand(10..20)) # Exame
+                      base_query.where(level: 4).limit(rand(5..30)) + base_query.where.not(level: [3, 4]).limit(rand(10..20)) # Exame
                     when 6
                       base_query.limit(rand(50..100)) # Recorrência
                     end
@@ -103,7 +103,7 @@ class QuizController < ApplicationController
     @full_query.each do |query|
       @questions_array << query.id
     end
-    
+
     @quiz = Quiz.create(
       subject_id: @subject.id,
       first_name: '', last_name: '',
