@@ -1,7 +1,7 @@
 <% unless @grade.nil? %><span class='score'><%= number_with_precision @grade, significant: true, precision: 2, separator: ',' %>/20</span><% end %><div id='logoquiz' class='smudge-image'></div>
 <p align='center'><b>Standardized Experience</b><br>
-<b>Curso:</b> Med. Geral&emsp;<b>Ano lectivo:</b>&emsp;<b>Nível:</b> <%=@current_quiz.level%>&emsp;<%=@quiz_start.year%>&emsp;<b>Jornada:</b> <%=@current_quiz.journey%><br>
-<span style='text-decoration: underline'><b>Disciplina:</b> <%=@current_quiz.subject%>&emsp;<b><%=@test_name[@current_quiz.level]%></b>&emsp;<b>Data:</b> <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>&emsp;<b>Duração:</b> <%=@quiz_durations[@current_quiz.level]%>min — <%=@quiz_start.hour%>h<%=@quiz_start.min%>m as <%=@quiz_end.hour%>h<%=@quiz_end.min%>m </span> </p>
+<b>Curso:</b> Med. Geral&emsp;<b>Ano lectivo:</b>&emsp;<b>Nível:</b> <%=@quiz.level%>&emsp;<%=@quiz_start.year%>&emsp;<b>Jornada:</b> <%=@quiz.journey%><br>
+<span style='text-decoration: underline'><b>Disciplina:</b> <%= @quiz.subject.title %>&emsp;<b><%=@test_name[@quiz.level]%></b>&emsp;<b>Data:</b> <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>&emsp;<b>Duração:</b> <%=@quiz_durations[@current_quiz.level]%>min — <%=@quiz_start.hour%>h<%=@quiz_start.min%>m as <%=@quiz_end.hour%>h<%=@quiz_end.min%>m </span> </p>
 <p> <%= form_with id: :name, html: { autocomplete: 'off' } do |form| %>
         <%= form.label :name, "Nome: ", class: 'bold'%>
         <% unless @current_quiz.timestarted == @current_quiz.timeended %>

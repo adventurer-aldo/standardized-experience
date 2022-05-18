@@ -54,7 +54,9 @@ class HomeController < ApplicationController
   def submit_subject
     case params[:operation]
     when 'add'
-      Subject.create(title: params[:title], formula: params[:formula], difficulty: rand(1..5))
+      Subject.create(title: params[:title], formula: params[:formula].to_i, difficulty: rand(1..5))
+    when 'edit'
+      Subject.find_by(id: params[:id].to_i).update(title: params[:title], formula: params[:formula].to_i)
     when 'delete'
       Subject.destroy_by(id: params[:id].to_i)
     end

@@ -1,12 +1,12 @@
 <head><title>Dados-Disciplinas | SE</title></head><%=render 'header'%><%= render 'nav_data' %>
-<%= form_with html: { autocomplete: 'off' } do |form| %>
+<%= form_with html: {id: 'subject', autocomplete: 'off' } do |form| %>
 <div class="input-group mb-3 mt-1">
   <span class="input-group-text">Título</span>
-  <input type="text" name="title" required="required" class="form-control" placeholder="Qual é o nome da cadeira?" aria-label="Título">
+  <input id="title" type="text" name="title" required="required" class="form-control" placeholder="Qual é o nome da cadeira?" aria-label="Título">
   <span class="input-group-text">Fórmula</span>
-  <input type="number" min="0" max="0" value="0" required="required" name="formula" class="form-control" placeholder="Como se calcula a média?" aria-label="Fórmula">
+  <input id="formula" type="number" min="0" max="0" value="0" required="required" name="formula" class="form-control" placeholder="Como se calcula a média?" aria-label="Fórmula">
 </div>
-	<%= form.hidden_field 'operation', value: 'add' %>
+	<%= form.hidden_field 'operation', value: 'add', id: 'operation' %>
 <div class='d-grid'>
   <%= form.submit "Submeter Disciplina", class: 'btn btn-primary' %>
 </div>
@@ -14,14 +14,31 @@
 <div class="row row-cols-1 row-cols-md-2 g-4">
 <% @subjects.each do |subject| %>
 <div class="card m-1" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title"><%= subject.title %></h5>
-    <h6 class="card-subtitle mb-2 text-muted"><strong>Dificuldade:</strong> <%= '★' * subject.difficulty  %><%= '☆' * (5 - subject.difficulty)  %></h6>
-    <p class="card-text"><strong>Fórmula:</strong> <%= formula(subject.formula) %></p>
 	<%= form_with html: { autocomplete: 'off' } do |form| %>
 	<%= form.hidden_field 'id', value: subject.id.to_s %>
 	<%= form.hidden_field 'operation', value: 'delete' %>
-	<%= form.submit "Eliminar", class: 'btn btn-danger' %>
+  <input type='button' class='btn-close m-1' data-bs-toggle="modal" data-bs-target="#eraseModal<%=subject.id.to_s%>" />
+  <div class="bg-opacity-50 bg-dark modal fade" id="eraseModal<%=subject.id.to_s%>" tabindex="-1" aria-labelledby="eraseModalLabel<%=subject.id.to_s%>" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="eraseModalLabel<%=subject.id.to_s%>">Confirmação</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Tem certeza de que pretende apagar a disciplina <b><%= subject.title %></b>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não...</button>
+	        <%= form.submit "Certeza!", class: 'btn btn-danger' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= subject.title %></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><strong>Dificuldade:</strong> <%= '★' * subject.difficulty  %><%= '☆' * (5 - subject.difficulty)  %></h6>
+    <p class="card-text"><strong>Questões:</strong> <%= subject.questions.size %><br><strong>Fórmula:</strong> <%= formula(subject.formula) %></p>
   </div>
 </div>
 <% end %>

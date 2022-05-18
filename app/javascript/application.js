@@ -38310,11 +38310,44 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         name: "operation",
         value: "delete"
       }), /* @__PURE__ */ import_react6.default.createElement("input", {
+        type: "button",
+        className: "btn-close m-1",
+        "data-bs-toggle": "modal",
+        "data-bs-target": "#eraseModal"
+      }), /* @__PURE__ */ import_react6.default.createElement("div", {
+        class: "bg-opacity-50 bg-dark modal fade",
+        id: "eraseModal",
+        tabindex: "-1",
+        "aria-labelledby": "eraseModalLabel",
+        "aria-hidden": "true"
+      }, /* @__PURE__ */ import_react6.default.createElement("div", {
+        class: "modal-dialog"
+      }, /* @__PURE__ */ import_react6.default.createElement("div", {
+        class: "modal-content"
+      }, /* @__PURE__ */ import_react6.default.createElement("div", {
+        class: "modal-header"
+      }, /* @__PURE__ */ import_react6.default.createElement("h5", {
+        class: "modal-title",
+        id: "eraseModalLabel"
+      }, "Confirma\xE7\xE3o"), /* @__PURE__ */ import_react6.default.createElement("button", {
+        type: "button",
+        class: "btn-close",
+        "data-bs-dismiss": "modal",
+        "aria-label": "Close"
+      })), /* @__PURE__ */ import_react6.default.createElement("div", {
+        class: "modal-body"
+      }, "Tem certeza de que pretende apagar esta quest\xE3o?", /* @__PURE__ */ import_react6.default.createElement("br", null), item.question), /* @__PURE__ */ import_react6.default.createElement("div", {
+        class: "modal-footer"
+      }, /* @__PURE__ */ import_react6.default.createElement("button", {
+        type: "button",
+        class: "btn btn-secondary",
+        "data-bs-dismiss": "modal"
+      }, "N\xE3o..."), /* @__PURE__ */ import_react6.default.createElement("button", {
         type: "submit",
         name: "commit",
         value: "",
-        className: "btn-close m-1"
-      })), /* @__PURE__ */ import_react6.default.createElement("div", {
+        class: "btn btn-danger"
+      }, "Certeza!")))))), /* @__PURE__ */ import_react6.default.createElement("div", {
         style: { height: "200px", backgroundSize: "auto 100%", background: item.image, height: "200px" },
         className: "card-img-top",
         alt: "..."

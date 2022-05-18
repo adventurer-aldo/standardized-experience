@@ -1,8 +1,8 @@
-<%= render "navbar"%><head><title><%=@current_quiz.subject%> | <%=@test_name[@current_quiz.level]%></title></head><div id='page'><div style='padding: 30px'>
+<%= render "navbar"%><head><title><%=@quiz.subject.title %> | <%=@test_name[@quiz.level]%></title></head><div id='page'><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
-<%= audio_tag(@ost[@current_quiz.level][0],autoplay: true, loop: true, id: 'bgm')%>
+<%= audio_tag(@ost[0], autoplay: true, loop: true, id: 'bgm')%>
 <%= form_with id: :quiz, html: { autocomplete: 'off' } do |form| %>
-    <%= form.hidden_field :quizID, value: @current_quiz.id %>
+    <%= form.hidden_field :quizID, value: @quiz.id %>
         <% @question_objects.each do |question|
            @index = @question_objects.index(question)
            @parameters = eval(@answer_objects[@index].parameters)
@@ -72,5 +72,5 @@
 <% end %>
 </div></div>
 <script>
-var fire = '<%=@ost[@current_quiz.level][1]%>'
+var fire = '<%= @ost[1] %>'
 </script>

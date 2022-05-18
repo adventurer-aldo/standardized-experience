@@ -91,7 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_093759) do
     t.text "first_name"
     t.text "last_name"
     t.integer "subject_id", null: false
-    t.integer "journey", default: 0, null: false
+    t.integer "journey_id", default: 0, null: false
     t.time "start_time", null: false
     t.time "end_time"
     t.integer "format", limit: 2, default: 0, null: false
