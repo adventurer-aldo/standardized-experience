@@ -1,6 +1,6 @@
 <div id='navbar' style='background-color: black; display: none;'><ul>
-    <li id='timer' class='li-result time li-right'>0<%= @quiz_durations[@current_quiz.level] %>:00</li>
+    <li id='timer' class='li-result time li-right'><%= @quiz_durations[@quiz.level] %>:00</li>
 </ul></div>
 <script type='text/javascript'>
-var quiz_timer = <%= @quiz_durations[@current_quiz.level] %>;
+var quiz_timer = <%= @quiz_durations[@quiz.level] %>;
 </script>

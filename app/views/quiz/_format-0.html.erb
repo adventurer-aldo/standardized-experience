@@ -1,15 +1,15 @@
 <% unless @grade.nil? %><span class='score'><%= number_with_precision @grade, significant: true, precision: 2, separator: ',' %>/20</span><% end %><div id='logoquiz' class='smudge-image'></div>
 <p align='center'><b>Standardized Experience</b><br>
-<b>Curso:</b> Med. Geral&emsp;<b>Ano lectivo:</b>&emsp;<b>Nível:</b> <%=@quiz.level%>&emsp;<%=@quiz_start.year%>&emsp;<b>Jornada:</b> <%=@quiz.journey%><br>
-<span style='text-decoration: underline'><b>Disciplina:</b> <%= @quiz.subject.title %>&emsp;<b><%=@test_name[@quiz.level]%></b>&emsp;<b>Data:</b> <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>&emsp;<b>Duração:</b> <%=@quiz_durations[@current_quiz.level]%>min — <%=@quiz_start.hour%>h<%=@quiz_start.min%>m as <%=@quiz_end.hour%>h<%=@quiz_end.min%>m </span> </p>
+<b>Curso:</b> Med. Geral&emsp;<b>Ano lectivo:</b>&emsp;<b>Nível:</b> <%=@quiz.level%>&emsp;<%=@quiz_start.year%>&emsp;<b>Jornada:</b> <%=@quiz.journey.id %><br>
+<span style='text-decoration: underline'><b>Disciplina:</b> <%= @quiz.subject.title %>&emsp;<b><%=@test_name[@quiz.level]%></b>&emsp;<b>Data:</b> <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>&emsp;<b>Duração:</b> <%=@quiz_durations[@quiz.level]%>min — <%=@quiz_start.hour%>h<%=@quiz_start.min%>m as <%=@quiz_end.hour%>h<%=@quiz_end.min%>m </span> </p>
 <p> <%= form_with id: :name, html: { autocomplete: 'off' } do |form| %>
         <%= form.label :name, "Nome: ", class: 'bold'%>
-        <% unless @current_quiz.timestarted == @current_quiz.timeended %>
-            <span class='input-name'><%= @current_quiz.name %></span>
+        <% unless @quiz.start_time == @quiz.end_time %>
+            <span class='input-name'><%= @quiz.first_name %></span>
         <% else %>
-            <%= form.text_field :name, class: 'input-name' %>
+            <%= form.text_field :name, class: 'input-name', id: 'first_name' %>
         <% end%>
         <%= form.label :name, "Código: ", class: 'bold'%>
-        <%= form.text_field :surname, class: 'input-code' %>
+        <%= form.text_field :surname, class: 'input-code', id: 'last_name' %>
     <% end %>
  </p>

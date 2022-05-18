@@ -1,4 +1,4 @@
-<head><title><%=@current_quiz.subject%> | Resultados</title></head><div id='navbar' style='background-color: black;'><ul>
+<head><title><%=@quiz.subject%> | Resultados</title></head><div id='navbar' style='background-color: black;'><ul>
     <%=link_to '/' do %>
         <li id='nav-li-Home' class='li-result'><%=fa_icon 'home'%> <span class='erasable'>Home</span></li>
     <% end %>
@@ -19,7 +19,7 @@
 </ul></div>
 <%= audio_tag(@fanfare, autoplay: true)%>
 <div id='page'><div style='padding: 30px'>
-    <%= render "format-#{@current_quiz.format}"%>
+    <%= render "format-#{@quiz.format}"%>
 
     <% @question_objects.each do |question| %>
         <p style='position: relative'><% 

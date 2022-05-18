@@ -104,11 +104,11 @@ class QuizController < ApplicationController
       @questions_array << query.id
     end
     
-    quiz = Quiz.create(
+    @quiz = Quiz.create(
       subject_id: @subject.id,
       first_name: '', last_name: '',
       journey_id: @journey.id,
-      start_time: Time.now,
+      start_time: Time.zone.now,
       format: @format,
       level: @level
     )
@@ -155,7 +155,7 @@ class QuizController < ApplicationController
       end
 
       Answer.create(
-        quiz_id: quiz.id,
+        quiz_id: @quiz.id,
         attempt: '',
         question_id: question.id,
         grade: (Float(20) / @full_query.size),
@@ -164,7 +164,7 @@ class QuizController < ApplicationController
       )
     end
 
-    @quiz_start = quiz.start_time.to_time
+    @quiz_start = @quiz.start_time.time
     @quiz_end = Time.at(@quiz_start.to_i + @quiz_durations[@level] * 60)
   end
 
@@ -174,11 +174,10 @@ class QuizController < ApplicationController
   # to display the data.
   #=======================================================================================
   def submit
-    @current_quiz = Quiz.find_by(id: params[:quizID])
-    @current_quiz.update(timeended: Time.now.to_i)
+    @quiz = Quiz.find_by(id: params[:quizID])
+    @quiz.update(end_time: Time.now.to_i)
 
-    @answers = eval(@current_quiz.answerarray)
-    @answers.each do |answer_id|
+    @quiz.answers.each do |answer|
       @ans = Answer.find_by(id: answer_id)
       @parameters = eval(@ans.parameters)
       @answer = "#{params[:answer]["#{@answers.index(answer_id)}"]}"
@@ -227,7 +226,7 @@ class QuizController < ApplicationController
 
         @duration = Time.at(@quiz.start_time.to_time - @quiz.end_time.to_time)
 
-        @answers_array = eval(@current_quiz.answerarray)
+        @answers_array = eval(@quiz.answerarray)
         @answer_objects = []
         @answers_array.each do |a_id|
             @answer_objects << Answer.find_by(id: a_id)

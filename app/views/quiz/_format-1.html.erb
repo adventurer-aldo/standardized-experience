@@ -1,22 +1,22 @@
 <% unless @grade.nil? %><span class='score'><%= number_with_precision @grade, significant: true, precision: 2, separator: ',' %>/20</span><% end %>
 <div id='bioborder'><p align='center'><b>SE</b></p>
 <p align='center'<b>STANDARDIZED EXPERIENCE</b></p>
-<p style='float: left'>Disciplina: <%=@current_quiz.subject%><br>
+<p style='float: left'>Disciplina: <%=@quiz.subject.title%><br>
 Curso: Medicina Geral<br>
-Variante <%=%W(A B C D).sample %>
+Variante <%= %w[A B C D].sample %>
 </p><p style='float: right'>1º Ano, 2º Semestre: <br>
 Ano lectivo: <%=@quiz_start.year%><br>
 Data: <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>
 </p>
-<p><br><br><br><br><span align='center'><%= @test_name[@current_quiz.level].upcase %></span></p></div>
+<p><br><br><br><br><span class='m-auto'><%= @test_name[@quiz.level].upcase %></span></p></div>
 <p> <%= form_with id: :name, html: { autocomplete: 'off' } do |form| %>
         <%= form.label :name, "Nome: ", class: 'bold'%>
-        <% unless @current_quiz.timestarted == @current_quiz.timeended %>
-            <span class='input-name'><%= @current_quiz.name %></span>
+        <% if @quiz.end_time %>
+            <span class='form-control'><%= @quiz.first_name %></span>
         <% else %>
-            <%= form.text_field :name, class: 'input-name' %>
+            <%= form.text_field :name, class: 'form-control', id: 'first_name' %>
         <% end%>
         <%= form.label :name, "Código: ", class: 'bold'%>
-        <%= form.text_field :surname, class: 'input-code' %>
+        <%= form.text_field :surname, class: 'form-control', id: 'last_name' %>
     <% end %>
  </p>
