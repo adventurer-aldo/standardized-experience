@@ -1,7 +1,7 @@
 <%= render "navbar"%><head><title><%=@quiz.subject.title %> | <%=@test_name[@quiz.level]%></title></head><div id='page'><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
 
-<div data-turbo-permanent>
+<div data-turbo="false">
   <audio autoplay='autoplay' loop='loop' id="bgm" preload="auto">
       <source src=<%=raw @ost[0][@ost_index] %> type="audio/ogg">
   </audio>
