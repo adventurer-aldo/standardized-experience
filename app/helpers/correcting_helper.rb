@@ -51,11 +51,11 @@ module CorrectingHelper
     case answer.question_type
     when 'open'
       return %(<span class='text-wrap text-primary'><b>R:</b> #{answer.attempt}</span>
-        #{correct(answer) ? '' : %(<span class="text-danger">#{answer.question.answer.sample}</span>)})
+        #{correct(answer) ? '' : %(<span class="text-danger">#{answer.question.answer.sample}</span>)}).html_safe
     when 'caption'
       return answer.attempt.map do |a|
         "<div class='form-control form-control-lg'>#{answer.question.answer.include?(a) ? '' : '<span class="text-decoration-line-through">'}#{a}#{answer.question.answer.include?(a) ? '' : '</span>'}<span class='text-danger'> #{answer.question.answer.include?(a) ? '✓' : '✗'}</span></div>"
-      end.join('<br>')
+      end.join('<br>').html_safe
     when 'choice', 'multichoice'
       type = case answer.question_type
              when 'choice'
@@ -99,13 +99,13 @@ module CorrectingHelper
             </label>
           </div>)
         end
-      end.join('<br>')
+      end.join('<br>').html_safe
     when 'formula'
       condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
       format("#{question.answer}", #{answer.variables.join(', ')})
       RUBY
       return %(<span class='text-wrap text-primary'><b>R:</b> #{answer.attempt}</span>
-        #{correct(answer) ? '' : %(<span class="text-danger">#{condition}</span>)})
+        #{correct(answer) ? '' : %(<span class="text-danger">#{condition}</span>)}).html_safe
     end
   end
 end
