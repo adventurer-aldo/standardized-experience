@@ -17,7 +17,7 @@ class HomeController < ApplicationController
     end
 
     @ost = Soundtrack.first.home if @ost.nil?
-    @tip = Question.where("'open' = ANY (question_types").order(Arel.sql('RANDOM()'))
+    @tip = Question.all.order(Arel.sql('RANDOM()')).limit(1)
 
     quiz = Quiz.last
 
