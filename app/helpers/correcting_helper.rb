@@ -100,6 +100,12 @@ module CorrectingHelper
           </div>)
         end
       end.join('<br>')
+    when 'formula'
+      condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+      format("#{question.answer}", #{answer.variables.join(', ')})
+      RUBY
+      return %(<span class='text-wrap text-primary'><b>R:</b> #{answer.attempt}</span>
+        #{correct(answer) ? '' : %(<span class="text-danger">#{condition}</span>)})
     end
   end
 end
