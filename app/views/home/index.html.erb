@@ -5,12 +5,12 @@
     <h2 class="accordion-header" id="headingOne">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
         <b>Pop Quiz:</b>&emsp;<%= @tip.first.question %>
-        <%= @tip.first.question_types.intersect?(%w[multichoice caption veracity]) ? "<br>#{@tip.first.answer.union(@tip.first.choices.map(&:decoy)).shuffle.join('<br>')}" : '' %>
+        <%= @tip.first.question_types.intersect?(%w[multichoice caption veracity]) ? "<br>#{@tip.first.answer.union(@tip.first.choices.map(&:decoy)).shuffle.join('<br>')}".html_safe : '' %>
       </button>
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-       <%= @tip.first.question_types.intersect?(%w[multichoice caption veracity]) ? @tip.first.answer.join(' & ') : @tip.first.answer.sample %>
+       <%= @tip.first.question_types.intersect?(%w[multichoice caption veracity]) ? @tip.first.answer.shuffle.join(' & ') : @tip.first.answer.sample %>
       </div>
     </div>
   </div><br>
