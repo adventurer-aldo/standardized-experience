@@ -27,10 +27,10 @@
       <% else %>
           <span style='position: relative'><span class='grade'>0,0</span></span>
       <% end %>
-      <p><b><%= index + 1 %></b> <%= answer.question.question. %><br>
+      <p><b><%= index + 1 %></b> <%= answer.question.question %><br>
       <%= image_tag(answer.question.image.url, class: 'img-fluid') if answer.question.image.attached? %><br>
+      <%= show_correct(answer) %>
       R: <%= answer.attempt.join('<br>').html_safe %></p>
-    <% end 
+    <% end %>
         
-    end %>
 </div></div>
