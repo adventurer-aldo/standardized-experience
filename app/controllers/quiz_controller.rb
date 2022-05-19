@@ -175,40 +175,15 @@ class QuizController < ApplicationController
   # to display the data.
   #=======================================================================================
   def submit
-    @quiz = Quiz.find_by(id: params[:quizID])
+    @quiz = Quiz.find_by(id: params[:quizID].to_i)
     @quiz.update(end_time: Time.zone.now)
+    @quiz.update(first_name: params[:first_name]) if params[:first_name]
+    @quiz.update(last_name: params[:last_name]) if params[:last_name]
 
-    @quiz.answers.each do |answer|
-      @ans = Answer.find_by(id: answer_id)
-      @parameters = eval(@ans.parameters)
-      @answer = "#{params[:answer]["#{@answers.index(answer_id)}"]}"
-      if %I(choice multichoice veracity).include? @parameters[:type]
-        @que = Question.find_by(id: @ans.questionid)
-        @sourceAnswers = @que.answer.split('|')
-        @sourceChoices = (Choice.select(:decoy).where(question: @que.id).order(:id)).map{|n| n.decoy }
-        @choices = eval(params[:choices][@answers.index(answer_id).to_s])
-        @order = []
-
-        @choices.each do |choose|
-          @order << @sourceChoices.index(choose) if @sourceChoices.include?(choose)
-          @order << "#{@sourceAnswers.index(choose)}" if @sourceAnswers.include?(choose)
-        end
-
-        @parameters[:order] = @order
+    if params[:answer]
+      params[:answer].each do |id, answer|
+        Answer.find_by(id: id.to_i).update(attempt: answer)
       end
-      if %I(caption choice multichoice veracity).include? @parameters[:type]
-        @answer = eval(@answer)
-        unless @answer.nil?
-          @answer.delete('')
-          @answer = @answer.join('|')
-        else
-          @answer = ''
-        end
-      end
-      @answer[0] = '' if @answer[0] == '|'
-
-      @ans.update(attempt: @answer,
-                  parameters: @parameters )
     end
 
     redirect_to results_path(id: params[:quizID])

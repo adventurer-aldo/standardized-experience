@@ -24,7 +24,9 @@
   <p><strong>Nível <%= @journey.level %></strong><br>
   <%= Misc::Text.cheer[@journey.level].sample %></p>
 <% end %>
+<div data-turbo-permanent>
 <% if @journey_check %>
-  <%= audio_tag(@ost, autoplay: true, loop: true)%>
+  <%= audio_tag(@ost, autoplay: true, loop: true, id: 'bgm')%>
   <%= journey_table(@journey) %>
 <% end %>
+</div>
