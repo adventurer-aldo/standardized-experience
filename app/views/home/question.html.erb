@@ -23,7 +23,7 @@
 <br></div>
 <div class='bg-primary p-2 text-white align-middle'><b><%= fa_icon 'comment', class: 'align-middle'%> Questões Definidas</b></div>
 <div id='navigate_questions'></div>
-<script>
+<turbo-frame id="questions"><script>
 <% if cookies[:level] && cookies[:types] && cookies[:choices] && cookies[:reuse_image] && cookies[:tags] && %>
 <% cookies[:parameters] %>
 const level = <%= cookies[:level].to_i %>;
@@ -57,3 +57,4 @@ image: '<%= raw(('url(') + (question.image.attached? ? question.image.url : 'htt
 
 <% end %>
 </script>
+</turbo-frame>

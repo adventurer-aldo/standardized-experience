@@ -4,7 +4,7 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-        <b>Pop Quiz:</b>&emsp;<%= @tip.first.question %>
+        <b>Pop Quiz: </b><%= @tip.first.question %>
         <%= @tip.first.question_types.intersect?(%w[multichoice caption veracity]) ? "<br>#{@tip.first.answer.union(@tip.first.choices.map(&:decoy)).shuffle.join('<br>')}".html_safe : '' %>
       </button>
     </h2>
@@ -28,7 +28,9 @@
   </div>
   <%= Misc::Text.cheer[@journey.level].sample %></p>
 <% end %>
+<div data-turbo="false">
 <% if @journey_check %>
   <%= audio_tag(@ost, autoplay: true, loop: true, id: 'bgm')%>
   <%= journey_table(@journey) %>
 <% end %>
+</div>
