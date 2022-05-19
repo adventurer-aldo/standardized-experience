@@ -3,8 +3,8 @@ module CorrectingHelper
   def correct(answer)
     question = Question.find_by(id: answer.question_id)
 
-    case answer.question_type.to_sym
-    when :open
+    case answer.question_type
+    when 'open'
       if (answer.attempt.intersect?(question.answer) &&
           question.parameters.include?('strict')
          ) ||
@@ -13,9 +13,9 @@ module CorrectingHelper
          )
         return true
       end
-    when :choice, :multichoice
+    when 'choice', 'multichoice'
       return true if answer.attempt.sort == question.answer.sort
-    when :caption
+    when 'caption'
       if (answer.attempt == question.answer &&
           question.parameters.include?('strict')
          ) ||
@@ -24,14 +24,14 @@ module CorrectingHelper
          )
         return true
       end
-    when :veracity
+    when 'veracity'
       return true if answer.attempt.intersection(question.answer) == answer.attempt
-    when :formula
+    when 'formula'
       condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
       format("#{question.answer}", #{answer.variables.join(', ')})
       RUBY
       return true if condition == answer.attempt.first
-    when :table
+    when 'table'
       return true if question.answer == answer.attempt
     end
 
