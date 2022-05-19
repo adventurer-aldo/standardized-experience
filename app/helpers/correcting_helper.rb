@@ -1,7 +1,7 @@
 module CorrectingHelper
   
   def correct(answer)
-    question = Question.find_by(id: answer.question_id)
+    question = answer.question
 
     case answer.question_type
     when 'open'
@@ -34,7 +34,6 @@ module CorrectingHelper
     when 'table'
       return true if question.answer == answer.attempt
     end
-
     false
   end
 
