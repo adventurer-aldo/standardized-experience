@@ -1,11 +1,9 @@
 <%= render "navbar"%><head><title><%=@quiz.subject.title %> | <%=@test_name[@quiz.level]%></title></head><div id='page'><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
 
-<div data-turbo="false">
-  <audio autoplay='autoplay' loop='loop' id="bgm" preload="auto">
+  <audio <%= (current_page?(quiz_path) ? "autoplay='autoplay'" : '')%> loop='loop' id="bgm" preload="auto">
       <source src=<%=raw @ost[0][@ost_index] %> type="audio/ogg">
   </audio>
-</div>
 <%= form_with id: :quiz, onsubmit: 'console.log("hi")' , html: { autocomplete: 'off'} do |form| %>
     <%= form.hidden_field :quizID, value: @quiz.id.to_s %>
     <% @quiz.answers.each_with_index do |answer, index| %>
