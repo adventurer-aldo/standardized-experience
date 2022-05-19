@@ -1,7 +1,7 @@
 module InputAnswerHelper
 
   def input_answer(answer)
-    input = %[<input name="answer[#{answer.id}][]" class="form-control form-control-lg" style="font-family: 'Homemade Apple', cursive;color: blue;" placeholder="" aria-label=".form-control-lg example">]
+    input = %(<input name="answer[#{answer.id}][]" class="form-control form-control-lg" style="font-family: 'Homemade Apple', cursive;color: blue;" placeholder="" aria-label=".form-control-lg example">)
     case answer.question.question_types[answer.question_type]
     when 'open', 'formula'
       return input.html_safe
@@ -16,14 +16,14 @@ module InputAnswerHelper
               #{option}
             </label>
           </div>)}.join
-        when 'multichoice'
-          return options.map { |option| %(
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="#{option}" name="answer[#{answer.id}][]" id="Check#{answer.id}-#{options.index(option)}">
-              <label class="form-check-label" for="Check#{answer.id}-#{options.index(option)}">
-                #{option}
-              </label>
-            </div>)}.join
+      when 'multichoice'
+        return options.map { |option| %(
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="#{option}" name="answer[#{answer.id}][]" id="Check#{answer.id}-#{options.index(option)}">
+            <label class="form-check-label" for="Check#{answer.id}-#{options.index(option)}">
+              #{option}
+            </label>
+          </div>)}.join
       when 'veracity'
         return options.map { |option| %(
           <div class="form-check form-switch">

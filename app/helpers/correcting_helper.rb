@@ -47,7 +47,7 @@ module CorrectingHelper
   end
 
   def show_correct(answer)
-    case answer.question_type
+    case answer.question.question_types[answer.question_type]
     when 'open'
       return %(<span class='text-wrap text-primary'><b>R:</b> #{answer.attempt}</span>
         #{correct(answer) ? '' : %(<span class="text-danger">#{answer.question.answer.sample}</span>)}).html_safe

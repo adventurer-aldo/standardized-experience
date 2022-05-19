@@ -182,7 +182,7 @@ class QuizController < ApplicationController
 
     if params[:answer]
       params[:answer].each do |id, answer|
-        Answer.find_by(id: id.to_i).update(attempt: answer)
+        Answer.find_by(id: id.to_i).update(attempt: (answer.instance_of?(Array) ? answer : [answer]))
       end
     end
 
