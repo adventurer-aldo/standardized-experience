@@ -5,14 +5,16 @@
 <p> <%= form_with id: :name, html: { autocomplete: 'off' } do |form| %>
         <% if @quiz.end_time %>
             <div class="input-group mb-3">
+              <span class="input-group-text">Nome</span>
               <span type="text" name="first_name" id="first_name" class="form-control" placeholder="Nome" aria-label="Username"><%= @quiz.first_name %></span>
-              <span class="input-group-text">@</span>
+              <span class="input-group-text">Código</span>
               <span type="text" name="last_name" id="last_name" class="form-control" placeholder="Código" aria-label="Server"><%= @quiz.last_name %></span>
             </div>
         <% else %>
             <div class="input-group mb-3">
+              <span class="input-group-text">Nome</span>
               <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Nome" aria-label="Username">
-              <span class="input-group-text">@</span>
+              <span class="input-group-text">Código</span>
               <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Código" aria-label="Server">
             </div>
         <% end%>
