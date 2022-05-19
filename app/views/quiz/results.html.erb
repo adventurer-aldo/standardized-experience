@@ -6,7 +6,7 @@
 
     <li id='nav-li-Time' class='nav-link me-0 ms-auto '><%= fa_icon 'clock-o', class: 'align-middle' %> <%= @duration.min %>m <%= @duration.sec %>s</li>
 </ul></nav>
-<%= audio_tag(@fanfare, autoplay: (current_page?(results_path) ? true : false))%>
+<%= audio_tag(@fanfare, autoplay: true, id: 'fanfare')%>
 <div id='page'><div style='padding: 30px'>
     <%= render "format-#{@quiz.format}"%>
 

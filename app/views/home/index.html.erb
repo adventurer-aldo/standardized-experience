@@ -22,13 +22,13 @@
     Você não está em nenhuma jornada agora. <%= form.submit 'Clique aqui para iniciar uma!', class: 'inherit' %>
   <% end %>
 <% else %>
-  <p><strong><h5>Nível <%= @journey.level %></h5></strong><br>
+  <p><strong><h5>Nível <%= @journey.level %></h5></strong>
   <div class="progress">
     <div class="progress-bar" role="progressbar" aria-valuenow="<%= @journey.level %>" aria-valuemin="1" aria-valuemax="7"></div>
   </div>
   <%= Misc::Text.cheer[@journey.level].sample %></p>
 <% end %>
 <% if @journey_check %>
-  <%= audio_tag(@ost, autoplay: (current_page?(root_path) ? true : false), loop: true, id: 'bgm')%>
+  <%= audio_tag(@ost, autoplay: true, loop: true, id: 'bgm')%>
   <%= journey_table(@journey) %>
 <% end %>
