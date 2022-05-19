@@ -5,5 +5,26 @@ $icon_sizes: 25px;
 }
 
 .turbo-progress-bar {
-  background-color: white !important;
+  background: red !important;
+}
+
+
+.ck, .ek {
+  filter: invert(23%) sepia(96%) saturate(7122%) hue-rotate(357deg) brightness(97%) contrast(113%);
+  background-image: url('https://i.ibb.co/bm3QSG1/ck.png');
+  display: block;
+  width: 9rem;
+  height: 10rem;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.ek {
+  background-image: url("https://i.ibb.co/JpRBh8t/mxm.png");
+  width: 8rem;
+  height: 9rem;
+  background-size: 75%;
 }
