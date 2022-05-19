@@ -22,7 +22,10 @@
     Você não está em nenhuma jornada agora. <%= form.submit 'Clique aqui para iniciar uma!', class: 'inherit' %>
   <% end %>
 <% else %>
-  <p><strong>Nível <%= @journey.level %></strong><br>
+  <p><strong><h5>Nível <%= @journey.level %></h5></strong><br>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="<%= @journey.level %>" aria-valuemin="1" aria-valuemax="7"></div>
+  </div>
   <%= Misc::Text.cheer[@journey.level].sample %></p>
 <% end %>
 <div data-turbo-permanent>
