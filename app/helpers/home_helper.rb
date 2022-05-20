@@ -40,6 +40,26 @@ module HomeHelper
     end
   end
 
+  def chair_check(chair)
+    level = chair.journey.level
+    case level
+    when 1
+      return chair.first.nil?
+    when 2
+      return chair.second.nil?
+    when 3
+      return chair.reposition.nil?
+    when 4
+      return chair.dissertation.nil?
+    when 5
+      return chair.exam.nil?
+    when 6
+      return chair.recurrence.nil?
+    when 7
+      return false
+    end
+  end
+
   def journey_table(journey)
     content_tag(:table,
       content_tag(:caption, "Jornada #{journey.id}") +
@@ -86,7 +106,7 @@ module HomeHelper
                                 end
                     link_to(
                     content_tag(:tr,
-                                content_tag(:td, (link_to(quiz_path(journey: journey.id, level: journey.level, subject: chair.subject.id), class: 'stretched-link'){"."}) + chair.subject.title) +
+                                content_tag(:td, chair_check(chair) ? (link_to(quiz_path(journey: journey.id, level: journey.level, subject: chair.subject.id), class: 'stretched-link'){chair.subject.title}) : chair.subject.title) +
                                 content_tag(:td, (chair.first.nil? ? '---' : chair.first)) +
                                 content_tag(:td, chair.second.nil? ? '---' : chair.second) +
                                 content_tag(:td, ((chair.first.nil? || chair.second.nil?) ? (chair.reposition.nil? ? '---' : chair.reposition) : '---')) +
