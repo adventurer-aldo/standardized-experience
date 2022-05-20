@@ -42347,7 +42347,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       var autoplayElements = document.querySelectorAll("[autoplay]");
       each.call(autoplayElements, function(element) {
         if (!element.id)
-          throw "autoplay elements need an ID attribute";
+          throw "Autoplay elements need an ID attribute";
         autoplayIds.push(element.id);
         element.removeAttribute("autoplay");
       });

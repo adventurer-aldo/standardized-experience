@@ -52,7 +52,7 @@ questions.push({id: <%= raw question.id.to_s %>, subject: <%= question.subject_i
 types: <%= raw question.question_types.to_s %>, question: "<%= question.question.to_s %>", 
 answers: <%= raw question.answer.to_s %>, tags: <%= raw question.tags.to_s %>, 
 frequency: <%= question.frequency.to_s %>, parameters: <%= raw question.parameters.to_s %>,
-image: '<%= raw(('url(') + (question.image.attached? ? question.image.url : 'https://i.stack.imgur.com/Z1joN.jpg') + ')' )%>'
+image: '<%= raw(('url(') + (question.image.attached? ? question.image.url : 'https://www.ppt-backgrounds.net/thumbs/question-marks-black-a-white-backgrounds.jpg') + ')' )%>'
 })
 
 <% end %>

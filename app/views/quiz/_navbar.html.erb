@@ -1,5 +1,5 @@
-<nav class='navbar navbar-expand-lg navbar-dark bg-dark py-0'><ul class='navbar-nav'>
-    <li id='timer' class='mr-0 mx-auto text-white'><b><%= fa_icon 'clock-o', class: 'align-middle' %> <%= @quiz_durations[@quiz.level] %>:00</b></li>
+<nav class='navbar navbar-expand-lg navbar-dark bg-dark py-1'><ul class='navbar-nav'>
+    <li class='mr-0 mx-auto text-white'><%= fa_icon 'clock-o', class: 'align-middle' %> <b  id='timer'><%= @quiz_durations[@quiz.level] %>:00</b></li>
 </ul></nav>
 <script type='text/javascript'>
 var quiz_timer = <%= 1 %>;

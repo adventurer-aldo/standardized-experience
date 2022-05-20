@@ -28,7 +28,7 @@ Object.defineProperty(String.prototype, 'capitalize', {
   document.addEventListener('turbo:before-cache', function () {
     var autoplayElements = document.querySelectorAll('[autoplay]')
     each.call(autoplayElements, function (element) {
-      if (!element.id) throw 'autoplay elements need an ID attribute'
+      if (!element.id) throw 'Autoplay elements need an ID attribute'
       autoplayIds.push(element.id)
       element.removeAttribute('autoplay')
     })

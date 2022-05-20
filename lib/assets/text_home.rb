@@ -90,13 +90,16 @@ module Misc
               when 15..17
                 [
                   'Incrível! Porquê não tenta alcançar uma nota ainda melhor? Você é capaz!',
-                  "LET'S GOOOOOOOOOO!"
+                  "LET'S GOOOOOOOOOO!",
+                  'Você tem nota para dispensar aqui.',
+                  'Acho que você não precisa fazer mais testes.'
                 ].sample
               when 18..19
                 [
                   'Gostei! Mandou muito bem mesmo! E agora, consegue ver rolar um 20?',
                   'Eita! Quando que você estudou tanto assim?',
-                  'Melhor arregaçar as mangas, que da próxima vai ser mais difícil.'
+                  'Melhor arregaçar as mangas, que da próxima vai ser mais difícil.',
+                  'Finalmente começou a levar isso a sério.'
                 ].sample
               when 20
                 [

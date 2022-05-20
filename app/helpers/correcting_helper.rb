@@ -3,7 +3,7 @@ module CorrectingHelper
   def correct(answer)
     question = answer.question
 
-    case answer.question_type
+    correctness = case question.question_types[answer.question_type]
     when 'open'
       if (answer.attempt.intersect?(question.answer) &&
           question.parameters.include?('strict')
@@ -11,35 +11,35 @@ module CorrectingHelper
          (answer.attempt.map(&:downcase).intersect?(question.answer.map(&:downcase)) &&
           !question.parameters.include?('strict')
          )
-        return true
+        true
       end
     when 'choice', 'multichoice'
-      return true if answer.attempt.sort == question.answer.sort
+      true if answer.attempt.sort == question.answer.sort
     when 'caption'
       if (answer.attempt == question.answer &&
           question.parameters.include?('strict')
          ) ||
          (answer.attempt.map(&:downcase).sort == question.answer.map(&:downcase).sort &&
-         !question.parameters.include?('strict')
+         question.parameters.include?('strict') == false
          )
-        return true
+        true
       end
     when 'veracity'
-      return true if answer.attempt.intersection(question.answer) == answer.attempt
+      true if answer.attempt.intersection(question.answer) == answer.attempt
     when 'formula'
       condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
       format("#{question.answer}", #{answer.variables.join(', ')})
       RUBY
-      return true if condition == answer.attempt.first
+      true if condition == answer.attempt.first
     when 'table'
-      return true if question.answer == answer.attempt
+      true if question.answer == answer.attempt
     end
-    false
+    return correctness
   end
 
   def grade(quiz)
-    total = 0
-    answers = Answer.where(quiz_id: quiz.id)
+    total = 0.0
+    answers = quiz.answers
     answers.each do |answer|
       total += answer.grade if correct(answer) == true
     end
@@ -49,12 +49,12 @@ module CorrectingHelper
   def show_correct(answer)
     case answer.question.question_types[answer.question_type]
     when 'open'
-      return %(<span class='text-wrap text-primary' style="font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt.first}</span>
-        #{correct(answer) ? '' : %(<span class="text-danger" style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.sample}</span>)}).html_safe
+      return %(<div class="form-control form-control-lg"><span class='text-wrap#{correct(answer) ? '' : ' text-decoration-line-through' }' style="text-decoration-color: red !important;font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt.first}</span>
+        #{correct(answer) ? '' : %(<span class="text-danger" style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.sample}</span>)}</div>).html_safe
     when 'caption'
       return answer.attempt.map do |a|
-        %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.include?(a) ? '' : '<span class="text-decoration-line-through">'}#{a}#{answer.question.answer.include?(a) ? '' : '</span>'}<span class='text-danger'> #{answer.question.answer.include?(a) ? '✓' : '✗'}</span></div>)
-      end.join('<br>').html_safe
+        %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.include?(a) ? '' : '<span class="text-decoration-line-through" style="text-decoration-color: red !important;">'}#{a}#{answer.question.answer.include?(a) ? '' : '</span>'}<span class='text-danger'> #{answer.question.answer.include?(a) ? '✓' : '✗'}</span></div>)
+      end.union(answer.attempt.difference(answer.question.answer).map {|q| %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: red;">#{q}</span></div>)}).join('<br>').html_safe
     when 'choice', 'multichoice'
       type = case answer.question_type
              when 'choice'
