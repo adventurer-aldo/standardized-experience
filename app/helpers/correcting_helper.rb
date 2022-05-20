@@ -43,7 +43,7 @@ module CorrectingHelper
     answers.each do |answer|
       total += answer.grade if correct(answer) == true
     end
-    total
+    total.round(2)
   end
 
   def show_correct(answer)

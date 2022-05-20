@@ -41877,6 +41877,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
         index: 3,
         active: this.state.level === 3,
+        text: "Disserta\xE7\xE3o",
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+        index: 4,
+        active: this.state.level === 4,
         text: "Exame",
         onClick: this.handleClick
       })), /* @__PURE__ */ import_react3.default.createElement("input", {

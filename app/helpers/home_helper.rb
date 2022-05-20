@@ -84,17 +84,18 @@ module HomeHelper
                                 when 14.5..20
                                   'table-success'
                                 end
+                    link_to(
                     content_tag(:tr,
-                                content_tag(:td, (link_to(quiz_path(journey: journey.id, level: journey.level, subject: chair.subject.id)){"."}) + chair.subject.title) +
+                                content_tag(:td, (link_to(quiz_path(journey: journey.id, level: journey.level, subject: chair.subject.id), class: 'stretched-link'){"."}) + chair.subject.title) +
                                 content_tag(:td, (chair.first.nil? ? '---' : chair.first)) +
                                 content_tag(:td, chair.second.nil? ? '---' : chair.second) +
-                                content_tag(:td, chair.reposition.nil? ? '---' : chair.reposition) +
+                                content_tag(:td, ((chair.first.nil? || chair.second.nil?) ? (chair.reposition.nil? ? '---' : chair.reposition) : '---')) +
                                 content_tag(:td, chair.dissertation.nil? ? '---' : chair.dissertation) +
                                 content_tag(:td, media(chair).to_s) +
                                 content_tag(:td, exame(chair).to_s) +
                                 content_tag(:td, recurrence(chair).to_s),
-                               class: "stretched-link table-group-divider #{highlight}")
-                  }.join.html_safe), class: 'table table-striped table-striped-columns table-hover overflow-scroll'
+                               class: "table-group-divider #{highlight}"),
+                               root_path)}.join.html_safe), class: 'table table-striped table-striped-columns table-hover overflow-scroll'
                 )
   end
 

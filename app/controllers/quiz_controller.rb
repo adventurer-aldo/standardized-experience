@@ -41,13 +41,13 @@ class QuizController < ApplicationController
     @journey = if params[:journey] && Journey.where(id: params[:journey].to_i).exists?
                  Journey.find_by(id: params[:journey].to_i)
                else
-                 Stat.last.journey
+                 Journey.first
                end
 
     @subject = if params[:subject] && Subject.where(id: params[:subject].to_i).exists?
-                 Subject.where(title: params[:subject]).first
+                 Subject.where(id: params[:subject]).first
                else
-                 params[:subject] = Subject.all.order(Arel.sql('RANDOM()')).limit(1).first
+                 Subject.all.order(Arel.sql('RANDOM()')).limit(1).first
                end
 
     @level = if !params[:level] || (@journey.level < params[:level].to_i)
@@ -198,57 +198,78 @@ class QuizController < ApplicationController
         chair.update(first: helpers.grade(@quiz)) if chair.first.nil?
       when 2
         chair.update(second: helpers.grade(@quiz)) if chair.second.nil?
+        unless chair.first.nil? || chair.second.nil?
+          chair.update(reposition: 0.0)
+        end
       when 3
         chair.update(reposition: helpers.grade(@quiz)) if chair.reposition.nil?
+        if chair.first.nil? || !chair.second.nil?
+          chair.update(first: helpers.grade(@quiz))
+        elsif !chair.first.nil? || chair.second.nil?
+          chair.update(second: helpers.grade(@quiz))
+        elsif chair.first.nil? || chair.second.nil?
+          chair.update(first: (helpers.grade(@quiz) / 2.0).round(2))
+          chair.update(second: (helpers.grade(@quiz) / 2.0).round(2))
+        end
+        chair.update(reposition: helpers.grade(@quiz))
       when 4
         chair.update(dissertation: helpers.grade(@quiz)) if chair.dissertation.nil?
+        if helpers.media(chair) >= 14.5
+          chair.update(exam: 20.0)
+          chair.update(recurrence: 20.0)
+        elsif helpers.media(chair) < 9.5
+          chair.update(exam: 0.0)
+          chair.update(recurrence: 0.0)
+        end
       when 5
-        chair.update(exam: helpers.grade(@quiz)) if chair.exam.nil?
+        if chair.exam.nil?
+          chair.update(exam: helpers.grade(@quiz))
+          chair.update(recurrence: 20.0) if helpers.grade(@quiz) >= 9.5
+        end
       when 6
         chair.update(recurrence: helpers.grade(@quiz)) if chair.recurrence.nil?
       end
     end
 
-    if journey.level > 7
-      journey.update(level: 2) if journey.chairs.where(first: nil).exists?
-      journey.update(level: 3) if journey.chairs.where(second: nil).exists?
-      journey.update(level: 4) if journey.chairs.where(reposition: nil).exists?
-      journey.update(level: 5) if journey.chairs.where(dissertation: nil).exists?
-      journey.update(level: 6) if journey.chairs.where(exam: nil).exists?
-      journey.update(level: 7) if journey.chairs.where(recurrence: nil).exists?
+    if journey.level < 7
+      journey.update(level: 2) unless journey.chairs.where(first: nil).exists?
+      journey.update(level: 3) unless journey.chairs.where(second: nil).exists?
+      journey.update(level: 4) unless journey.chairs.where(reposition: nil).exists?
+      journey.update(level: 5) unless journey.chairs.where(dissertation: nil).exists?
+      journey.update(level: 6) unless journey.chairs.where(exam: nil).exists?
+      journey.update(level: 7) unless journey.chairs.where(recurrence: nil).exists?
     end
 
     redirect_to results_path(id: params[:quizID])
   end
 
-    #=======================================================================================
-    # -- RESULT
-    # Takes a mandatory Quiz ID as an attribute and retrieves the array, level and subject
-    # of that quiz. Gets each answer object from the array of IDs from the quiz's answer
-    # column, and attempts to match it to its Question ID to see if it's correct in order to
-    # determine the grade.
-    #=======================================================================================
-    def results
-      puts helpers.correct(Answer.last)
-      @quiz = Quiz.find_by(id: params[:id].to_i)
-      @grade = helpers.grade(@quiz)
-      @quiz_start = Time.parse(@quiz.start_time)
-      @quiz_end = Time.parse(@quiz.end_time)
-      @duration = Time.at(@quiz_end.to_i - @quiz_start.to_i)
+  #=======================================================================================
+  # -- RESULT
+  # Takes a mandatory Quiz ID as an attribute and retrieves the array, level and subject
+  # of that quiz. Gets each answer object from the array of IDs from the quiz's answer
+  # column, and attempts to match it to its Question ID to see if it's correct in order to
+  # determine the grade.
+  #=======================================================================================
+  def results
+    @quiz = Quiz.find_by(id: params[:id].to_i)
+    @grade = helpers.grade(@quiz)
+    @quiz_start = Time.parse(@quiz.start_time)
+    @quiz_end = Time.parse(@quiz.end_time)
+    @duration = Time.at(@quiz_end.to_i - @quiz_start.to_i)
 
-      @fanfare = if @grade < 7
-                      helpers.audio_path("failhard.ogg")
-                  elsif @grade < 9.5
-                      helpers.audio_path("fail.ogg")
-                  elsif @grade < 14.5
-                      helpers.audio_path("succeed.ogg")
-                  elsif @grade < 18
-                      helpers.audio_path("succeedhard.ogg")
-                  elsif @grade < 20
-                      helpers.audio_path("succeedharder.ogg")
-                  else
-                      helpers.audio_path("succeedhardest.ogg")
-                  end
-    end
+    @fanfare =  if @grade < 7
+                  helpers.audio_path('failhard.ogg')
+                elsif @grade < 9.5
+                  helpers.audio_path('fail.ogg')
+                elsif @grade < 14.5
+                  helpers.audio_path('succeed.ogg')
+                elsif @grade < 18
+                  helpers.audio_path('succeedhard.ogg')
+                elsif @grade < 20
+                  helpers.audio_path('succeedharder.ogg')
+                else
+                  helpers.audio_path('succeedhardest.ogg')
+                end
+  end
  
 end

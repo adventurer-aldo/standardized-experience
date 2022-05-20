@@ -11,8 +11,8 @@ Data: <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>
 <p><br><br><br><br><span class='m-auto'><%= @test_name[@quiz.level].upcase %></span></p></div>
 <p> <%= form_with id: :name, html: { autocomplete: 'off' } do |form| %>
         <% if @quiz.end_time %>
-            <span class='form-control'><%= @quiz.first_name %></span>
-            <span class='form-control'><%= @quiz.last_name %></span>
+            <span class='form-control'><%= @quiz.first_name %><span class="text-white">.</span></span>
+            <span class='form-control'><%= @quiz.last_name %><span class="text-white">.</span></span>
         <% else %>
             <%= form.label :name, "Nome: ", class: 'bold'%>
             <%= form.text_field :name, class: 'form-control', id: 'first_name' %>

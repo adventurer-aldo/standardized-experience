@@ -47,7 +47,8 @@ class Level extends React.Component {
       <div className="btn-group" role="group" aria-label="Basic example">
         <Butao index={1} active={this.state.level===1} text={"1º Teste"} onClick={this.handleClick} />
         <Butao index={2} active={this.state.level===2} text={"2º Teste"} onClick={this.handleClick} />
-        <Butao index={3} active={this.state.level===3} text={"Exame"} onClick={this.handleClick} />
+        <Butao index={3} active={this.state.level===3} text={"Dissertação"} onClick={this.handleClick} />
+        <Butao index={4} active={this.state.level===4} text={"Exame"} onClick={this.handleClick} />
       </div>
       <input name='level' value={this.state.level} type='hidden' />
     </div>

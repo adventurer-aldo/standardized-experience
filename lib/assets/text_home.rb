@@ -23,7 +23,9 @@ module Misc
                  'Sem mais delongas...Pela última vez, vamos!',
                  'Hora de reivindicar a nossa vitória merecida.',
                  'Sem pensamentos. Mente vazia.'],
-                ['Esperava não ter que vir aqui...']]
+                ['Esperava não ter que vir aqui...'],
+                ['A batalha acabou...',
+                 'Precisa de descansar.']]
     end
     def self.evaluate(grade)
       return  case grade.round
