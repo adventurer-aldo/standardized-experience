@@ -38,9 +38,13 @@ class QuizController < ApplicationController
   #=======================================================================================
 
   def index
-    @journey = Stat.last.journey
+    @journey = if params[:journey] && Journey.where(id: params[:journey].to_i).exists?
+                 Journey.find_by(id: params[:journey].to_i)
+               else
+                 Stat.last.journey
+               end
 
-    @subject = if params[:subject] || Subject.where(title: params[:subject]).exists?
+    @subject = if params[:subject] && Subject.where(id: params[:subject].to_i).exists?
                  Subject.where(title: params[:subject]).first
                else
                  params[:subject] = Subject.all.order(Arel.sql('RANDOM()')).limit(1).first
@@ -179,11 +183,39 @@ class QuizController < ApplicationController
     @quiz.update(end_time: Time.zone.now)
     @quiz.update(first_name: params[:first_name]) if params[:first_name]
     @quiz.update(last_name: params[:last_name]) if params[:last_name]
+    journey = @quiz.journey
 
     if params[:answer]
       params[:answer].each do |id, answer|
         Answer.find_by(id: id.to_i).update(attempt: (answer.instance_of?(Array) ? answer : [answer]))
       end
+    end
+
+    if journey.level > 7 || journey.chairs.where(subject_id: @quiz.subject.id).exists?
+      chair = journey.chairs.where(subject_id: @quiz.subject.id).first
+      case journey.level
+      when 1
+        chair.update(first: helpers.grade(@quiz)) if chair.first.nil?
+      when 2
+        chair.update(second: helpers.grade(@quiz)) if chair.second.nil?
+      when 3
+        chair.update(reposition: helpers.grade(@quiz)) if chair.reposition.nil?
+      when 4
+        chair.update(dissertation: helpers.grade(@quiz)) if chair.dissertation.nil?
+      when 5
+        chair.update(exam: helpers.grade(@quiz)) if chair.exam.nil?
+      when 6
+        chair.update(recurrence: helpers.grade(@quiz)) if chair.recurrence.nil?
+      end
+    end
+
+    if journey.level > 7
+      journey.update(level: 2) if journey.chairs.where(first: nil).exists?
+      journey.update(level: 3) if journey.chairs.where(second: nil).exists?
+      journey.update(level: 4) if journey.chairs.where(reposition: nil).exists?
+      journey.update(level: 5) if journey.chairs.where(dissertation: nil).exists?
+      journey.update(level: 6) if journey.chairs.where(exam: nil).exists?
+      journey.update(level: 7) if journey.chairs.where(recurrence: nil).exists?
     end
 
     redirect_to results_path(id: params[:quizID])

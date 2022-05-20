@@ -41,30 +41,6 @@ module HomeHelper
   end
 
   def journey_table(journey)
-    highlight = case media(chair)
-                when '---'
-                  ''
-                when 0..9.4
-                  'table-danger'
-                when 9.5..14.4
-                  case exame(chair) 
-                  when '---'
-                    ''
-                  when 0..9.4, 'ADMITIDO'
-                    case recurrence(chair)
-                    when '---'
-                      'table-warning'
-                    when 0..9.4
-                      'table-danger'
-                    else
-                      'table-success'
-                    end
-                  else
-                    'table-success'
-                  end
-                when 14.5..20
-                  'table-success'
-                end
     content_tag(:table,
       content_tag(:caption, "Jornada #{journey.id}") +
       content_tag(:thead,
@@ -84,8 +60,32 @@ module HomeHelper
                    ) +
       content_tag(:tbody,
                   journey.chairs.collect { |chair|
+                    highlight = case media(chair)
+                                when '---'
+                                  ''
+                                when 0..9.4
+                                  'table-danger'
+                                when 9.5..14.4
+                                  case exame(chair) 
+                                  when '---'
+                                    ''
+                                  when 0..9.4, 'ADMITIDO'
+                                    case recurrence(chair)
+                                    when '---'
+                                      'table-warning'
+                                    when 0..9.4
+                                      'table-danger'
+                                    else
+                                      'table-success'
+                                    end
+                                  else
+                                    'table-success'
+                                  end
+                                when 14.5..20
+                                  'table-success'
+                                end
                     content_tag(:tr,
-                                content_tag(:td, chair.subject.title) +
+                                content_tag(:td, (link_to(quiz_path(journey: journey.id, level: journey.level, subject: chair.subject.id)){"."}) + chair.subject.title) +
                                 content_tag(:td, (chair.first.nil? ? '---' : chair.first)) +
                                 content_tag(:td, chair.second.nil? ? '---' : chair.second) +
                                 content_tag(:td, chair.reposition.nil? ? '---' : chair.reposition) +
@@ -93,7 +93,7 @@ module HomeHelper
                                 content_tag(:td, media(chair).to_s) +
                                 content_tag(:td, exame(chair).to_s) +
                                 content_tag(:td, recurrence(chair).to_s),
-                               class: "table-group-divider #{highlight}")
+                               class: "stretched-link table-group-divider #{highlight}")
                   }.join.html_safe), class: 'table table-striped table-striped-columns table-hover overflow-scroll'
                 )
   end
