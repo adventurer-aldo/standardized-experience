@@ -42,10 +42,11 @@ module HomeHelper
 
   def journey_table(journey)
     content_tag(:table,
+      content_tag(:caption, "Journada #{journey.id}") +
       content_tag(:thead,
                   content_tag(:tr,
                               content_tag(:th, 'Cadeira', rowspan: '2') +
-                              content_tag(:th, 'Notas', colspan: '7')
+                              content_tag(:th, 'Notas', colspan: '7', class: 'text-center')
                             ) +
                   content_tag(:tr,
                               content_tag(:th, '1º Teste') +
@@ -69,7 +70,7 @@ module HomeHelper
                                 content_tag(:td, exame(chair).to_s) +
                                 content_tag(:td, recurrence(chair).to_s),
                                class: 'table-group-divider')
-                  }.join.html_safe), class: 'table table-striped table-striped-columns table-hover'
+                  }.join.html_safe), class: 'table table-striped table-striped-columns table-hover overflow-scroll'
                 )
   end
 
