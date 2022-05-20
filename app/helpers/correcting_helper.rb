@@ -54,7 +54,7 @@ module CorrectingHelper
     when 'caption'
       return answer.attempt.map do |a|
         %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.include?(a) ? '' : '<span class="text-decoration-line-through" style="text-decoration-color: red !important;">'}#{a}#{answer.question.answer.include?(a) ? '' : '</span>'}<span class='text-danger'> #{answer.question.answer.include?(a) ? '✓' : '✗'}</span></div>)
-      end.union(answer.attempt.difference(answer.question.answer).map {|q| %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: red;">#{q}</span></div>)}).join('<br>').html_safe
+      end.union(answer.attempt.difference(answer.question.answer).map {|q| %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: red;">#{q}</span></div>)}).join.html_safe
     when 'choice', 'multichoice'
       type = case answer.question_type
              when 'choice'

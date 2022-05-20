@@ -46,6 +46,7 @@ body {
   border-bottom: solid 3px red;
   position: absolute;
   left: 70%;
+  z-index: 55;
 }
 
 .grade {
@@ -64,4 +65,6 @@ body {
   border-right: solid 2px red;
   border-bottom: solid 3px red;
   position: absolute;
+  margin-left: -20px;
+  z-index: 55;
 }

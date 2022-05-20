@@ -67,10 +67,10 @@ module HomeHelper
                                 content_tag(:td, chair.dissertation.nil? ? '---' : chair.dissertation) +
                                 content_tag(:td, media(chair).to_s) +
                                 content_tag(:td, exame(chair).to_s) +
-                                content_tag(:td, recurrence(chair).to_s)
-                               )
-                  }.join.html_safe)
-               )
+                                content_tag(:td, recurrence(chair).to_s),
+                               class: 'table-group-divider')
+                  }.join.html_safe), class: 'table table-striped table-striped-columns table-hover'
+                )
   end
 
 end
