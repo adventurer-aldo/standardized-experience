@@ -54,6 +54,8 @@ class HomeController < ApplicationController
     case params[:operation]
     when 'add'
       Subject.create(title: params[:title], formula: params[:formula].to_i, difficulty: rand(1..5))
+    when 'evaluable'
+      Subject.find_by(id: params[:id].to_i).update(evaluable: params[:evaluability].to_i)
     when 'edit'
       Subject.find_by(id: params[:id].to_i).update(title: params[:title], formula: params[:formula].to_i)
     when 'delete'
