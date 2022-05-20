@@ -41,8 +41,32 @@ module HomeHelper
   end
 
   def journey_table(journey)
+    highlight = case media(chair)
+                when '---'
+                  ''
+                when 0..9.4
+                  'table-danger'
+                when 9.5..14.4
+                  case exame(chair) 
+                  when '---'
+                    ''
+                  when 0..9.4, 'ADMITIDO'
+                    case recurrence(chair)
+                    when '---'
+                      'table-warning'
+                    when 0..9.4
+                      'table-danger'
+                    else
+                      'table-success'
+                    end
+                  else
+                    'table-success'
+                  end
+                when 14.5..20
+                  'table-success'
+                end
     content_tag(:table,
-      content_tag(:caption, "Journada #{journey.id}") +
+      content_tag(:caption, "Jornada #{journey.id}") +
       content_tag(:thead,
                   content_tag(:tr,
                               content_tag(:th, 'Cadeira', rowspan: '2') +
@@ -69,7 +93,7 @@ module HomeHelper
                                 content_tag(:td, media(chair).to_s) +
                                 content_tag(:td, exame(chair).to_s) +
                                 content_tag(:td, recurrence(chair).to_s),
-                               class: 'table-group-divider')
+                               class: "table-group-divider #{highlight}")
                   }.join.html_safe), class: 'table table-striped table-striped-columns table-hover overflow-scroll'
                 )
   end

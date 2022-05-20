@@ -31,6 +31,8 @@
 <div data-turbo="false">
 <% if @journey_check %>
   <%= audio_tag(@ost, autoplay: true, loop: true, id: 'bgm')%>
+<turbo-frame id='subjective'>
   <%= journey_table(@journey) %>
+</turbo-frame>
 <% end %>
 </div>
