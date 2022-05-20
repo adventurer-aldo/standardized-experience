@@ -106,7 +106,7 @@ module HomeHelper
                                 end
                     link_to(
                     content_tag(:tr,
-                                content_tag(:td, chair_check(chair) ? (link_to(quiz_path(journey: journey.id, level: journey.level, subject: chair.subject.id), class: 'stretched-link'){chair.subject.title}) : chair.subject.title) +
+                                content_tag(:td, chair_check(chair) ? (link_to(quiz_path(journey: journey.id, level: journey.level, subject: chair.subject.id), class: 'stretched-link'){chair.subject.title}) : chair.subject.title, class: 'position-relative') +
                                 content_tag(:td, (chair.first.nil? ? '---' : chair.first)) +
                                 content_tag(:td, chair.second.nil? ? '---' : chair.second) +
                                 content_tag(:td, ((chair.first.nil? || chair.second.nil?) ? (chair.reposition.nil? ? '---' : chair.reposition) : '---')) +
