@@ -1,29 +1,28 @@
-<head><title>Dados-Disciplinas | SE</title></head><%=render 'header'%><%= render 'nav_data' %>
+<head><title>Disciplinas | SE</title></head><%=render 'header'%><%= render 'nav_data' %>
 <%= form_with html: {id: 'subject', autocomplete: 'off' } do |form| %>
 <div class="input-group mb-3 mt-1">
   <span class="input-group-text">Título</span>
   <input id="title" type="text" name="title" required="required" class="form-control" placeholder="Qual é o nome da cadeira?" aria-label="Título">
   <span class="input-group-text">Fórmula</span>
-  <input id="formula" type="number" min="0" max="0" value="0" required="required" name="formula" class="form-control" placeholder="Como se calcula a média?" aria-label="Fórmula">
+  <input id="formula" type="number" min="0" max="2" value="0" required="required" name="formula" class="form-control" placeholder="Como se calcula a média?" aria-label="Fórmula">
 </div>
 	<%= form.hidden_field 'operation', value: 'add', id: 'operation' %>
 <div class='d-grid'>
   <%= form.submit "Submeter Disciplina", class: 'btn btn-primary' %>
 </div>
 <% end %><br>
-<div class="row row-cols-1 row-cols-md-2 g-4">
+<div id="disciplinas" class="row row-cols-1 row-cols-md-2 g-4">
 <% @subjects.each do |subject| %>
 <div class="card m-1" style="width: 18rem;">
-	<%= form_with html: { autocomplete: 'off' } do |form| %>
+	<%= form_with class: 'd-inline-block', html: { autocomplete: 'off' } do |form| %>
 	<%= form.hidden_field 'id', value: subject.id.to_s %>
 	<%= form.hidden_field 'evaluability', value: (subject.evaluable == 1 ? '0' : '1') %>
-	<%= form.hidden_field 'operation', value: 'eligible' %>
-  <%= form.submit "Evaluable", class: "btn #{subject.evaluable == 1 ? 'btn-primary' : 'btn-secondary'}" %>
-  <% end %>
-	<%= form_with html: { autocomplete: 'off' } do |form| %>
-	<%= form.hidden_field 'id', value: subject.id.to_s %>
-	<%= form.hidden_field 'operation', value: 'delete' %>
-  <input type='button' class='btn-close m-1' data-bs-toggle="modal" data-bs-target="#eraseModal<%=subject.id.to_s%>" />
+  <button type="submit" 
+  name="operation" 
+  value="evaluable" 
+  class="btn btn-<%=subject.evaluable == 1 ? 'primary' : 'secondary'%> m-1" 
+  data-disable-with="🗑"><i class="fa fa-graduation-cap"></i></button>
+  <button type='button' class='btn btn-danger display-inline-block m-1' data-bs-toggle="modal" data-bs-target="#eraseModal<%=subject.id.to_s%>"><i class="fa fa-trash"></i></button>
   <div class="bg-opacity-50 bg-dark modal fade" id="eraseModal<%=subject.id.to_s%>" tabindex="-1" aria-labelledby="eraseModalLabel<%=subject.id.to_s%>" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -36,18 +35,18 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não...</button>
-	        <%= form.submit "Certeza!", class: 'btn btn-danger' %>
+	        <button type="submit" name="operation" value="delete" class="btn btn-danger" data-disable-with="Certeza!">Certeza!</button>
         </div>
       </div>
     </div>
   </div>
+<% end %>
   <div class="card-body">
     <h5 class="card-title"><%= subject.title %></h5>
     <h6 class="card-subtitle mb-2 text-muted"><strong>Dificuldade:</strong> <%= '★' * subject.difficulty  %><%= '☆' * (5 - subject.difficulty)  %></h6>
     <p class="card-text"><strong>Questões:</strong> <%= subject.questions.size %><br><strong>Fórmula:</strong> <%= formula(subject.formula) %></p>
   </div>
 </div>
-<% end %>
 <% end %>
 </div>
 </div>

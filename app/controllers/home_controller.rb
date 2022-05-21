@@ -30,6 +30,10 @@ class HomeController < ApplicationController
 
   end
 
+  def lesson; end
+  
+  def campaign; end
+
   def question
     if params[:operation] == 'delete'
       Question.destroy_by(id: params[:id].to_i)
@@ -61,7 +65,7 @@ class HomeController < ApplicationController
     when 'delete'
       Subject.destroy_by(id: params[:id].to_i)
     end
-    redirect_to subject_path
+    redirect_to( subject_path + '#disciplinas')
   end
 
   def submit_question
@@ -121,5 +125,9 @@ class HomeController < ApplicationController
 
     Stat.last.update(current_journey: journey.id)
   end
+  
+  def statistics; end
+
+  def configurations; end
 
 end
