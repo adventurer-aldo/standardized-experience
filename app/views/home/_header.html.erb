@@ -1,22 +1,22 @@
 <nav class='navbar navbar-expand navbar-dark bg-primary py-0'><ul class='navbar-nav'>
     <%=link_to root_path, class: "nav-link #{current_page?(root_path) ? 'active' : ''}" do %>
         <li class='nav-item'>
-        <%=fa_icon 'home', class: 'align-middle'%> <span class='align-middle'>Principal</span></li>
+        <%=fa_icon 'home', class: 'align-middle'%> <span class='align-middle erasable'>Principal</span></li>
     <% end %>
 
     <%=link_to question_path, class: "nav-link #{current_page?(question_path) || current_page?(subject_path) ? 'active' : ''}" do %>
         <li class='nav-item'>
-        <%=fa_icon 'bar-chart', class: 'align-middle'%> <span class='align-middle'>Dados</span></li>
+        <%=fa_icon 'bar-chart', class: 'align-middle'%> <span class='align-middle erasable'>Dados</span></li>
     <% end %>
 
     <%=link_to quiz_path, class: "nav-link #{current_page?(quiz_path) ? 'active' : ''}" do %>
         <li class='nav-item'>
-        <%=fa_icon 'pencil-square-o', class: 'align-middle'%> <span class='align-middle'>Praticar</span></li>
+        <%=fa_icon 'pencil-square-o', class: 'align-middle'%> <span class='align-middle erasable'>Praticar</span></li>
     <% end %>
 
     <%=link_to about_path, class: "nav-link #{current_page?(about_path) ? 'active' : ''}" do %>
         <li class='nav-item'>
-        <%=fa_icon 'question', class: 'align-middle'%> <span class='align-middle'>Sobre</span></li>
+        <%=fa_icon 'question', class: 'align-middle'%> <span class='align-middle erasable'>Sobre</span></li>
     <% end %>
 
 </ul>

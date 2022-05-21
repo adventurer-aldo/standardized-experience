@@ -126,7 +126,15 @@ class HomeController < ApplicationController
     Stat.last.update(current_journey: journey.id)
   end
   
-  def statistics; end
+  def statistics
+    @all = Question.all.size
+    @stats = [0, 0, 0]
+    Question.all.each do |question|
+      @stats[0] += question.frequency[0]
+      @stats[1] += question.frequency[1]
+      @stats[2] += question.frequency[2]
+    end
+  end
 
   def configurations; end
 

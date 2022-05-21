@@ -68,3 +68,14 @@ body {
   margin-left: -20px;
   z-index: 55;
 }
+
+@media screen and (max-width: 768px) {
+  .erasable {
+      font-size: 0px;
+  }    
+
+  #standardized-image {
+      margin: 0 auto;
+      display: block;
+  }
+}

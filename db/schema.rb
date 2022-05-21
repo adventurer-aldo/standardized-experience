@@ -120,6 +120,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_093759) do
     t.integer "current_journey", default: 0, null: false
     t.text "username"
     t.text "password"
+    t.integer "skip_dissertation", limit: 2, default: 0, null: false
+    t.integer "long_journey", limit: 2, default: 0, null: false
+    t.integer "lenient_answer", limit: 2, default: 0, null: false
+    t.integer "lenient_name", limit: 2, default: 1, null: false
   end
 
   create_table "subjects", id: :serial, force: :cascade do |t|
