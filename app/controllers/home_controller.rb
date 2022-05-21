@@ -30,7 +30,7 @@ class HomeController < ApplicationController
 
   end
 
-  def lesson; end
+  def lessons; end
   
   def campaign; end
 
