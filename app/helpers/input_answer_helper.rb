@@ -34,6 +34,30 @@ module InputAnswerHelper
       end
     when 'caption'
       return (input * answer.question.answer.size).html_safe
+    when 'table'
+      content_tag(:table,
+        (content_tag(:thead,
+          content_tag(:tr, (answer.question.answer.first.split('|').map do |head|
+            content_tag(:th, head)
+          end).join)
+        ) +
+        content_tag(:tbody,
+          answer.question.answer[1..].collect do |row|
+            content_tag(:tr,
+              row.split('|').map do |column|
+                if column[0] == '?' && column[-1] == '?'
+                  content_tag(:td, %(<input type="text" 
+                    name="table[#{answer.id}][#{answer.question.answer.index(row)}][#{row.index(column)}]"
+                    value="" 
+                    style="width: 100%; height: 100%">))
+                else
+                  content_tag(:td, column)
+                end
+              end.join
+            )
+          end
+        ))
+      )
     end
   end
 

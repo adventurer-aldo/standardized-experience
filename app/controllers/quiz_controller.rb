@@ -15,11 +15,12 @@ class QuizController < ApplicationController
       'Teste 1',
       'Teste 2',
       'Teste de Reposição',
+      'Trabalho de Dissertação',
       'Exame Normal',
       'Exame de Recorrência'
     ]
 
-    @quiz_durations = [5, 9, 9, 10, 15, 20]
+    @quiz_durations = [5, 9, 9, 10, 6, 15, 20]
 
     case @formats
     when 0
@@ -85,7 +86,7 @@ class QuizController < ApplicationController
 
     @ost =  case @level
             when 0
-              [@journey.soundtrack.practice, '']
+              [@journey.soundtrack.practice, @journey.soundtrack.practice_rush]
             when 1
               [@journey.soundtrack.first, @journey.soundtrack.first_rush]
             when 2
@@ -99,6 +100,7 @@ class QuizController < ApplicationController
             when 6
               [@journey.soundtrack.recurrence, @journey.soundtrack.recurrence_rush]
             end
+            puts @ost.to_s
     @ost_index = @ost[0].index(@ost[0].sample)
 
     @full_query = all_questions.shuffle
@@ -193,7 +195,7 @@ class QuizController < ApplicationController
       answer.question.update(frequency: new_frequency)
     end
 
-    if journey.level > 7 || journey.chairs.where(subject_id: @quiz.subject.id).exists?
+    if journey.level == @quiz.level && journey.level < 7 && journey.chairs.where(subject_id: @quiz.subject.id).exists?
       chair = journey.chairs.where(subject_id: @quiz.subject.id).first
       case journey.level
       when 1

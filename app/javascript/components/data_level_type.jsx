@@ -28,6 +28,7 @@ class QType extends React.Component {
         <Butao text="Verdadeiro/Falso" index={3} active={ this.state.activeIndexes.includes(3) } onClick={ this.handleClick }/>
         <Butao text="Formula" index={5} active={ this.state.activeIndexes.includes(5) } onClick={ this.handleClick }/>
         <Butao text="Tabela" index={6} active={ this.state.activeIndexes.includes(6) } onClick={ this.handleClick }/>
+        <Butao text="Ficheiro" index={7} active={ this.state.activeIndexes.includes(7) } onClick={ this.handleClick }/>
       </div>
       <input name='types' value={JSON.stringify(this.state.activeIndexes)} type='hidden' />
     </div>

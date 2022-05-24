@@ -11,6 +11,8 @@ class HomeController < ApplicationController
                sound.preparations
              when 2, 3
                sound.preparations_second
+             when 4
+              sound.preparations_dissertation
              when 5, 6
                sound.preparations_exam
              end
@@ -69,7 +71,7 @@ class HomeController < ApplicationController
   end
 
   def submit_question
-    types = %w[open choice multichoice veracity caption formula table]
+    types = %w[open choice multichoice veracity caption formula table submit]
     parameters = %w[strict]
     puts params[:answers].class
     new_question = Question.create(question: params[:question],
@@ -120,10 +122,11 @@ class HomeController < ApplicationController
 
     Subject.where(evaluable: 1).order(title: :asc).each do |subject|
       chair = Chair.create(subject_id: subject.id, journey_id: journey.id, format: rand(0..1).round)
-      chair.update(dissertation: rand(0.0..20.0)) unless subject.questions.where(level: 3).exists?
+      chair.update(dissertation: rand(0.0..20.0).round(2)) unless subject.questions.where(level: 3).exists?
     end
 
     Stat.last.update(current_journey: journey.id)
+    redirect_to root_path
   end
   
   def statistics
