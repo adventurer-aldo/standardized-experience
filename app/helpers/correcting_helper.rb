@@ -113,7 +113,7 @@ module CorrectingHelper
         (content_tag(:thead,
           content_tag(:tr, (answer.attempt.first.split('|').map do |head|
             content_tag(:th, head)
-          end).join.html_safe)
+          end).join.html_safe), class: 'bordering'
         ) +
         content_tag(:tbody,
           answer.attempt[1..].collect do |row|
@@ -129,9 +129,32 @@ module CorrectingHelper
                 end
               end.join.html_safe
             )
-          end.join.html_safe
+          end.join.html_safe, class: 'bordering'
+        ))
+      ) + (correct(answer) ? '' : content_tag(:table,
+        (content_tag(:thead,
+          content_tag(:tr, (answer.question.answer.first.split('|').map do |head|
+            content_tag(:th, head)
+          end).join.html_safe), class: 'bordering-red'
+        ) +
+        content_tag(:tbody,
+          answer.question.answer[1..].collect do |row|
+            content_tag(:tr,
+              row.split('|').map do |column|
+                if column[0] == '?' && column[-1] == '?'
+                  temp = column.dup
+                  temp[-1] = ''
+                  temp[0] = ''
+                  content_tag(:td, temp)
+                else
+                  content_tag(:td, column)
+                end
+              end.join.html_safe
+            )
+          end.join.html_safe, class: 'bordering-red'
         ))
       )
+    )
     end
   end
 end
