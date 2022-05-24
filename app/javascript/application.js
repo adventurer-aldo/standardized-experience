@@ -42105,7 +42105,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }, /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "card"
       }, /* @__PURE__ */ import_react6.default.createElement("form", {
-        action: "/data/question",
+        action: "/dados/questoes",
         autoComplete: "off"
       }, /* @__PURE__ */ import_react6.default.createElement("input", {
         type: "hidden",

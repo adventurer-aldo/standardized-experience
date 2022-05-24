@@ -52,7 +52,7 @@ class Question extends React.Component {
       (<div key={index}>
         <div className="col">
           <div className="card">
-            <form action="/data/question" autoComplete="off">
+            <form action="/dados/questoes" autoComplete="off">
               <input type='hidden' name='id' value={JSON.stringify(item.id)} />
               <input type='hidden' name='operation' value='delete' />
               <input type='button' className='btn-close m-1' data-bs-toggle="modal" data-bs-target={"#eraseModal" + JSON.stringify(index)} />
