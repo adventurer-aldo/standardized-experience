@@ -32,7 +32,10 @@ module CorrectingHelper
       RUBY
       true if condition == answer.attempt.first
     when 'table'
-      true if question.answer == answer.attempt
+      true if (question.answer.map(&:downcase) == answer.attempt.map(&:downcase) &&
+      question.parameters.include?('strict') == false) ||
+      (question.answer == answer.attempt &&
+        question.parameters.include?('strict'))
     end
     return correctness
   end

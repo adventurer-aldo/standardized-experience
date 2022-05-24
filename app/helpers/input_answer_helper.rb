@@ -39,7 +39,7 @@ module InputAnswerHelper
         (content_tag(:thead,
           content_tag(:tr, (answer.question.answer.first.split('|').map do |head|
             content_tag(:th, head)
-          end).join.html_safe)
+          end).join.html_safe), class: 'bordering'
         ) +
         content_tag(:tbody,
           answer.question.answer[1..].collect do |row|
@@ -50,15 +50,17 @@ module InputAnswerHelper
                     %(<input type="text"
                     name="answer[#{answer.id}][#{answer.question.answer.index(row)}][#{row.split('|').index(column)}]"
                     value=""
-                    style="width: 100%; height: 100%">).html_safe)
+                    style="width: 100%; height: 100%; border: none;">).html_safe)
                 else
                   content_tag(:td, column)
                 end
               end.join.html_safe
             )
-          end.join.html_safe
+          end.join.html_safe, class: 'bordering'
         ))
       )
+    when 'submit'
+      %(<input type="file" name="answer[#{answer.id}])
     end
   end
 
