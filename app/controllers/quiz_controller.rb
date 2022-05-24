@@ -103,12 +103,6 @@ class QuizController < ApplicationController
 
     @full_query = all_questions.shuffle
 
-    @questions_array = []
-    @answers_array = []
-    @full_query.each do |query|
-      @questions_array << query.id
-    end
-
     @quiz = Quiz.create(
       subject_id: @subject.id,
       first_name: '', last_name: '',
