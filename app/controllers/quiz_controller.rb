@@ -64,7 +64,7 @@ class QuizController < ApplicationController
                 0
               end
 
-    base_query = @subject.questions.order(Arel.sql('RANDOM()')).group(:id)
+    base_query = @subject.questions.order(Arel.sql('RANDOM()'))
 
     all_questions = case @level
                     when 0
