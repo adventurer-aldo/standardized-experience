@@ -252,7 +252,7 @@ class QuizController < ApplicationController
       journey.update(level: 2) unless journey.chairs.where(first: nil).exists?
       journey.update(level: 3) unless journey.chairs.where(second: nil).exists?
       journey.update(level: 4) unless journey.chairs.where(reposition: nil).exists?
-      journey.update(level: 5) unless journey.chairs.where(dissertation: nil).exists?
+      journey.update(level: 5) unless journey.chairs.where(dissertation: nil).exists? || (journey.chairs.where(first: nil).exists? || journey.chairs.where(second: nil).exists?)
       journey.update(level: 6) unless journey.chairs.where(exam: nil).exists?
       journey.update(level: 7) unless journey.chairs.where(recurrence: nil).exists?
     end
