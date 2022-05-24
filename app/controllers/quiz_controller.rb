@@ -71,7 +71,7 @@ class QuizController < ApplicationController
                     when 0
                       base_query.limit(rand(3..10)) # Prática
                     when 1
-                      base_query.where(level: 1).limit(rand(10..35)) # Teste 1
+                      base_query.where(level: 1).where("'table' = ANY (question_types)").limit(rand(10..35)) # Teste 1
                     when 2
                       base_query.where(level: 2).limit(rand(10..28)) + base_query.where(level: 1).limit(rand(0..7)) # Teste 2
                     when 3
@@ -183,7 +183,20 @@ class QuizController < ApplicationController
 
     if params[:answer]
       params[:answer].each do |id, answer|
-        Answer.find_by(id: id.to_i).update(attempt: (answer.instance_of?(Array) ? answer : [answer]))
+        ans = Answer.find_by(id: id.to_i)
+        case ans.question.question_types[ans.question_type]
+        when 'table'
+          og = ans.question.answer.map { |row| row.split('|') }
+          answer.each do |row, input|
+            input.each do |which_column, attempt|
+              og[row.to_i][which_column.to_i] = "?#{attempt}?"
+            end
+          end
+          og.map! { |row| row.join('|') }
+          ans.update(attempt: og)
+        else
+          ans.update(attempt: (answer.instance_of?(Array) ? answer : [answer]))
+        end
       end
     end
 

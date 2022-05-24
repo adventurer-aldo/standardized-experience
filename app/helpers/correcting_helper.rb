@@ -107,27 +107,27 @@ module CorrectingHelper
         #{correct(answer) ? '' : %(<span class="text-danger">#{condition}</span>)}).html_safe
     when 'table'
       content_tag(:table,
-        content_tag(:thead,
-          content_tag(:tr, (answer.question.answer.first.split('|').map do |head|
+        (content_tag(:thead,
+          content_tag(:tr, (answer.attempt.first.split('|').map do |head|
             content_tag(:th, head)
-          end).join)
+          end).join.html_safe)
         ) +
         content_tag(:tbody,
-          answer.question.answer[1..].collect do |row|
+          answer.attempt[1..].collect do |row|
             content_tag(:tr,
               row.split('|').map do |column|
                 if column[0] == '?' && column[-1] == '?'
-                  content_tag(:td, %(<input type="text" 
-                    name="table[#{answer.id}][#{answer.question.answer.index(row)}][#{row.index(column)}]" 
-                    value="" 
-                    style="width: 100%; height: 100%">).html_safe)
+                  temp = column.dup
+                  temp[-1] = ''
+                  temp[0] = ''
+                  content_tag(:td, temp)
                 else
                   content_tag(:td, column)
                 end
-              end.join
+              end.join.html_safe
             )
-          end
-        )
+          end.join.html_safe
+        ))
       )
     end
   end

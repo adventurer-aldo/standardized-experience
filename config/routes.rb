@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get '/dados/configuracoes', to: 'home#configurations', as: 'configurations'
 
   get '/quiz(/:subject/:level/:journey)', to: 'quiz#index', as: 'quiz'
-  get '/resulados/:id', to: 'quiz#results', as: 'results'
+  get '/resultados/:id', to: 'quiz#results', as: 'results'
 
   post '/', to: 'home#new_journey'
   post '/quiz', to: 'quiz#submit'
