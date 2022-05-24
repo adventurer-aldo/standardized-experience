@@ -32,7 +32,7 @@
 <% if @journey_check %>
   <%= audio_tag(@ost, autoplay: true, loop: true, id: 'bgm')%>
 <turbo-frame id='subjective'>
-<div style="overflow: auto; max-width: 100%;">
+<div style="overflow: auto; max-width: 100%; white-space: pre-line;">
   <%= journey_table(@journey) %>
 </div>
 </turbo-frame>
