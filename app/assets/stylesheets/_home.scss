@@ -30,10 +30,10 @@ $icon_sizes: 25px;
 }
 
 .bordering {
-  border: solid 1px black;
+  border: solid 1px black !important;
 }
 
 .bordering-red {
-  border: solid 1px red;
-  color: red;  
+  border: solid 1px red !important;
+  color: red !important;  
 }

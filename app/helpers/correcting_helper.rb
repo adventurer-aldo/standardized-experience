@@ -136,7 +136,7 @@ module CorrectingHelper
           content_tag(:tr, (answer.question.answer.first.split('|').map do |head|
             content_tag(:th, head)
           end).join.html_safe), class: 'bordering-red'
-        ) +
+        ) + '<br>'.html_safe + 
         content_tag(:tbody,
           answer.question.answer[1..].collect do |row|
             content_tag(:tr,
