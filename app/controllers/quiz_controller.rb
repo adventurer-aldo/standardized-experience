@@ -188,8 +188,8 @@ class QuizController < ApplicationController
     @quiz.answers.each do |answer|
       new_frequency = answer.question.frequency.dup
       new_frequency[0] += 1
-      new_frequency[1] += (correct(answer) ? 1 : 0)
-      new_frequency[2] += (correct(answer) ? 0 : 1)
+      new_frequency[1] += (helpers.correct(answer) ? 1 : 0)
+      new_frequency[2] += (helpers.correct(answer) ? 0 : 1)
       answer.question.update(frequency: new_frequency)
     end
 
