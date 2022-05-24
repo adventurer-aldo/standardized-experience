@@ -71,7 +71,7 @@ class QuizController < ApplicationController
                     when 0
                       base_query.limit(rand(3..10)) # Prática
                     when 1
-                      base_query.where(level: 1).where("'table' = ANY (question_types)").limit(rand(10..35)) # Teste 1
+                      base_query.where(level: 1).limit(rand(10..35)) # Teste 1
                     when 2
                       base_query.where(level: 2).limit(rand(10..28)) + base_query.where(level: 1).limit(rand(0..7)) # Teste 2
                     when 3
