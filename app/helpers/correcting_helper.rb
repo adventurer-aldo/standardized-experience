@@ -4,41 +4,41 @@ module CorrectingHelper
     question = answer.question
 
     correctness = case question.question_types[answer.question_type]
-    when 'open'
-      if (answer.attempt.intersect?(question.answer) &&
-          question.parameters.include?('strict')
-         ) ||
-         (answer.attempt.map(&:downcase).intersect?(question.answer.map(&:downcase)) &&
-          !question.parameters.include?('strict')
-         )
-        true
-      end
-    when 'choice', 'multichoice'
-      true if answer.attempt.sort == question.answer.sort
-    when 'caption'
-      if (answer.attempt == question.answer &&
-          question.parameters.include?('strict')
-         ) ||
-         (answer.attempt.map(&:downcase).sort == question.answer.map(&:downcase).sort &&
-         question.parameters.include?('strict') == false
-         )
-        true
-      end
-    when 'veracity'
-      true if answer.attempt.intersection(question.answer) == answer.attempt
-    when 'formula'
-      condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
-      format("#{question.answer}", #{answer.variables.join(', ')})
-      RUBY
-      true if condition == answer.attempt.first
-    when 'table'
-      true if (question.answer.map(&:downcase) == answer.attempt.map(&:downcase) &&
-      question.parameters.include?('strict') == false) ||
-      (question.answer == answer.attempt &&
-        question.parameters.include?('strict'))
-    end
-    return correctness
-  end
+                  when 'open'
+                    if (answer.attempt.intersect?(question.answer) &&
+                        question.parameters.include?('strict')
+                      ) ||
+                      (answer.attempt.map(&:downcase).intersect?(question.answer.map(&:downcase)) &&
+                        !question.parameters.include?('strict')
+                      )
+                      true
+                    end
+                  when 'choice', 'multichoice'
+                    true if answer.attempt.sort == question.answer.sort
+                  when 'caption'
+                    if (answer.attempt == question.answer &&
+                        question.parameters.include?('strict')
+                      ) ||
+                      (answer.attempt.map(&:downcase).sort == question.answer.map(&:downcase).sort &&
+                      question.parameters.include?('strict') == false
+                      )
+                      true
+                    end
+                  when 'veracity'
+                    true if answer.attempt.intersection(question.answer) == answer.attempt
+                  when 'formula'
+                    condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+                    format("#{question.answer}", #{answer.variables.join(', ')})
+                    RUBY
+                    true if condition == answer.attempt.first
+                  when 'table'
+                    true if (question.answer.map(&:downcase) == answer.attempt.map(&:downcase) &&
+                    question.parameters.include?('strict') == false) ||
+                    (question.answer == answer.attempt &&
+                      question.parameters.include?('strict'))
+                  end
+                  return correctness
+                end
 
   def grade(quiz)
     total = 0.0
@@ -57,7 +57,7 @@ module CorrectingHelper
     when 'caption'
       return answer.attempt.map do |a|
         %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.include?(a) ? '' : '<span class="text-decoration-line-through" style="text-decoration-color: red !important;">'}#{a}#{answer.question.answer.include?(a) ? '' : '</span>'}<span class='text-danger'> #{answer.question.answer.include?(a) ? '✓' : '✗'}</span></div>)
-      end.union(answer.attempt.difference(answer.question.answer).map {|q| %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: red;">#{q}</span></div>)}).join.html_safe
+      end.union(answer.question.answer.difference(answer.attempt).map {|q| %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: red;">#{q}</span></div>)}).join.html_safe
     when 'choice', 'multichoice'
       type = case answer.question_type
              when 'choice'
