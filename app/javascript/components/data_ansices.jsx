@@ -16,6 +16,7 @@ class Answers extends React.Component {
                 <button
                   type='button'
                   className="bg-transparent border-0"
+                  tabIndex="-1"
                   onClick={() => this.props.onClick(index)}
                 ><i className="fa fa-minus"></i>
                 </button>
@@ -80,6 +81,7 @@ class Choices extends React.Component {
                   <button
                     type='button'
                     className="bg-transparent border-0"
+                    tabIndex="-1"
                     onClick={() => this.props.onClick(index)}
                   ><i className="fa fa-minus"></i>
                   </button>
