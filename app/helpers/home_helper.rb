@@ -38,22 +38,21 @@ module HomeHelper
   end
 
   def chair_check(chair)
-    level = chair.journey.level
-    case level
+    case chair.journey.level
     when 1
-      return chair.first.nil?
+      chair.first.nil?
     when 2
-      return chair.second.nil?
+      chair.second.nil?
     when 3
-      return chair.reposition.nil?
+      chair.reposition.nil?
     when 4
-      return chair.dissertation.nil?
+      chair.dissertation.nil?
     when 5
-      return chair.exam.nil?
+      chair.exam.nil?
     when 6
-      return chair.recurrence.nil?
+      chair.recurrence.nil?
     when 7
-      return false
+      false
     end
   end
 
