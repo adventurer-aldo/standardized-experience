@@ -19,11 +19,11 @@ module HomeHelper
     return '---' if media(chair) == '---'
 
     if media(chair) >= 14.5
-      'DISPENSADO ✓'
+      'DISPENSADO'
     elsif media(chair) >= 9.5
-      chair.exam.nil? ? 'ADMITIDO ✓' : chair.exam
+      chair.exam.nil? ? 'ADMITIDO' : chair.exam
     else
-      'EXCLUÍDO 🞩'
+      'EXCLUÍDO'
     end
   end
 

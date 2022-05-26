@@ -217,6 +217,15 @@ class QuizController < ApplicationController
         chair.update(second: helpers.grade(@quiz)) if chair.second.nil?
         unless chair.first.nil? || chair.second.nil?
           chair.update(reposition: 0.0)
+          unless chair.dissertation.nil?
+            if helpers.media(chair) >= 14.5
+              chair.update(exam: 20.0)
+              chair.update(recurrence: 20.0)
+            elsif helpers.media(chair) < 9.5
+              chair.update(exam: 0.0)
+              chair.update(recurrence: 0.0)
+            end
+          end
         end
       when 3
         chair.update(reposition: helpers.grade(@quiz)) if chair.reposition.nil?
