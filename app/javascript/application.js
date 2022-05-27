@@ -41585,6 +41585,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }, /* @__PURE__ */ import_react.default.createElement("button", {
         type: "button",
         className: "bg-transparent border-0",
+        tabIndex: "-1",
         onClick: () => this.props.onClick(index)
       }, /* @__PURE__ */ import_react.default.createElement("i", {
         className: "fa fa-minus"
@@ -41676,6 +41677,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }, /* @__PURE__ */ import_react.default.createElement("button", {
         type: "button",
         className: "bg-transparent border-0",
+        tabIndex: "-1",
         onClick: () => this.props.onClick(index)
       }, /* @__PURE__ */ import_react.default.createElement("i", {
         className: "fa fa-minus"
@@ -42298,7 +42300,6 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           time: state.time - 1
         }));
         if (this.state.time == 2 * 60) {
-          document.getElementById("navbar").style = "display: block; background-color: black;";
           if (fire != "") {
             var ost = document.getElementById("bgm");
             ost.src = fire;

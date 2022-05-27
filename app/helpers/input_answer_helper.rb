@@ -50,7 +50,7 @@ module InputAnswerHelper
                     %(<input type="text"
                     name="answer[#{answer.id}][#{answer.question.answer.index(row)}][#{row.split('|').index(column)}]"
                     value=""
-                    style="width: 100%; height: 100%; border: none;">).html_safe)
+                    style="width: 100%; height: 100%; border: none;font-family: 'Homemade Apple', cursive;color: blue;">).html_safe)
                 else
                   content_tag(:td, column)
                 end

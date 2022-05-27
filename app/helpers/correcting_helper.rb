@@ -53,7 +53,7 @@ module CorrectingHelper
     case answer.question.question_types[answer.question_type]
     when 'open'
       return %(<div class="form-control form-control-lg"><span class='text-wrap#{correct(answer) ? '' : ' text-decoration-line-through' }' style="text-decoration-color: red !important;font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt.first}</span>
-        #{correct(answer) ? '' : %(<span class="text-danger" style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.sample}</span>)}</div>).html_safe
+        #{correct(answer) ? '' : %(<span style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.sample}</span>)}</div>).html_safe
     when 'caption'
       return answer.attempt.map do |a|
         %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.include?(a) ? '' : '<span class="text-decoration-line-through" style="text-decoration-color: red !important;">'}#{a}#{answer.question.answer.include?(a) ? '' : '</span>'}<span class='text-danger'> #{answer.question.answer.include?(a) ? '✓' : '✗'}</span></div>)
@@ -112,7 +112,14 @@ module CorrectingHelper
       content_tag(:table,
         (content_tag(:thead,
           content_tag(:tr, (answer.attempt.first.split('|').map do |head|
-            content_tag(:th, head)
+            if head[0] == '?' && head[-1] == '?'
+              temp = column.dup
+              temp[-1] = ''
+              temp[0] = ''
+              content_tag(:th, temp)
+            else
+              content_tag(:th, head)
+            end
           end).join.html_safe), class: 'bordering'
         ) +
         content_tag(:tbody,
