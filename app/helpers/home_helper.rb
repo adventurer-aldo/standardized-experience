@@ -75,7 +75,7 @@ module HomeHelper
                             )
                    ) +
       content_tag(:tbody,
-                  journey.chairs.collect { |chair|
+                  journey.chairs.order(id: :asc).collect { |chair|
                     highlight = case media(chair)
                                 when '---'
                                   ''
