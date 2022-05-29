@@ -4,7 +4,7 @@
   <span class="input-group-text">Título</span>
   <input id="title" type="text" name="title" required="required" class="form-control" placeholder="Qual é o nome da cadeira?" aria-label="Título">
   <span class="input-group-text">Fórmula</span>
-  <select name='formula' class='form-select mb-1'>
+  <select name='formula' class='form-select mb-1 h-100'>
   <% for i in 0..4 do %>
   <option value="<%= i %>"><%= formula(i) %></option>
   <% end %>
