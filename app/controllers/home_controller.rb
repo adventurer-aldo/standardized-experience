@@ -99,7 +99,9 @@ class HomeController < ApplicationController
     if params[:choices]
       params[:choices].each do |_key, choice|
         decoy = Choice.create(decoy: choice['text'], question_id: new_question.id)
-        decoy.image.attach(choice['image']) if choice['image']
+        next if choice['image'].nil?
+
+        decoy.image.attach(choice['image'])
       end
       cookies[:choices] = params[:choices].keys.size
     else
