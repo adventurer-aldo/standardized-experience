@@ -42156,6 +42156,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         className: "btn btn-secondary",
         "data-bs-dismiss": "modal"
       }, "N\xE3o..."), /* @__PURE__ */ import_react6.default.createElement("button", {
+        "data-turbo": "false",
         type: "submit",
         name: "commit",
         value: "",

@@ -70,7 +70,7 @@ class Question extends React.Component {
                     </div>
                     <div className="modal-footer">
                       <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Não...</button>
-                      <button type="submit" name='commit' value='' className="btn btn-danger">Certeza!</button>
+                      <button data-turbo="false" type="submit" name='commit' value='' className="btn btn-danger">Certeza!</button>
                     </div>
                   </div>
                 </div>
