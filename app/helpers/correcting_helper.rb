@@ -37,8 +37,8 @@ module CorrectingHelper
                     (question.answer == answer.attempt &&
                       question.parameters.include?('strict'))
                   end
-                  return correctness
-                end
+    return correctness
+  end
 
   def grade(quiz)
     total = 0.0

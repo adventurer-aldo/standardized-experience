@@ -42065,7 +42065,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     render() {
       return /* @__PURE__ */ import_react6.default.createElement("div", {
         id: "page_questions",
-        className: "p-1"
+        className: "p-1 overflow-hidden"
       }, /* @__PURE__ */ import_react6.default.createElement("nav", {
         "aria-label": "Page navigation example"
       }, /* @__PURE__ */ import_react6.default.createElement("ul", {

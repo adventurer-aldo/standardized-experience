@@ -34,7 +34,7 @@ class Question extends React.Component {
     this.setState({page: num, max: this.state.max});
   }
 
-  render() { return <div id='page_questions' className='p-1'>
+  render() { return <div id='page_questions' className='p-1 overflow-hidden'>
   <nav aria-label="Page navigation example">
     <ul className="pagination overflow-auto w-100">
     <li className={"page-item" + (this.state.page === 1 ? ' disabled' : '')} onClick={() => this.handleClick('-') }><a className="page-link" href='#navigate_questions'>First</a></li>
