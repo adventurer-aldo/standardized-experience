@@ -53,7 +53,7 @@ class Choices extends React.Component {
             <div className="input-group" key={"" + index}>
               <input required='required' type="text" className="form-control rounded-0" name={'choices[' + JSON.stringify(index)  + '][text]'} placeholder="Alternativa que iludirá o leitor." aria-label="Escolha" aria-describedby="basic-addon1" />
               <span className="input-group-text" id="basic-addon2">
-                <button type="button" className='bg-transparent border-0' data-bs-toggle="modal" data-bs-target={'#choiceImage' + JSON.stringify(index)}>
+                <button type="button" className='bg-transparent border-0' tabIndex="-1" data-bs-toggle="modal" data-bs-target={'#choiceImage' + JSON.stringify(index)}>
                   <i className="fa fa-picture-o"></i>
                 </button>
                 <div className="bg-opacity-50 bg-dark modal fade" id={'choiceImage' + JSON.stringify(index)} tabIndex="-1" aria-labelledby={'choiceLabel' + JSON.stringify(index)} aria-hidden="true">

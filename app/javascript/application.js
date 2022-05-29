@@ -41628,6 +41628,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }, /* @__PURE__ */ import_react.default.createElement("button", {
         type: "button",
         className: "bg-transparent border-0",
+        tabIndex: "-1",
         "data-bs-toggle": "modal",
         "data-bs-target": "#choiceImage" + JSON.stringify(index)
       }, /* @__PURE__ */ import_react.default.createElement("i", {
