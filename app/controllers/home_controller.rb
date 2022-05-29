@@ -99,7 +99,7 @@ class HomeController < ApplicationController
     if params[:choices]
       params[:choices].each do |_key, choice|
         decoy = Choice.create(decoy: choice['text'], question_id: new_question.id)
-        next if choice['image'].nil?
+        next if choice['image'].nil? || choice['image'] == ''
 
         decoy.image.attach(choice['image'])
       end
