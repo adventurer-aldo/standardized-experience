@@ -42069,7 +42069,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }, /* @__PURE__ */ import_react6.default.createElement("nav", {
         "aria-label": "Page navigation example"
       }, /* @__PURE__ */ import_react6.default.createElement("ul", {
-        className: "pagination"
+        className: "pagination overflow-auto w-100"
       }, /* @__PURE__ */ import_react6.default.createElement("li", {
         className: "page-item" + (this.state.page === 1 ? " disabled" : ""),
         onClick: () => this.handleClick("-")
