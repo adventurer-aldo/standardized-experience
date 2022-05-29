@@ -50,10 +50,9 @@ $icon_sizes: 25px;
 }
 
 .hiding {
-  width: 100%;
-  z-index: 100;
-  top: -50px;
-  transition: top 100ms linear;
-  -webkit-transition: top 100ms linear;
-  -moz-transition: top 100ms linear;
+  z-index: 100 !important;
+  top: -50px !important;
+  transition: top 100ms linear !important;
+  -webkit-transition: top 100ms linear !important;
+  -moz-transition: top 100ms linear !important;
 }
