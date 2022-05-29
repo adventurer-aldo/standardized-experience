@@ -69,7 +69,7 @@ class QuizController < ApplicationController
 
     all_questions = case @level
                     when 0
-                      base_query.limit(rand(3..10)) # Prática
+                      base_query.where.not(level: 3).limit(rand(3..10)) # Prática
                     when 1
                       base_query.where(level: 1).limit(rand(10..35)) # Teste 1
                     when 2
