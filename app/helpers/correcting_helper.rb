@@ -116,7 +116,7 @@ module CorrectingHelper
               temp = column.dup
               temp[-1] = ''
               temp[0] = ''
-              content_tag(:th, temp)
+              content_tag(:th, temp, style: "font-family: 'Homemade Apple', cursive;color: blue;")
             else
               content_tag(:th, head)
             end
@@ -130,7 +130,7 @@ module CorrectingHelper
                   temp = column.dup
                   temp[-1] = ''
                   temp[0] = ''
-                  content_tag(:td, temp)
+                  content_tag(:td, temp, style: "font-family: 'Homemade Apple', cursive;color: blue;")
                 else
                   content_tag(:td, column)
                 end
@@ -141,7 +141,14 @@ module CorrectingHelper
       ) + (correct(answer) ? '' : content_tag(:table,
         (content_tag(:thead,
           content_tag(:tr, (answer.question.answer.first.split('|').map do |head|
-            content_tag(:th, head)
+            if head[0] == '?' && head[-1] == '?'
+              temp = column.dup
+              temp[-1] = ''
+              temp[0] = ''
+              content_tag(:th, temp, style: "font-family: 'Homemade Apple', cursive;color: red;")
+            else
+              content_tag(:th, head)
+            end
           end).join.html_safe), class: 'bordering-red'
         ) + '<br>'.html_safe + 
         content_tag(:tbody,
@@ -152,7 +159,7 @@ module CorrectingHelper
                   temp = column.dup
                   temp[-1] = ''
                   temp[0] = ''
-                  content_tag(:td, temp)
+                  content_tag(:td, temp, style: "font-family: 'Homemade Apple', cursive;color: red;")
                 else
                   content_tag(:td, column)
                 end
