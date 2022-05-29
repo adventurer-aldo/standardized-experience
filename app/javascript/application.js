@@ -42300,6 +42300,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           time: state.time - 1
         }));
         if (this.state.time == 2 * 60) {
+          document.getElementById("timing-bar").style = "top: 0px;";
           if (fire != "") {
             var ost = document.getElementById("bgm");
             ost.src = fire;
@@ -42316,7 +42317,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       clearInterval(this.interval);
     }
     render() {
-      return /* @__PURE__ */ import_react8.default.createElement("div", null, Math.trunc(this.state.time / 60).toLocaleString("en-US", {
+      return /* @__PURE__ */ import_react8.default.createElement("div", {
+        className: "blink-text"
+      }, Math.trunc(this.state.time / 60).toLocaleString("en-US", {
         minimumIntegerDigits: 2,
         useGrouping: false
       }), ":", (this.state.time % 60).toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false }));

@@ -19,7 +19,7 @@ class Timer extends React.Component {
                 time: state.time - 1
             }));
             if (this.state.time == 2*60) {
-                /*document.getElementById('navbar').style = 'display: block; background-color: black;'*/
+                document.getElementById('timing-bar').style = 'top: 0px;'
                 if (fire != "") {
                     var ost = document.getElementById('bgm')
                     ost.src=fire;
@@ -38,7 +38,7 @@ class Timer extends React.Component {
     }
     
 
-    render() { return <div>
+    render() { return <div className="blink-text">
         {(Math.trunc(this.state.time / 60)
         ).toLocaleString(
             'en-US', 

@@ -37,3 +37,23 @@ $icon_sizes: 25px;
   border: solid 1px red !important;
   color: red !important;  
 }
+
+.blink-text {
+  color: white;
+  animation: blinkingText 2s infinite;
+}
+
+@keyframes blinkingText{
+  0%		{ color: white;}
+  50%		{ color: red;}
+  100%	{ color: white;}
+}
+
+.hiding {
+  width: 100%;
+  z-index: 100;
+  top: -50px;
+  transition: top 100ms linear;
+  -webkit-transition: top 100ms linear;
+  -moz-transition: top 100ms linear;
+}
