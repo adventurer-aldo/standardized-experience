@@ -113,7 +113,7 @@ module CorrectingHelper
         (content_tag(:thead,
           content_tag(:tr, (answer.attempt.first.split('|').map do |head|
             if head[0] == '?' && head[-1] == '?'
-              temp = column.dup
+              temp = head.dup
               temp[-1] = ''
               temp[0] = ''
               content_tag(:th, temp, style: "font-family: 'Homemade Apple', cursive;color: blue;")
