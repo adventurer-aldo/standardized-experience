@@ -41,7 +41,7 @@ module InputAnswerHelper
             if head[0] == '?' && head[-1] == '?'
               content_tag(:th,
                 %(<input type="text"
-                name="answer[#{answer.id}][#{answer.question.answer.index(row)}][#{row.split('|').index(head)}]"
+                name="answer[#{answer.id}][0][#{answer.first.split('|').index(head)}]"
                 value=""
                 style="width: 100%; height: 100%; border: none;font-family: 'Homemade Apple', cursive;color: blue;">).html_safe)
             else
