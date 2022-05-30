@@ -88,13 +88,13 @@ module HomeHelper
                     link_to(
                     content_tag(:tr,
                                 content_tag(:td, chair_check(chair) ? (link_to(quiz_path(journey: journey.id, level: journey.level, subject: chair.subject.id), class: 'stretched-link'){chair.subject.title}) : chair.subject.title, class: 'position-relative') +
-                                content_tag(:td, (chair.first.nil? ? '---' : chair.first)) +
-                                content_tag(:td, chair.second.nil? ? '---' : chair.second) +
-                                content_tag(:td, ((chair.first.nil? || chair.second.nil?) ? (chair.reposition.nil? ? '---' : chair.reposition) : '---')) +
-                                content_tag(:td, chair.dissertation.nil? ? '---' : chair.dissertation) +
-                                content_tag(:td, media(chair).to_s) +
-                                content_tag(:td, exame(chair).to_s) +
-                                content_tag(:td, recurrence(chair).to_s),
+                                content_tag(:td, chair.first.nil? ? '---' : chair.first.to_s.gsub('.',',')) +
+                                content_tag(:td, chair.second.nil? ? '---' : chair.second.to_s.gsub('.',',')) +
+                                content_tag(:td, ((chair.first.nil? || chair.second.nil?) ? (chair.reposition.nil? ? '---' : chair.reposition.to_s.gsub('.',',')) : '---')) +
+                                content_tag(:td, chair.dissertation.nil? ? '---' : chair.dissertation.to_s.gsub('.',',')) +
+                                content_tag(:td, media(chair).to_s.gsub('.',',')) +
+                                content_tag(:td, exame(chair).to_s.gsub('.',',')) +
+                                content_tag(:td, recurrence(chair).to_s.gsub('.',',')),
                                class: "table-group-divider #{highlight}"),
                                root_path)}.join.html_safe), class: 'table table-striped table-striped-columns table-hover overflow-scroll'
                 )
