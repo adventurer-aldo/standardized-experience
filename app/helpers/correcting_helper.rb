@@ -142,7 +142,7 @@ module CorrectingHelper
         (content_tag(:thead,
           content_tag(:tr, (answer.question.answer.first.split('|').map do |head|
             if head[0] == '?' && head[-1] == '?'
-              temp = column.dup
+              temp = head.dup
               temp[-1] = ''
               temp[0] = ''
               content_tag(:th, temp, style: "font-family: 'Homemade Apple', cursive;color: red;")
@@ -150,7 +150,7 @@ module CorrectingHelper
               content_tag(:th, head)
             end
           end).join.html_safe), class: 'bordering-red'
-        ) + '<br>'.html_safe + 
+        ) + '<br>'.html_safe +
         content_tag(:tbody,
           answer.question.answer[1..].collect do |row|
             content_tag(:tr,
