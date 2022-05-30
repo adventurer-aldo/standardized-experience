@@ -19,7 +19,7 @@ module Misc
                  'Melhor revisar os seus erros antes de prosseguir.',
                  'Ah, ainda não desistiu? Veremos por quanto tempo aguenta...'],
                 ['Mostre o que sabe.',
-                 'Prove que o seu conhecimento não é uma farsa.'
+                 'Prove que o seu conhecimento não é uma farsa.',
                  'Não será um teste qualquer. Não baixe sua guarda.'],
                 ['Está aqui...A "última" batalha...',
                  'Não passamos por todos aqueles obstáculos para cair em frente ao final.',
