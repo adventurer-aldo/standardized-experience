@@ -53,7 +53,7 @@ module CorrectingHelper
     case answer.question.question_types[answer.question_type]
     when 'open'
       return %(<div class="form-control form-control-lg"><span class='text-wrap#{correct(answer) ? '' : ' text-decoration-line-through' }' style="text-decoration-color: red !important;font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt.first}</span>
-        #{correct(answer) ? '' : %(<span style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.sample}</span>)}</div>).html_safe
+        #{correct(answer) ? '' : %(<span style="font-family: 'Homemade Apple', cursive;color: red;">#{answer.question.answer.sample}</span>)}</div>).html_safe
     when 'caption'
       return answer.attempt.map do |a|
         %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.include?(a) ? '' : '<span class="text-decoration-line-through" style="text-decoration-color: red !important;">'}#{a}#{answer.question.answer.include?(a) ? '' : '</span>'}<span class='text-danger'> #{answer.question.answer.include?(a) ? '✓' : '✗'}</span></div>)
