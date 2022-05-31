@@ -50,13 +50,13 @@ module HomeHelper
                               content_tag(:th, 'Notas', colspan: '7', class: 'text-center')
                             ) +
                   content_tag(:tr,
-                              content_tag(:th, '1º Teste') +
-                              content_tag(:th, '2º Teste') +
-                              content_tag(:th, 'Teste de Reposição') +
-                              content_tag(:th, 'Dissertação') +
-                              content_tag(:th, 'Média Final') +
-                              content_tag(:th, 'Exame Normal') +
-                              content_tag(:th, 'Exame de Recorrência')
+                              content_tag(:th, '1º Teste', class: 'text-center') +
+                              content_tag(:th, '2º Teste', class: 'text-center') +
+                              content_tag(:th, 'Teste de Reposição', class: 'text-center') +
+                              content_tag(:th, 'Dissertação', class: 'text-center') +
+                              content_tag(:th, 'Média Final', class: 'text-center') +
+                              content_tag(:th, 'Exame Normal', class: 'text-center') +
+                              content_tag(:th, 'Exame de Recorrência', class: 'text-center')
                             )
                    ) +
       content_tag(:tbody,
