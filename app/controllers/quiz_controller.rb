@@ -1,4 +1,4 @@
-class QuizController < ApplicationController
+﻿class QuizController < ApplicationController
   before_action :setup
 
   #=======================================================================================
@@ -42,7 +42,7 @@ class QuizController < ApplicationController
     @journey = if params[:journey] && Journey.where(id: params[:journey].to_i).exists?
                  Journey.find_by(id: params[:journey].to_i)
                else
-                 Journey.first
+                 Journey.last
                end
 
     @subject = if params[:subject] && Subject.where(id: params[:subject].to_i).exists?
