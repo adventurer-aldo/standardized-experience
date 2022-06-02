@@ -20,17 +20,39 @@
       'Exame de Recorrência'
     ]
 
+    @professorNames = [
+      'John Watson',
+      'Mary Watson',
+      'James Watson',
+      'Nathan Swift',
+      'Ema Skye',
+      'James Bond',
+      'Michael Scott',
+      'Dwight Schrute',
+      'Jim Halpert',
+      'Pam Beesly',
+      'Ryan Howard',
+      'Kelly Kapoor',
+      'Stanley Hudson',
+      'Angela Martin',
+      'Kevin Malone',
+      'Toby Flenderson',
+      'Darryl Philbin',
+      'Oscar Martinez'
+    ]
+
     @quiz_durations = [5, 9, 9, 10, 6, 15, 20]
 
     case @formats
     when 0
-      @ending = ['RR/BM', 'center']
+      @ending = ["#{@professorNames.sample}/#{@professorNames.sample}", 'center']
     when 1
       @test_name[1] = '1º Teste de Frequência'
       @test_name[2] = '2º Teste de Frequência'
     when 2
       @test_name[1] = 'I Teste'
       @test_name[2] = 'II Teste'
+      @ending = [@professorNames.sample, 'left']
     end
   end
 
