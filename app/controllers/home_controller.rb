@@ -31,11 +31,7 @@ class HomeController < ApplicationController
   end
 
   def lessons; end
-
-  # Create method lesson that takes a random question from the database
-  # Select the tags column from this question and take a sample from this array
-  # Then select all questions from the database that have the taken sample inside its tags column
-
+  
   def lesson
     temp_question = Question.all.sample.tags.sample
     @questions = Question.where("tags @> ARRAY[?]::varchar[]", temp_question)
@@ -80,7 +76,7 @@ class HomeController < ApplicationController
   def submit_question
     types = %w[open choice multichoice veracity caption formula table submit]
     parameters = %w[strict]
-    puts params[:answers].class
+    last_question = Question.last
     new_question = Question.create(question: params[:question],
                                    question_types: eval(params[:types]).map { |i| types[i] },
                                    answer: params[:answer],
@@ -92,7 +88,7 @@ class HomeController < ApplicationController
 
     if params[:reuse_image]
       old_question = if params[:reuse_id] == '0' || Question.where(id: params[:reuse_id].to_i).exists? == false
-                       Question.last
+                       last_question
                      else
                        Question.find_by(id: params[:reuse_id].to_i)
                      end
