@@ -9,9 +9,11 @@ Ano lectivo: <%=@quiz_start.year%><br>
 Data: <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>
 </p>
 <p><br><br><br><br><span class='d-block text-center'><%= @test_name[@quiz.level].upcase %></span></p></div>
-<p> <%= form_with id: :name, html: { autocomplete: 'off' } do |form| %>
+<p> <%= form_with id: :name, html: { autocomplete: 'off', onsubmit: '' } do |form| %>
         <% if @quiz.end_time %>
+            <span>Nome: </span>
             <span class='form-control'><%= @quiz.first_name %><span class="text-white">.</span></span>
+            <span>Código: </span>
             <span class='form-control'><%= @quiz.last_name %><span class="text-white">.</span></span>
         <% else %>
             <%= form.label :name, "Nome: ", class: 'bold'%>
