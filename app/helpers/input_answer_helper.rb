@@ -17,7 +17,7 @@ module InputAnswerHelper
               #{option}
             </label>
           </div>)
-        end.join
+        end.join.html_safe
       when 'multichoice'
         options.map do |option|
           %(
@@ -27,7 +27,7 @@ module InputAnswerHelper
               #{option}
             </label>
           </div>)
-          end.join
+          end.join.html_safe
       when 'veracity'
         options.map do |option|
           %(
@@ -36,7 +36,7 @@ module InputAnswerHelper
             <label class="form-check-label" for="Check#{answer.id}-#{options.index(option)}">#{option}</label>
           </div>
         )
-      end.join
+      end.join.html_safe
       end
     when 'caption'
       return (input * answer.question.answer.size).html_safe
