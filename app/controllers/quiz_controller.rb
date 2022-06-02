@@ -125,7 +125,6 @@
             when 6
               [@journey.soundtrack.recurrence, @journey.soundtrack.recurrence_rush]
             end
-            puts @ost.to_s
     @ost_index = @ost[0].index(@ost[0].sample)
 
     @full_query = all_questions.shuffle

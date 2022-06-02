@@ -12,14 +12,14 @@ Data: <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>
 <p> <%= form_with id: :name, html: { autocomplete: 'off', onsubmit: '' } do |form| %>
         <% if @quiz.end_time %>
             <span>Nome: </span>
-            <span class='form-control'><%= @quiz.first_name %><span class="text-white">.</span></span>
+            <span class='form-control' style="font-family: 'Homemade Apple', cursive;color: blue;"><%= @quiz.first_name %><span class="text-white">.</span></span>
             <span>Código: </span>
-            <span class='form-control'><%= @quiz.last_name %><span class="text-white">.</span></span>
+            <span class='form-control' style="font-family: 'Homemade Apple', cursive;color: blue;"><%= @quiz.last_name %><span class="text-white">.</span></span>
         <% else %>
             <%= form.label :name, "Nome: ", class: 'bold'%>
-            <%= form.text_field :name, class: 'form-control', id: 'first_name' %>
+            <%= form.text_field :name, class: 'form-control', id: 'first_name', style: "font-family: 'Homemade Apple', cursive;color: blue;" %>
             <%= form.label :name, "Código: ", class: 'bold'%>
-            <%= form.text_field :surname, class: 'form-control', id: 'last_name' %>
+            <%= form.text_field :surname, class: 'form-control', id: 'last_name', style: "font-family: 'Homemade Apple', cursive;color: blue;" %>
         <% end%>
     <% end %>
  </p>

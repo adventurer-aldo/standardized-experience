@@ -4,12 +4,10 @@
   <audio autoplay='autoplay' loop='loop' id="bgm" preload="auto">
       <source src=<%=raw @ost[0][@ost_index] %> type="audio/ogg">
   </audio>
-<%= form_with id: :quiz, onsubmit: "function() {
-    var first_name = document.getElementById('first_name').value;
+<%= form_with id: :quiz, html: { autocomplete: 'off', onsubmit: ";var first_name = document.getElementById('first_name').value;
     var last_name = document.getElementById('last_name').value;
     document.getElementById('name_first').value = first_name;
-    document.getElementById('name_last').value = last_name;
-}" , html: { autocomplete: 'off'} do |form| %>
+    document.getElementById('name_last').value = last_name;" } do |form| %>
     <%= form.hidden_field :quizID, value: @quiz.id.to_s %>
     <%= form.hidden_field :first_name, value: '', id: 'name_first' %>
     <%= form.hidden_field :last_name, value: '', id: 'name_last' %>

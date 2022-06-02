@@ -1,22 +1,12 @@
 <% unless @grade.nil? %><span class='score'><%= number_with_precision @grade, significant: true, precision: 2, separator: ',' %>/20</span><% end %>
-<div><p align='center'><div class="standardized-image-black"></div></p>
-<p align='center'><b>Standardized Experience</b></p>
-<p align='center'><b>Programa de Treinamento Acadêmico Superior</b></p>
-<p style='float: left'><%= @test_name[@quiz.level] %> de <%= @quiz.subject.title %><br>
-<div class='border-bottom border-dark border-3'>Duração: <%= @quiz_durations[@quiz.level] %> minutos <div class='float-right'><%=@quiz_start.day%>.<%=@quiz_start.month%>.<%=@quiz_start.year%></div></div>
-</p>
-<p><br><br><br><br><span class='d-block text-center'></span></p></div>
+<div><div class="standardized-image-black"></div>
+<p class="text-center"><b>Standardized Experience</b></p>
+<p class="text-center"><b>Programa de Treinamento Acadêmico Superior</b></p>
+<p class="text-center"><%= @test_name[@quiz.level] %> de <%= @quiz.subject.title %><br>
+<div class='border-bottom border-dark border-3'>Duração: <%= @quiz_durations[@quiz.level] %> minutos <div class='float-right d-inline-block'><%=@quiz_start.day%>.<%=@quiz_start.month%>.<%=@quiz_start.year%></div></div>
+</p></div>
 <p> <%= form_with id: :name, html: { autocomplete: 'off', onsubmit: '' } do |form| %>
-        <% if @quiz.end_time %>
-            <span>Nome: </span>
-            <span class='form-control'><%= @quiz.first_name %><span class="text-white">.</span></span>
-            <span>Código: </span>
-            <span class='form-control'><%= @quiz.last_name %><span class="text-white">.</span></span>
-        <% else %>
-            <%= form.label :name, "Nome: ", class: 'bold'%>
-            <%= form.text_field :name, class: 'form-control', id: 'first_name' %>
-            <%= form.label :name, "Código: ", class: 'bold'%>
-            <%= form.text_field :surname, class: 'form-control', id: 'last_name' %>
-        <% end%>
-    <% end %>
- </p>
+    <input type='hidden' name='first_name' value='' id='first_name' />
+    <input type='hidden' name='last_name' value='' id='last_name' />
+  <% end %>
+</p>

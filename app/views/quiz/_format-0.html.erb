@@ -6,16 +6,16 @@
         <% if @quiz.end_time %>
             <div class="input-group mb-3">
               <span class="input-group-text">Nome</span>
-              <span type="text" name="first_name" id="first_name" class="form-control" placeholder="Nome" aria-label="Username"><%= @quiz.first_name %></span>
+              <span type="text" name="first_name" id="first_name" class="form-control" placeholder="Nome" aria-label="Username" style="font-family: 'Homemade Apple', cursive;color: blue;"><%= @quiz.first_name %></span>
               <span class="input-group-text">Código</span>
-              <span type="text" name="last_name" id="last_name" class="form-control" placeholder="Código" aria-label="Server"><%= @quiz.last_name %></span>
+              <span type="text" name="last_name" id="last_name" class="form-control" placeholder="Código" aria-label="Server" style="font-family: 'Homemade Apple', cursive;color: blue;"><%= @quiz.last_name %></span>
             </div>
         <% else %>
             <div class="input-group mb-3">
               <span class="input-group-text">Nome</span>
-              <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Nome" aria-label="Username">
+              <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Nome" aria-label="Username" style="font-family: 'Homemade Apple', cursive;color: blue;">
               <span class="input-group-text">Código</span>
-              <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Código" aria-label="Server">
+              <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Código" aria-label="Server" style="font-family: 'Homemade Apple', cursive;color: blue;">
             </div>
         <% end%>
     <% end %>
