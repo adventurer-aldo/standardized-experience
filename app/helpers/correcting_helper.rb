@@ -127,7 +127,7 @@ module CorrectingHelper
             </div>)
           end
         end
-      end.join('<br>').html_safe
+      end.join.html_safe
     when 'formula'
       condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
       format("#{question.answer}", #{answer.variables.join(', ')})
