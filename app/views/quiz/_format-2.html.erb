@@ -1,14 +1,11 @@
 <% unless @grade.nil? %><span class='score'><%= number_with_precision @grade, significant: true, precision: 2, separator: ',' %>/20</span><% end %>
-<div class="border border-dark border-2"><p align='center'><b>SE</b></p>
-<p align='center'<b>STANDARDIZED EXPERIENCE</b></p>
-<p style='float: left'>Disciplina: <%=@quiz.subject.title%><br>
-Curso: Medicina Geral<br>
-Variante <%= %w[A B C D].sample %>
-</p><p style='float: right'>2º Ano, 1º Semestre: <br>
-Ano lectivo: <%=@quiz_start.year%><br>
-Data: <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>
+<div><p align='center'><div class="standardized-image-black"></div></p>
+<p align='center'><b>Standardized Experience</b></p>
+<p align='center'><b>Programa de Treinamento Acadêmico Superior</b></p>
+<p style='float: left'><%= @test_name[@quiz.level] %> de <%= @quiz.subject.title %><br>
+<div class='border-bottom border-dark border-3'>Duração: <%= @quiz_durations[@quiz.level] %> minutos <div class='float-right'><%=@quiz_start.day%>.<%=@quiz_start.month%>.<%=@quiz_start.year%></div></div>
 </p>
-<p><br><br><br><br><span class='d-block text-center'><%= @test_name[@quiz.level].upcase %></span></p></div>
+<p><br><br><br><br><span class='d-block text-center'></span></p></div>
 <p> <%= form_with id: :name, html: { autocomplete: 'off', onsubmit: '' } do |form| %>
         <% if @quiz.end_time %>
             <span>Nome: </span>

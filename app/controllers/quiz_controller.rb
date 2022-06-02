@@ -7,7 +7,7 @@
   # names and the endings of the tests, as wll as the time the quizzes will take.
   #=======================================================================================
   def setup
-    @formats = 0..1
+    @formats = 0..2
     @ending = ['']
 
     @test_name = [
@@ -28,6 +28,9 @@
     when 1
       @test_name[1] = '1º Teste de Frequência'
       @test_name[2] = '2º Teste de Frequência'
+    when 2
+      @test_name[1] = 'I Teste'
+      @test_name[2] = 'II Teste'
     end
   end
 

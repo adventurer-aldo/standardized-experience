@@ -11,6 +11,17 @@ body {
   vertical-align: middle;
 }
 
+#standardized-image-black {
+  background-image: url('https://i.ibb.co/8DR0wJS/XPLogo-Black.png');
+  width: 145px;
+  height: 103px;
+  background-size: 100%;
+  display: inline-block;
+  vertical-align: middle; // Horizontally center the element
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #standardized-text {
   font-family: 'Titillium Web', sans-serif;
   font-weight: bold;
