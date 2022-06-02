@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
   get '/classes', to: 'home#lessons', as: 'lessons'
+  get '/classes/:id', to: 'home#lesson', as: 'lesson'
   get '/campanha', to: 'home#campaign', as: 'campaign'
 
   get '/sobre', to: 'home#about', as: 'about'
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
   get '/resultados/:id', to: 'quiz#results', as: 'results'
 
   post '/', to: 'home#new_journey'
+  post '/classes/:id', to: 'home#lesson_completed'
   post '/quiz', to: 'quiz#submit'
   post '/dados/questoes', to: 'home#submit_question'
   post '/dados/disciplinas', to: 'home#submit_subject'

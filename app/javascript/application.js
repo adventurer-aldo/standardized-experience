@@ -3003,11 +3003,11 @@
       if (true) {
         (function() {
           "use strict";
-          var React9 = require_react();
+          var React10 = require_react();
           var _assign = require_object_assign();
           var Scheduler = require_scheduler();
           var tracing = require_tracing();
-          var ReactSharedInternals = React9.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React10.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function warn(format) {
             {
               for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -3039,7 +3039,7 @@
               Function.prototype.apply.call(console[level2], console, argsWithFormat);
             }
           }
-          if (!React9) {
+          if (!React10) {
             {
               throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
             }
@@ -4255,7 +4255,7 @@
           var didWarnInvalidChild = false;
           function flattenChildren(children) {
             var content = "";
-            React9.Children.forEach(children, function(child) {
+            React10.Children.forEach(children, function(child) {
               if (child == null) {
                 return;
               }
@@ -4266,7 +4266,7 @@
           function validateProps(element, props) {
             {
               if (typeof props.children === "object" && props.children !== null) {
-                React9.Children.forEach(props.children, function(child) {
+                React10.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -11459,7 +11459,7 @@
           }
           var fakeInternalInstance = {};
           var isArray = Array.isArray;
-          var emptyRefsObject = new React9.Component().refs;
+          var emptyRefsObject = new React10.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -21039,7 +21039,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       if (true) {
         (function() {
           "use strict";
-          var React9 = require_react();
+          var React10 = require_react();
           var _assign = require_object_assign();
           var REACT_ELEMENT_TYPE = 60103;
           var REACT_PORTAL_TYPE = 60106;
@@ -21096,7 +21096,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             }
             return null;
           }
-          var ReactSharedInternals = React9.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React10.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
@@ -41994,6 +41994,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }), /* @__PURE__ */ import_react5.default.createElement("br", null), /* @__PURE__ */ import_react5.default.createElement("input", {
         type: "file",
         onChange: this.onImageChange,
+        name: "image",
         className: "form-control",
         id: "question_image",
         accept: "image/*"
@@ -42332,6 +42333,207 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       import_react_dom7.default.render(/* @__PURE__ */ import_react8.default.createElement(Timer, null), document.getElementById("timer"));
     }
     ;
+  });
+
+  // app/javascript/components/quiz_lesson.jsx
+  var import_react9 = __toESM(require_react());
+  var import_react_dom8 = __toESM(require_react_dom());
+  var QuizLesson = class extends import_react9.default.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        currentQuestion: 0,
+        time: this.props.time,
+        timeLeft: this.props.time,
+        interval: null,
+        questions: this.props.questions,
+        answers: [],
+        completed: false,
+        image: {}
+      };
+    }
+    componentDidMount() {
+      this.setState({
+        interval: setInterval(() => {
+          this.setState({
+            timeLeft: this.state.timeLeft - 1
+          });
+          if (this.state.timeLeft === 0) {
+            this.setState({
+              completed: true
+            });
+            clearInterval(this.state.interval);
+          }
+        }, 1e3)
+      });
+    }
+    componentWillUnmount() {
+      clearInterval(this.state.interval);
+    }
+    onClick = (index) => {
+      let questions2 = this.state.questions;
+      if (index === 0) {
+        questions2[index].completed = true;
+      } else {
+        questions2[index].completed = true;
+        questions2[index - 1].completed = true;
+      }
+      this.setState({
+        questions: questions2
+      });
+    };
+    onChange = (event) => {
+      let questions2 = this.state.questions;
+      let answers = this.state.answers;
+      let index = event.target.name.split("[")[1].split("]")[0];
+      let value = event.target.value;
+      if (value.length > 0) {
+        if (answers[index] === void 0) {
+          answers[index] = [];
+        }
+        answers[index].push(value);
+      } else {
+        answers[index].pop();
+      }
+      if (answers[index].length > 0) {
+        questions2[index].completed = true;
+      }
+      this.setState({
+        questions: questions2,
+        answers
+      });
+    };
+    render() {
+      let questions2 = this.state.questions;
+      let answers = this.state.answers;
+      let currentQuestion = questions2[this.state.currentQuestion];
+      let previousQuestion = questions2[this.state.currentQuestion - 1];
+      let nextQuestion = questions2[this.state.currentQuestion + 1];
+      let progress = this.state.currentQuestion + 1;
+      let total = questions2.length;
+      let timeLeft = this.state.timeLeft;
+      let completed = this.state.completed;
+      let image = this.state.image;
+      let time = this.props.time;
+      let title = this.props.title;
+      let imageUrl = this.props.imageUrl;
+      let imageAlt = this.props.imageAlt;
+      let imageWidth = this.props.imageWidth;
+      let imageHeight = this.props.imageHeight;
+      let imageStyle = {
+        width: imageWidth,
+        height: imageHeight
+      };
+      let imageClass = "";
+      if (imageUrl) {
+        imageClass = "image";
+      }
+      return /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "quiz-lesson"
+      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "header"
+      }, /* @__PURE__ */ import_react9.default.createElement("h1", null, title), /* @__PURE__ */ import_react9.default.createElement("h2", null, timeLeft)), /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "content"
+      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "image-container"
+      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: imageClass,
+        style: imageStyle
+      }, /* @__PURE__ */ import_react9.default.createElement("img", {
+        src: imageUrl,
+        alt: imageAlt
+      }))), /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "question-container"
+      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "question"
+      }, /* @__PURE__ */ import_react9.default.createElement("h3", null, currentQuestion.text)), /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "answers"
+      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "answer"
+      }, /* @__PURE__ */ import_react9.default.createElement("button", {
+        className: "previous",
+        onClick: () => {
+          if (previousQuestion) {
+            this.setState({
+              currentQuestion: this.state.currentQuestion - 1
+            });
+          }
+        },
+        disabled: !previousQuestion
+      }, /* @__PURE__ */ import_react9.default.createElement("i", {
+        className: "fas fa-arrow-left"
+      }))), /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "answer"
+      }, /* @__PURE__ */ import_react9.default.createElement("button", {
+        className: "next",
+        onClick: () => {
+          if (nextQuestion) {
+            this.setState({
+              currentQuestion: this.state.currentQuestion + 1
+            });
+          }
+        },
+        disabled: !nextQuestion
+      }, /* @__PURE__ */ import_react9.default.createElement("i", {
+        className: "fas fa-arrow-right"
+      }))), /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "progress"
+      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "progress-bar"
+      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "progress-bar-progress",
+        style: { width: `${progress * 100 / total}%` }
+      })), /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "progress-text"
+      }, progress, "/", total)), /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "answer"
+      }, /* @__PURE__ */ import_react9.default.createElement("input", {
+        type: "text",
+        name: `answers[${this.state.currentQuestion}]`,
+        placeholder: "Informa\xE7\xE3o que satisfaz a pergunta.",
+        onChange: this.onChange
+      }))))), /* @__PURE__ */ import_react9.default.createElement("div", {
+        className: "footer"
+      }, /* @__PURE__ */ import_react9.default.createElement("button", {
+        className: "submit",
+        onClick: () => {
+          this.setState({
+            completed: true
+          });
+          clearInterval(this.state.interval);
+        },
+        disabled: completed
+      }, "Enviar")));
+    }
+  };
+  document.addEventListener("turbo:load", () => {
+    if (document.getElementById("classroom")) {
+      import_react_dom8.default.render(/* @__PURE__ */ import_react9.default.createElement(QuizLesson, {
+        title: "Quiz",
+        time: 60,
+        questions: [
+          {
+            text: "Qual o nome do seu melhor amigo?",
+            answers: ["Jo\xE3o", "Pedro", "Paulo", "Jos\xE9"],
+            completed: false
+          },
+          {
+            text: "Qual o nome do seu melhor amigo?",
+            answers: ["Jo\xE3o", "Pedro", "Paulo", "Jos\xE9"],
+            completed: false
+          },
+          {
+            text: "Qual o nome do seu melhor amigo?",
+            answers: ["Jo\xE3o", "Pedro", "Paulo", "Jos\xE9"],
+            completed: false
+          }
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+        imageAlt: "Imagem de um cachorro",
+        imageWidth: "800",
+        imageHeight: "600"
+      }), document.getElementById("classroom"));
+    }
   });
 
   // app/javascript/controllers/paste_image.js

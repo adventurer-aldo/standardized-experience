@@ -9,28 +9,34 @@ module InputAnswerHelper
       options = organize_variables(answer)
       case answer.question.question_types[answer.question_type]
       when 'choice'
-        return options.map { |option| %(
+        options.map do |option|
+          %(
           <div class="form-check">
             <input class="form-check-input" type="radio" value="#{option}" name="answer[#{answer.id}][]" id="Check#{answer.id}-#{options.index(option)}">
             <label class="form-check-label" for="Check#{answer.id}-#{options.index(option)}">
               #{option}
             </label>
-          </div>)}.join
+          </div>)
+        end.join
       when 'multichoice'
-        return options.map { |option| %(
+        options.map do |option|
+          %(
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="#{option}" name="answer[#{answer.id}][]" id="Check#{answer.id}-#{options.index(option)}">
             <label class="form-check-label" for="Check#{answer.id}-#{options.index(option)}">
               #{option}
             </label>
-          </div>)}.join
+          </div>)
+          end.join
       when 'veracity'
-        return options.map { |option| %(
+        options.map do |option|
+          %(
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" name="answer[#{answer.id}][]" value="#{option}" id="Check#{answer.id}-#{options.index(option)}">
             <label class="form-check-label" for="Check#{answer.id}-#{options.index(option)}">#{option}</label>
           </div>
-        )}.join
+        )
+      end.join
       end
     when 'caption'
       return (input * answer.question.answer.size).html_safe

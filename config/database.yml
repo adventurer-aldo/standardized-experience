@@ -10,7 +10,7 @@ default: &default
 development:
   <<: *default
 #  host: localhost
-#  database: d61ef2o6sb5m2g
+#  database: dbek9rt1fuq28n
 #  username: postgres
 #  password: KuzeDaisaku2021
 

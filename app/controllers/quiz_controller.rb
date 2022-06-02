@@ -65,7 +65,7 @@ class QuizController < ApplicationController
                 0
               end
 
-    base_query = @subject.questions.order(Arel.sql('RANDOM()'))
+    base_query = @subject.questions.where(question_types: ['veracity']).order(Arel.sql('RANDOM()'))
 
     all_questions = case @level
                     when 0
@@ -128,7 +128,7 @@ class QuizController < ApplicationController
           choices.push("a#{index}")
         end
         choices.shuffle!
-        choices = choices[0..rand(1..choices.size).to_i] if type == 'veracity'
+        calculated_variables = choices[0..rand(1..choices.size).to_i] if type == 'veracity'
       when 'formula'
         que = question.question.dup
         randoms = que.count('#')

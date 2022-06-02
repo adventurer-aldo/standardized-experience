@@ -1,12 +1,8 @@
 <head><title>Classe | SE</title></head><%=render 'header'%><%=render 'nav_home'%>
-<p><b style='font-size: 30px;'>O que é isto?</b>
-<br>
-<span style='display: inline-block; color: white; background-color: #0051B5; padding: 0px 4px; border-radius: 3px; font-weight: bold'>
-@standardized-experience</span> é uma ferramenta designada para simular as condições de um teste/exame
-dado nas escolas, universidades, colégios, etc.. Acredita-se que o fundamento do conhecimento é a experiência.
-Se você se deparar com um problema no presente e resolvê-lo agora, saberá como enfrentá-lo no futuro. O mesmo
-se aplica a qualquer parte da vida. <br><br>
-<b>Nós não esquecemos nunca. Apenas não lembramos.</b>
-<br></p>
+<p style='float: left; margin-right: 20px;'><%= image_tag 'classroom.png', alt: 'Classe', title: 'Classe' %>
+<h1>Bem vindo a Classe!</h1>
+</p>
+<%= link_to 'Começar a aula', lessons_path, class: 'btn btn-primary' %>
+<div id="classroom"></div>
 <p style='text-align: center'><b>Happy studying!</b></p>
 </div>

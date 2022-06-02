@@ -12,7 +12,7 @@ class HomeController < ApplicationController
              when 2, 3
                sound.preparations_second
              when 4
-              sound.preparations_dissertation
+               sound.preparations_dissertation
              when 5, 6
                sound.preparations_exam
              end
@@ -28,11 +28,18 @@ class HomeController < ApplicationController
                  else
                    'Você ainda não fez nenhum teste. Comece um ou faça uma jornada!'
                  end
-
-
   end
 
   def lessons; end
+
+  # Create method lesson that takes a random question from the database
+  # Select the tags column from this question and take a sample from this array
+  # Then select all questions from the database that have the taken sample inside its tags column
+
+  def lesson
+    temp_question = Question.all.sample.tags.sample
+    @questions = Question.where("tags @> ARRAY[?]::varchar[]", temp_question)
+  end
   
   def campaign; end
 
