@@ -25,7 +25,7 @@ module CorrectingHelper
                       true
                     end
                   when 'veracity'
-                    true if answer.attempt.intersection(question.answer) == answer.attempt
+                    true if organize_variables_text(answer).intersection(question.answer).sort == answer.attempt.sort
                   when 'formula'
                     condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
                     format("#{question.answer}", #{answer.variables.join(', ')})
@@ -50,6 +50,7 @@ module CorrectingHelper
   end
 
   def show_correct(answer)
+    question_type = answer.question.question_types[answer.question_type]
     case answer.question.question_types[answer.question_type]
     when 'open'
       return %(<div class="form-control form-control-lg"><span class='text-wrap#{correct(answer) ? '' : ' text-decoration-line-through' }' style="text-decoration-color: red !important;font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt.first}</span>
@@ -59,47 +60,72 @@ module CorrectingHelper
         %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.include?(a) ? '' : '<span class="text-decoration-line-through" style="text-decoration-color: red !important;">'}#{a}#{answer.question.answer.include?(a) ? '' : '</span>'}<span class='text-danger'> #{answer.question.answer.include?(a) ? '✓' : '✗'}</span></div>)
       end.union(answer.question.answer.difference(answer.attempt).map {|q| %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: red;">#{q}</span></div>)}).join.html_safe
     when 'choice', 'multichoice', 'veracity'
-      type = case answer.question.question_types[answer.question_type]
+      type = case question_type
              when 'choice'
                'radio'
              when 'multichoice', 'veracity'
                'checkbox'
              end
-      role = case answer.question.question_types[answer.question_type]
+      role = case question_type
              when 'veracity'
-               ' role="switch"'
+               ' form-switch" role="switch'
              else
                ''
              end
       variables = answer.variables.map do |variable|
         if variable.include? 'a'
-          answer.question.answer[variable[1..].to_i]
+          text = answer.question.answer[variable[1..].to_i]
+          if answer.question.choices.where(decoy: text).exists?
+            text += answer.question.choices.where(decoy: text).first.image.attached? ? %(<img src="#{answer.question.choices.where(decoy: text).first.image.url}" class"img-fluid">) : ''
+          end
+          text
         else
-          Choice.find_by(id: variable.to_i)
+          choice = Choice.find_by(id: variable.to_i)
+          if choice.image.attached?
+            %(#{choice.decoy}<img src="#{choice.image.url}" class="img-fluid">)
+          else
+            choice.decoy
+          end
         end
       end
       return variables.map do |option|
-        if answer.question.answer.include?(option) && answer.attempt.include?(option)
+        if answer.question.answer.include?(option) && answer.attempt.include?(option) # Correct and selected
           %(<div class="form-check#{role}">
             <input class="form-check-input bg-success" type="#{type}" name="flex#{type.capitalize}Disabled" id="Check#{answer.id}-#{variables.index(option)}" checked disabled>
             <label class="form-check-label" for="Check#{answer.id}-#{variables.index(option)}">
               #{option}
             </label>
           </div>)
-        elsif answer.question.answer.include?(option) && !answer.attempt.include?(option)
+        elsif answer.question.answer.include?(option) && !answer.attempt.include?(option) # Correct but not selected
+          %(<div class="form-check#{role}">
+            <input class="form-check-input bg-danger" type="#{type}" name="flex#{type.capitalize}Disabled" id="Check#{answer.id}-#{variables.index(option)}" disabled>
+            <label class="form-check-label" for="Check#{answer.id}-#{variables.index(option)}">
+              #{option}
+            </label>
+          </div>)
+        elsif !answer.question.answer.include?(option) && answer.attempt.include?(option) # Incorrect but selected
           %(<div class="form-check#{role}">
             <input class="form-check-input bg-danger" type="#{type}" name="flex#{type.capitalize}Disabled" id="Check#{answer.id}-#{variables.index(option)}" checked disabled>
             <label class="form-check-label" for="Check#{answer.id}-#{variables.index(option)}">
               #{option}
             </label>
           </div>)
-        else
-          %(<div class="form-check#{role}">
-            <input class="form-check-input" type="#{type}" name="flex#{type.capitalize}Disabled" id="Check#{answer.id}-#{variables.index(option)}" disabled>
-            <label class="form-check-label" for="Check#{answer.id}-#{variables.index(option)}">
-              #{option}
-            </label>
-          </div>)
+        elsif !answer.attempt.include?(option) && !answer.question.answer.include?(option) # Incorrect and not selected
+          if question_type == 'veracity'
+            %(<div class="form-check#{role}">
+              <input class="form-check-input bg-success" type="#{type}" name="flex#{type.capitalize}Disabled" id="Check#{answer.id}-#{variables.index(option)}" disabled>
+              <label class="form-check-label" for="Check#{answer.id}-#{variables.index(option)}">
+                #{option}
+              </label>
+            </div>)
+          else
+            %(<div class="form-check#{role}">
+              <input class="form-check-input" type="#{type}" name="flex#{type.capitalize}Disabled" id="Check#{answer.id}-#{variables.index(option)}" disabled>
+              <label class="form-check-label" for="Check#{answer.id}-#{variables.index(option)}">
+                #{option}
+              </label>
+            </div>)
+          end
         end
       end.join('<br>').html_safe
     when 'formula'

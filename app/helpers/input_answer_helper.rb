@@ -81,7 +81,15 @@ module InputAnswerHelper
   def organize_variables(answer)
     answer.variables.map do |id|
       if id.include? 'a'
-        answer.question.answer[id[1..-1].to_i]
+        text = answer.question.answer[id[1..-1].to_i]
+        # Check if there's a choice with decoy that matches text
+        if answer.question.choices.find_by(decoy: text)
+          choice = answer.question.choices.find_by(decoy: text)
+          if choice.image.attached?
+            text += %(<img src="#{choice.image.url}" class="img-fluid">)
+          end
+        end
+        text
       else
         choice = Choice.find_by(id: id.to_i)
         if choice.image.attached?
@@ -89,6 +97,16 @@ module InputAnswerHelper
         else
           choice.decoy
         end
+      end
+    end
+  end
+
+  def organize_variables_text(answer)
+    answer.variables.map do |id|
+      if id.include? 'a'
+        answer.question.answer[id[1..-1].to_i]
+      else
+        Choice.find_by(id: id.to_i).decoy
       end
     end
   end

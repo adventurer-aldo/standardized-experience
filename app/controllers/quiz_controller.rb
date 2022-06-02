@@ -65,7 +65,7 @@
                 0
               end
 
-    base_query = @subject.questions.where(question_types: ['veracity']).order(Arel.sql('RANDOM()'))
+    base_query = @subject.questions.order(Arel.sql('RANDOM()'))
 
     all_questions = case @level
                     when 0
