@@ -1,5 +1,5 @@
 <% unless @grade.nil? %><span class='score'><%= number_with_precision @grade, significant: true, precision: 2, separator: ',' %>/20</span><% end %>
-<div><div class="standardized-image-black"></div>
+<div style="font-weight: bold"><div class="standardized-image-black"></div>
 <p class="text-center"><b>Standardized Experience</b></p>
 <p class="text-center"><b>Programa de Treinamento Acadêmico Superior</b></p>
 <p class="text-center"><%= @test_name[@quiz.level] %> de <%= @quiz.subject.title %><br>
