@@ -86,7 +86,7 @@ module InputAnswerHelper
         if answer.question.choices.find_by(decoy: text)
           choice = answer.question.choices.find_by(decoy: text)
           if choice.image.attached?
-            text += %(<img src="#{choice.image.url}" class="img-fluid">)
+            text += %(<br><img src="#{choice.image.url}" class="img-fluid">)
           end
         end
         text

@@ -14,7 +14,7 @@
     <% @quiz.answers.each_with_index do |answer, index| %>
     <p><b><%= index + 1 %>.</b> <%= answer.question.question %>
     <% if answer.question.image.attached? %>
-      <img src=<%= raw answer.question.image.url %> class="img-fluid">
+      <br><img src=<%= raw answer.question.image.url %> class="img-fluid">
     <% end %>
     <%= input_answer(answer) %>
     </p>

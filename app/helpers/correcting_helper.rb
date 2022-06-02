@@ -76,13 +76,13 @@ module CorrectingHelper
         if variable.include? 'a'
           text = answer.question.answer[variable[1..].to_i]
           if answer.question.choices.where(decoy: text).exists?
-            text += answer.question.choices.where(decoy: text).first.image.attached? ? %(<img src="#{answer.question.choices.where(decoy: text).first.image.url}" class"img-fluid">) : ''
+            text += answer.question.choices.where(decoy: text).first.image.attached? ? %(<br><img src="#{answer.question.choices.where(decoy: text).first.image.url}" class"img-fluid">) : ''
           end
           text
         else
           choice = Choice.find_by(id: variable.to_i)
           if choice.image.attached?
-            %(#{choice.decoy}<img src="#{choice.image.url}" class="img-fluid">)
+            %(#{choice.decoy}<br><img src="#{choice.image.url}" class="img-fluid">)
           else
             choice.decoy
           end
