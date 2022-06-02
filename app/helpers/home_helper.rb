@@ -50,13 +50,13 @@ module HomeHelper
                               content_tag(:th, 'Notas', colspan: '7', class: 'text-center')
                             ) +
                   content_tag(:tr,
-                              content_tag(:th, '1º Teste') +
-                              content_tag(:th, '2º Teste') +
-                              content_tag(:th, 'Teste de Reposição') +
-                              content_tag(:th, 'Dissertação') +
-                              content_tag(:th, 'Média Final') +
-                              content_tag(:th, 'Exame Normal') +
-                              content_tag(:th, 'Exame de Recorrência')
+                              content_tag(:th, '1º Teste', class: 'text-center') +
+                              content_tag(:th, '2º Teste', class: 'text-center') +
+                              content_tag(:th, 'Teste de Reposição', class: 'text-center') +
+                              content_tag(:th, 'Dissertação', class: 'text-center') +
+                              content_tag(:th, 'Média Final', class: 'text-center') +
+                              content_tag(:th, 'Exame Normal', class: 'text-center') +
+                              content_tag(:th, 'Exame de Recorrência', class: 'text-center')
                             )
                    ) +
       content_tag(:tbody,
@@ -87,14 +87,14 @@ module HomeHelper
                                 end
                     link_to(
                     content_tag(:tr,
-                                content_tag(:td, chair_check(chair) ? (link_to(quiz_path(journey: journey.id, level: journey.level, subject: chair.subject.id), class: 'stretched-link'){chair.subject.title}) : chair.subject.title, class: 'position-relative') +
-                                content_tag(:td, chair.first.nil? ? '---' : chair.first.to_s.gsub('.',',')) +
-                                content_tag(:td, chair.second.nil? ? '---' : chair.second.to_s.gsub('.',',')) +
-                                content_tag(:td, ((chair.first.nil? || chair.second.nil?) ? (chair.reposition.nil? ? '---' : chair.reposition.to_s.gsub('.',',')) : '---')) +
-                                content_tag(:td, chair.dissertation.nil? ? '---' : chair.dissertation.to_s.gsub('.',',')) +
-                                content_tag(:td, media(chair).to_s.gsub('.',',')) +
-                                content_tag(:td, exame(chair).to_s.gsub('.',',')) +
-                                content_tag(:td, recurrence(chair).to_s.gsub('.',',')),
+                                content_tag(:td, chair_check(chair) ? (link_to(quiz_path(journey: journey.id, level: journey.level, subject: chair.subject.id), class: 'stretched-link'){chair.subject.title}) : chair.subject.title, class: 'position-relative text-center') +
+                                content_tag(:td, chair.first.nil? ? '---' : chair.first.to_s.gsub('.',','), class: 'text-center') +
+                                content_tag(:td, chair.second.nil? ? '---' : chair.second.to_s.gsub('.',','), class: 'text-center') +
+                                content_tag(:td, ((chair.first.nil? || chair.second.nil?) ? (chair.reposition.nil? ? '---' : chair.reposition.to_s.gsub('.',',')) : '---'), class: 'text-center') +
+                                content_tag(:td, chair.dissertation.nil? ? '---' : chair.dissertation.to_s.gsub('.',','), class: 'text-center') +
+                                content_tag(:td, media(chair).to_s.gsub('.',','), class: 'text-center') +
+                                content_tag(:td, exame(chair).to_s.gsub('.',','), class: 'text-center') +
+                                content_tag(:td, recurrence(chair).to_s.gsub('.',','), class: 'text-center'),
                                class: "table-group-divider #{highlight}"),
                                root_path)}.join.html_safe), class: 'table table-striped table-striped-columns table-hover overflow-scroll'
                 )
