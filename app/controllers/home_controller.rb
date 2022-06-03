@@ -144,6 +144,11 @@ class HomeController < ApplicationController
     end
   end
 
-  def configurations; end
+  def configurations
+    @skip_dissertation = cookies[:skip_dissertation] == 'true' ? ' checked' : ''
+    @long_journey = cookies[:long_journey] == 'true' ? ' checked' : ''
+    @lenient_answer = cookies[:lenient_answer] == 'true' ? ' checked' : ''
+    @lenient_name = cookies[:lenient_name] == 'true' ? ' checked' : ''
+  end
 
 end
