@@ -11,7 +11,7 @@
     <%= form.hidden_field :quizID, value: @quiz.id.to_s %>
     <%= form.hidden_field :first_name, value: '', id: 'name_first' %>
     <%= form.hidden_field :last_name, value: '', id: 'name_last' %>
-    <% @quiz.answers.each_with_index do |answer, index| %>
+    <% @quiz.answers.order(id: :asc).each_with_index do |answer, index| %>
     <p><b><%= index + 1 %>.</b> <%= answer.question.question %>
     <% if answer.question.image.attached? %>
       <br><img src=<%= raw answer.question.image.url %> class="img-fluid">

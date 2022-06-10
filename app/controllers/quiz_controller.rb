@@ -142,10 +142,10 @@
       updated_frequency = question.frequency
       updated_frequency[0] += 1
       question.update(frequency: updated_frequency)
-      type = question.question_types.sample
+      type = Array(0..(question.question_types.size - 1)).sample
       calculated_variables = []
 
-      case type
+      case question.question_types[type]
       when 'choice', 'multichoice', 'veracity'
         choices = question.choices.map(&:id).map(&:to_s)
         question.answer.each_with_index do |_choice_answer, index|

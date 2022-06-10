@@ -2,8 +2,8 @@
 
 Questões totais: <%= Question.all.size %><br>
 Questões encontradas: <%= @stats[0] %><br>
-Acertos: <%= @stats[1]%>/<%= @stats[0] %><br>
-Erros: <%= @stats[2]%>/<%= @stats[0] %><br>
+Acertos: <%= @stats[1]%>/<%= @stats[2] + @stats[1] %><br>
+Erros: <%= @stats[2]%>/<%= @stats[2] + @stats[1] %><br>
 <br>
 Disciplinas: <%= Subject.all.size %><br>
 Cadeiras aprovadas: <%= Chair.all.filter { |chair| media(chair).to_i >= 9.5 }.size %><br>
