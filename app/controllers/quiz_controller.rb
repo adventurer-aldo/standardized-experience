@@ -90,7 +90,7 @@
                 0
               end
 
-    base_query = @subject.questions.order(Arel.sql('RANDOM()'))
+    base_query = @subject.questions.where(question_types: ['choice','multichoice']).order(Arel.sql('RANDOM()'))
 
     all_questions = case @level
                     when 0
@@ -142,17 +142,27 @@
       updated_frequency = question.frequency
       updated_frequency[0] += 1
       question.update(frequency: updated_frequency)
-      type = Array(0..(question.question_types.size - 1)).sample
+      type = rand(0..(question.question_types.size - 1)).to_i
       calculated_variables = []
 
       case question.question_types[type]
       when 'choice', 'multichoice', 'veracity'
         choices = question.choices.map(&:id).map(&:to_s)
-        question.answer.each_with_index do |_choice_answer, index|
-          choices.push("a#{index}")
-        end
-        choices.shuffle!
-        calculated_variables = choices[0..rand(1..choices.size).to_i] if type == 'veracity'
+        calculated_variables = case question.question_types[type]
+                               when 'veracity'
+                                 question.answer.each_with_index do |_choice_answer, index|
+                                   choices.push("a#{index}")
+                                 end
+                                 choices.shuffle!
+                                 choices[0..rand(1..(choices.size - 1)).to_i]
+                               else
+                                 choices = choices[0..rand(0..(choices.size - 1)).to_i]
+                                 question.answer.each_with_index do |_choice_answer, index|
+                                   choices.push("a#{index}")
+                                 end
+                                 choices.shuffle!
+                                 choices
+                               end
       when 'formula'
         que = question.question.dup
         randoms = que.count('#')
