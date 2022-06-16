@@ -44,7 +44,8 @@ module Misc
                   'Precisa praticar mais para não ver essa miséria!',
                   'Que bom que estava apenas testando, né? Você estava estando, certo?',
                   'Outlook, not so good.',
-                  'Vamos consertar isto.'                  
+                  'Vamos consertar isto.',
+                  ''
                 ].sample
               when 3..6
                 [
@@ -53,11 +54,12 @@ module Misc
                   'Sério isto?',
                   'Se você continuar assim, vou passar vergonha.',
                   'Treine. Treine. Treine. Treine!',
-                  'MAIS UMA VEZ!',
+                  'TENTA MAIS UMA VEZ!',
                   'E você pensa que poderá passar assim?',
                   'Alguma pergunta te surpreendeu?',
                   'Você não está no zero. Está nos primeiros passos.',
-                  'Vamos com espírito de luta!'
+                  'Vamos com espírito de luta!',
+                  ''
                 ].sample
               when 7..9
                 [
@@ -77,11 +79,11 @@ module Misc
                   'Na verdade, esse foi um pouco fácil.',
                   'Peguei leve. Não fique feliz.',
                   'Metade da meta. Você está chegando lá!',
-                  '',
                   'Boa nota. Dá pra proceder com a vida.',
                   'Melhor celebrar se você esteve falhando ultimamente.',
                   'Não durma ainda. Ainda tem mais pela frente.',
-                  'Comemore, mais só por 5 minutos.'
+                  'Comemore, mais só por 5 minutos.',
+                  ''
                 ].sample
               when 13..14
                 [
@@ -95,26 +97,30 @@ module Misc
               when 15..17
                 [
                   'Incrível! Porquê não tenta alcançar uma nota ainda melhor? Você é capaz!',
-                  "LET'S GOOOOOOOOOO!",
+                  "É ISSO AI!",
                   'Você tem nota para dispensar aqui.',
-                  'Acho que você não precisa fazer mais testes.'
+                  'Acho que você não precisa fazer mais testes.',
+                  ''
                 ].sample
               when 18..19
                 [
                   'Gostei! Mandou muito bem mesmo! E agora, consegue ver rolar um 20?',
                   'Eita! Quando que você estudou tanto assim?',
                   'Melhor arregaçar as mangas, que da próxima vai ser mais difícil.',
-                  'Finalmente começou a levar isso a sério.'
+                  'Finalmente começou a levar isso a sério.',
+                  ''
                 ].sample
               when 20
                 [
                   'Perfeito! Simplesmente perfeito! Você arrasou nessa!',
                   'Tamanha sabedoria. Gostei!',
                   '...Estou sonhando, não estou?',
+                  'Bom trabalho.',
                   'Melhor acordar que cê tá sonhando.',
                   'Por essa eu não esperava...',
                   'Difícil acreditar que você já teve abaixo de 10 antes.',
-                  'Por isso que eu confio em você.'
+                  'Por isso que eu confio em você.',
+                  ''
                 ].sample
               end
     end
