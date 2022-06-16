@@ -75,7 +75,7 @@ class HomeController < ApplicationController
 
   def submit_question
     types = %w[open choice multichoice veracity caption formula table submit]
-    parameters = %w[strict]
+    parameters = %w[strict order]
     last_question = Question.last
     new_question = Question.create(question: params[:question],
                                    question_types: eval(params[:types]).map { |i| types[i] },

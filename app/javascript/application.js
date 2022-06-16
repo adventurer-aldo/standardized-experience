@@ -41929,6 +41929,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         index: 0,
         active: this.state.activeIndexesD.includes(0),
         onClick: this.handleClick
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+        text: "Ordenado",
+        index: 1,
+        active: this.state.activeIndexesD.includes(1),
+        onClick: this.handleClick
       }), /* @__PURE__ */ import_react4.default.createElement("input", {
         name: "parameters",
         value: JSON.stringify(this.state.activeIndexesD),

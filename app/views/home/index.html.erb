@@ -3,8 +3,6 @@
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
-    <!-- Rails image tag helper with the class "img-fluid" is used to make the image responsive -->
-    
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
         <b style="white-space: pre">Pop Quiz: </b><div><%= @tip.first.question %> <%= @tip.first.image.attached? ? "<br>".html_safe + image_tag(@tip.first.image.url, class: "img-fluid") : '' %>
         <%= @tip.first.question_types.intersect?(%w[multichoice veracity]) ? "<br>#{@tip.first.answer.union(@tip.first.choices.map(&:decoy)).shuffle.join('<br>')}".html_safe : '' %>

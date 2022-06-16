@@ -21,6 +21,7 @@ class Parameters extends React.Component {
     render() {
       return <div>Parâmetros? &ensp;
       <Butao text="Rigoroso" index={0} active={ this.state.activeIndexesD.includes(0) } onClick={ this.handleClick } />
+      <Butao text="Ordenado" index={1} active={ this.state.activeIndexesD.includes(1) } onClick={ this.handleClick } />
       <input name='parameters' value={JSON.stringify(this.state.activeIndexesD)} type='hidden' />
       </div>
     }

@@ -97,7 +97,7 @@ module Misc
               when 15..17
                 [
                   'Incrível! Porquê não tenta alcançar uma nota ainda melhor? Você é capaz!',
-                  "É ISSO AI!",
+                  "É ISSO AÍ!",
                   'Você tem nota para dispensar aqui.',
                   'Acho que você não precisa fazer mais testes.',
                   ''
