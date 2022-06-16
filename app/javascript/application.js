@@ -41924,7 +41924,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       this.setState({ activeIndexesD: b });
     };
     render() {
-      return /* @__PURE__ */ import_react4.default.createElement("div", null, "Par\xE2metros? \u2002", /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      return /* @__PURE__ */ import_react4.default.createElement("div", null, "Par\xE2metros? \u2002", /* @__PURE__ */ import_react4.default.createElement("div", {
+        className: "btn-group",
+        role: "group",
+        "aria-label": "Basic example"
+      }, /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         text: "Rigoroso",
         index: 0,
         active: this.state.activeIndexesD.includes(0),
@@ -41934,7 +41938,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         index: 1,
         active: this.state.activeIndexesD.includes(1),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react4.default.createElement("input", {
+      })), /* @__PURE__ */ import_react4.default.createElement("input", {
         name: "parameters",
         value: JSON.stringify(this.state.activeIndexesD),
         type: "hidden"
