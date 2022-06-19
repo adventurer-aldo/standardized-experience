@@ -39,7 +39,9 @@ module InputAnswerHelper
       end.join.html_safe
       end
     when 'caption' # When there are multiple answers to be typed in
-      return (input * answer.question.answer.size).html_safe
+      return answer.question.answers.collect do |caption|
+        %(#{answer.question.parameters.include?('order') ? %(<span class="badge bg-secondary">#{answer.question.answers.index(caption) + 1}</span>) : '' } #{input})
+      end.join.html_safe
     when 'table' # When the user must complete a table
       content_tag(:table,
         (content_tag(:thead,
