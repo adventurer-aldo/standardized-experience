@@ -27,7 +27,7 @@ module InputAnswerHelper
               #{option}
             </label>
           </div>)
-          end.join.html_safe
+        end.join.html_safe
       when 'veracity' # When the answer follows a true or false rule
         options.map do |option|
           %(
@@ -36,7 +36,7 @@ module InputAnswerHelper
             <label class="form-check-label" for="Check#{answer.id}-#{options.index(option)}">#{option}</label>
           </div>
         )
-      end.join.html_safe
+        end.join.html_safe
       end
     when 'caption' # When there are multiple answers to be typed in
       return answer.question.answers.collect do |caption|
