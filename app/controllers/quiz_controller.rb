@@ -72,6 +72,8 @@
 
     @subject = if params[:subject] && Subject.where(id: params[:subject].to_i).exists?
                  Subject.where(id: params[:subject]).first
+               elsif Subject.where(evaluable: 1).exists?
+                 Subject.where(evaluable: 1).order(Arel.sql('RANDOM()')).limit(1).first
                else
                  Subject.all.order(Arel.sql('RANDOM()')).limit(1).first
                end

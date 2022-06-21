@@ -16,12 +16,22 @@ module CorrectingHelper
                   when 'choice', 'multichoice'
                     true if answer.attempt.sort == question.answer.sort
                   when 'caption'
-                    if (answer.attempt == question.answer &&
-                        question.parameters.include?('strict')
-                      ) ||
-                      (answer.attempt.map(&:downcase).sort == question.answer.map(&:downcase).sort &&
-                      question.parameters.include?('strict') == false
-                      )
+                    if (answer.attempt.sort == question.answer.sort &&
+                        question.parameters.include?('strict') &&
+                        question.parameters.include?('order') == false
+                       ) ||
+                       (answer.attempt.map(&:downcase).sort == question.answer.map(&:downcase).sort &&
+                        question.parameters.include?('strict') == false &&
+                        question.parameters.include?('order') == false
+                       ) ||
+                       (answer.attempt.map(&:downcase) == question.answer.map(&:downcase) &&
+                        question.parameters.include?('strict') == false &&
+                        question.parameters.include?('order')
+                       ) ||
+                       (answer.attempt == question.answer &&
+                        question.parameters.include?('strict') &&
+                        question.parameters.include?('order')
+                       )
                       true
                     end
                   when 'veracity'

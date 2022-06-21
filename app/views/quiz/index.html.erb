@@ -12,12 +12,14 @@
     <%= form.hidden_field :first_name, value: '', id: 'name_first' %>
     <%= form.hidden_field :last_name, value: '', id: 'name_last' %>
     <% @quiz.answers.order(id: :asc).each_with_index do |answer, index| %>
-    <p><b><%= index + 1 %>.</b> <%= answer.question.question %>
+    <div class="mb-2"><b><%= index + 1 %>.</b> <%= answer.question.question %>
     <% if answer.question.image.attached? %>
       <br><img src=<%= raw answer.question.image.url %> class="img-fluid">
     <% end %>
+    <div>
     <%= input_answer(answer) %>
-    </p>
+    </div>
+    </div>
     <% end %>
     <div class="d-grid gap-2 col-7 mx-auto">
       <%= form.submit 'Entregar Teste', class: 'btn btn-dark' %>

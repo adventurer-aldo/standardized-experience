@@ -19,7 +19,7 @@
 <% end %>
 <% if [0,7].include? @journey.level %>
   <%= form_with do |form| %>
-    Você não está em nenhuma jornada agora. <%= form.submit 'Clique aqui para iniciar uma!', class: 'btn btn-primary p-1' %>
+    Você não está em nenhuma jornada agora. Clique aqui para iniciar uma! <button type="submit" name="commit" value='' class="btn btn-primary p-1" data-disable-with="<i class=&quot;fa fa-calendar&quot;></i>"><%=fa_icon('calendar')%></button>
   <% end %>
 <% else %>
   <p><strong><h5>Nível <%= @journey.level %></h5></strong>
