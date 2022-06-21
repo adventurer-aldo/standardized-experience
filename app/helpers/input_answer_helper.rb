@@ -39,9 +39,16 @@ module InputAnswerHelper
         end.join.html_safe
       end
     when 'caption' # When there are multiple answers to be typed in
+<<<<<<< HEAD
       answer.question.answer.map do |caption|
         %(<div class="d-flex">#{answer.question.parameters.include?('order') ? %(<div class="position-relative"><span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-primary">#{answer.question.answer.index(caption) + 1}</span></div>) : '' } #{input}</div>)
       end.join.html_safe
+=======
+      (input * answer.question.answers.size).html_safe
+      #answer.question.answers.collect do |caption|
+        #%(#{answer.question.parameters.include?('order') ? %(<span class="badge bg-secondary">#{answer.question.answers.index(caption) + 1}</span>) : '' } #{input})
+      #end.join.html_safe
+>>>>>>> a3fa5d6d71fa47953024e6c457a8a83ae841e37f
     when 'table' # When the user must complete a table
       content_tag(:table,
         (content_tag(:thead,
