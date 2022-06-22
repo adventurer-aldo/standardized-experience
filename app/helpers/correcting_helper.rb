@@ -66,24 +66,51 @@ module CorrectingHelper
       return %(<div class="form-control form-control-lg"><span class='text-wrap#{correct(answer) ? '' : ' text-decoration-line-through' }' style="text-decoration-color: red !important;font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt.first}</span>
         #{correct(answer) ? '' : %(<span style="font-family: 'Homemade Apple', cursive;color: red;">#{answer.question.answer.sample}</span>)}</div>).html_safe
     when 'caption'
-      # If the answer's question's parameters includes the parameter 'order'
-      # then the answer's attempts have numbers in front of them and so do the correct answers.
-      if answer.question.parameters.include?('order')
-        mapped_attempts = answer.attempt.each_with_index.map do |attempt, index|
-                            "#{index + 1}. #{attempt}"
-                          end
-        mapped_answers = answer.question.answer.each_with_index.map do |answer, index|
-                           "#{index + 1}. #{answer}"
-                         end
+      attempts = answer.attempt.dup
+      answers = answer.question.answer.dup
 
-        return mapped_attempts.map do |a|
-          %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: blue;">#{mapped_answers.include?(a) ? '' : '<span class="text-decoration-line-through" style="text-decoration-color: red !important;">'}#{a}#{mapped_answers.include?(a) ? '' : '</span>'}<span class='text-danger'> #{mapped_answers.include?(a) ? '✓' : '✗'}</span></div>)
-        end.union(mapped_answers.difference(mapped_attempts).map {|q| %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: red;">#{q}</span></div>)}).join.html_safe
+      attempts.delete_if { |x| x == '' }
+
+      if answer.question.parameters.include?('order')
+        answers.each_with_index.reverse_each do |solve, index|
+          next unless attempts[index]
+          if answer.question.parameters.include?('strict')
+            answers.delete_at(index) if attempts[index] == solve
+          else
+            answers.delete_at(index) if attempts[index].downcase == solve.downcase
+          end
+        end
       else
-        return answer.attempt.map do |a|
-          %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: blue;">#{answer.question.answer.include?(a) ? '' : '<span class="text-decoration-line-through" style="text-decoration-color: red !important;">'}#{a}#{answer.question.answer.include?(a) ? '' : '</span>'}<span class='text-danger'> #{answer.question.answer.include?(a) ? '✓' : '✗'}</span></div>)
-        end.union(answer.question.answer.difference(answer.attempt).map {|q| %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: red;">#{q}</span></div>)}).join.html_safe
+        answers.each_with_index.reverse_each do |solve, index|
+          if answer.question.parameters.include?('strict')
+            answers.delete_at(index) if attempts.include?(solve)
+          else
+            answers.delete_at(index) if attempts.map(&:downcase).include?(solve.downcase)
+          end
+        end
       end
+
+      attempts.each_with_index.map do |attempt, index|
+        %(<div class="d-flex">) +
+        if answer.question.parameters.include?('order')
+          %(<div class="position-relative"><span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-#{answer.question.answer[index].downcase == attempt.downcase ? 'success' : 'danger'}">#{index + 1}</span></div>)
+        else
+          ''
+        end + %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: blue;">) +
+        if answer.question.parameters.include?('strict')
+          %(#{answer.question.answer.include?(attempt) ? '' : '<span class="text-decoration-line-through" style="text-decoration-color: red !important;">'}#{attempt}#{answer.question.answer.include?(attempt) ? '' : '</span>'}<span class='text-danger'> #{answer.question.answer.include?(attempt) ? '✓' : '✗'}</span></div>)
+        else
+          %(#{answer.question.answer.map(&:downcase).include?(attempt.downcase) ? '' : '<span class="text-decoration-line-through" style="text-decoration-color: red !important;">'}#{attempt}#{answer.question.answer.map(&:downcase).include?(attempt.downcase) ? '' : '</span>'}<span class='text-danger'> #{answer.question.answer.map(&:downcase).include?(attempt.downcase) ? '✓' : '✗'}</span></div>)
+        end + %(</div>)
+      end.union(answers.map do |solve|
+        %(<div class="d-flex">) +
+        if answer.question.parameters.include?('order')
+          %(<div class="position-relative"><span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">#{answer.question.answer.index(solve) + 1}</span></div>)
+        else
+          ''
+        end +
+        %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: red;">#{solve}</span></div></div>)
+      end).join.html_safe
     when 'choice', 'multichoice', 'veracity'
       type = case question_type
              when 'choice'
