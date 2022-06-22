@@ -45,7 +45,11 @@ class HomeController < ApplicationController
       redirect_to question_path
       return
     end
-    @subjects = Subject.all.order(title: 'asc')
+    @subjects = if Subject.where(evaluable: 1).exists?
+                  Subject.where(evaluable: 1)
+                else
+                  Subject.all
+                end.order(title: 'asc')
     @tags = []
     return unless Question.exists?
 
