@@ -1,16 +1,16 @@
 <head><title>Configurações | SE</title></head><%=render 'header'%><%= render 'nav_data' %>
 <br>
 <b>Leniente</b><br>
-<input type="checkbox" name="lenient_name" <%= lenient_name %>>
+<input type="checkbox" name="lenient_name" <%= @lenient_name %>>
 <br>
 <b>Leniente</b><br>
-<input type="checkbox" name="lenient_answer" <%= lenient_answer %>>
+<input type="checkbox" name="lenient_answer" <%= @lenient_answer %>>
 <br>
 <b>Modo de Jornada</b><br>
-<input type="checkbox" name="long_journey" <%= long_journey %>>
+<input type="checkbox" name="long_journey" <%= @long_journey %>>
 <br><br>
 <div class="form-check form-switch">
-	<input class="form-check-input" role="switch" type="checkbox" name="skip_dissertation" <%= skip_dissertation %>>
+	<input class="form-check-input" role="switch" type="checkbox" name="skip_dissertation" <%= @skip_dissertation %>>
 	<label class="form-check-label" for="skip_dissertation">Saltar</label>
 </div>
 <br>
