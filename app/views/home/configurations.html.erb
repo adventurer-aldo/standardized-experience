@@ -1,11 +1,20 @@
 <head><title>Configurações | SE</title></head><%=render 'header'%><%= render 'nav_data' %>
 <br>
 <b>Leniente</b><br>
-Se ao tentar questões abertas ou múltiplas abertas, em vez de fazer em quotação mediante o quão correto está
-a resposta, será mediante quantas palavras conseguiu acertar.<br>
+<input type="checkbox" name="lenient_name" <%= lenient_name %>>
+<br>
+<b>Leniente</b><br>
+<input type="checkbox" name="lenient_answer" <%= lenient_name %>>
 <br>
 <b>Modo de Jornada</b><br>
-Fará jornadas rápidas, ou que seráo em dias específicos? Não poderá ver os efeitos até que termine a jornada
-decorrendo e faça uma nova.<br>
+<input type="checkbox" name="long_journey" <%= lenient_name %>>
 <br>
+<b>Saltar</b><br>
+<input type="checkbox" name="skip_dissertation" <%= lenient_name %>>
+<br>
+<b>Theme: </b><select name="theme">
+  <% Theme.all.order(:id).each do |theme| %>
+    <option class="bg-<%= theme.class %>" value="<%= theme.id %>"><%= theme.name %></option>
+  <% end %>
+</select>
 </div>
