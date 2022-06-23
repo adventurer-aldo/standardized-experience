@@ -5,7 +5,13 @@ module CorrectingHelper
 
     correctness = case question.question_types[answer.question_type]
                   when 'open'
-                    if (answer.attempt.intersect?(question.answer) &&
+                    if Stat.last.lenient_answer == 1
+                      matches = []
+                      question.answer.each do |matcher|
+                        matches.push(matcher.split(" ").intersection(answer.attempt).size)
+                      end
+                      return matches.max
+                    elsif (answer.attempt.intersect?(question.answer) &&
                         question.parameters.include?('strict')
                       ) ||
                       (answer.attempt.map(&:downcase).intersect?(question.answer.map(&:downcase)) &&

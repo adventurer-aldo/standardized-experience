@@ -9,18 +9,12 @@ Disciplinas: <%= Subject.all.size %><br>
 Cadeiras aprovadas: <%= Chair.all.filter { |chair| media(chair).to_i >= 9.5 }.size %><br>
 Cadeiras reprovadas: <%= Chair.all.filter { |chair| media(chair).to_i < 9.5 }.size %><br>
 <br>
-Classes atendidas: ?<br>
-Classes mal-feitas: ?<br>
-Classes com perfomance excelente: ?<br>
-<br>
-Professores que o odeiam: ?<br>
-Professiores que o adoram: ?<br>
-<br>
-Dinheiro arrecadado: ?<br>
-Dinheiro poupado: ?<br>
-Recorrências atendidas: ?<br>
-<br>
-Semestres simulados: <%= Journey.all.size %><br>
-Progresso da Campanha: ?
+Simulações: <%= Journey.all.size %><br>
 
+<div id="quizzes" class="display-flex">
+	<% @quizzes.each do |quiz| %>
+		<div class="card"><b><%= quiz.subject.title %></b><br>
+			<span class="text-danger"><b><%= helpers.grade(quiz) %><b></span>
+		</div>
+	<% end %>
 </div>

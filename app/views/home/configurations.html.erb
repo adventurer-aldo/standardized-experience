@@ -1,18 +1,27 @@
 <head><title>Configurações | SE</title></head><%=render 'header'%><%= render 'nav_data' %>
 <br>
-<b>Leniente</b><br>
-<input type="checkbox" name="lenient_name" <%= @lenient_name %>>
+<div class="form-check form-switch">
+	<input class="form-check-input" role="switch" type="checkbox" name="lenient_name" <%= @lenient_name %>>
+	<label class="form-check-label" for="lenient_name">Saltar</label>
+</div>
 <br>
-<b>Leniente</b><br>
-<input type="checkbox" name="lenient_answer" <%= @lenient_answer %>>
+<div class="form-check form-switch">
+	<input class="form-check-input" role="switch" type="checkbox" name="lenient_answer" <%= @lenient_answer %>>
+	<label class="form-check-label" for="lenient_answer">Saltar</label>
+</div><br>
+Description
 <br>
-<b>Modo de Jornada</b><br>
-<input type="checkbox" name="long_journey" <%= @long_journey %>>
+<div class="form-check form-switch">
+	<input class="form-check-input" role="switch" type="checkbox" name="long_journey" <%= @long_journey %>>
+	<label class="form-check-label" for="long_journey">Saltar</label>
+</div><br>
+Description
 <br><br>
 <div class="form-check form-switch">
 	<input class="form-check-input" role="switch" type="checkbox" name="skip_dissertation" <%= @skip_dissertation %>>
 	<label class="form-check-label" for="skip_dissertation">Saltar</label>
-</div>
+</div><br>
+Description
 <br>
 <b>Theme: </b><select name="theme">
   <% Theme.all.order(:id).each do |theme| %>

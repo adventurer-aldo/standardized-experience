@@ -146,6 +146,7 @@ class HomeController < ApplicationController
       @stats[1] += question.frequency[1]
       @stats[2] += question.frequency[2]
     end
+    @quizzes = Quiz.all.order(id: :desc).limit(10)
   end
 
   def configurations
