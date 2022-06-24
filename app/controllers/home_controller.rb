@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   def index
-    puts Stat.last.journey.id
     @journey_check = Journey.where(id: Stat.last.current_journey).exists?
     if @journey_check
       @journey = Stat.last.journey
@@ -130,6 +129,7 @@ class HomeController < ApplicationController
   def new_journey
     journey = Journey.create(duration: 0, start_time: Time.now, soundtrack_id: Soundtrack.order(Arel.sql('RANDOM()')).limit(1).first.id)
     puts journey.id
+    puts Stat.last.journey.id
     Subject.where(evaluable: 1).order(title: :asc).each do |subject|
       chair = Chair.create(subject_id: subject.id, journey_id: journey.id, format: rand(0..1).round)
       chair.update(dissertation: rand(0.0..20.0).round(2)) unless subject.questions.where(level: 3).exists?
