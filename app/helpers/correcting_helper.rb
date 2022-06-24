@@ -149,21 +149,21 @@ module CorrectingHelper
       return variables.map do |option|
         if answer.question.answer.include?(option) && answer.attempt.include?(option) # Correct and selected
           %(<div class="form-check#{role}">
-            <input class="form-check-input bg-success" type="#{type}" name="flex#{type.capitalize}Disabled" id="Check#{answer.id}-#{variables.index(option)}" checked disabled>
+            <input class="form-check-input bg-success" type="#{type}" name="flex#{type.capitalize}Disabled#{answer.id}-#{variables.index(option)}" id="Check#{answer.id}-#{variables.index(option)}" checked disabled>
             <label class="form-check-label" for="Check#{answer.id}-#{variables.index(option)}">
               #{option}
             </label>
           </div>)
         elsif answer.question.answer.include?(option) && !answer.attempt.include?(option) # Correct but not selected
           %(<div class="form-check#{role}">
-            <input class="form-check-input bg-danger" type="#{type}" name="flex#{type.capitalize}Disabled" id="Check#{answer.id}-#{variables.index(option)}" disabled>
+            <input class="form-check-input bg-danger" type="#{type}" name="flex#{type.capitalize}Disabled#{answer.id}-#{variables.index(option)}" id="Check#{answer.id}-#{variables.index(option)}" disabled>
             <label class="form-check-label" for="Check#{answer.id}-#{variables.index(option)}">
               #{option}
             </label>
           </div>)
         elsif !answer.question.answer.include?(option) && answer.attempt.include?(option) # Incorrect but selected
           %(<div class="form-check#{role}">
-            <input class="form-check-input bg-danger" type="#{type}" name="flex#{type.capitalize}Disabled" id="Check#{answer.id}-#{variables.index(option)}" checked disabled>
+            <input class="form-check-input bg-danger" type="#{type}" name="flex#{type.capitalize}Disabled#{answer.id}-#{variables.index(option)}" id="Check#{answer.id}-#{variables.index(option)}" checked disabled>
             <label class="form-check-label" for="Check#{answer.id}-#{variables.index(option)}">
               #{option}
             </label>
@@ -171,7 +171,7 @@ module CorrectingHelper
         elsif !answer.attempt.include?(option) && !answer.question.answer.include?(option) # Incorrect and not selected
           if question_type == 'veracity'
             %(<div class="form-check#{role}">
-              <input class="form-check-input bg-success" type="#{type}" name="flex#{type.capitalize}Disabled" id="Check#{answer.id}-#{variables.index(option)}" disabled>
+              <input class="form-check-input bg-success" type="#{type}" name="flex#{type.capitalize}Disabled#{answer.id}-#{variables.index(option)}" id="Check#{answer.id}-#{variables.index(option)}" disabled>
               <label class="form-check-label" for="Check#{answer.id}-#{variables.index(option)}">
                 #{option}
               </label>
