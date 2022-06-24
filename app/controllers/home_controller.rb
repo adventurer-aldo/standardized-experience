@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+    puts Stat.last.journey.id
     @journey_check = Journey.where(id: Stat.last.current_journey).exists?
     if @journey_check
       @journey = Stat.last.journey
