@@ -20,9 +20,9 @@ class HomeController < ApplicationController
 
     @ost = Soundtrack.first.home if @ost.nil?
     @tip = if Subject.where(evaluable: 1).exists?
-             Subject.where(evaluable: 1).order(Arel.sql('RANDOM()')).limit(1).questions
+             Subject.where(evaluable: 1).order(Arel.sql('RANDOM()')).limit(1).first.questions
            else
-             Subject.all.order(Arel.sql('RANDOM()')).limit(1).questions
+             Subject.all.order(Arel.sql('RANDOM()')).limit(1).first.questions
            end.order(Arel.sql('RANDOM()')).limit(1)
 
     quiz = Quiz.last
