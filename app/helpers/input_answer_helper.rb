@@ -1,5 +1,16 @@
 module InputAnswerHelper
 
+  def show_question(answer)
+    if answer.question.question_types[answer.question_type] == 'formula'
+      imprint = answer.question.question.dup
+      answer.variables.each do |variable|
+        imprint[imprint.index('£')..imprint.index('§')] = variable
+      end
+    else
+      answer.question.question
+    end
+  end
+
   def input_answer(answer)
     input = %(<input name="answer[#{answer.id}][]" class="form-control form-control-lg" style="font-family: 'Homemade Apple', cursive;color: blue;" placeholder="" aria-label=".form-control-lg example">)
     case answer.question.question_types[answer.question_type]

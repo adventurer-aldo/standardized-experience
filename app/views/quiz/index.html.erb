@@ -12,7 +12,7 @@
     <%= form.hidden_field :first_name, value: '', id: 'name_first' %>
     <%= form.hidden_field :last_name, value: '', id: 'name_last' %>
     <% @quiz.answers.order(id: :asc).each_with_index do |answer, index| %>
-    <div class="mb-2"><b><%= index + 1 %>.</b> <%= answer.question.question %>
+    <div class="mb-2"><b><%= index + 1 %>.</b> <%= show_question(answer) %>
     <% if answer.question.image.attached? %>
       <br><img src=<%= raw answer.question.image.url %> class="img-fluid">
     <% end %>
