@@ -196,7 +196,7 @@ module CorrectingHelper
       condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
         imprint
       RUBY
-      return %(<span class='text-wrap text-primary' style="font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt}</span>
+      return %(<span class='text-wrap text-primary' style="font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt.first}</span>
         #{correct(answer) ? '' : %(<span class="text-danger">#{eval(condition)}</span>)}).html_safe
     when 'table'
       content_tag(:table,
