@@ -192,8 +192,13 @@ module CorrectingHelper
         end
       end.join.html_safe
     when 'formula'
+      imprint = begin
+                  format(question.answer.first, *answer.variables)
+                rescue ArgumentError
+                  1
+    end
       condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
-      format("#{question.answer}", #{answer.variables.join(', ')})
+        imprint
       RUBY
       return %(<span class='text-wrap text-primary' style="font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt}</span>
         #{correct(answer) ? '' : %(<span class="text-danger">#{condition}</span>)}).html_safe
