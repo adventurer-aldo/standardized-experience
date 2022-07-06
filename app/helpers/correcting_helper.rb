@@ -43,12 +43,13 @@ module CorrectingHelper
                   when 'veracity'
                     true if organize_variables_text(answer).intersection(question.answer).sort == answer.attempt.sort
                   when 'formula'
+                    imprint = begin
+                                format(question.answer.first, *answer.variables)
+                              rescue ArgumentError
+                                1
+                  end
                     condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
-                    begin
-                      format(question.answer.first, *answer.variables)
-                    rescue ArgumentError
-                      1
-                    end
+                      imprint
                     RUBY
                     true if condition == answer.attempt.first
                   when 'table'
