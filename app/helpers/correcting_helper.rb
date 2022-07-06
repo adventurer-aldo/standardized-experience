@@ -193,7 +193,7 @@ module CorrectingHelper
       end.join.html_safe
     when 'formula'
       imprint = begin
-                  format(question.answer.first, *answer.variables)
+                  format(answer.question.answer.first, *answer.variables)
                 rescue ArgumentError
                   1
     end
