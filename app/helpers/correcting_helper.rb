@@ -45,13 +45,11 @@ module CorrectingHelper
                   when 'formula'
                     imprint = begin
                                 format(question.answer.first, *answer.variables)
-                              rescue ArgumentError
-                                1
                   end
                     condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
                       imprint
                     RUBY
-                    true if condition == answer.attempt.first
+                    true if eval(condition) == answer.attempt.first
                   when 'table'
                     true if (question.answer.map(&:downcase) == answer.attempt.map(&:downcase) &&
                     question.parameters.include?('strict') == false) ||
@@ -194,14 +192,12 @@ module CorrectingHelper
     when 'formula'
       imprint = begin
                   format(answer.question.answer.first, *answer.variables)
-                rescue ArgumentError
-                  1
     end
       condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
         imprint
       RUBY
       return %(<span class='text-wrap text-primary' style="font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt}</span>
-        #{correct(answer) ? '' : %(<span class="text-danger">#{condition}</span>)}).html_safe
+        #{correct(answer) ? '' : %(<span class="text-danger">#{eval(condition)}</span>)}).html_safe
     when 'table'
       content_tag(:table,
         (content_tag(:thead,

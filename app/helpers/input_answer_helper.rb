@@ -4,7 +4,7 @@ module InputAnswerHelper
     if answer.question.question_types[answer.question_type] == 'formula'
       imprint = answer.question.question.dup
       answer.variables.each do |variable|
-        imprint[imprint.index('£')..imprint.index('§')] = variable
+        imprint[imprint.index('#£')..imprint.index('§')] = variable
       end
       imprint
     else
