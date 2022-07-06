@@ -6,6 +6,7 @@ module InputAnswerHelper
       answer.variables.each do |variable|
         imprint[imprint.index('£')..imprint.index('§')] = variable
       end
+      imprint
     else
       answer.question.question
     end
