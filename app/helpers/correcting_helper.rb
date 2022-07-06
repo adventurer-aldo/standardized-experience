@@ -44,7 +44,7 @@ module CorrectingHelper
                     true if organize_variables_text(answer).intersection(question.answer).sort == answer.attempt.sort
                   when 'formula'
                     condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
-                    format("#{question.answer}", #{answer.variables.join(', ')})
+                    format("#{question.answer.first}", #{answer.variables.join(', ')})
                     RUBY
                     true if condition == answer.attempt.first
                   when 'table'
