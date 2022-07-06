@@ -45,7 +45,7 @@ module CorrectingHelper
                   when 'formula'
                     imprint = begin
                                 format(question.answer.first, *answer.variables)
-                  end
+                              end
                     condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
                       imprint
                     RUBY
@@ -192,7 +192,7 @@ module CorrectingHelper
     when 'formula'
       imprint = begin
                   format(answer.question.answer.first, *answer.variables)
-    end
+                end
       condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
         imprint
       RUBY
