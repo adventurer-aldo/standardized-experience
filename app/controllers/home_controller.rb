@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
     @journey_check = Journey.where(id: Stat.last.current_journey).exists?
     if @journey_check
-      @journey = Journey.last
+      @journey = Stat.last.journey
       sound = @journey.soundtrack
       @ost = case @journey.level
              when 0, 7
