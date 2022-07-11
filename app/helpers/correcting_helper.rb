@@ -1,6 +1,6 @@
 module CorrectingHelper
 
-  def grade(quiz, text=false)
+  def grade(quiz, text = false)
     total = 0.0
     answers = quiz.answers
     answers.each do |answer|
@@ -21,7 +21,7 @@ module CorrectingHelper
                     if Stat.last.lenient_answer == 1
                       matches = []
                       question.answer.each do |matcher|
-                        matches.push(matcher.split(" ").intersection(answer.attempt).size)
+                        matches.push(matcher.split(' ').intersection(answer.attempt).size)
                       end
                       return matches.max
                     elsif (answer.attempt.intersect?(question.answer) &&
