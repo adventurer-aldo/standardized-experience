@@ -41849,9 +41849,19 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         active: this.state.activeIndexes.includes(6),
         onClick: this.handleClick
       }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
-        text: "Ficheiro",
+        text: "Correspond\xEAncia",
         index: 7,
         active: this.state.activeIndexes.includes(7),
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+        text: "Preencher",
+        index: 8,
+        active: this.state.activeIndexes.includes(8),
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+        text: "Desenhar",
+        index: 9,
+        active: this.state.activeIndexes.includes(9),
         onClick: this.handleClick
       })), /* @__PURE__ */ import_react3.default.createElement("input", {
         name: "types",
@@ -41937,6 +41947,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         text: "Ordenado",
         index: 1,
         active: this.state.activeIndexesD.includes(1),
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+        text: "Baralhar",
+        index: 2,
+        active: this.state.activeIndexesD.includes(2),
         onClick: this.handleClick
       })), /* @__PURE__ */ import_react4.default.createElement("input", {
         name: "parameters",

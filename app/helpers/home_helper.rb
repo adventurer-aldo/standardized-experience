@@ -61,10 +61,10 @@ module HomeHelper
                    ) +
       content_tag(:tbody,
                   journey.chairs.order(id: :asc).collect { |chair|
-                    highlight = case media(chair).round(1)
+                    highlight = case media(chair)
                                 when '---'
                                   ''
-                                when 0..9.4
+                                when 0..9.49
                                   'table-danger'
                                 when 9.5..14.4
                                   case exame(chair) 

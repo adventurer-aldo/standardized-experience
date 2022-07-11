@@ -23,6 +23,7 @@ class Parameters extends React.Component {
       <div className="btn-group" role="group" aria-label="Basic example">
         <Butao text="Rigoroso" index={0} active={ this.state.activeIndexesD.includes(0) } onClick={ this.handleClick } />
         <Butao text="Ordenado" index={1} active={ this.state.activeIndexesD.includes(1) } onClick={ this.handleClick } />
+        <Butao text="Baralhar" index={2} active={ this.state.activeIndexesD.includes(2) } onClick={ this.handleClick } />
       </div>
       <input name='parameters' value={JSON.stringify(this.state.activeIndexesD)} type='hidden' />
       </div>
