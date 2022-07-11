@@ -1,31 +1,43 @@
 <head><title>Configurações | SE</title></head><%=render 'header'%><%= render 'nav_data' %>
 <br>
+<%= form_with do %>
 <div class="form-check form-switch">
 	<input class="form-check-input" role="switch" type="checkbox" name="lenient_name" <%= @lenient_name %>>
-	<label class="form-check-label" for="lenient_name">Saltar</label>
+	<label class="form-check-label" for="lenient_name"><b>Leniente em nomes</b></label>
 </div>
-<br>
+Se um teste for submitido com as identificações erradas, automaticamente atribuir a nota 0.
+<br><br>
 <div class="form-check form-switch">
 	<input class="form-check-input" role="switch" type="checkbox" name="lenient_answer" <%= @lenient_answer %>>
-	<label class="form-check-label" for="lenient_answer">Saltar</label>
-</div><br>
-Description
-<br>
+	<label class="form-check-label" for="lenient_answer"><b>Leniente em respostas</b></label>
+</div>
+Em vez de atribuir com base o quanto a resposta está correta, comparar o número de acertos por palavra para cada resposta. Assim, meio valores serão possíveis.
+<br><br>
 <div class="form-check form-switch">
 	<input class="form-check-input" role="switch" type="checkbox" name="long_journey" <%= @long_journey %>>
-	<label class="form-check-label" for="long_journey">Saltar</label>
-</div><br>
-Description
+	<label class="form-check-label" for="long_journey"><b>Jornadas longas</b></label>
+</div>
+Se ativado, jornadas terão uma duração de dias. Caso não, horas com base no número de cadeiras numa jornada.
 <br><br>
 <div class="form-check form-switch">
 	<input class="form-check-input" role="switch" type="checkbox" name="skip_dissertation" <%= @skip_dissertation %>>
-	<label class="form-check-label" for="skip_dissertation">Saltar</label>
-</div><br>
-Description
-<br>
-<b>Theme: </b><select name="theme">
+	<label class="form-check-label" for="skip_dissertation"><b>Saltar Trabalhos de fim de Semestre (TFDS)</b></label>
+</div>
+Uma nota aleatória será atribuida para TFDS. Note que quando uma cadeira não possui nenhum trabalho por fazer, uma nota aleatória ainda será atribuída.
+<br><br>
+<div class="form-check form-switch">
+	<input class="form-check-input" role="switch" type="checkbox" name="negative_grades" <%= @negative_grades %>>
+	<label class="form-check-label" for="skip_dissertation"><b>Notas negativas</b></label>
+</div>
+Haverá uma chance de uma pergunta dar valores negativos se não estiver correta. Cada pergunta avisará se for o caso.
+<br><br>
+<b>Estética: </b><select name="theme">
   <% Theme.all.order(:id).each do |theme| %>
     <option class="bg-<%= theme.class %>" value="<%= theme.id %>"><%= theme.name %></option>
   <% end %>
-</select>
+</select><br>
+<div class="d-grid">
+<button class="btn btn-primary" type="submit">Salvar mudanças</button>
+</div>
+<% end %>
 </div>

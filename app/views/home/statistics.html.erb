@@ -14,7 +14,7 @@ Simulações: <%= Journey.all.size %><br>
 <div id="quizzes" class="display-flex">
 	<% @quizzes.each do |quiz| %>
 		<div class="card"><b><%= quiz.subject.title %></b><br>
-			<span class="text-danger"><b><%= helpers.grade(quiz) %><b></span>
+			<span class="text-danger"><b><%= grade(quiz, true) %><b></span>
 		</div>
 	<% end %>
 </div>

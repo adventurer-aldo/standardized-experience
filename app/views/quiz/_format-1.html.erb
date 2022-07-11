@@ -1,4 +1,4 @@
-<% unless @grade.nil? %><span class='score'><%= number_with_precision @grade, significant: true, precision: 2, separator: ',' %>/20</span><% end %>
+<% unless @grade.nil? %><span class='score'><%= @grade %>/20</span><% end %>
 <div class="border border-dark border-2"><p align='center'><b>SE</b></p>
 <p align='center'<b>STANDARDIZED EXPERIENCE</b></p>
 <p style='float: left'>Disciplina: <%=@quiz.subject.title%><br>

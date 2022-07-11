@@ -1,5 +1,18 @@
 module CorrectingHelper
-  
+
+  def grade(quiz, text=false)
+    total = 0.0
+    answers = quiz.answers
+    answers.each do |answer|
+      total += answer.grade if correct(answer) == true
+    end
+    if text == true
+      total.round(2).to_s.gsub('.', ',')
+    else
+      total.round(2)
+    end
+  end
+
   def correct(answer)
     question = answer.question
 
@@ -57,15 +70,6 @@ module CorrectingHelper
                       question.parameters.include?('strict'))
                   end
     return correctness
-  end
-
-  def grade(quiz)
-    total = 0.0
-    answers = quiz.answers
-    answers.each do |answer|
-      total += answer.grade if correct(answer) == true
-    end
-    total.round(2)
   end
 
   def show_correct(answer)

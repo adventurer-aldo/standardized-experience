@@ -61,7 +61,7 @@ module HomeHelper
                    ) +
       content_tag(:tbody,
                   journey.chairs.order(id: :asc).collect { |chair|
-                    highlight = case media(chair)
+                    highlight = case media(chair).round(1)
                                 when '---'
                                   ''
                                 when 0..9.4
@@ -82,7 +82,7 @@ module HomeHelper
                                   else
                                     'table-success'
                                   end
-                                when 14.5..20
+                                when 14.5..20.0
                                   'table-success'
                                 end
                     link_to(

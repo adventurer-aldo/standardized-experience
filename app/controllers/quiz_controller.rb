@@ -314,7 +314,7 @@
   #=======================================================================================
   def results
     @quiz = Quiz.find_by(id: params[:id].to_i)
-    @grade = helpers.grade(@quiz)
+    @grade = helpers.grade(@quiz, text = true)
     @quiz_start = Time.parse(@quiz.start_time)
     @quiz_end = Time.parse(@quiz.end_time)
     @duration = Time.at(@quiz_end.to_i - @quiz_start.to_i)
