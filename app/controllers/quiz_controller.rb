@@ -315,19 +315,20 @@
   def results
     @quiz = Quiz.find_by(id: params[:id].to_i)
     @grade = helpers.grade(@quiz, text = true)
+    grade_num = @grade.gsub(',', '.').to_f
     @quiz_start = Time.parse(@quiz.start_time)
     @quiz_end = Time.parse(@quiz.end_time)
     @duration = Time.at(@quiz_end.to_i - @quiz_start.to_i)
 
-    @fanfare =  if @grade < 7
+    @fanfare =  if grade_num < 7
                   helpers.audio_path('failhard.ogg')
-                elsif @grade < 9.5
+                elsif grade_num < 9.5
                   helpers.audio_path('fail.ogg')
-                elsif @grade < 14.5
+                elsif grade_num < 14.5
                   helpers.audio_path('succeed.ogg')
-                elsif @grade < 18
+                elsif grade_num < 18
                   helpers.audio_path('succeedhard.ogg')
-                elsif @grade < 20
+                elsif grade_num < 20
                   helpers.audio_path('succeedharder.ogg')
                 else
                   helpers.audio_path('succeedhardest.ogg')
