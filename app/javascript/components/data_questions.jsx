@@ -26,7 +26,7 @@ class Question extends React.Component {
 
   async componentDidMount() {
     let quests = null;
-    await fetch('localhost:3000/questoes').then(response => response.json()).then(data => quests = data.questions);
+    await fetch('https://standardized-experience.herokuapp.com/questoes').then(response => response.json()).then(data => quests = data.questions);
     this.setState({ page: 0, max: chunkArrayInGroups(questions, 10).length, questions: chunkArrayInGroups(quests, 10)})
   }
 
