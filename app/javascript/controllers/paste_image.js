@@ -1,29 +1,11 @@
-Object.defineProperty(String.prototype, 'capitalize', {
-  value: function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-  },
-  enumerable: false
-});
+/*
+A webpage with an AJAX thing.
+I want a questions navigator.
 
-;(function () {
-  var each = Array.prototype.forEach
-  var autoplayIds = []
+At first, it displays the last 10 questions.
+Question is, how do I display only those 10?
+Maybe I can instead have React do the AJAX part.
+But where does React get the data?
+I'm thinking of having a route where I get all that data.
 
-  document.addEventListener('turbo:before-cache', function () {
-    var autoplayElements = document.querySelectorAll('[autoplay]')
-    each.call(autoplayElements, function (element) {
-      if (!element.id) throw 'Autoplay elements need an ID attribute'
-      autoplayIds.push(element.id)
-      element.removeAttribute('autoplay')
-    })
-  })
-
-  document.addEventListener('turbo:before-render', function (event) {
-    autoplayIds = autoplayIds.reduce(function (ids, id) {
-      var autoplay = event.data.newBody.querySelector('#' + id)
-      if (autoplay) autoplay.setAttribute('autoplay', true)
-      else ids.push(id)
-      return ids
-    }, [])
-  })
-})()
+*/

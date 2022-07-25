@@ -42070,7 +42070,20 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var Question = class extends import_react6.default.Component {
     constructor(props) {
       super(props);
-      this.state = { page: 1, max: this.props.pages.length };
+      this.state = { page: 0, max: 1, questions: [[{
+        id: 0,
+        question: "Hi",
+        answers: ["Hi"],
+        tags: ["Hi"],
+        subject: 0,
+        types: ["aberta"],
+        parameters: [0, 0, 0]
+      }]] };
+    }
+    async componentDidMount() {
+      let quests = null;
+      await fetch("localhost:3000/questoes").then((response) => response.json()).then((data) => quests = data.questions);
+      this.setState({ page: 0, max: chunkArrayInGroups(questions, 10).length, questions: chunkArrayInGroups(quests, 10) });
     }
     handleClick = (operation) => {
       let a = this.state.page;
@@ -42108,7 +42121,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }, /* @__PURE__ */ import_react6.default.createElement("a", {
         className: "page-link",
         href: "#navigate_questions"
-      }, "Previous")), this.props.pages.map((_, index) => {
+      }, "Previous")), this.state.questions.map((_, index) => {
         return /* @__PURE__ */ import_react6.default.createElement("li", {
           className: "page-item" + (this.state.page === index + 1 ? " active" : ""),
           key: index,
@@ -42129,9 +42142,35 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }, /* @__PURE__ */ import_react6.default.createElement("a", {
         className: "page-link",
         href: "#navigate_questions"
-      }, "Last")))), /* @__PURE__ */ import_react6.default.createElement("br", null), /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, "Last")))), /* @__PURE__ */ import_react6.default.createElement("div", {
+        className: "input-group"
+      }, /* @__PURE__ */ import_react6.default.createElement("input", {
+        type: "text",
+        className: "form-control",
+        "aria-label": "Text input with segmented dropdown button"
+      }), /* @__PURE__ */ import_react6.default.createElement("button", {
+        type: "button",
+        className: "btn btn-outline-secondary"
+      }, "Todas"), /* @__PURE__ */ import_react6.default.createElement("button", {
+        type: "button",
+        className: "btn btn-outline-secondary dropdown-toggle dropdown-toggle-split",
+        "data-bs-toggle": "dropdown",
+        "aria-expanded": "false"
+      }, /* @__PURE__ */ import_react6.default.createElement("span", {
+        className: "visually-hidden"
+      }, "Ver cadeira espec\xEDfica")), /* @__PURE__ */ import_react6.default.createElement("ul", {
+        className: "dropdown-menu dropdown-menu-end"
+      }, /* @__PURE__ */ import_react6.default.createElement("li", null, /* @__PURE__ */ import_react6.default.createElement("button", {
+        className: "dropdown-item",
+        href: "#"
+      }, "???")), /* @__PURE__ */ import_react6.default.createElement("li", null, /* @__PURE__ */ import_react6.default.createElement("hr", {
+        className: "dropdown-divider"
+      })), /* @__PURE__ */ import_react6.default.createElement("li", null, /* @__PURE__ */ import_react6.default.createElement("button", {
+        className: "dropdown-item",
+        href: "#"
+      }, "!!!")))), /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "row row-cols-1 row-cols-md-2 g-4"
-      }, this.props.pages[this.state.page - 1].map((item, index) => /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, this.state.questions[this.state.page].map((item, index) => /* @__PURE__ */ import_react6.default.createElement("div", {
         key: index
       }, /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "col"
@@ -42209,9 +42248,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   document.addEventListener("turbo:load", () => {
     if (document.getElementById("navigate_questions") != null) {
-      import_react_dom5.default.render(/* @__PURE__ */ import_react6.default.createElement(Question, {
-        pages: chunkArrayInGroups(questions, 10)
-      }), document.getElementById("navigate_questions"));
+      import_react_dom5.default.render(/* @__PURE__ */ import_react6.default.createElement(Question, null), document.getElementById("navigate_questions"));
     }
   });
 
@@ -42559,37 +42596,6 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }), document.getElementById("classroom"));
     }
   });
-
-  // app/javascript/controllers/paste_image.js
-  Object.defineProperty(String.prototype, "capitalize", {
-    value: function() {
-      return this.charAt(0).toUpperCase() + this.slice(1);
-    },
-    enumerable: false
-  });
-  (function() {
-    var each = Array.prototype.forEach;
-    var autoplayIds = [];
-    document.addEventListener("turbo:before-cache", function() {
-      var autoplayElements = document.querySelectorAll("[autoplay]");
-      each.call(autoplayElements, function(element) {
-        if (!element.id)
-          throw "Autoplay elements need an ID attribute";
-        autoplayIds.push(element.id);
-        element.removeAttribute("autoplay");
-      });
-    });
-    document.addEventListener("turbo:before-render", function(event) {
-      autoplayIds = autoplayIds.reduce(function(ids, id) {
-        var autoplay = event.data.newBody.querySelector("#" + id);
-        if (autoplay)
-          autoplay.setAttribute("autoplay", true);
-        else
-          ids.push(id);
-        return ids;
-      }, []);
-    });
-  })();
 
   // app/build_file.js
   var import_bootstrap = __toESM(require_bootstrap());

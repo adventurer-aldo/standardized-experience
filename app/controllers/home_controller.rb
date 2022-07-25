@@ -130,6 +130,35 @@ class HomeController < ApplicationController
 
   def about; end
 
+  def cadeiras
+    File.open('cadeiras.json', 'w+') do |file|
+      str = '{'
+      Subject.all.each do |subject|
+        str << %(subjects[#{subject.id}] = "#{subject.title}";\n)
+      end
+      str << '}'
+      file.write(str)
+      send_file(file)
+    end
+  end
+
+  def questoes
+    File.open('questoes.json', 'w+') do |file|
+      str = '{"questions": ['
+      Question.all.order(id: :desc).each do |question|
+        str << %({"id": #{question.id}, "subject": #{question.subject_id}, "level": #{question.level},
+        "types": #{question.question_types}, "question": "#{question.question}",
+        "answers": #{question.answer}, "tags": #{question.tags},
+        "frequency": #{question.frequency}, "parameters": #{question.parameters}},)
+      end
+      str[-1] = ''
+      str << ']}'
+      file.write(str)
+      send_file(file)
+    end
+  end
+
+
   def new_journey
     journey = Journey.create(duration: 0, start_time: Time.now, soundtrack_id: Soundtrack.order(Arel.sql('RANDOM()')).limit(1).first.id)
     Subject.where(evaluable: 1).order(title: :asc).each do |subject|

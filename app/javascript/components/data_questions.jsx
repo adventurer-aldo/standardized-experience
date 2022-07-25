@@ -14,8 +14,21 @@ class Question extends React.Component {
   
   constructor(props) {
     super(props);
-    this.state = { page: 1, max: this.props.pages.length }
+    this.state = { page: 0, max: 1, questions: [[{id: 0,
+      question: "Hi",
+      answers: ['Hi'],
+      tags: ['Hi'],
+      subject: 0,
+      types: ['aberta'],
+      parameters: [0,0,0]
+    }]] }
   };
+
+  async componentDidMount() {
+    let quests = null;
+    await fetch('localhost:3000/questoes').then(response => response.json()).then(data => quests = data.questions);
+    this.setState({ page: 0, max: chunkArrayInGroups(questions, 10).length, questions: chunkArrayInGroups(quests, 10)})
+  }
 
   handleClick = (operation) => {
     let a = this.state.page;
@@ -39,16 +52,27 @@ class Question extends React.Component {
     <ul className="pagination overflow-auto w-100">
     <li className={"page-item" + (this.state.page === 1 ? ' disabled' : '')} onClick={() => this.handleClick('-') }><a className="page-link" href='#navigate_questions'>First</a></li>
       <li className={"page-item" + (this.state.page === 1 ? ' disabled' : '')} onClick={() => this.handleClick('-') }><a className="page-link" href='#navigate_questions'>Previous</a></li>
-      { this.props.pages.map((_, index) => { return ( 
+      { this.state.questions.map((_, index) => { return ( 
           <li className={"page-item" + (this.state.page === (index + 1) ? ' active' : '')} key={index} onClick={() => this.handleNumber(index+1)}><a className="page-link" href='#navigate_questions'>{index+1}</a></li>
       )})}
       <li className={"page-item" + (this.state.page === this.state.max ? ' disabled' : '')} onClick={() => this.handleClick('+') }><a className="page-link" href='#navigate_questions'>Next</a></li>
       <li className={"page-item" + (this.state.page === this.state.max ? ' disabled' : '')} onClick={() => this.handleClick('++') }><a className="page-link" href='#navigate_questions'>Last</a></li>
     </ul>
   </nav>
-  <br />
+<div className="input-group">
+  <input type="text" className="form-control" aria-label="Text input with segmented dropdown button"/>
+  <button type="button" className="btn btn-outline-secondary">Todas</button>
+  <button type="button" className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+    <span className="visually-hidden">Ver cadeira específica</span>
+  </button>
+  <ul className="dropdown-menu dropdown-menu-end">
+    <li><button className="dropdown-item" href="#">???</button></li>
+    <li><hr className="dropdown-divider"/></li>
+    <li><button className="dropdown-item" href="#">!!!</button></li>
+  </ul>
+</div>
   <div className="row row-cols-1 row-cols-md-2 g-4">
-      {this.props.pages[this.state.page - 1].map((item, index) => 
+      {this.state.questions[this.state.page].map((item, index) => 
       (<div key={index}>
         <div className="col">
           <div className="card">
@@ -97,7 +121,7 @@ class Question extends React.Component {
 
 document.addEventListener('turbo:load', () => {
   if (document.getElementById('navigate_questions') != null) {
-    ReactDOM.render(<Question pages={chunkArrayInGroups(questions, 10)} />,
-    document.getElementById('navigate_questions'))
+      ReactDOM.render(<Question />,
+      document.getElementById('navigate_questions'));
   }
 })
