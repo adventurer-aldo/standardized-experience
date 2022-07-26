@@ -78,7 +78,7 @@ class HomeController < ApplicationController
     when 'delete'
       Subject.destroy_by(id: params[:id].to_i)
     end
-    redirect_to( subject_path + '#disciplinas')
+    redirect_to("#{subject_path}#disciplinas")
   end
 
   def submit_question
@@ -157,7 +157,6 @@ class HomeController < ApplicationController
       send_file(file)
     end
   end
-
 
   def new_journey
     journey = Journey.create(duration: 0, start_time: Time.now, soundtrack_id: Soundtrack.order(Arel.sql('RANDOM()')).limit(1).first.id)

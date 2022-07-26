@@ -31,6 +31,10 @@ Uma nota aleatória será atribuida para TFDS. Note que quando uma cadeira não 
 </div>
 Haverá uma chance de uma pergunta dar valores negativos se não estiver correta. Cada pergunta avisará se for o caso.
 <br><br>
+Filtre as perguntas que aparecerão com base no nível.
+<br><br>
+Se prefere que as questões que aparecerão sejam apenas aquelas que você criou, ou permitir que questões de outros estudantes apareçam.
+<br><br>
 <b>Estética: </b><select name="theme">
   <% Theme.all.order(:id).each do |theme| %>
     <option class="bg-<%= theme.class %>" value="<%= theme.id %>"><%= theme.name %></option>

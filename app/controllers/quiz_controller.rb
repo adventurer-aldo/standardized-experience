@@ -98,17 +98,44 @@
                     when 0
                       base_query.where.not(level: 3).limit(rand(3..10)) # Prática
                     when 1
-                      base_query.where(level: 1).limit(rand(10..35)) # Teste 1
+                      case Stat.last.focus_level
+                      when 0, 1
+                        base_query.where(level: 1).limit(rand(10..35)) # Teste 1
+                      else
+                        base_query.where(level: 2).limit(rand(10..35)) # Teste 2
+                      end
                     when 2
+                      case Stat.last.focus_level
+                      when 0
+                        base_query.where(level: 2).limit(rand(10..28)) + base_query.where(level: 1).limit(rand(0..7)) # Teste 2
+                      when 1
+                        base_query.where(level: 1).limit(rand(10..40)) # Teste 1
+                      when 2
+                        base_query.where(level: 2).limit(rand(10..40)) # Teste 2
+                      end
                       base_query.where(level: 2).limit(rand(10..28)) + base_query.where(level: 1).limit(rand(0..7)) # Teste 2
                     when 3
                       base_query.where.not(level: [3, 4]).limit(rand(10..40)) # Reposição
                     when 4
                       base_query.where(level: 3).limit(rand(10..40)) # Dissertação
                     when 5
-                      base_query.where(level: 4).limit(rand(5..30)) + base_query.where.not(level: [3, 4]).limit(rand(10..20)) # Exame
+                      case Stat.last.focus_level
+                      when 0
+                        base_query.where(level: 4).limit(rand(5..30)) + base_query.where.not(level: [3, 4]).limit(rand(10..20)) # Exame
+                      when 1
+                        base_query.where(level: 1).limit(rand(25..45)) # Exame 1
+                      when 2
+                        base_query.where(level: 2).limit(rand(25..45)) # Exame 1
+                      end
                     when 6
-                      base_query.limit(rand(50..100)) # Recorrência
+                      case Stat.last.focus_level
+                      when 0
+                        base_query.where.not(level: 3).limit(rand(50..100)) # Recorrência
+                      when 1
+                        base_query.where(level: 1).limit(rand(50..100)) # Teste 1
+                      when 2
+                        base_query.where(level: 2).limit(rand(50..100)) # Teste 2
+                      end
                     end
 
     @ost =  case @level
