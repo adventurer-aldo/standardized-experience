@@ -96,7 +96,14 @@
 
     all_questions = case @level
                     when 0
-                      base_query.where.not(level: 3).limit(rand(3..10)) # Prática
+                      case Stat.last.focus_level
+                      when 0
+                        base_query.where.not(level: 3).limit(rand(3..10)) # Prática
+                      when 1
+                        base_query.where(level: 1).limit(rand(3..10)) # Teste 1
+                      when 2
+                        base_query.where(level: 2).limit(rand(3..10)) # Teste 2
+                      end
                     when 1
                       case Stat.last.focus_level
                       when 0, 1
