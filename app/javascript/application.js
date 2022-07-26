@@ -41858,11 +41858,6 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         index: 8,
         active: this.state.activeIndexes.includes(8),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
-        text: "Desenhar",
-        index: 9,
-        active: this.state.activeIndexes.includes(9),
-        onClick: this.handleClick
       })), /* @__PURE__ */ import_react3.default.createElement("input", {
         name: "types",
         value: JSON.stringify(this.state.activeIndexes),
