@@ -1,21 +1,21 @@
 class HomeController < ApplicationController
   def index
-    @journey_check = Journey.where(id: Stat.last.current_journey).exists?
+    @journey_check = Journey.where(id: Stat.last.journey_id).exists?
     if @journey_check
       @journey = Journey.last
       sound = @journey.soundtrack
       @ost = case @journey.level
-             when 0, 7
-               sound.home
-             when 1
-               sound.preparations
-             when 2, 3
-               sound.preparations_second
-             when 4
-               sound.preparations_dissertation
-             when 5, 6
-               sound.preparations_exam
-             end
+            when 0, 7
+              sound.home
+            when 1
+              sound.preparations
+            when 2, 3
+              sound.preparations_second
+            when 4
+              sound.preparations_dissertation
+            when 5, 6
+              sound.preparations_exam
+            end
     end
 
     @ost = Soundtrack.first.home if @ost.nil?
