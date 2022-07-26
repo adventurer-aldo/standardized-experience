@@ -147,7 +147,7 @@ class HomeController < ApplicationController
       str = '{"questions": ['
       Question.all.order(id: :desc).limit(200).each do |question|
         str << %({"id": #{question.id}, "subject": #{question.subject_id}, "level": #{question.level},
-        "types": #{question.question_types}, "question": "#{question.question}",
+        "types": #{question.question_types}, "question": "#{(question.question.length > 30) ? "#{question.question[0..30]}..." : question.question}",
         "answers": #{question.answer}, "tags": #{question.tags},
         "image": "url('#{question.image.attached? ? question.image.url : 'https://i.ibb.co/dmtKHb0/black.png'}')",
         "frequency": #{question.frequency}, "parameters": #{question.parameters}},)
