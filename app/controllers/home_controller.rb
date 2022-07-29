@@ -166,7 +166,7 @@ class HomeController < ApplicationController
       chair.update(dissertation: rand(0.0..20.0).round(2)) unless subject.questions.where(level: 3).exists?
     end
 
-    Stat.last.update(current_journey: journey.id)
+    Stat.last.update(journey_id: journey.id)
     redirect_to root_path
   end
   
