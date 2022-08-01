@@ -120,7 +120,6 @@
                       when 2
                         base_query.where(level: 2).limit(rand(10..40)) # Teste 2
                       end
-                      base_query.where(level: 2).limit(rand(10..28)) + base_query.where(level: 1).limit(rand(0..7)) # Teste 2
                     when 3
                       base_query.where.not(level: [3, 4]).limit(rand(10..40)) # Reposição
                     when 4
