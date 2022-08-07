@@ -66,15 +66,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_093759) do
   create_table "choices", id: :serial, force: :cascade do |t|
     t.integer "question_id", null: false
     t.text "decoy", null: false
+    t.integer "veracity", limit: 2, default: 0, null: false
   end
 
-  create_table "journeys", id: :serial, force: :cascade do |t|
-    t.integer "duration", limit: 2, null: false
-    t.time "start_time", null: false
-    t.time "end_time"
-    t.integer "level", limit: 2, default: 1, null: false
-    t.integer "soundtrack_id", null: false
-  end
+# Could not dump table "journeys" because of following StandardError
+#   Unknown type 'time with time zone' for column 'start_time'
 
   create_table "questions", id: :serial, force: :cascade do |t|
     t.integer "subject_id", null: false
@@ -85,45 +81,43 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_093759) do
     t.integer "level", limit: 2, default: 1, null: false
     t.integer "frequency", default: [0, 0, 0], null: false, array: true
     t.text "parameters", default: [], null: false, array: true
+    t.integer "stat_id", default: 1, null: false
   end
 
-  create_table "quizzes", id: :serial, force: :cascade do |t|
-    t.text "first_name"
-    t.text "last_name"
-    t.integer "subject_id", null: false
-    t.integer "journey_id", default: 0, null: false
-    t.time "start_time", null: false
-    t.time "end_time"
-    t.integer "format", limit: 2, default: 0, null: false
-    t.integer "level", limit: 2, default: 0, null: false
-  end
+# Could not dump table "quizzes" because of following StandardError
+#   Unknown type 'time with time zone' for column 'start_time'
 
   create_table "soundtracks", id: :integer, default: -> { "nextval('soundtrack_id_seq'::regclass)" }, force: :cascade do |t|
     t.text "name", null: false
-    t.text "home"
-    t.text "preparations"
-    t.text "preparations_second"
-    t.text "preparations_exam"
+    t.text "home", null: false
+    t.text "preparations", null: false
+    t.text "preparations_second", null: false
+    t.text "preparations_exam", null: false
     t.text "practice", array: true
     t.text "first", array: true
-    t.text "first_rush", array: true
+    t.text "first_rush", default: [""], null: false, array: true
     t.text "second", array: true
-    t.text "second_rush", array: true
+    t.text "second_rush", default: [""], null: false, array: true
     t.text "dissertation", array: true
     t.text "exam", array: true
-    t.text "exam_rush", array: true
+    t.text "exam_rush", default: [""], null: false, array: true
     t.text "recurrence", array: true
-    t.text "recurrence_rush", array: true
+    t.text "recurrence_rush", default: [""], null: false, array: true
+    t.text "dissertation_rush", default: [""], null: false, array: true
+    t.text "practice_rush", default: [""], null: false, array: true
+    t.text "preparations_dissertation", null: false
   end
 
   create_table "stats", id: :serial, force: :cascade do |t|
-    t.integer "current_journey", default: 0, null: false
-    t.text "username"
-    t.text "password"
     t.integer "skip_dissertation", limit: 2, default: 0, null: false
     t.integer "long_journey", limit: 2, default: 0, null: false
     t.integer "lenient_answer", limit: 2, default: 0, null: false
     t.integer "lenient_name", limit: 2, default: 1, null: false
+    t.integer "avoid_negative", limit: 2, default: 0, null: false
+    t.integer "focus_level", limit: 2, default: 0, null: false
+    t.integer "questions_pref", limit: 2, default: 0, null: false
+    t.integer "journey_id", default: 0, null: false
+    t.integer "theme_id", default: 1, null: false
   end
 
   create_table "subjects", id: :serial, force: :cascade do |t|
@@ -131,7 +125,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_093759) do
     t.integer "difficulty", null: false
     t.integer "formula", limit: 2, default: 0, null: false
     t.integer "evaluable", limit: 2, default: 1, null: false
+    t.integer "stat_id", default: 1, null: false
     t.index ["title"], name: "subjects_title_key", unique: true
+  end
+
+  create_table "themes", id: :serial, force: :cascade do |t|
+    t.text "name", null: false
+    t.text "background", null: false
+    t.text "color", null: false
+    t.text "element", null: false
+  end
+
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.text "username", null: false
+    t.text "password", null: false
+    t.integer "profile_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -142,5 +150,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_093759) do
   add_foreign_key "chairs", "subjects", name: "subject"
   add_foreign_key "choices", "questions", name: "question"
   add_foreign_key "journeys", "soundtracks", name: "journeys_soundtrack_id_fkey"
-  add_foreign_key "stats", "journeys", column: "current_journey", name: "journey"
+  add_foreign_key "stats", "journeys", name: "journey"
+  add_foreign_key "stats", "themes", name: "theme"
 end
