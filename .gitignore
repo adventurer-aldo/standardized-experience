@@ -13,6 +13,7 @@
 
 /app/assets/javascripts/*.js
 /*.cmd
+/questions.txt
 
 # Ignore all logfiles and tempfiles.
 /log/*
