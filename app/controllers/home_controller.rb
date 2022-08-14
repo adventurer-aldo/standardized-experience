@@ -195,7 +195,7 @@ class HomeController < ApplicationController
 
   def configure
     Stat.last.update(
-      focus_level: params[:level].to_i
+      focus_level: params[:focus].to_i
     )
     redirect_to configurations_path
   end
