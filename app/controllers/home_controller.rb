@@ -1,9 +1,8 @@
 class HomeController < ApplicationController
   def index
-    stat = Stat.last
-    @journey_check = stat.journey
+    @journey_check = Journey.where(id: Stat.last.journey_id).exists?
     if @journey_check
-      @journey = stat.journey
+      @journey = Journey.last
       sound = @journey.soundtrack
       @ost = case @journey.level
              when 0, 7
@@ -12,7 +11,7 @@ class HomeController < ApplicationController
                sound.preparations
              when 2, 3
                sound.preparations_second
-              when 4
+             when 4
                sound.preparations_dissertation
              when 5, 6
                sound.preparations_exam
