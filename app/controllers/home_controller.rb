@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     stat = Stat.last
-    @journey_check = stat.journey.exists?
+    @journey_check = stat.journey
     if @journey_check
       @journey = stat.journey
       sound = @journey.soundtrack
