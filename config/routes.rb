@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   post '/quiz', to: 'quiz#submit'
   post '/dados/questoes', to: 'home#submit_question'
   post '/dados/disciplinas', to: 'home#submit_subject'
+  post '/dados/configuracoes', to: 'home#configure'
 
   # Defines the root path route ('/')
   # root 'articles#index'

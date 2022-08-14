@@ -3003,11 +3003,11 @@
       if (true) {
         (function() {
           "use strict";
-          var React10 = require_react();
+          var React11 = require_react();
           var _assign = require_object_assign();
           var Scheduler = require_scheduler();
           var tracing = require_tracing();
-          var ReactSharedInternals = React10.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React11.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function warn(format) {
             {
               for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -3039,7 +3039,7 @@
               Function.prototype.apply.call(console[level2], console, argsWithFormat);
             }
           }
-          if (!React10) {
+          if (!React11) {
             {
               throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
             }
@@ -4255,7 +4255,7 @@
           var didWarnInvalidChild = false;
           function flattenChildren(children) {
             var content = "";
-            React10.Children.forEach(children, function(child) {
+            React11.Children.forEach(children, function(child) {
               if (child == null) {
                 return;
               }
@@ -4266,7 +4266,7 @@
           function validateProps(element, props) {
             {
               if (typeof props.children === "object" && props.children !== null) {
-                React10.Children.forEach(props.children, function(child) {
+                React11.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -11459,7 +11459,7 @@
           }
           var fakeInternalInstance = {};
           var isArray = Array.isArray;
-          var emptyRefsObject = new React10.Component().refs;
+          var emptyRefsObject = new React11.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -21039,7 +21039,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       if (true) {
         (function() {
           "use strict";
-          var React10 = require_react();
+          var React11 = require_react();
           var _assign = require_object_assign();
           var REACT_ELEMENT_TYPE = 60103;
           var REACT_PORTAL_TYPE = 60106;
@@ -21096,7 +21096,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             }
             return null;
           }
-          var ReactSharedInternals = React10.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React11.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
@@ -41768,7 +41768,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     ;
   });
 
-  // app/javascript/components/data_level_type.jsx
+  // app/javascript/components/data_configurations.jsx
   var import_react3 = __toESM(require_react());
   var import_react_dom2 = __toESM(require_react_dom());
 
@@ -41789,8 +41789,47 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   var butao_default = Butao;
 
+  // app/javascript/components/data_configurations.jsx
+  var Focus = class extends import_react3.default.Component {
+    state = { focus: 0 };
+    handleClick = (index) => this.setState({ focus: index });
+    render() {
+      return /* @__PURE__ */ import_react3.default.createElement("div", null, /* @__PURE__ */ import_react3.default.createElement("div", {
+        className: "btn-group",
+        role: "group",
+        "aria-label": "Basic example"
+      }, /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+        index: 0,
+        active: this.state.focus === 0,
+        text: "Tudo",
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+        index: 1,
+        active: this.state.focus === 1,
+        text: "1\xBA Teste",
+        onClick: this.handleClick
+      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+        index: 2,
+        active: this.state.focus === 2,
+        text: "2\xBA Teste",
+        onClick: this.handleClick
+      })), /* @__PURE__ */ import_react3.default.createElement("input", {
+        type: "hidden",
+        name: "focus",
+        value: this.state.focus
+      }));
+    }
+  };
+  document.addEventListener("turbo:load", () => {
+    if (document.getElementById("focus") != null) {
+      import_react_dom2.default.render(/* @__PURE__ */ import_react3.default.createElement(Focus, null), document.getElementById("focus"));
+    }
+  });
+
   // app/javascript/components/data_level_type.jsx
-  var QType = class extends import_react3.default.Component {
+  var import_react4 = __toESM(require_react());
+  var import_react_dom3 = __toESM(require_react_dom());
+  var QType = class extends import_react4.default.Component {
     state = {
       activeIndexes: types
     };
@@ -41807,97 +41846,97 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       this.setState({ activeIndexes: a });
     };
     render() {
-      return /* @__PURE__ */ import_react3.default.createElement("div", null, "Selecione os tipos.", /* @__PURE__ */ import_react3.default.createElement("div", {
+      return /* @__PURE__ */ import_react4.default.createElement("div", null, "Selecione os tipos.", /* @__PURE__ */ import_react4.default.createElement("div", {
         className: "overflow-auto mb-1"
-      }, /* @__PURE__ */ import_react3.default.createElement("div", {
+      }, /* @__PURE__ */ import_react4.default.createElement("div", {
         className: "btn-group",
         role: "group",
         "aria-label": "Basic example"
-      }, /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }, /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         text: "Aberta",
         index: 0,
         active: this.state.activeIndexes.includes(0),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         text: "M\xFAltiplas Abertas",
         index: 4,
         active: this.state.activeIndexes.includes(4),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         text: "Escolha",
         index: 1,
         active: this.state.activeIndexes.includes(1),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         text: "Escolha-M\xFAltipla",
         index: 2,
         active: this.state.activeIndexes.includes(2),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         text: "Verdadeiro/Falso",
         index: 3,
         active: this.state.activeIndexes.includes(3),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         text: "Formula",
         index: 5,
         active: this.state.activeIndexes.includes(5),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         text: "Tabela",
         index: 6,
         active: this.state.activeIndexes.includes(6),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         text: "Correspond\xEAncia",
         index: 7,
         active: this.state.activeIndexes.includes(7),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         text: "Preencher",
         index: 8,
         active: this.state.activeIndexes.includes(8),
         onClick: this.handleClick
-      })), /* @__PURE__ */ import_react3.default.createElement("input", {
+      })), /* @__PURE__ */ import_react4.default.createElement("input", {
         name: "types",
         value: JSON.stringify(this.state.activeIndexes),
         type: "hidden"
       })));
     }
   };
-  var Level = class extends import_react3.default.Component {
+  var Level = class extends import_react4.default.Component {
     state = {
       level
     };
     handleClick = (index) => this.setState({ level: index });
     render() {
-      return /* @__PURE__ */ import_react3.default.createElement("div", {
+      return /* @__PURE__ */ import_react4.default.createElement("div", {
         className: "mb-1"
-      }, "N\xEDvel? \u2002", /* @__PURE__ */ import_react3.default.createElement("div", {
+      }, "N\xEDvel? \u2002", /* @__PURE__ */ import_react4.default.createElement("div", {
         className: "btn-group",
         role: "group",
         "aria-label": "Basic example"
-      }, /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }, /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         index: 1,
         active: this.state.level === 1,
         text: "1\xBA Teste",
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         index: 2,
         active: this.state.level === 2,
         text: "2\xBA Teste",
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         index: 3,
         active: this.state.level === 3,
         text: "Disserta\xE7\xE3o",
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react3.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
         index: 4,
         active: this.state.level === 4,
         text: "Exame",
         onClick: this.handleClick
-      })), /* @__PURE__ */ import_react3.default.createElement("input", {
+      })), /* @__PURE__ */ import_react4.default.createElement("input", {
         name: "level",
         value: this.state.level,
         type: "hidden"
@@ -41906,15 +41945,15 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   document.addEventListener("turbo:load", () => {
     if (document.getElementById("questiontype") != null) {
-      import_react_dom2.default.render(/* @__PURE__ */ import_react3.default.createElement(QType, null), document.getElementById("questiontype"));
-      import_react_dom2.default.render(/* @__PURE__ */ import_react3.default.createElement(Level, null), document.getElementById("levels"));
+      import_react_dom3.default.render(/* @__PURE__ */ import_react4.default.createElement(QType, null), document.getElementById("questiontype"));
+      import_react_dom3.default.render(/* @__PURE__ */ import_react4.default.createElement(Level, null), document.getElementById("levels"));
     }
   });
 
   // app/javascript/components/data_parameters.jsx
-  var import_react4 = __toESM(require_react());
-  var import_react_dom3 = __toESM(require_react_dom());
-  var Parameters = class extends import_react4.default.Component {
+  var import_react5 = __toESM(require_react());
+  var import_react_dom4 = __toESM(require_react_dom());
+  var Parameters = class extends import_react5.default.Component {
     state = {
       activeIndexesD: parameters
     };
@@ -41929,26 +41968,26 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       this.setState({ activeIndexesD: b });
     };
     render() {
-      return /* @__PURE__ */ import_react4.default.createElement("div", null, "Par\xE2metros? \u2002", /* @__PURE__ */ import_react4.default.createElement("div", {
+      return /* @__PURE__ */ import_react5.default.createElement("div", null, "Par\xE2metros? \u2002", /* @__PURE__ */ import_react5.default.createElement("div", {
         className: "btn-group",
         role: "group",
         "aria-label": "Basic example"
-      }, /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      }, /* @__PURE__ */ import_react5.default.createElement(butao_default, {
         text: "Rigoroso",
         index: 0,
         active: this.state.activeIndexesD.includes(0),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react5.default.createElement(butao_default, {
         text: "Ordenado",
         index: 1,
         active: this.state.activeIndexesD.includes(1),
         onClick: this.handleClick
-      }), /* @__PURE__ */ import_react4.default.createElement(butao_default, {
+      }), /* @__PURE__ */ import_react5.default.createElement(butao_default, {
         text: "Baralhar",
         index: 2,
         active: this.state.activeIndexesD.includes(2),
         onClick: this.handleClick
-      })), /* @__PURE__ */ import_react4.default.createElement("input", {
+      })), /* @__PURE__ */ import_react5.default.createElement("input", {
         name: "parameters",
         value: JSON.stringify(this.state.activeIndexesD),
         type: "hidden"
@@ -41957,14 +41996,14 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   document.addEventListener("turbo:load", () => {
     if (document.getElementById("parameters") != null) {
-      import_react_dom3.default.render(/* @__PURE__ */ import_react4.default.createElement(Parameters, null), document.getElementById("parameters"));
+      import_react_dom4.default.render(/* @__PURE__ */ import_react5.default.createElement(Parameters, null), document.getElementById("parameters"));
     }
   });
 
   // app/javascript/components/data_popups_image.jsx
-  var import_react5 = __toESM(require_react());
-  var import_react_dom4 = __toESM(require_react_dom());
-  var QuestionImage = class extends import_react5.default.Component {
+  var import_react6 = __toESM(require_react());
+  var import_react_dom5 = __toESM(require_react_dom());
+  var QuestionImage = class extends import_react6.default.Component {
     state = { image: null };
     onImageChange = (event) => {
       if (event.target.files && event.target.files[0]) {
@@ -41976,70 +42015,70 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       }
     };
     render() {
-      return /* @__PURE__ */ import_react5.default.createElement("div", null, /* @__PURE__ */ import_react5.default.createElement("button", {
+      return /* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement("button", {
         type: "button",
         className: "bg-transparent border-0",
         "data-bs-toggle": "modal",
         "data-bs-target": "#exampleModal",
         tabIndex: "-1"
-      }, /* @__PURE__ */ import_react5.default.createElement("i", {
+      }, /* @__PURE__ */ import_react6.default.createElement("i", {
         className: "fa fa-picture-o"
-      })), /* @__PURE__ */ import_react5.default.createElement("div", {
+      })), /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "bg-opacity-50 bg-dark modal fade",
         id: "exampleModal",
         tabIndex: "-1",
         "aria-labelledby": "exampleModalLabel",
         "aria-hidden": "true"
-      }, /* @__PURE__ */ import_react5.default.createElement("div", {
+      }, /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "modal-dialog"
-      }, /* @__PURE__ */ import_react5.default.createElement("div", {
+      }, /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "modal-content"
-      }, /* @__PURE__ */ import_react5.default.createElement("div", {
+      }, /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "modal-header"
-      }, /* @__PURE__ */ import_react5.default.createElement("h5", {
+      }, /* @__PURE__ */ import_react6.default.createElement("h5", {
         className: "modal-title text-center",
         id: "exampleModalLabel"
-      }, "Anexar Imagem"), /* @__PURE__ */ import_react5.default.createElement("button", {
+      }, "Anexar Imagem"), /* @__PURE__ */ import_react6.default.createElement("button", {
         type: "button",
         className: "btn-close",
         "data-bs-dismiss": "modal",
         "aria-label": "Close"
-      })), /* @__PURE__ */ import_react5.default.createElement("div", {
+      })), /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "modal-body text-start"
-      }, /* @__PURE__ */ import_react5.default.createElement("img", {
+      }, /* @__PURE__ */ import_react6.default.createElement("img", {
         id: "target",
         className: "w-100",
         src: this.state.image
-      }), /* @__PURE__ */ import_react5.default.createElement("br", null), /* @__PURE__ */ import_react5.default.createElement("input", {
+      }), /* @__PURE__ */ import_react6.default.createElement("br", null), /* @__PURE__ */ import_react6.default.createElement("input", {
         type: "file",
         onChange: this.onImageChange,
         name: "image",
         className: "form-control",
         id: "question_image",
         accept: "image/*"
-      }), /* @__PURE__ */ import_react5.default.createElement("div", {
+      }), /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "form-check form-switch"
-      }, /* @__PURE__ */ import_react5.default.createElement("input", {
+      }, /* @__PURE__ */ import_react6.default.createElement("input", {
         className: "form-check-input",
         defaultChecked: reuse_image,
         name: "reuse_image",
         type: "checkbox",
         role: "switch",
         id: "flexSwitchCheckDefault"
-      }), /* @__PURE__ */ import_react5.default.createElement("label", {
+      }), /* @__PURE__ */ import_react6.default.createElement("label", {
         className: "form-check-label",
         htmlFor: "flexSwitchCheckDefault"
-      }, "Usar imagem anterior?")), "Usar imagem de quest\xE3o espec\xEDfica: ", /* @__PURE__ */ import_react5.default.createElement("input", {
+      }, "Usar imagem anterior?")), "Usar imagem de quest\xE3o espec\xEDfica: ", /* @__PURE__ */ import_react6.default.createElement("input", {
         name: "reuse_id",
         className: "form-control w-25 d-inline-block",
         type: "number",
         min: "0",
         defaultValue: "0"
-      }), /* @__PURE__ */ import_react5.default.createElement("br", null), /* @__PURE__ */ import_react5.default.createElement("div", {
+      }), /* @__PURE__ */ import_react6.default.createElement("br", null), /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "fs-7 text-muted text-wrap"
-      }, "Use 0 para usar a \xFAltima messagem submetida ou especifique uma ID exata. Deve ter (Imagem anterior) selecionado.")), /* @__PURE__ */ import_react5.default.createElement("div", {
+      }, "Use 0 para usar a \xFAltima messagem submetida ou especifique uma ID exata. Deve ter (Imagem anterior) selecionado.")), /* @__PURE__ */ import_react6.default.createElement("div", {
         className: "modal-footer"
-      }, /* @__PURE__ */ import_react5.default.createElement("button", {
+      }, /* @__PURE__ */ import_react6.default.createElement("button", {
         type: "button",
         className: "btn btn-secondary",
         "data-bs-dismiss": "modal"
@@ -42048,13 +42087,13 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   document.addEventListener("turbo:load", () => {
     if (document.getElementById("imaging") != null) {
-      import_react_dom4.default.render(/* @__PURE__ */ import_react5.default.createElement(QuestionImage, null), document.getElementById("imaging"));
+      import_react_dom5.default.render(/* @__PURE__ */ import_react6.default.createElement(QuestionImage, null), document.getElementById("imaging"));
     }
   });
 
   // app/javascript/components/data_questions.jsx
-  var import_react6 = __toESM(require_react());
-  var import_react_dom5 = __toESM(require_react_dom());
+  var import_react7 = __toESM(require_react());
+  var import_react_dom6 = __toESM(require_react_dom());
   function chunkArrayInGroups(arr, size) {
     var myArray = [];
     for (var i = 0; i < arr.length; i += size) {
@@ -42062,7 +42101,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }
     return myArray;
   }
-  var Question = class extends import_react6.default.Component {
+  var Question = class extends import_react7.default.Component {
     constructor(props) {
       super(props);
       this.state = { page: 0, max: 1, questions: [[{
@@ -42097,164 +42136,164 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       this.setState({ page: num, max: this.state.max });
     };
     render() {
-      return /* @__PURE__ */ import_react6.default.createElement("div", {
+      return /* @__PURE__ */ import_react7.default.createElement("div", {
         id: "page_questions",
         className: "p-1 overflow-hidden"
-      }, /* @__PURE__ */ import_react6.default.createElement("nav", {
+      }, /* @__PURE__ */ import_react7.default.createElement("nav", {
         "aria-label": "Page navigation example"
-      }, /* @__PURE__ */ import_react6.default.createElement("ul", {
+      }, /* @__PURE__ */ import_react7.default.createElement("ul", {
         className: "pagination overflow-auto w-100"
-      }, /* @__PURE__ */ import_react6.default.createElement("li", {
+      }, /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item" + (this.state.page === 1 ? " disabled" : ""),
         onClick: () => this.handleClick("-")
-      }, /* @__PURE__ */ import_react6.default.createElement("a", {
+      }, /* @__PURE__ */ import_react7.default.createElement("a", {
         className: "page-link",
         href: "#navigate_questions"
-      }, "First")), /* @__PURE__ */ import_react6.default.createElement("li", {
+      }, "First")), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item" + (this.state.page === 1 ? " disabled" : ""),
         onClick: () => this.handleClick("-")
-      }, /* @__PURE__ */ import_react6.default.createElement("a", {
+      }, /* @__PURE__ */ import_react7.default.createElement("a", {
         className: "page-link",
         href: "#navigate_questions"
       }, "Previous")), this.state.questions.map((_, index) => {
-        return /* @__PURE__ */ import_react6.default.createElement("li", {
+        return /* @__PURE__ */ import_react7.default.createElement("li", {
           className: "page-item" + (this.state.page === index + 1 ? " active" : ""),
           key: index,
           onClick: () => this.handleNumber(index + 1)
-        }, /* @__PURE__ */ import_react6.default.createElement("a", {
+        }, /* @__PURE__ */ import_react7.default.createElement("a", {
           className: "page-link",
           href: "#navigate_questions"
         }, index + 1));
-      }), /* @__PURE__ */ import_react6.default.createElement("li", {
+      }), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item" + (this.state.page === this.state.max ? " disabled" : ""),
         onClick: () => this.handleClick("+")
-      }, /* @__PURE__ */ import_react6.default.createElement("a", {
+      }, /* @__PURE__ */ import_react7.default.createElement("a", {
         className: "page-link",
         href: "#navigate_questions"
-      }, "Next")), /* @__PURE__ */ import_react6.default.createElement("li", {
+      }, "Next")), /* @__PURE__ */ import_react7.default.createElement("li", {
         className: "page-item" + (this.state.page === this.state.max ? " disabled" : ""),
         onClick: () => this.handleClick("++")
-      }, /* @__PURE__ */ import_react6.default.createElement("a", {
+      }, /* @__PURE__ */ import_react7.default.createElement("a", {
         className: "page-link",
         href: "#navigate_questions"
-      }, "Last")))), /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, "Last")))), /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "input-group"
-      }, /* @__PURE__ */ import_react6.default.createElement("input", {
+      }, /* @__PURE__ */ import_react7.default.createElement("input", {
         type: "text",
         className: "form-control",
         "aria-label": "Text input with segmented dropdown button"
-      }), /* @__PURE__ */ import_react6.default.createElement("button", {
+      }), /* @__PURE__ */ import_react7.default.createElement("button", {
         type: "button",
         className: "btn btn-outline-secondary"
-      }, "Todas"), /* @__PURE__ */ import_react6.default.createElement("button", {
+      }, "Todas"), /* @__PURE__ */ import_react7.default.createElement("button", {
         type: "button",
         className: "btn btn-outline-secondary dropdown-toggle dropdown-toggle-split",
         "data-bs-toggle": "dropdown",
         "aria-expanded": "false"
-      }, /* @__PURE__ */ import_react6.default.createElement("span", {
+      }, /* @__PURE__ */ import_react7.default.createElement("span", {
         className: "visually-hidden"
-      }, "Ver cadeira espec\xEDfica")), /* @__PURE__ */ import_react6.default.createElement("ul", {
+      }, "Ver cadeira espec\xEDfica")), /* @__PURE__ */ import_react7.default.createElement("ul", {
         className: "dropdown-menu dropdown-menu-end"
-      }, /* @__PURE__ */ import_react6.default.createElement("li", null, /* @__PURE__ */ import_react6.default.createElement("button", {
+      }, /* @__PURE__ */ import_react7.default.createElement("li", null, /* @__PURE__ */ import_react7.default.createElement("button", {
         className: "dropdown-item",
         href: "#"
-      }, "???")), /* @__PURE__ */ import_react6.default.createElement("li", null, /* @__PURE__ */ import_react6.default.createElement("hr", {
+      }, "???")), /* @__PURE__ */ import_react7.default.createElement("li", null, /* @__PURE__ */ import_react7.default.createElement("hr", {
         className: "dropdown-divider"
-      })), /* @__PURE__ */ import_react6.default.createElement("li", null, /* @__PURE__ */ import_react6.default.createElement("button", {
+      })), /* @__PURE__ */ import_react7.default.createElement("li", null, /* @__PURE__ */ import_react7.default.createElement("button", {
         className: "dropdown-item",
         href: "#"
-      }, "!!!")))), /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, "!!!")))), /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "row row-cols-1 row-cols-md-2 g-4"
-      }, this.state.questions[this.state.page].map((item, index) => /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, this.state.questions[this.state.page].map((item, index) => /* @__PURE__ */ import_react7.default.createElement("div", {
         key: index
-      }, /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "col"
-      }, /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "card"
-      }, /* @__PURE__ */ import_react6.default.createElement("form", {
+      }, /* @__PURE__ */ import_react7.default.createElement("form", {
         action: "/dados/questoes",
         autoComplete: "off"
-      }, /* @__PURE__ */ import_react6.default.createElement("input", {
+      }, /* @__PURE__ */ import_react7.default.createElement("input", {
         type: "hidden",
         name: "id",
         value: JSON.stringify(item.id)
-      }), /* @__PURE__ */ import_react6.default.createElement("input", {
+      }), /* @__PURE__ */ import_react7.default.createElement("input", {
         type: "hidden",
         name: "operation",
         value: "delete"
-      }), /* @__PURE__ */ import_react6.default.createElement("input", {
+      }), /* @__PURE__ */ import_react7.default.createElement("input", {
         type: "button",
         className: "btn-close m-1",
         "data-bs-toggle": "modal",
         "data-bs-target": "#eraseModal" + JSON.stringify(index)
-      }), /* @__PURE__ */ import_react6.default.createElement("div", {
+      }), /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "bg-opacity-50 bg-dark modal fade",
         id: "eraseModal" + JSON.stringify(index),
         tabIndex: "-1",
         "aria-labelledby": "eraseModalLabel" + JSON.stringify(index),
         "aria-hidden": "true"
-      }, /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "modal-dialog"
-      }, /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "modal-content"
-      }, /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "modal-header"
-      }, /* @__PURE__ */ import_react6.default.createElement("h5", {
+      }, /* @__PURE__ */ import_react7.default.createElement("h5", {
         className: "modal-title",
         id: "eraseModalLabel" + JSON.stringify(index)
-      }, "Confirma\xE7\xE3o"), /* @__PURE__ */ import_react6.default.createElement("button", {
+      }, "Confirma\xE7\xE3o"), /* @__PURE__ */ import_react7.default.createElement("button", {
         type: "button",
         className: "btn-close",
         "data-bs-dismiss": "modal",
         "aria-label": "Close"
-      })), /* @__PURE__ */ import_react6.default.createElement("div", {
+      })), /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "modal-body"
-      }, "Tem certeza de que pretende apagar esta quest\xE3o?", /* @__PURE__ */ import_react6.default.createElement("br", null), item.question), /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, "Tem certeza de que pretende apagar esta quest\xE3o?", /* @__PURE__ */ import_react7.default.createElement("br", null), item.question), /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "modal-footer"
-      }, /* @__PURE__ */ import_react6.default.createElement("button", {
+      }, /* @__PURE__ */ import_react7.default.createElement("button", {
         type: "button",
         className: "btn btn-secondary",
         "data-bs-dismiss": "modal"
-      }, "N\xE3o..."), /* @__PURE__ */ import_react6.default.createElement("button", {
+      }, "N\xE3o..."), /* @__PURE__ */ import_react7.default.createElement("button", {
         "data-turbo": "false",
         type: "submit",
         name: "commit",
         value: "",
         className: "btn btn-danger"
-      }, "Certeza!")))))), /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, "Certeza!")))))), /* @__PURE__ */ import_react7.default.createElement("div", {
         style: { height: "200px", backgroundSize: "auto 100%", background: item.image },
         className: "card-img-top",
         alt: "..."
-      }), /* @__PURE__ */ import_react6.default.createElement("div", {
+      }), /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "card-body"
-      }, /* @__PURE__ */ import_react6.default.createElement("h5", {
+      }, /* @__PURE__ */ import_react7.default.createElement("h5", {
         className: "card-title"
-      }, item.question), /* @__PURE__ */ import_react6.default.createElement("p", {
+      }, item.question), /* @__PURE__ */ import_react7.default.createElement("p", {
         className: "card-text"
-      }, item.answers[0]), item.types.map((type, index2) => /* @__PURE__ */ import_react6.default.createElement("div", {
+      }, item.answers[0]), item.types.map((type, index2) => /* @__PURE__ */ import_react7.default.createElement("div", {
         className: "btn btn-success pe-none m-1",
         key: index2
-      }, type.charAt(0).toUpperCase() + type.slice(1))), /* @__PURE__ */ import_react6.default.createElement("p", {
+      }, type.charAt(0).toUpperCase() + type.slice(1))), /* @__PURE__ */ import_react7.default.createElement("p", {
         className: "card-text"
-      }, /* @__PURE__ */ import_react6.default.createElement("small", {
+      }, /* @__PURE__ */ import_react7.default.createElement("small", {
         className: "text-muted"
       }, subjects[item.subject])))))))));
     }
   };
   document.addEventListener("turbo:load", () => {
     if (document.getElementById("navigate_questions") != null) {
-      import_react_dom5.default.render(/* @__PURE__ */ import_react6.default.createElement(Question, null), document.getElementById("navigate_questions"));
+      import_react_dom6.default.render(/* @__PURE__ */ import_react7.default.createElement(Question, null), document.getElementById("navigate_questions"));
     }
   });
 
   // app/javascript/components/data_tags.jsx
-  var import_react7 = __toESM(require_react());
-  var import_react_dom6 = __toESM(require_react_dom());
+  var import_react8 = __toESM(require_react());
+  var import_react_dom7 = __toESM(require_react_dom());
   var import_react_tag_input = __toESM(require_ReactTags());
-  var RemoveComponent = class extends import_react7.default.Component {
+  var RemoveComponent = class extends import_react8.default.Component {
     render() {
       const { className, onRemove } = this.props;
-      return /* @__PURE__ */ import_react7.default.createElement("button", {
+      return /* @__PURE__ */ import_react8.default.createElement("button", {
         type: "button",
         className,
         onClick: onRemove,
@@ -42280,7 +42319,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       enter: 13
     };
     const delimiters = [KeyCodes.comma, KeyCodes.enter];
-    const [tags, setTags] = import_react7.default.useState(pre_tags);
+    const [tags, setTags] = import_react8.default.useState(pre_tags);
     const handleDelete = (i) => {
       setTags(tags.filter((tag, index) => index !== i));
     };
@@ -42296,15 +42335,15 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     const handleTagClick = (index) => {
       console.log("The tag at index " + index + " was clicked");
     };
-    return /* @__PURE__ */ import_react7.default.createElement("div", {
+    return /* @__PURE__ */ import_react8.default.createElement("div", {
       className: "app"
-    }, /* @__PURE__ */ import_react7.default.createElement("input", {
+    }, /* @__PURE__ */ import_react8.default.createElement("input", {
       type: "hidden",
       name: "tags",
       value: JSON.stringify(tags.map((tema) => {
         return tema.text;
       }))
-    }), /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement(import_react_tag_input.WithContext, {
+    }), /* @__PURE__ */ import_react8.default.createElement("div", null, /* @__PURE__ */ import_react8.default.createElement(import_react_tag_input.WithContext, {
       tags,
       suggestions,
       delimiters,
@@ -42334,15 +42373,15 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   document.addEventListener("turbo:load", () => {
     if (document.getElementById("tags") != null) {
-      import_react_dom6.default.render(/* @__PURE__ */ import_react7.default.createElement(App, null), document.getElementById("tags"));
+      import_react_dom7.default.render(/* @__PURE__ */ import_react8.default.createElement(App, null), document.getElementById("tags"));
     }
     ;
   });
 
   // app/javascript/components/quiz_timer.jsx
-  var import_react8 = __toESM(require_react());
-  var import_react_dom7 = __toESM(require_react_dom());
-  var Timer = class extends import_react8.default.Component {
+  var import_react9 = __toESM(require_react());
+  var import_react_dom8 = __toESM(require_react_dom());
+  var Timer = class extends import_react9.default.Component {
     constructor(props) {
       super(props);
       this.state = { time: quiz_timer * 60 };
@@ -42376,7 +42415,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       clearInterval(this.interval);
     }
     render() {
-      return /* @__PURE__ */ import_react8.default.createElement("div", {
+      return /* @__PURE__ */ import_react9.default.createElement("div", {
         className: "blink-text"
       }, Math.trunc(this.state.time / 60).toLocaleString("en-US", {
         minimumIntegerDigits: 2,
@@ -42386,15 +42425,15 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   document.addEventListener("turbo:load", () => {
     if (document.getElementById("timer") != null) {
-      import_react_dom7.default.render(/* @__PURE__ */ import_react8.default.createElement(Timer, null), document.getElementById("timer"));
+      import_react_dom8.default.render(/* @__PURE__ */ import_react9.default.createElement(Timer, null), document.getElementById("timer"));
     }
     ;
   });
 
   // app/javascript/components/quiz_lesson.jsx
-  var import_react9 = __toESM(require_react());
-  var import_react_dom8 = __toESM(require_react_dom());
-  var QuizLesson = class extends import_react9.default.Component {
+  var import_react10 = __toESM(require_react());
+  var import_react_dom9 = __toESM(require_react_dom());
+  var QuizLesson = class extends import_react10.default.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -42484,29 +42523,29 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       if (imageUrl) {
         imageClass = "image";
       }
-      return /* @__PURE__ */ import_react9.default.createElement("div", {
+      return /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "quiz-lesson"
-      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+      }, /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "header"
-      }, /* @__PURE__ */ import_react9.default.createElement("h1", null, title), /* @__PURE__ */ import_react9.default.createElement("h2", null, timeLeft)), /* @__PURE__ */ import_react9.default.createElement("div", {
+      }, /* @__PURE__ */ import_react10.default.createElement("h1", null, title), /* @__PURE__ */ import_react10.default.createElement("h2", null, timeLeft)), /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "content"
-      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+      }, /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "image-container"
-      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+      }, /* @__PURE__ */ import_react10.default.createElement("div", {
         className: imageClass,
         style: imageStyle
-      }, /* @__PURE__ */ import_react9.default.createElement("img", {
+      }, /* @__PURE__ */ import_react10.default.createElement("img", {
         src: imageUrl,
         alt: imageAlt
-      }))), /* @__PURE__ */ import_react9.default.createElement("div", {
+      }))), /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "question-container"
-      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+      }, /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "question"
-      }, /* @__PURE__ */ import_react9.default.createElement("h3", null, currentQuestion.text)), /* @__PURE__ */ import_react9.default.createElement("div", {
+      }, /* @__PURE__ */ import_react10.default.createElement("h3", null, currentQuestion.text)), /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "answers"
-      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+      }, /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "answer"
-      }, /* @__PURE__ */ import_react9.default.createElement("button", {
+      }, /* @__PURE__ */ import_react10.default.createElement("button", {
         className: "previous",
         onClick: () => {
           if (previousQuestion) {
@@ -42516,11 +42555,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           }
         },
         disabled: !previousQuestion
-      }, /* @__PURE__ */ import_react9.default.createElement("i", {
+      }, /* @__PURE__ */ import_react10.default.createElement("i", {
         className: "fas fa-arrow-left"
-      }))), /* @__PURE__ */ import_react9.default.createElement("div", {
+      }))), /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "answer"
-      }, /* @__PURE__ */ import_react9.default.createElement("button", {
+      }, /* @__PURE__ */ import_react10.default.createElement("button", {
         className: "next",
         onClick: () => {
           if (nextQuestion) {
@@ -42530,27 +42569,27 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           }
         },
         disabled: !nextQuestion
-      }, /* @__PURE__ */ import_react9.default.createElement("i", {
+      }, /* @__PURE__ */ import_react10.default.createElement("i", {
         className: "fas fa-arrow-right"
-      }))), /* @__PURE__ */ import_react9.default.createElement("div", {
+      }))), /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "progress"
-      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+      }, /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "progress-bar"
-      }, /* @__PURE__ */ import_react9.default.createElement("div", {
+      }, /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "progress-bar-progress",
         style: { width: `${progress * 100 / total}%` }
-      })), /* @__PURE__ */ import_react9.default.createElement("div", {
+      })), /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "progress-text"
-      }, progress, "/", total)), /* @__PURE__ */ import_react9.default.createElement("div", {
+      }, progress, "/", total)), /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "answer"
-      }, /* @__PURE__ */ import_react9.default.createElement("input", {
+      }, /* @__PURE__ */ import_react10.default.createElement("input", {
         type: "text",
         name: `answers[${this.state.currentQuestion}]`,
         placeholder: "Informa\xE7\xE3o que satisfaz a pergunta.",
         onChange: this.onChange
-      }))))), /* @__PURE__ */ import_react9.default.createElement("div", {
+      }))))), /* @__PURE__ */ import_react10.default.createElement("div", {
         className: "footer"
-      }, /* @__PURE__ */ import_react9.default.createElement("button", {
+      }, /* @__PURE__ */ import_react10.default.createElement("button", {
         className: "submit",
         onClick: () => {
           this.setState({
@@ -42564,7 +42603,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   document.addEventListener("turbo:load", () => {
     if (document.getElementById("classroom")) {
-      import_react_dom8.default.render(/* @__PURE__ */ import_react9.default.createElement(QuizLesson, {
+      import_react_dom9.default.render(/* @__PURE__ */ import_react10.default.createElement(QuizLesson, {
         title: "Quiz",
         time: 60,
         questions: [

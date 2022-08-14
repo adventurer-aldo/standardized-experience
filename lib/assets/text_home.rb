@@ -10,6 +10,10 @@ module Misc
         'O primeiro obstáculo encontra-se a frente. Siga-o!',
         'A hora do treino acabou. Começemos!',
         'Está preparado?',
+        'Se prepare.',
+        'O início decide o fim.',
+        'Os primeiros passos são importantes.',
+        'Será leve para quem estiver preparado.',
         'A luta começou.',
         'Não vá se acovardar no começo.',
         'Espero que esteja preparado.',
@@ -37,7 +41,10 @@ module Misc
         'Ser confiante demais deu nisto.',
         'Ninguem falou que isso seria fácil.',
         'Ora, ora. Olha quem está aqui...',
-        'Sabia que mais cedo ou tarde estaria aqui. Vacilou.'
+        'Sabia que mais cedo ou tarde estaria aqui. Vacilou.',
+        'Segundas chances não implicam mais leniência no julgamento, apenas mais severidade.',
+        'Nisso que dá ficar relaxado demais.',
+        'Enfim.'
        ],
        ['A batalha acabou...',
         'Precisa de descansar.',

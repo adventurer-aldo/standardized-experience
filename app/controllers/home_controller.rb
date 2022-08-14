@@ -1,21 +1,22 @@
 class HomeController < ApplicationController
   def index
-    @journey_check = Journey.where(id: Stat.last.journey_id).exists?
+    stat = Stat.last
+    @journey_check = stat.journey.exists?
     if @journey_check
-      @journey = Journey.last
+      @journey = stat.journey
       sound = @journey.soundtrack
       @ost = case @journey.level
-            when 0, 7
-              sound.home
-            when 1
-              sound.preparations
-            when 2, 3
-              sound.preparations_second
-            when 4
-              sound.preparations_dissertation
-            when 5, 6
-              sound.preparations_exam
-            end
+             when 0, 7
+               sound.home
+             when 1
+               sound.preparations
+             when 2, 3
+               sound.preparations_second
+              when 4
+               sound.preparations_dissertation
+             when 5, 6
+               sound.preparations_exam
+             end
     end
 
     @ost = Soundtrack.first.home if @ost.nil?
@@ -35,12 +36,12 @@ class HomeController < ApplicationController
   end
 
   def lessons; end
-  
+
   def lesson
     temp_question = Question.all.sample.tags.sample
-    @questions = Question.where("tags @> ARRAY[?]::varchar[]", temp_question)
+    @questions = Question.where('tags @> ARRAY[?]::varchar[]', temp_question)
   end
-  
+
   def campaign; end
 
   def question
@@ -128,7 +129,8 @@ class HomeController < ApplicationController
     redirect_to question_path
   end
 
-  def about; end
+  def about
+  end
 
   def cadeiras
     File.open('cadeiras.json', 'w+') do |file|
@@ -182,10 +184,21 @@ class HomeController < ApplicationController
   end
 
   def configurations
-    @skip_dissertation = cookies[:skip_dissertation] == 'true' ? ' checked' : ''
-    @long_journey = cookies[:long_journey] == 'true' ? ' checked' : ''
-    @lenient_answer = cookies[:lenient_answer] == 'true' ? ' checked' : ''
-    @lenient_name = cookies[:lenient_name] == 'true' ? ' checked' : ''
+    stat = Stat.last
+    @skip_dissertation = stat.skip_dissertation == 1 ? ' checked' : ''
+    @long_journey = stat.long_journey == 1 ? ' checked' : ''
+    @lenient_answer = stat.lenient_answer == 1 ? ' checked' : ''
+    @lenient_name = stat.lenient_name == 1 ? ' checked' : ''
+    @avoid_negative = stat.avoid_negative == 1 ? ' checked' : ''
+    @questions_pref = stat.questions_pref == 1 ? ' checked' : ''
+    @theme = stat.theme_id
+  end
+
+  def configure
+    Stat.last.update(
+      focus_level: params[:level].to_i
+    )
+    redirect_to configurations_path
   end
 
 end
