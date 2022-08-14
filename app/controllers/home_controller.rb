@@ -161,7 +161,8 @@ class HomeController < ApplicationController
   end
 
   def new_journey
-    journey = Journey.create(duration: 0, start_time: Time.now, soundtrack_id: Soundtrack.order(Arel.sql('RANDOM()')).limit(1).first.id)
+    journey = Journey.new(duration: 0, start_time: Time.now, soundtrack_id: Soundtrack.order(Arel.sql('RANDOM()')).limit(1).first.id)
+    journey.save
     Subject.where(evaluable: 1).order(title: :asc).each do |subject|
       chair = Chair.create(subject_id: subject.id, journey_id: journey.id, format: rand(0..1).round)
       chair.update(dissertation: rand(0.0..20.0).round(2)) unless subject.questions.where(level: 3).exists?
