@@ -274,7 +274,8 @@
       new_frequency[0] += 1
       new_frequency[1] += (helpers.correct(answer) ? 1 : 0)
       new_frequency[2] += (helpers.correct(answer) ? 0 : 1)
-      answer.question.update(frequency: new_frequency)
+      evaluate = new_frequency[1] > (new_frequency[2] + 2) ? 0 : 1
+      answer.question.update(frequency: new_frequency, evaluable: evaluate)
     end
 
     if journey.level == @quiz.level && journey.level < 7 && journey.chairs.where(subject_id: @quiz.subject.id).exists?
