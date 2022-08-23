@@ -98,49 +98,49 @@
                     when 0
                       case Stat.last.focus_level
                       when 0
-                        base_query.where.not(level: 3).limit(rand(3..10)) # Prática
+                        base_query.where.not(level: 3, evaluable: 1).limit(rand(3..10)) # Prática
                       when 1
-                        base_query.where(level: 1).limit(rand(3..10)) # Teste 1
+                        base_query.where(level: 1, evaluable: 1).limit(rand(3..10)) # Teste 1
                       when 2
-                        base_query.where(level: 2).limit(rand(3..10)) # Teste 2
+                        base_query.where(level: 2, evaluable: 1).limit(rand(3..10)) # Teste 2
                       end
                     when 1
                       case Stat.last.focus_level
                       when 0, 1
-                        base_query.where(level: 1).limit(rand(10..35)) # Teste 1
+                        base_query.where(level: 1, evaluable: 1).limit(rand(10..35)) # Teste 1
                       else
-                        base_query.where(level: 2).limit(rand(10..35)) # Teste 2
+                        base_query.where(level: 2, evaluable: 1).limit(rand(10..35)) # Teste 2
                       end
                     when 2
                       case Stat.last.focus_level
                       when 0
-                        base_query.where(level: 2).limit(rand(10..28)) + base_query.where(level: 1).limit(rand(0..7)) # Teste 2
+                        base_query.where(level: 2, evaluable: 1).limit(rand(10..28)) + base_query.where(level: 1).limit(rand(0..7)) # Teste 2
                       when 1
-                        base_query.where(level: 1).limit(rand(10..40)) # Teste 1
+                        base_query.where(level: 1, evaluable: 1).limit(rand(10..40)) # Teste 1
                       when 2
-                        base_query.where(level: 2).limit(rand(10..40)) # Teste 2
+                        base_query.where(level: 2, evaluable: 1).limit(rand(10..40)) # Teste 2
                       end
                     when 3
-                      base_query.where.not(level: [3, 4]).limit(rand(10..40)) # Reposição
+                      base_query.where.not(level: [3, 4], evaluable: 1).limit(rand(10..40)) # Reposição
                     when 4
-                      base_query.where(level: 3).limit(rand(10..40)) # Dissertação
+                      base_query.where(level: 3, evaluable: 1).limit(rand(10..40)) # Dissertação
                     when 5
                       case Stat.last.focus_level
                       when 0
-                        base_query.where(level: 4).limit(rand(5..30)) + base_query.where.not(level: [3, 4]).limit(rand(10..20)) # Exame
+                        base_query.where(level: 4, evaluable: 1).limit(rand(5..30)) + base_query.where.not(level: [3, 4]).limit(rand(10..20)) # Exame
                       when 1
-                        base_query.where(level: 1).limit(rand(25..45)) # Exame 1
+                        base_query.where(level: 1, evaluable: 1).limit(rand(25..45)) # Exame 1
                       when 2
-                        base_query.where(level: 2).limit(rand(25..45)) # Exame 1
+                        base_query.where(level: 2, evaluable: 1).limit(rand(25..45)) # Exame 1
                       end
                     when 6
                       case Stat.last.focus_level
                       when 0
-                        base_query.where.not(level: 3).limit(rand(50..100)) # Recorrência
+                        base_query.where.not(level: 3, evaluable: 1).limit(rand(50..100)) # Recorrência
                       when 1
-                        base_query.where(level: 1).limit(rand(50..100)) # Teste 1
+                        base_query.where(level: 1, evaluable: 1).limit(rand(50..100)) # Teste 1
                       when 2
-                        base_query.where(level: 2).limit(rand(50..100)) # Teste 2
+                        base_query.where(level: 2, evaluable: 1).limit(rand(50..100)) # Teste 2
                       end
                     end
 
