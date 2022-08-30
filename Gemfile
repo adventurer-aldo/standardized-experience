@@ -15,9 +15,9 @@ gem "sprockets-rails"
 gem 'pg'
 
 # Active job framework
-gem 'sidekiq'
+# gem 'sidekiq'
 
-gem 'whenever', require: false
+# gem 'whenever', require: false
 
 # Biostatistics hand
 gem 'ruby-statistics'
