@@ -1,6 +1,6 @@
 default: &default
   adapter: postgresql
-  host: dpg-cc68ri1gp3jh272u36pg-a.frankfurt-postgres.render.com
+  host: dpg-cc68ri1gp3jh272u36pg-a
   username: standardized_database_user
   database: standardized_database
   password: uHN41SxmEZS2wEyrrgPI934wz4mX6Vnb
