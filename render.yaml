@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: standardized-experience
-    env: ruby
-    buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec puma -C config/puma.rb"

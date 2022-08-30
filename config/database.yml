@@ -1,9 +1,9 @@
 default: &default
   adapter: postgresql
-  host: dpg-cc68ri1gp3jh272u36pg-a
-  username: standardized_database_user
-  database: standardized_database
-  password: uHN41SxmEZS2wEyrrgPI934wz4mX6Vnb
+  host: ec2-54-155-110-181.eu-west-1.compute.amazonaws.com
+  username: jvwdlvwhtyvomv
+  database: dejkq139f8ak30
+  password: 55ede8ad57c69c2d4e181069e14cd70b93dc3f585260d64689b86890b4c1bad1
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
