@@ -1,0 +1,3 @@
+class Challenge < ApplicationRecord
+  
+end
