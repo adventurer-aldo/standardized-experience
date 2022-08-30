@@ -13,7 +13,3 @@
  *= require_self
  *= require font-awesome
  */
-
- @import "bootstrap/bootstrap.scss";
- @import "smarv.scss";
- @import "shomes.scss";
