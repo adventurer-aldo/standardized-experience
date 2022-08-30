@@ -14,9 +14,6 @@ gem "sprockets-rails"
 # Use PostgreSQL as the database for Active Record
 gem 'pg'
 
-# Active job framework
-# gem 'sidekiq'
-
 # gem 'whenever', require: false
 
 # Biostatistics hand
