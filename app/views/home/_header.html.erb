@@ -20,7 +20,9 @@
     <% end %>
 
 </ul>
-    <div class='text-white nav-item navbar-text ms-auto me-0 bold pe-2'><b><%=Time.now.hour%>h <%=Time.now.min%>m</b></div>
+    <div class='text-white nav-item navbar-text ms-auto me-0 bold pe-2'><b><%= current_user.email %>
+    <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+    </b></div>
 </nav>
 <div id='page'><div class='p-3'>
     <div id='standardized-image'></div>

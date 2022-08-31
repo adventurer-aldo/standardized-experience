@@ -14,9 +14,11 @@ gem "sprockets-rails"
 # Use PostgreSQL as the database for Active Record
 gem 'pg'
 
+# Load environment variables
 gem 'dotenv'
 
-# gem 'whenever', require: false
+# User account bundle
+gem 'devise'
 
 # Biostatistics hand
 gem 'ruby-statistics'

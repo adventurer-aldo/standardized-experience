@@ -1,5 +1,6 @@
 ﻿class QuizController < ApplicationController
   before_action :setup
+  before_action :authenticate_user!
 
   #=======================================================================================
   # -- SETUP

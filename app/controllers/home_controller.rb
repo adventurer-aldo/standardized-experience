@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @journey_check = Journey.where(id: Stat.last.journey_id).exists?
     if @journey_check
@@ -129,7 +131,6 @@ class HomeController < ApplicationController
   end
 
   def about
-    SeMailer.test.deliver_now
 =begin
     texts = File.open('questions.txt', 'r').read.split("\n")
     subject = texts.delete_at(-1).to_i

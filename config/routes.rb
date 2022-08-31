@@ -5,6 +5,14 @@ Rails.application.routes.draw do
   get '/classes', to: 'home#lessons', as: 'lessons'
   get '/classes/:id', to: 'home#lesson', as: 'lesson'
   get '/campanha', to: 'home#campaign', as: 'campaign'
+  devise_for :users, controllers: {
+    confirmations: 'users/confirmations',
+    mailer: 'users/mailer',
+    passwords: 'users/passwords',
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    unlocks: 'users/unlocks'
+  }
 
   get '/sobre', to: 'home#about', as: 'about'
   get '/questoes', to: 'home#questoes'
