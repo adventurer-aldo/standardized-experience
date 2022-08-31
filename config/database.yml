@@ -9,14 +9,15 @@ default: &default
 
 development:
   <<: *default
-#  host: localhost
-#  database: dbek9rt1fuq28n
-#  username: postgres
-#  password: KuzeDaisaku2021
+  host: localhost
+  database: postgres
+  username: postgres
+  password: 1
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
+# url colon RAILS_INTERPOLATION_START ENV.fetch("DATABASE_URL") RAILS_INTERPOLATION_END
 test:
   <<: *default
 

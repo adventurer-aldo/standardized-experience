@@ -14,6 +14,8 @@ gem "sprockets-rails"
 # Use PostgreSQL as the database for Active Record
 gem 'pg'
 
+gem 'dotenv'
+
 # gem 'whenever', require: false
 
 # Biostatistics hand
@@ -57,6 +59,8 @@ gem "bootsnap", require: false
 
 # Use Sass to process CSS
 gem "sassc-rails"
+
+gem 'queue_classic'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

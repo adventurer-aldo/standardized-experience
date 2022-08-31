@@ -326,16 +326,6 @@
       end
     end
 
-    if journey.level < 7
-      journey.level = 2 unless journey.chairs.where(first: nil).exists?
-      journey.level = 3 unless journey.chairs.where(second: nil).exists?
-      journey.level = 4 unless journey.chairs.where(reposition: nil).exists?
-      journey.level = 5 unless journey.chairs.where(dissertation: nil).exists? || (journey.chairs.where(first: nil).exists? || journey.chairs.where(second: nil).exists?)
-      journey.level = 6 unless journey.chairs.where(exam: nil).exists?
-      journey.level = 7 unless journey.chairs.where(recurrence: nil).exists?
-      journey.save
-    end
-
     redirect_to results_path(id: params[:quizID])
   end
 
