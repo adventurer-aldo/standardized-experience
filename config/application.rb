@@ -1,7 +1,6 @@
 require_relative 'boot'
 
 require 'rails/all'
-require 'font-awesome-rails'
 require 'statistics'
 require 'require_all'
 require 'dotenv'
@@ -19,7 +18,19 @@ module Blog
     config.load_defaults 7.0
     config.active_job.queue_adapter = :queue_classic
     config.active_record.schema_format = :sql
-    # config.i18n.default_locale = :'pt-BR'
+    config.i18n.default_locale = :'pt-BR'
+
+    config.action_mailer.smtp_settings = {
+      address: 'smtp.gmail.com',
+      port: 587,
+      authentication: 'plain',
+      domain: 'gmail.com',
+      user_name: ENV['MAIL_ADDRESS'],
+      password: ENV['MAIL_PASSWORD'],
+      enable_starttls_auto: true,
+      open_timeout: 5,
+      read_timeout: 5
+    }
 
     # Configuration for the application, engines, and railties goes here.
     #

@@ -76,6 +76,6 @@ namespace :active_storage do
       end
     end
 
-    migrate(:b2cloud, :exiter)
+    migrate(:from, :to)
   end
 end

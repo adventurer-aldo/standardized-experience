@@ -130,36 +130,7 @@ class HomeController < ApplicationController
     redirect_to question_path
   end
 
-  def about
-=begin
-    texts = File.open('questions.txt', 'r').read.split("\n")
-    subject = texts.delete_at(-1).to_i
-    levels = texts.delete_at(-1).to_i
-    topics = texts.delete_at(-1).split('|')
-    questions = []
-    answers = []
-    texts.each_with_index do |text, index|
-      if index % 2 == 0
-        questions << text
-      else
-        answers << text
-      end
-    end
-    questions.each_with_index do |question, index|
-      type = ['open']
-      if question[-1] == '*'
-        type = ['caption']
-        question[-1] = ''
-      end
-      Question.create(question: question,
-                      question_types: type,
-                      answer: answers[index].split('|'),
-                      subject_id: subject,
-                      level: levels,
-                      tags: topics)
-    end
-=end
-  end
+  def about; end
 
   def cadeiras
     File.open('cadeiras.json', 'w+') do |file|

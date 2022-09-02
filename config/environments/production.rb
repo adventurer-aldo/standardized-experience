@@ -3,6 +3,9 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # You can override the React build with a config:
+  config.react.variant = :production
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -65,19 +68,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: 'standardized-experience.herokuapp.com', port: 3000 }
-
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    authentication: 'plain',
-    domain: 'gmail.com',
-    user_name: ENV['MAIL_ADDRESS'],
-    password: ENV['MAIL_PASSWORD'],
-    enable_starttls_auto: true,
-    open_timeout: 5,
-    read_timeout: 5
-  }
+  config.action_mailer.default_url_options = { host: ENV.fetch('HOST'), port: 3000 }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

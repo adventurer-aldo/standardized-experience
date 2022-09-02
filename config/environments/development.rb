@@ -1,8 +1,10 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.hosts << 'proud-mirrors-switch-197-249-122-91.loca.lt'
   # Settings specified here will take precedence over those in config/application.rb.
+
+  # You can override the React build with a config:
+  config.react.variant = :development
 
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
@@ -41,17 +43,6 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    authentication: 'plain',
-    domain: 'gmail.com',
-    user_name: ENV['MAIL_ADDRESS'],
-    password: ENV['MAIL_PASSWORD'],
-    enable_starttls_auto: true,
-    open_timeout: 5,
-    read_timeout: 5
-  }
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false

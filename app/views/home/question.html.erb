@@ -5,6 +5,7 @@
     <input autofocus='autofocus' required='required' type="text" class="form-control" name='question' placeholder="O que será requisitado na resposta?" aria-label="Pergunta" aria-describedby="basic-addon1">
     <span class="input-group-text" id="basic-addon2"><div id='imaging' class='d-inline-block'></div></span>
   </div>
+  <%= react_component("HelloWorld", { greeting: "Hello from react-rails. And goodbye npm build!" }) %>
   <div id='ansices'></div>
   <div id='questiontype'></div>
   <div id='tags'></div>
