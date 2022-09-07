@@ -96,7 +96,7 @@ module HomeHelper
                                 content_tag(:td, exame(chair).to_s.gsub('.',','), class: 'text-center') +
                                 content_tag(:td, recurrence(chair).to_s.gsub('.',','), class: 'text-center'),
                                class: "table-group-divider #{highlight}"),
-                               root_path)}.join.html_safe), class: 'table table-striped table-striped-columns table-hover overflow-scroll'
+                               root_path)}.join.html_safe), id: 'journey', class: 'table table-striped table-striped-columns table-hover overflow-scroll'
                 )
   end
 

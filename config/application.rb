@@ -18,7 +18,7 @@ module Blog
     config.load_defaults 7.0
     config.active_job.queue_adapter = :queue_classic
     config.active_record.schema_format = :sql
-    config.i18n.default_locale = :'pt-BR'
+    # config.i18n.default_locale = :'pt-BR'
 
     config.action_mailer.smtp_settings = {
       address: 'smtp.gmail.com',

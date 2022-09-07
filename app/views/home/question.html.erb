@@ -1,49 +1,10 @@
-<head><title>Questões | SE</title></head><%=render 'header'%><%= render 'nav_data' %>
-<%= form_with html: { autocomplete: 'off', class: 'my-1', 'data-turbo' => 'false', enctype: 'multipart/form-data' }, novalidate: true  do |form| %>
-  <div class="input-group mb-1">
-    <span class="input-group-text" id="basic-addon1">Pergunta</span>
-    <input autofocus='autofocus' required='required' type="text" class="form-control" name='question' placeholder="O que será requisitado na resposta?" aria-label="Pergunta" aria-describedby="basic-addon1">
-    <span class="input-group-text" id="basic-addon2"><div id='imaging' class='d-inline-block'></div></span>
-  </div>
-  <%= react_component("HelloWorld", { greeting: "Hello from react-rails. And goodbye npm build!" }) %>
-  <div id='ansices'></div>
-  <div id='questiontype'></div>
-  <div id='tags'></div>
-  <%= form.label :subject, "Para que disciplina?" %>
-  <select name='subject' class='form-select mb-1'>
-  <% @subjects.each do |subject|%>
-  <option value='<%= subject.id %>'<%= cookies[:subject] == subject.id.to_s ? ' selected' : ''%> ><%= subject.title %></option>
-  <% end %>
-  </select>
-  <div id='levels'></div>
-  <div id='parameters'></div><br>
-  <div class='d-grid'>
-    <%= form.submit "Submeter Questão", class: 'btn btn-primary' %>
-  </div>
-<% end %>
+<head>
+  <title>Questões | SE</title>
+</head>
+
+<%= render 'shared/header' %>
+<%= render 'shared/nav_data' %>
+<%= react_component('Questions', {auth_token: @auth_token}) %>
 <br></div>
 <div class='bg-primary p-2 text-white align-middle'><b><%= fa_icon 'comment', class: 'align-middle'%> Questões Definidas</b></div>
-<div id='navigate_questions'></div>
-<%= render 'footer' %>
-<turbo-frame id="questions"><script>
-<% if cookies[:level] && cookies[:types] && cookies[:choices] && cookies[:reuse_image] && cookies[:tags] && %>
-<% cookies[:parameters] %>
-const level = <%= cookies[:level].to_i %>;
-const types = <%= cookies[:types] %>;
-const choices = <%= cookies[:choices] %>;
-const reuse_image = <%= cookies[:reuse_image] %>;
-const temas = <%= raw cookies[:tags].to_s %>;
-const parameters = <%= cookies[:parameters] %>;
-<% else %>
-const level = 1;
-const types = [0];
-const choices = 0;
-const reuse_image = false;
-const temas = [];
-const parameters = [];
-<% end %>
-let existing_tags = <%= raw @tags.to_s %>
-let questions = [];
-let subjects = {};
-</script>
-</turbo-frame>
+<%= render 'shared/footer' %>

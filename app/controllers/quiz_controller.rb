@@ -1,6 +1,6 @@
 ﻿class QuizController < ApplicationController
-  before_action :setup
   before_action :authenticate_user!
+  before_action :setup
 
   #=======================================================================================
   # -- SETUP
@@ -165,13 +165,14 @@
 
     @full_query = all_questions.shuffle
 
-    @quiz = Quiz.create(
+    @quiz = Quiz.create!(
       subject_id: @subject.id,
       first_name: '', last_name: '',
       journey_id: @journey.id,
       start_time: Time.zone.now,
       format: @format,
-      level: @level
+      level: @level,
+      stat_id: current_user.stat.id
     )
 
     @full_query.each do |question|
@@ -225,7 +226,7 @@
         end
       end
 
-      Answer.create(
+      Answer.create!(
         quiz_id: @quiz.id,
         attempt: '',
         question_id: question.id,
@@ -341,8 +342,8 @@
     @quiz = Quiz.find_by(id: params[:id].to_i)
     @grade = helpers.grade(@quiz, true)
     grade_num = @grade.gsub(',', '.').to_f
-    @quiz_start = Time.parse(@quiz.start_time)
-    @quiz_end = Time.parse(@quiz.end_time)
+    @quiz_start = @quiz.start_time.to_time
+    @quiz_end = @quiz.end_time.to_time
     @duration = Time.at(@quiz_end.to_i - @quiz_start.to_i)
 
     @fanfare =  if grade_num < 7

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @stat %>
+
+<div>
+  <%= link_to "Edit this stat", edit_stat_path(@stat) %> |
+  <%= link_to "Back to stats", stats_path %>
+
+  <%= button_to "Destroy this stat", @stat, method: :delete %>
+</div>

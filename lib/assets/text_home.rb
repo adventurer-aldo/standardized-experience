@@ -23,8 +23,9 @@ module Misc
         'Uma batalha completamente diferente espera-o...Mas o que aprendeu antes também será usado.',
         'O segundo obstáculo está aqui. Prepare-se.',
         'Sem mais delongas. Vamos.'],
-       ['Quê? Falhou um dos desafios anteriores? Talvez este campo de batalha não seja para você.',
-        'Esqueca os fracassos e pense em como transformá-los em oportunidades.',
+       ['Para alguns, este é o momento para se preparar.',
+        'Uma segunda chance para aqueles que perderam a sua primeira.',
+        'Esqueça os fracassos e pense em como transformá-los em oportunidades.',
         'Melhor revisar os seus erros antes de prosseguir.',
         'Ah, ainda não desistiu? Veremos por quanto tempo aguenta...'],
        ['Mostre o que sabe.',
@@ -48,7 +49,17 @@ module Misc
        ],
        ['A batalha acabou...',
         'Precisa de descansar.',
-        'Finalmente terminou...']]
+        'Finalmente terminou...',
+        'Uma pausa é necessária. E bem vinda.',
+        'Tome um copo de água.',
+        'O que achou dos seus esforços?',
+        'Tudo que começa tem um fim.',
+        'Para a próxima, dominarás.',
+        'Você ganhou experiência.',
+        'Adiante para o próximo nível.',
+        'Você está apenas começando.',
+        'Bora mais uma vez.',
+        'E agora? O que você fará?']]
     end
     def self.evaluate(grade)
       return  case grade.round
@@ -117,7 +128,7 @@ module Misc
               when 15..17
                 [
                   'Incrível! Porquê não tenta alcançar uma nota ainda melhor? Você é capaz!',
-                  "É ISSO AÍ!",
+                  'É ISSO AÍ!',
                   'Você tem nota para dispensar aqui.',
                   'Acho que você não precisa fazer mais testes.',
                   ''

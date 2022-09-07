@@ -1,42 +1,27 @@
-<head><title>Principal | SE</title></head><%=render 'header'%><%=render 'nav_home'%>
-<% unless @tip.empty? %>
-<div class="accordion" id="accordionExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-        <b style="white-space: pre">Pop Quiz: </b><div><%= @tip.first.question %> <%= @tip.first.image.attached? ? "<br>".html_safe + image_tag(@tip.first.image.url, class: "img-fluid") : '' %>
-        <%= @tip.first.question_types.intersect?(%w[multichoice veracity]) ? "<br>#{@tip.first.answer.union(@tip.first.choices.map(&:decoy)).shuffle.join('<br>')}".html_safe : '' %>
-      </div></button>
-    </h2>
-    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-       <%= @tip.first.question_types.intersect?(%w[multichoice caption veracity]) ? @tip.first.answer.shuffle.join(' & ') : @tip.first.answer.sample %>
-      </div>
-    </div>
-  </div><br>
-</div>
+<head><title>Principal | SE</title>
+</head><%= render 'shared/header' %>
+<%= render 'shared/nav_home' %>
+
+<% if !@pop_quiz.empty? %>
+  <%= render 'home/components/tip' %>
+<% end %>
+
 <%= @last_quiz %>
-<% end %>
-<% if [0,7].include? @journey.level %>
-  <%= form_with do |form| %>
-    Você não está em nenhuma jornada agora. Clique aqui para iniciar uma! <button type="submit" name="commit" value='' class="btn btn-primary p-1" data-disable-with="<i class=&quot;fa fa-calendar&quot;></i>"><%=fa_icon('calendar')%></button>
-  <% end %>
-<% else %>
-  <p><strong><h5>Nível <%= @journey.level %></h5></strong>
-  <div class="progress">
-    <div class="progress-bar" style="width: <%= (Float(@journey.level) / 7.0) * 100.0 %>%" role="progressbar" aria-valuenow="<%= @journey.level %>" aria-valuemin="1" aria-valuemax="7"></div>
-  </div>
-  <%= Misc::Text.cheer[@journey.level].sample %></p>
-<% end %>
+
+<%= audio_tag(@ost, autoplay: true, loop: true, id: 'bgm') %>
+
+<p><strong><h5><span id="journey-level"><%= @progress %></span></h5></strong>
+
+<%= react_component('JourneyBar', {startTime: @start_time, chairsNum: @chairs, csrf_token: form_authenticity_token}) %>
+
+<span id="journey-cheer"><%= Misc::Text.cheer[@journey.level].sample %></span></p>
+
 <div data-turbo="false">
-<% if @journey_check %>
-  <%= audio_tag(@ost, autoplay: true, loop: true, id: 'bgm')%>
-<turbo-frame id='subjective'>
-<div style="overflow: auto; max-width: 100%;">
-  <%= journey_table(@journey) %>
+  <% if @journey %>
+    <div style="overflow: auto; max-width: 100%;">
+      <%= journey_table(@journey) %>
+    </div>
+  <% end %>
 </div>
-</turbo-frame>
-<% end %>
-</div>
-</div>
-<%= render 'footer' %>
+
+<%= render 'shared/footer' %>

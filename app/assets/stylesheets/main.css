@@ -1,14 +1,17 @@
 body {
   background-image: url('https://i.ibb.co/NrLZwQq/df2511d6f08f2de0333518f802656278.jpg');
-  background-size: cover;
+  background-size: initial;
+  background-repeat: round;
+  background-color: green;
 }
 
 #standardized-image {
-  background-image: url('https://i.ibb.co/ZNts8Sw/Untitled3719-20220731132141.png');
-  width: 100%;
-  min-height: 206px;
-  background-size: 100%;
-  display: block;
+  max-width: 100%;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 #standardized-image-black {

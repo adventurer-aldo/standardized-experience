@@ -38,8 +38,7 @@ class HomeController < ApplicationController
     end
 
     @ost = Soundtrack.first.home if @ost.nil?
-    @pop_quiz = (current_user.stat.evaluables.sample).questions
-                end.order(Arel.sql('RANDOM()')).limit(1)
+    @pop_quiz = Subject.where(id: current_user.stat.evaluables.sample).questions.order(Arel.sql('RANDOM()')).limit(1)
 
     quiz = current_user.stat.quizzes.last
     @last_quiz = if quiz
