@@ -1,10 +1,12 @@
 function DataSubject(props) {
   [subjects, setSubjects] = React.useState(null);
   [editingID, setEditingID] = React.useState(null);
+  [editingName, setEditingName] = React.useState('');
   [evaluables, setEvaluables] = React.useState([]);
   [search, setSearch] = React.useState('');
   [page, setPage] = React.useState(0);
   [pages, setPages] = React.useState(0);
+  [results, setResults] = React.useState('Pesquisando');
   [submitData, setSubmitData] = React.useState(Array(2).fill({title: '', description: '',
   formula: 0, job_type: 0, practical: 0, description: '', visibility: '0'}));
 
@@ -20,9 +22,11 @@ function DataSubject(props) {
       setEvaluables(response.data.evaluables);
       axios.get(`/api/subjects?page=${desired_page}&title=${desired_title}`)
       .then((response) => {
+        console.log(response.data);
         setSubjects(response.data.subjects);
         setPage(response.data.page);
         setPages(response.data.pages);
+        setResults(response.data.results);
       });
     });
   };
@@ -67,6 +71,7 @@ function DataSubject(props) {
       var editingSubj = subjects.filter((subj) => {
         return subj.id === subject_id;
       })[0]
+      setEditingName(editingSubj.title);
       setSubmitData((prev) => [{title: editingSubj.title, 
       description: (editingSubj.description === null ? '' : editingSubj.description), visibility: editingSubj.visibility,
       formula: editingSubj.formula, job_type: editingSubj.job_type, practical: editingSubj.practical}, prev[1]]);
@@ -78,8 +83,6 @@ function DataSubject(props) {
   };
 
   const handlePageClick = (page_number) => {
-    console.log("Alright, I'm gonna go get a page!");
-    console.log(`I know you picked ${page_number}, don't need to yell at me...Yeesh.`)
     updateSubjects(page_number);
   };
 
@@ -107,13 +110,13 @@ function DataSubject(props) {
 
   const handleChangeSearch = (e) => {
     setSearch(e.target.value);
-    updateSubjects(undefined, e.target.value);
+    updateSubjects(0, e.target.value);
   }
 
   return <div className="w-100">
     <NewSubject 
     handleSubmit={handleSubmit} formulas={props.formulas} editing={editingID}
-    originalName={editingID === null ? '' : subjects.filter((subj) => subj.id == editingID)[0].title}
+    originalName={editingName}
     data={editingID === null ? submitData[1] : submitData[0]} auth_token={props.auth_token}
     handleChange={handleChangeNew} evaluables={evaluables} stat={props.stat}
     />
@@ -121,6 +124,7 @@ function DataSubject(props) {
     <PaginationSubject 
     page={page} pages={pages} handleClick={handlePageClick} search={search}
     handleChange={handleChangeSearch} />
+    <div className="border-bottom border-dark text-end" >{results} resultado{results == 1 ? '' : 's'}</div>
     <div className="row row-cols-1 row-cols-md-2 g-4 mt-1">
       <SubjectList 
       subjects={subjects} editing={editingID} handleEvaluate={handleEvaluateClick}

@@ -4,15 +4,15 @@ class Api::SubjectsController < ApplicationController
 
   # GET /subjects or /subjects.json
   def index
-    @subjects = current_user.stat.subjects.or(Subject.where(visibility: 0)).order(title: :asc).map do |subject|
+    query = current_user.stat.subjects.or(Subject.where(visibility: 0)).where('title LIKE ?', "%#{params[:title]}%").order(title: :asc).map do |subject|
       {
         id: subject.id, title: subject.title, description: subject.description,
         formula: subject.formula, questions: subject.questions.size,
         job_type: subject.job_type, practical: subject.practical, visibility: subject.visibility.to_s,
         creator: subject.stat_id, creator_name: subject.stat.user.username
       }
-    end.each_slice(6).to_a
-
+    end
+    @subjects = query.each_slice(6).to_a
     @page = if params[:page].to_i && params[:page].to_i > @subjects.size
               @subjects.size - 1
             elsif params[:page]
@@ -21,7 +21,7 @@ class Api::SubjectsController < ApplicationController
               0
             end
 
-    render json: { page: @page, pages: @subjects.size, subjects: @subjects[@page] }
+    render json: {results: query.size, page: @page, pages: @subjects.size, subjects: (@subjects[@page].nil? ? [] : @subjects[@page]) }
   end
 
   # GET /subjects/1 or /subjects/1.json
