@@ -2,12 +2,12 @@ function PaginationSubject(props) {
 
   return (
     <ul className="text-nowrap pagination justify-content-center my-1">
-      <li><button className={`rounded-start page-item page-link${props.page <= 0 || props.pages == 0 ? ' disabled' : ''}`}
-      onClick={() => props.handleClick(0)} disabled={props.page <= 0 || props.pages == 0}>
+      <li><button className={`rounded-start page-item page-link${props.page <= 0 || props.pages <= 0 ? ' disabled' : ''}`}
+      onClick={() => props.handleClick(0)} disabled={props.page <= 0 || props.pages <= 0}>
         Primeiro
       </button></li>
-      <li><button className={`page-item page-link${props.page <= 0 || props.pages == 0 ? ' disabled' : ''}`}
-      onClick={() => props.handleClick(props.page - 1)} disabled={props.page <= 0 || props.pages == 0}>
+      <li><button className={`page-item page-link${props.page <= 0 || props.pages <= 0 ? ' disabled' : ''}`}
+      onClick={() => props.handleClick(props.page - 1)} disabled={props.page <= 0 || props.pages <= 0}>
         Anterior
       </button></li>
       <li className="overflow-scroll">
@@ -15,15 +15,15 @@ function PaginationSubject(props) {
         return <button key={index} className={`d-inline-block page-item page-link${props.page === index ? ' active' : ''}`}
         onClick={() => props.handleClick(index)} >{index + 1}</button>
       })}</li>
-      <li><button className={`page-item page-link${props.page >= props.pages - 1 || props.pages == 0 ? ' disabled' : ''}`} 
+      <li><button className={`page-item page-link${props.page >= props.pages - 1 || props.pages <= 0 ? ' disabled' : ''}`}
       onClick={() => props.handleClick(props.page + 1)}
-      disabled={props.page >= props.pages - 1 || props.pages == 0}>
+      disabled={props.page >= props.pages - 1 || props.pages <= 0}>
         Próximo
       </button></li>
       <li>
-        <button className={`page-item page-link${props.page >= props.pages - 1 || props.pages == 0 ? ' disabled' : ''}`} 
+        <button className={`page-item page-link${props.page >= props.pages - 1 || props.pages <= 0 ? ' disabled' : ''}`}
         onClick={() => props.handleClick(props.pages - 1)}
-        disabled={props.page >= props.pages - 1 || props.pages == 0}>
+        disabled={props.page >= props.pages - 1 || props.pages <= 0}>
           Último
         </button>
       </li>
