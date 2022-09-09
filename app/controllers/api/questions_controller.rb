@@ -1,30 +1,37 @@
 class Api::QuestionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_question, only: %i[ show edit update destroy ]
 
   # GET api/questions or api/questions.json
   def index
-    @questions = if params[:subject]
-                   Question.where(subject_id: params[:subject])
-                 else
-                   Question.all
-                 end.order(id: :desc).each_slice(16).to_a
-
-    @page = if params[:page].to_i && params[:page].to_i > @questions.size
-              @questions.size - 1
-            elsif params[:page]
-              params[:page].to_i - 1
-            else
-              0
-            end
-
-    @questions[@page].map! do |question|
-      { id: question.id, question: question.question, subject: question.subject_id,
-        answer: question.answer, tags: question.tags, level: question.level,
-        frequency: question.level, image: question.image.url,
-        creator: question.stat.user.username, evaluable: question.evaluable }
+    query = current_user.stat.questions.where("question LIKE ?
+      AND EXISTS (SELECT 1 FROM unnest(answer) AS ans WHERE ans LIKE ?)
+      AND#{params[:level] == '' ? ' NOT' : ''} level=?",
+      "%#{params[:question]}%", 
+      "%#{params[:answer]}%", params[:level] == '' ? 5000 : params[:level]
+    ).order(question: params[:order]).map do |question|
+      {
+        id: question.id, subject: question.subject_id, question_types: question.question_types, level: question.level,
+        question: question.question, answer: question.answer, tags: question.tags, parameters: question.parameters,
+        choices: question.choices.map { |choice| [choice.id, choice.decoy, choice.veracity]}
+      }
     end
+    @questions = query.each_slice(16).to_a
+    subjects = if current_user.stat.questions_pref.zero?
+                 current_user.stat.subjects
+               else
+                 current_user.stat.subjects.or(Subjects.where(visibility: 0))
+               end.map { |subject| [subject.id, subject.title] }
 
-    render json: { page: @page, pages: @questions.size, questions: @questions[@page] }
+    page = if params[:page].to_i && params[:page].to_i > @questions.size
+             @questions.size - 1
+           elsif params[:page]
+             params[:page].to_i - 1
+           else
+             0
+           end
+
+    render json: { page: page, pages: @questions.size, subjects: subjects, questions: @questions[page].nil? ? [] : @questions[page] }
   end
 
   # GET api/questions/1 or api/questions/1.json
@@ -85,6 +92,6 @@ class Api::QuestionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def question_params
-      params.fetch(:question, {})
+      params.fetch(:question, {}).permit(:subject_id, :question, :level, :stat_id, question_types: [], answer: [], tags: [], parameters: [])
     end
 end

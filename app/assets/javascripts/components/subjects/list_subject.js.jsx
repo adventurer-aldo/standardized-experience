@@ -1,7 +1,7 @@
 function SubjectList(props) {
   if (props.subjects === null) {
     return Array(6).fill('').map((_subject, index) => 
-    <div key={index} className="card m-1" style={{width: "18rem"}}>
+    <div key={index} className="card m-auto" style={{width: "18rem"}}>
       <div className="card-header">
       <ul className="nav nav-pills card-header-pills">
         <li className="nav-item">
@@ -24,7 +24,7 @@ function SubjectList(props) {
       <ul className="list-group list-group-flush">
         <li className="list-group-item"><strong>Questões:</strong> <span className="placeholder placeholder-wave col-3"></span></li>
         <li className="list-group-item"><strong>Média:</strong> <span className="placeholder placeholder-wave col-4"></span></li>
-        <li className="list-group-item"><strong>Prático:</strong> <span className="placeholder placeholder-wave col-2"></span></li>
+        <li className="list-group-item"><strong>Prática:</strong> <span className="placeholder placeholder-wave col-2"></span></li>
         <li className="list-group-item"><strong>Trabalho:</strong> <span className="placeholder placeholder-wave col-4"></span></li>
       </ul>
     </div>
@@ -65,7 +65,9 @@ function SubjectList(props) {
                 aria-label="Close"></button>
               </div>
               <div className="modal-body">
-                Tem certeza de que pretende apagar esta cadeira?<br/><b>{ subject.title }</b>
+                Tem certeza de que pretende apagar esta cadeira?<br/><b>{ subject.title }</b><br /><br />
+                Todas perguntas que pertencem a esta cadeira, suas e de colaboradores, serão também apagadas no processo.<br/>
+                <strong>Este processo é irreversível!</strong>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">

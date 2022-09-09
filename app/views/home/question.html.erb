@@ -4,7 +4,6 @@
 
 <%= render 'shared/header' %>
 <%= render 'shared/nav_data' %>
-<%= react_component('Questions', {auth_token: @auth_token}) %>
+<%= react_component('DataQuestions', {auth_token: @auth_token, stat_id: current_user.stat.id}) %>
 <br></div>
-<div class='bg-primary p-2 text-white align-middle'><b><%= fa_icon 'comment', class: 'align-middle'%> Questões Definidas</b></div>
 <%= render 'shared/footer' %>

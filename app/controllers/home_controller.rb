@@ -20,18 +20,19 @@ class HomeController < ApplicationController
                   when 7
                     'Resultados da Jornada'
                   end
-      @ost = case @journey.level
-             when 0, 7
-               @journey.soundtrack.home
-             when 1
-               @journey.soundtrack.preparations
-             when 2, 3
-               @journey.soundtrack.preparations_second
-             when 4
-               @journey.soundtrack.preparations_dissertation
-             when 5, 6
-               @journey.soundtrack.preparations_exam
-             end
+      @ost = "quiz/#{@journey.soundtrack.name}/"
+      @ost += case @journey.level
+              when 0, 7
+                @journey.soundtrack.home
+              when 1
+                @journey.soundtrack.preparations
+              when 2, 3
+                @journey.soundtrack.preparations_second
+              when 4
+                @journey.soundtrack.preparations_dissertation
+              when 5, 6
+                @journey.soundtrack.preparations_exam
+              end
 
       @start_time = @journey.start_time.to_time.to_f * 1000
       @chairs = @journey.chairs.size
@@ -59,6 +60,10 @@ class HomeController < ApplicationController
 
   def campaign; end
 
+  def question
+    @auth_token = form_authenticity_token
+  end
+
   def subject
     @auth_token = form_authenticity_token
     @formulas = Array(0..4).map { |a| helpers.formula(a) }
@@ -69,9 +74,6 @@ class HomeController < ApplicationController
   def statistics
     @all = Question.all.size
     @stats = [0, 0, 0]
-    Question.all.each do |question|
-      [0, 1, 2].each { |n| @stats[n] += question.frequency[n] }
-    end
     @quizzes = Quiz.all.order(id: :desc).limit(10)
   end
 

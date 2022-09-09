@@ -8,7 +8,7 @@ function NewSubject(props) {
      placeholder="Qual é o nome da cadeira" name="subject[title]" required="required"
      value={props.data.title} onChange={(event) => props.handleChange(event, 'title')}/>
      <label htmlFor="floatingInput">
-        {props.editing === null ? 'Qual é o nome da cadeira que deseja criar?' : `Qual sera o novo nome da cadeira "${props.originalName}"`}
+        {props.editing === null ? 'Qual é o nome da cadeira que deseja criar?' : `Qual será o novo nome da cadeira "${props.originalName}"`}
       </label>
     </div>
     <div className="form-floating my-1">

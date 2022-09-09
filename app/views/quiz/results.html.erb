@@ -1,14 +1,18 @@
 <head><title><%= @quiz.subject.title %> | Resultados</title></head><nav class='navbar navbar-expand navbar-dark bg-dark py-0'><ul class='navbar-nav'>
     <%=link_to root_path, class: 'nav-link' do %>
         <li id='nav-li-Home' class='nav-item text-white'><%= fa_icon 'arrow-left', class: 'align-middle' %>
-        <span class='align-middle'>Retornar</span></li>
+        <span class='align-middle erasable'>Retornar</span></li>
+    <% end %>
+    <%= link_to quiz_path, class: 'nav-link' do %>
+        <li id='nav-li-Home' class='nav-item text-white'><%= fa_icon 'arrow-left', class: 'align-middle' %>
+        <span class='align-middle erasable'>Praticar</span></li>
     <% end %>
 
 </ul>
     <div id='nav-li-Time' class='text-white p-1 me-0 ms-auto '><%= fa_icon 'clock-o', class: 'align-middle' %> <%= @duration.min %>m <%= @duration.sec %>s</div>
     </nav>
 <%= audio_tag(@fanfare, autoplay: true, id: 'fanfare')%>
-<div id='page'><div style='padding: 30px'>
+<div id='page' class="bg-light p-4">
     <%= render "format-#{@quiz.format}"%>
 
     <% @quiz.answers.order(id: :asc).each_with_index do |answer, index| %>
@@ -22,4 +26,4 @@
       <%= show_correct(answer) %></p>
     <% end %>
         
-</div></div>
+</div>

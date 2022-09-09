@@ -2,7 +2,7 @@
 </head><%= render 'shared/header' %>
 <%= render 'shared/nav_home' %>
 
-<% if !@pop_quiz.empty? %>
+<% if @pop_quiz %>
   <%= render 'home/components/tip' %>
 <% end %>
 

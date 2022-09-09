@@ -71,12 +71,12 @@
                  Journey.last
                end
 
-    @subject = if params[:subject] && Subject.where(id: params[:subject].to_i).exists?
-                 Subject.where(id: params[:subject]).first
-               elsif Subject.where(evaluable: 1).exists?
-                 Subject.where(evaluable: 1).order(Arel.sql('RANDOM()')).limit(1).first
+    @subject = if params[:subject] && current_user.stat.subjects.or(Subject.where(visibility: 0)).where(id: params[:subject].to_i).exists?
+                 Subject.find_by(id: params[:subject])
+               elsif !current_user.stat.evaluables.empty?
+                 Subject.find_by(id: current_user.stat.evaluables.sample)
                else
-                 Subject.all.order(Arel.sql('RANDOM()')).limit(1).first
+                 Subject.where(visibility: 0).order(Arel.sql('RANDOM()')).first
                end
 
     @level = if !params[:level] || (@journey.level < params[:level].to_i)
@@ -176,9 +176,6 @@
     )
 
     @full_query.each do |question|
-      updated_frequency = question.frequency
-      updated_frequency[0] += 1
-      question.update(frequency: updated_frequency)
       type = rand(0..(question.question_types.size - 1)).to_i
       calculated_variables = []
 
@@ -271,14 +268,6 @@
       end
     end
 
-    @quiz.answers.each do |answer|
-      new_frequency = answer.question.frequency.dup
-      new_frequency[0] += 1
-      new_frequency[1] += (helpers.correct(answer) ? 1 : 0)
-      new_frequency[2] += (helpers.correct(answer) ? 0 : 1)
-      answer.question.update(frequency: new_frequency)
-    end
-
     if journey.level == @quiz.level && journey.level < 7 && journey.chairs.where(subject_id: @quiz.subject.id).exists?
       chair = journey.chairs.where(subject_id: @quiz.subject.id).first
       case journey.level
@@ -341,23 +330,23 @@
   def results
     @quiz = Quiz.find_by(id: params[:id].to_i)
     @grade = helpers.grade(@quiz, true)
-    grade_num = @grade.gsub(',', '.').to_f
+    grade_num = 
     @quiz_start = @quiz.start_time.to_time
     @quiz_end = @quiz.end_time.to_time
     @duration = Time.at(@quiz_end.to_i - @quiz_start.to_i)
 
     @fanfare =  if grade_num < 7
-                  helpers.audio_path('failhard.ogg')
+                  helpers.audio_path('results/failhard.ogg')
                 elsif grade_num < 9.5
-                  helpers.audio_path('fail.ogg')
+                  helpers.audio_path('results/fail.ogg')
                 elsif grade_num < 14.5
-                  helpers.audio_path('succeed.ogg')
+                  helpers.audio_path('results/succeed.ogg')
                 elsif grade_num < 18
-                  helpers.audio_path('succeedhard.ogg')
+                  helpers.audio_path('results/succeedhard.ogg')
                 elsif grade_num < 20
-                  helpers.audio_path('succeedharder.ogg')
+                  helpers.audio_path('results/succeedharder.ogg')
                 else
-                  helpers.audio_path('succeedhardest.ogg')
+                  helpers.audio_path('results/succeedhardest.ogg')
                 end
   end
 

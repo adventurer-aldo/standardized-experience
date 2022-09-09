@@ -4,16 +4,21 @@ class Api::SubjectsController < ApplicationController
 
   # GET /subjects or /subjects.json
   def index
-    query = current_user.stat.subjects.or(Subject.where(visibility: 0)).where('title LIKE ?', "%#{params[:title]}%").order(title: :asc).map do |subject|
+    stat = current_user.stat
+    query = if stat.subjects_pref.zero?
+              stat.subjects.or(Subject.where(visibility: 0))
+            else
+              stat.subjects
+            end.where("title LIKE ? AND description LIKE ? AND#{params[:formula] == '' ? ' NOT' : ''} formula=? AND#{params[:practical] == '' ? ' NOT' : ''} practical=?",
+                      "%#{params[:title]}%", "%#{params[:description]}%", params[:formula] == '' ? 5000 : params[:formula], params[:practical] == '' ? 2 : params[:practical]).order(title: params[:order]).map do |subject|
       {
-        id: subject.id, title: subject.title, description: subject.description,
-        formula: subject.formula, questions: subject.questions.size,
-        job_type: subject.job_type, practical: subject.practical, visibility: subject.visibility.to_s,
-        creator: subject.stat_id, creator_name: subject.stat.user.username
+        id: subject.id, title: subject.title, description: subject.description, formula: subject.formula,
+        questions: subject.questions.size, job_type: subject.job_type, practical: subject.practical,
+        visibility: subject.visibility.to_s, creator: subject.stat_id, creator_name: subject.stat.user.username
       }
     end
     @subjects = query.each_slice(6).to_a
-    @page = if params[:page].to_i && params[:page].to_i > @subjects.size
+    page = if params[:page].to_i && params[:page].to_i > @subjects.size
               @subjects.size - 1
             elsif params[:page]
               params[:page].to_i
@@ -21,7 +26,7 @@ class Api::SubjectsController < ApplicationController
               0
             end
 
-    render json: {results: query.size, page: @page, pages: @subjects.size, subjects: (@subjects[@page].nil? ? [] : @subjects[@page]) }
+    render json: {results: query.size, page: page, pages: @subjects.size, subjects: (@subjects[page].nil? ? [] : @subjects[page]) }
   end
 
   # GET /subjects/1 or /subjects/1.json
