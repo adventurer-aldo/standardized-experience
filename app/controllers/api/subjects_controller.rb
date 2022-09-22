@@ -11,26 +11,30 @@ class Api::SubjectsController < ApplicationController
               stat.subjects
             end.where("title LIKE ? AND description LIKE ? AND#{params[:formula] == '' ? ' NOT' : ''} formula=? AND#{params[:practical] == '' ? ' NOT' : ''} practical=?",
                       "%#{params[:title]}%", "%#{params[:description]}%", params[:formula] == '' ? 5000 : params[:formula], params[:practical] == '' ? 2 : params[:practical]).order(title: params[:order]).map do |subject|
-      {
-        id: subject.id, title: subject.title, description: subject.description, formula: subject.formula,
+      { id: subject.id, title: subject.title, description: subject.description, formula: subject.formula,
         questions: subject.questions.size, job_type: subject.job_type, practical: subject.practical,
-        visibility: subject.visibility.to_s, creator: subject.stat_id, creator_name: subject.stat.user.username
-      }
+        visibility: subject.visibility.to_s, creator: subject.stat_id, creator_name: subject.stat.user.username,
+        allow_foreign: subject.allow_foreign.to_s }
     end
     @subjects = query.each_slice(6).to_a
     page = if params[:page].to_i && params[:page].to_i > @subjects.size
-              @subjects.size - 1
-            elsif params[:page]
-              params[:page].to_i
-            else
-              0
-            end
+             @subjects.size - 1
+           elsif params[:page]
+             params[:page].to_i
+           else
+             0
+           end
 
-    render json: {results: query.size, page: page, pages: @subjects.size, subjects: (@subjects[page].nil? ? [] : @subjects[page]) }
+    render json: { results: query.size, page:, pages: @subjects.size, subjects: (@subjects[page].nil? ? [] : @subjects[page]) }
   end
 
   # GET /subjects/1 or /subjects/1.json
-  def show; end
+  def show
+    render json: { subject: { id: @subject.id, title: @subject.title, description: @subject.description, formula: @subject.formula,
+                              questions: @subject.questions.size, job_type: @subject.job_type, practical: @subject.practical,
+                              visibility: @subject.visibility.to_s, creator: @subject.stat_id, creator_name: @subject.stat.user.username,
+                              allow_foreign: @subject.allow_foreign.to_s } }
+  end
 
   # GET /subjects/new
   def new
@@ -66,6 +70,6 @@ class Api::SubjectsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def subject_params
-    params.fetch(:subject, {}).permit(:evaluable, :visibility, :title, :description, :formula, :job_type, :practical, :stat_id)
+    params.fetch(:subject, {}).permit(:evaluable, :visibility, :title, :description, :formula, :job_type, :practical, :stat_id, :allow_foreign)
   end
 end

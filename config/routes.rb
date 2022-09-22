@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   root 'home#index'
 
   namespace :api do
+    resources :answers, as: 'api_answer'
     resources :journeys, as: 'api_journey'
+    resources :lessons, as: 'api_lesson'
     resources :questions, as: 'api_question'
+    resources :quizzes, as: 'api_quiz'
     resources :subjects, as: 'api_subject'
     resources :stats, as: 'api_stats'
   end
@@ -18,7 +21,8 @@ Rails.application.routes.draw do
     unlocks: 'users/unlocks'
   }
 
-  get '/campanha', to: 'home#campaign', as: 'campaign'
+  get '/desafios', to: 'home#challenges', as: 'challenges'
+  get '/aulas', to: 'home#classroom', as: 'classroom'
   get '/sobre', to: 'home#about', as: 'about'
   get '/dados/questoes', to: 'home#question', as: 'question'
   get '/dados/cadeiras', to: 'home#subject', as: 'subject'
@@ -27,6 +31,7 @@ Rails.application.routes.draw do
 
   get '/quiz(/:subject/:level/:journey)', to: 'quiz#index', as: 'quiz'
   get '/resultados/:id', to: 'quiz#results', as: 'results'
+  get '/licao/:id', to: 'lesson#index', as: 'lesson'
 
   post '/quiz', to: 'quiz#submit'
 

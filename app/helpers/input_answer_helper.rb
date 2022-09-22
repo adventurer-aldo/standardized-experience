@@ -1,40 +1,30 @@
 module InputAnswerHelper
-
   def show_question(answer)
-    if answer.question.question_types[answer.question_type] == 'formula'
-      imprint = answer.question.question.dup
-      answer.variables.each do |variable|
-        imprint[imprint.index('#£')..imprint.index('§')] = variable
-      end
-      imprint
-    else
-      answer.question.question
-    end
+    res = if answer.question_type == 'formula'
+            imprint = answer.question.question.dup
+            answer.variables.each do |variable|
+              imprint[imprint.index('#£')..imprint.index('§')] = variable
+            end
+            imprint
+          else
+            answer.question.question
+          end
+    markdown(res).html_safe
   end
 
   def input_answer(answer)
     input = %(<input name="answer[#{answer.id}][]" class="form-control form-control-lg" style="font-family: 'Homemade Apple', cursive;color: blue;" placeholder="" aria-label=".form-control-lg example">)
-    case answer.question.question_types[answer.question_type]
+    case answer.question_type
     when 'open', 'formula' # When the answer is to be typed in
       return input.html_safe
     when 'choice', 'multichoice', 'veracity' # When the answer is to be chosen from a list of choices
       options = organize_variables(answer)
-      case answer.question.question_types[answer.question_type]
+      case answer.question_type
       when 'choice' # When the answer is a single choice from a list of choices
         options.map do |option|
           %(
           <div class="form-check">
             <input class="form-check-input" type="radio" value="#{option}" name="answer[#{answer.id}][]" id="Check#{answer.id}-#{options.index(option)}">
-            <label class="form-check-label" for="Check#{answer.id}-#{options.index(option)}">
-              #{option}
-            </label>
-          </div>)
-        end.join.html_safe
-      when 'multichoice' # When the answer is multiple choices from a list of choices
-        options.map do |option|
-          %(
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="#{option}" name="answer[#{answer.id}][]" id="Check#{answer.id}-#{options.index(option)}">
             <label class="form-check-label" for="Check#{answer.id}-#{options.index(option)}">
               #{option}
             </label>
@@ -87,42 +77,20 @@ module InputAnswerHelper
           end.join.html_safe, class: 'bordering'
         ))
       )
-    when 'submit' # When the user must submit a file
-      %(<input type="file" name="answer[#{answer.id}])
+    when 'fill'
+    when 'match' # When the user must submit a file
     end
   end
 
   def organize_variables(answer)
-    answer.variables.map do |id|
-      if id.include? 'a'
-        text = answer.question.answer[id[1..-1].to_i]
-        # Check if there's a choice with decoy that matches text
-        if answer.question.choices.find_by(decoy: text)
-          choice = answer.question.choices.find_by(decoy: text)
-          if choice.image.attached?
-            text += %(<br><img src="#{choice.image.url}" class="img-fluid">)
-          end
-        end
-        text
-      else
-        choice = Choice.find_by(id: id.to_i)
-        if choice.image.attached?
-          choice.decoy + %(<br><img src="#{choice.image.url}" class="img-fluid">)
-        else
-          choice.decoy
-        end
-      end
-    end.uniq
+    answer.map_with_decoys.map do |choice|
+      choice[0]
+    end
   end
 
   def organize_variables_text(answer)
     answer.variables.map do |id|
-      if id.include? 'a'
-        answer.question.answer[id[1..-1].to_i]
-      else
-        Choice.find_by(id: id.to_i).decoy
-      end
-    end.uniq
+      Choice.find_by(id: id.to_i).texts
+    end
   end
-
 end

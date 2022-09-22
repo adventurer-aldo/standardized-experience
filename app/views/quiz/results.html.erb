@@ -16,7 +16,7 @@
     <%= render "format-#{@quiz.format}"%>
 
     <% @quiz.answers.order(id: :asc).each_with_index do |answer, index| %>
-      <% if correct(answer) %>
+      <% if answer.correct? %>
           <span style='position: relative'><span class='grade'><%=number_with_precision answer.grade, significant: true, precision: 2, separator: ',' %></span></span>
       <% else %>
           <span style='position: relative'><span class='grade'>0,0</span></span>

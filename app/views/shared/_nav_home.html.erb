@@ -1,7 +1,7 @@
 <div class="btn-group d-flex" role="group" aria-label="Basic example">
   <% [[root_path, 'Jornada', 'shield-alt'],
-   [about_path, 'Classe', 'language'],
-   [about_path, 'Desafios', 'flag-checkered']].each do |data_button| %>
+   [classroom_path, 'Aula', 'language'],
+   [challenges_path, 'Desafios', 'flag-checkered']].each do |data_button| %>
     <%= link_to (current_page?(data_button[0]) ? '#' : data_button[0]), class: "btn btn-primary p-1 #{current_page?(data_button[0]) ? 'active w-100 text-info' : 'text-white'}" do %>
     <%= fa_icon data_button[2] %><br><%= data_button[1] %>
     <% end %>

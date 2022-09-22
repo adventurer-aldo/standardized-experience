@@ -4,18 +4,17 @@ class Api::QuestionsController < ApplicationController
 
   # GET api/questions or api/questions.json
   def index
-    query = current_user.stat.questions.where("question LIKE ?
+    query = current_user.stat.questions.where(
+      "question LIKE ?
       AND EXISTS (SELECT 1 FROM unnest(answer) AS ans WHERE ans LIKE ?)
-      AND#{params[:level] == '' ? ' NOT' : ''} level=?",
-      "%#{params[:question]}%", 
-      "%#{params[:answer]}%", params[:level] == '' ? 5000 : params[:level]
-    ).order(question: params[:order]).map do |question|
-      {
-        id: question.id, subject: question.subject_id, question_types: question.question_types, level: question.level,
-        question: question.question, answer: question.answer, tags: question.tags, parameters: question.parameters,
-        choices: question.choices.map { |choice| [choice.id, choice.decoy, choice.veracity]}
-      }
-    end
+      AND#{params[:level] == '' ? ' NOT' : ''} level=?
+      AND#{params[:question_types] == '' ? " NOT" : ''} ? = ANY(question_types)
+      AND#{params[:subject_id] == '' ? ' NOT' : ''} subject_id=?",
+      "%#{params[:question]}%",
+      "%#{params[:answer]}%", params[:level] == '' ? 5000 : params[:level], params[:question_types],
+      params[:subject_id] == '' ? 0 : params[:subject_id]
+    ).order(id: params[:order])
+    tags = query.map(&:tags).flatten.uniq
     @questions = query.each_slice(16).to_a
     subjects = if current_user.stat.questions_pref.zero?
                  current_user.stat.subjects
@@ -26,16 +25,26 @@ class Api::QuestionsController < ApplicationController
     page = if params[:page].to_i && params[:page].to_i > @questions.size
              @questions.size - 1
            elsif params[:page]
-             params[:page].to_i - 1
+             params[:page].to_i
            else
              0
            end
 
-    render json: { page: page, pages: @questions.size, subjects: subjects, questions: @questions[page].nil? ? [] : @questions[page] }
+    @questions[page]&.map! do |question|
+      { id: question.id, subject: question.subject_id, question_types: question.question_types, level: question.level,
+        question: question.question, answer: question.answer, tags: question.tags, parameters: question.parameters,
+        image: question.image.attached? ? question.image.url : nil }
+    end
+
+    render json: { tags:, page:, results: query.size, pages: @questions.size, subjects:, questions: @questions[page].nil? ? [] : @questions[page] }
   end
 
   # GET api/questions/1 or api/questions/1.json
-  def show; end
+  def show
+    render json: { id: @question.id, subject: @question.subject_id, question_types: @question.question_types,
+                   level: @question.level, question: @question.question, answer: @question.answer,
+                   tags: @question.tags, parameters: @question.parameters, choices: @question.choices.where(veracity: 0).map(&:texts) }
+  end
 
   # GET api/questions/new
   def new
@@ -43,55 +52,48 @@ class Api::QuestionsController < ApplicationController
   end
 
   # GET api/questions/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST api/questions or api/questions.json
   def create
-    @question = Question.new(question_params)
+    @question = Question.new(question: question_params['question'], answer: question_params['answer'], tags: question_params['tags'].nil? ? [] : question_params['tags'],
+                             question_types: question_params['question_types'], level: question_params['level'], parameters: question_params['parameters'].nil? ? [] : question_params['parameters'],
+                             subject_id: question_params['subject_id'], stat_id: current_user.stat.id)
 
-    respond_to do |format|
-      if @question.save
-        format.html { redirect_to question_url(@question), notice: "Question was successfully created." }
-        format.json { render :show, status: :created, location: @question }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
-      end
-    end
+    return unless @question.save && question_params['choices']
+
+    question_params['choices'].each { |_index, args| Choice.create(question_id: @question.id, texts: args['texts']) }
+    question_params['answer'].each { |answer| Choice.create(question_id: @question.id, texts: [answer], veracity: 1) } if @question.question_types.intersect?(['choice','veracity'])
   end
 
   # PATCH/PUT api/questions/1 or api/questions/1.json
   def update
-    respond_to do |format|
-      if @question.update(question_params)
-        format.html { redirect_to question_url(@question), notice: "Question was successfully updated." }
-        format.json { render :show, status: :ok, location: @question }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
-      end
-    end
+    return unless @question.stat_id == current_user.stat.id
+
+    @question.update(question: question_params['question'], answer: question_params['answer'], tags: question_params['tags'].nil? ? [] : question_params['tags'],
+                     question_types: question_params['question_types'], level: question_params['level'],
+                     subject_id: question_params['subject_id'], parameters: question_params['parameters'].nil? ? [] : question_params['parameters'])
+    Choice.destroy_by(question_id: @question.id)
+    return unless @question.save && question_params['choices']
+
+    question_params['choices'].each { |_index, args| Choice.create(question_id: @question.id, texts: args['texts']) }
+    question_params['answer'].each { |answer| Choice.create(question_id: @question.id, texts: [answer], veracity: 1) }
   end
 
   # DELETE api/questions/1 or api/questions/1.json
   def destroy
-    @question.destroy
-
-    respond_to do |format|
-      format.html { redirect_to questions_url, notice: "Question was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @question.destroy if @question.stat_id == current_user.stat.id
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_question
-      @question = Question.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def question_params
-      params.fetch(:question, {}).permit(:subject_id, :question, :level, :stat_id, question_types: [], answer: [], tags: [], parameters: [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_question
+    @question = Question.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def question_params
+    params.fetch(:question, {}).permit(:subject_id, :question, :level, :stat_id, question_types: [], choices: {}, answer: [], tags: [], parameters: [])
+  end
 end

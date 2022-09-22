@@ -23,16 +23,13 @@ class Api::JourneysController < ApplicationController
     starting_time = Time.zone.now
     journey = Journey.new(duration: 0, stat_id: current_user.stat.id, start_time: starting_time, soundtrack_id: Soundtrack.order(Arel.sql('RANDOM()')).limit(1).first.id)
     journey.save!
-    [10, 20, 31, 38, 54, 75].each_with_index do |change_time, index|
-      calculated_time = starting_time.to_time.to_i + (change_time * 60)
-      QC.enqueue_at(Time.at(calculated_time), 'journey_update', journey.id.to_s, (index + 2).to_s)
+
+    current_user.evaluables.map(&:subject).sort_by(&:title).each do |subject|
+      chair = journey.chairs.create(subject_id: subject.id, format: rand(0..2).round)
+      chair.update(dissertation: rand(0..20.0).round(2)) unless subject.questions.where(level: 3).exists?
     end
 
-    Subject.where(evaluable: 1).order(title: :asc).each do |subject|
-      chair = Chair.create(subject_id: subject.id, journey_id: journey.id, format: rand(0..1).round)
-      chair.update(dissertation: rand(0.0..20.0).round(2)) unless subject.questions.where(level: 3).exists?
-    end
-    current_user.stat.update(journey_id: journey.id)
+    JourneyCheckpointJob.set(wait: (journey.chairs.size * 10).minutes).perform_later(journey.id)
   end
 
   # PATCH/PUT /journeys/1 or /journeys/1.json

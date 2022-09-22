@@ -8,7 +8,7 @@ function DataSubject(props) {
   [pages, setPages] = React.useState(0);
   [results, setResults] = React.useState('Pesquisando');
   [submitData, setSubmitData] = React.useState(Array(2).fill({title: '', description: '',
-  formula: 0, job_type: 0, practical: 0, visibility: '0'}));
+  formula: 0, job_type: 0, practical: 0, visibility: '0', allow_foreign: '1'}));
 
   React.useEffect(() => {
     updateSubjects();
@@ -71,11 +71,12 @@ function DataSubject(props) {
         return subj.id === subject_id;
       })[0]
       setEditingName(editingSubj.title);
+      console.log(editingSubj.title);
       setSubmitData((prev) => [{title: editingSubj.title, 
-      description: (editingSubj.description === null ? '' : editingSubj.description), visibility: editingSubj.visibility,
+      description: (editingSubj.description === null ? '' : editingSubj.description), visibility: editingSubj.visibility, allow_foreign: editingSubj.allow_foreign,
       formula: editingSubj.formula, job_type: editingSubj.job_type, practical: editingSubj.practical}, prev[1]]);
       setEditingID(subject_id);
-      if (typeof document.getElementById('floatingInput') !== 'undefined') window.location.hash = '#floatingInput';
+      if (typeof document.getElementById('floatingInput') !== 'undefined') document.getElementById('floatingInput').focus();
     } else {
       setEditingID(null);
     }
@@ -97,14 +98,14 @@ function DataSubject(props) {
       let formu = submitData[0];
       formu.authenticity_token = props.auth_token;
       formu.stat_id = props.stat;
-      axios.patch(`/api/subjects/${subject_id}`, submitData[0])
+      axios.patch(`/api/subjects/${subject_id}`, formu)
       .then(() => {
         updateSubjects();
         setEditingID(null);
       });
     }
     setSubmitData(Array(2).fill({title: '', description: '', formula: 0, job_type: 0,
-    practical: 0, visibility: '0'}))
+    practical: 0, visibility: '0', allow_foreign: '1'}))
   }
 
   const handleChangeSearch = (e, parameter) => {

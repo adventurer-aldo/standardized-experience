@@ -48,11 +48,18 @@ function NewSubject(props) {
         </div>
       </div>
     </div>
-  <div className="form-check form-switch form-check-reverse">
-    <input className="form-check-input" type="checkbox" id="flexSwitchCheckReverse" value={props.data.visibility}
-    checked={props.data.visibility == '1'} onChange={(event) => { event.target.value = event.target.value == '0' ? '1' : '0';props.handleChange(event, 'visibility')}} />
-    <label className="form-check-label" htmlFor="flexSwitchCheckReverse">Privada</label>
-  </div>
+    <div className="text-end">
+      <div className="form-check form-check-inline form-switch form-check-reverse">
+        <input className="form-check-input" type="checkbox" id="allow_foreign" value={props.data.allow_foreign}
+        checked={props.data.allow_foreign == '1'} onChange={(event) => { event.target.value = event.target.value == '0' ? '1' : '0';props.handleChange(event, 'allow_foreign')}} />
+        <label className="form-check-label" htmlFor="allow_foreign">Permitir questões alheias</label>
+      </div>
+      <div className="form-check form-check-inline form-switch form-check-reverse">
+        <input className="form-check-input" type="checkbox" id="flexSwitchCheckReverse" value={props.data.visibility}
+        checked={props.data.visibility == '1'} onChange={(event) => { event.target.value = event.target.value == '0' ? '1' : '0';props.handleChange(event, 'visibility')}} />
+        <label className="form-check-label" htmlFor="flexSwitchCheckReverse">Privada</label>
+      </div>
+    </div>
   <div className='d-grid'>
     <button className={`btn btn-${props.editing === null ? 'primary' : 'warning'}`} type="submit">
       {`${props.editing == null ? 'Criar Nova' : 'Editar'} Cadeira`}

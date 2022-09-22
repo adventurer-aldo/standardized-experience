@@ -1,25 +1,16 @@
+# frozen_string_literal: false
+
+# Handles the main page stuff
 class HomeController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    unless current_user.stat.journeys.empty?
-      @journey = current_user.stat.journeys.last
-      @progress = case @journey.level
-                  when 1
-                    'Primeiras avaliações'
-                  when 2
-                    'Segundas avaliações'
-                  when 3
-                    'Reposições'
-                  when 4
-                    'Realização de Trabalhos'
-                  when 5
-                    'Exames Normais'
-                  when 6
-                    'Exames de Recorrência'
-                  when 7
-                    'Resultados da Jornada'
-                  end
+    unless current_user.journeys.empty?
+      @journey = current_user.journeys.last
+      @progress = ['', 'Primeiras avaliações', 'Segundas avaliações', 'Reposições',
+                   'Realização de Trabalhos', 'Exames Normais', 'Exames de Recorrência',
+                   'Resultados da Jornada'][@journey.level]
+
       @ost = "quiz/#{@journey.soundtrack.name}/"
       @ost += case @journey.level
               when 0, 7
@@ -39,30 +30,32 @@ class HomeController < ApplicationController
     end
 
     @ost = Soundtrack.first.home if @ost.nil?
-    @pop_quiz = Subject.find_by(id: current_user.stat.evaluables.sample).questions.order(Arel.sql('RANDOM()')).limit(1)
+    unless current_user.stat.evaluables.empty?
+      @pop_quiz = current_user.stat.evaluables.sample.subject&.questions&.order(Arel.sql('RANDOM()'))
+    end
 
-    quiz = current_user.stat.quizzes.last
+    quiz = current_user.quizzes.last
     @last_quiz = if quiz
                    format('Seu último teste foi de %s, com nota %s. ',
                           quiz.subject.title,
-                          helpers.grade(quiz, true)) + Misc::Text.evaluate(helpers.grade(quiz))
+                          quiz.grade(text: true)) + Misc::Text.evaluate(quiz.grade)
                  else
                    'Você ainda não fez nenhum teste. Comece um!'
                  end
   end
 
-  def lessons; end
-
-  def lesson
-    temp_question = Question.all.sample.tags.sample
-    @questions = Question.where('tags @> ARRAY[?]::varchar[]', temp_question)
+  def classroom
+    @subjects = current_user.evaluables.map do |evaluable|
+      { id: evaluable.subject_id, title: evaluable.subject.title }
+    end
+    @lesson = current_user.lessons.last
   end
 
-  def campaign; end
-
-  def question
-    @auth_token = form_authenticity_token
+  def challenges
+    @challenges = Challenge.where(date: Date.new(Time.now.year, Time.now.mon, Time.now.day))
   end
+
+  def question; end
 
   def subject
     @auth_token = form_authenticity_token

@@ -10,7 +10,7 @@ class Api::StatsController < ApplicationController
       lenient_answer: stat.lenient_answer, lenient_name: stat.lenient_name,
       avoid_negative: stat.avoid_negative, focus_level: stat.focus_level,
       questions_pref: stat.questions_pref, picture: stat.picture, theme_id: stat.theme_id,
-      username: current_user.username, evaluables: stat.evaluables
+      username: current_user.username, evaluables: stat.evaluables.map(&:subject_id)
     }
 
     render json: @stats
@@ -46,7 +46,14 @@ class Api::StatsController < ApplicationController
 
   # PATCH/PUT /stats/1 or /stats/1.json
   def update
-    @stat.update(stat_params)
+    return unless stat_params['evaluables']
+    ids = stat_params['evaluables'].map(&:to_i)
+    @stat.evaluables.where.not(subject_id: ids).destroy_all
+    ids.each do |evaluable|
+      @stat.evaluables.find_or_create_by(subject_id: evaluable)
+    end
+
+    # @stat.update(stat_params)
   end
 
   # DELETE /stats/1 or /stats/1.json

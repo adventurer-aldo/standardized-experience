@@ -57,6 +57,9 @@
     end
   end
 
+  def elaborate(subject: , level: 0, journey_id: 137, format: 0, focus: 0)
+  end
+
   #=======================================================================================
   # -- INDEX
   # The main page. Takes parameters LEVEL and SUBJECT before choosing which questions to
@@ -71,10 +74,10 @@
                  Journey.last
                end
 
-    @subject = if params[:subject] && current_user.stat.subjects.or(Subject.where(visibility: 0)).where(id: params[:subject].to_i).exists?
+    @subject = if params[:subject] && current_user.subjects.or(Subject.where(visibility: 0)).where(id: params[:subject].to_i).exists?
                  Subject.find_by(id: params[:subject])
-               elsif !current_user.stat.evaluables.empty?
-                 Subject.find_by(id: current_user.stat.evaluables.sample)
+               elsif !current_user.evaluables.empty?
+                 current_user.evaluables.sample.subject
                else
                  Subject.where(visibility: 0).order(Arel.sql('RANDOM()')).first
                end
@@ -94,56 +97,34 @@
               end
 
     base_query = @subject.questions.order(Arel.sql('RANDOM()'))
+    focus = current_user.stat.focus_level
 
     all_questions = case @level
                     when 0
-                      case Stat.last.focus_level
-                      when 0
-                        base_query.where.not(level: 3, evaluable: 1).limit(rand(3..10)) # Prática
-                      when 1
-                        base_query.where(level: 1, evaluable: 1).limit(rand(3..10)) # Teste 1
-                      when 2
-                        base_query.where(level: 2, evaluable: 1).limit(rand(3..10)) # Teste 2
-                      end
+                      base_query.where(level: [[0, 1, 2, 4], 1, 2][focus]).limit(rand(3..10))
                     when 1
-                      case Stat.last.focus_level
-                      when 0, 1
-                        base_query.where(level: 1, evaluable: 1).limit(rand(10..35)) # Teste 1
-                      else
-                        base_query.where(level: 2, evaluable: 1).limit(rand(10..35)) # Teste 2
-                      end
+                      base_query.where(level: focus == 2 ? 2 : 1).limit(rand(10..35))
                     when 2
-                      case Stat.last.focus_level
+                      case focus
                       when 0
-                        base_query.where(level: 2, evaluable: 1).limit(rand(10..28)) + base_query.where(level: 1).limit(rand(0..7)) # Teste 2
-                      when 1
-                        base_query.where(level: 1, evaluable: 1).limit(rand(10..40)) # Teste 1
-                      when 2
-                        base_query.where(level: 2, evaluable: 1).limit(rand(10..40)) # Teste 2
+                        base_query.where(level: 2).limit(rand(10..28)) + base_query.where(level: 1).limit(rand(0..7)) # Teste 2
+                      when 1, 2
+                        base_query.where(level: focus).limit(rand(10..40))
                       end
                     when 3
-                      base_query.where.not(level: [3, 4], evaluable: 1).limit(rand(10..40)) # Reposição
+                      base_query.where(level: [1, 2]).limit(rand(10..40)) # Reposição
                     when 4
-                      base_query.where(level: 3, evaluable: 1).limit(rand(10..40)) # Dissertação
+                      base_query.where(level: 3).limit(rand(10..40)) # Dissertação
                     when 5
-                      case Stat.last.focus_level
+                      case focus
                       when 0
-                        base_query.where(level: 4, evaluable: 1).limit(rand(5..30)) + base_query.where.not(level: [3, 4]).limit(rand(10..20)) # Exame
-                      when 1
-                        base_query.where(level: 1, evaluable: 1).limit(rand(25..45)) # Exame 1
-                      when 2
-                        base_query.where(level: 2, evaluable: 1).limit(rand(25..45)) # Exame 1
+                        base_query.where(level: 4).limit(rand(5..30)) + base_query.where.not(level: [3, 4]).limit(rand(10..20)) # Exame
+                      when 1, 2
+                        base_query.where(level: focus).limit(rand(25..45)) # Exame 1
                       end
                     when 6
-                      case Stat.last.focus_level
-                      when 0
-                        base_query.where.not(level: 3, evaluable: 1).limit(rand(50..100)) # Recorrência
-                      when 1
-                        base_query.where(level: 1, evaluable: 1).limit(rand(50..100)) # Teste 1
-                      when 2
-                        base_query.where(level: 2, evaluable: 1).limit(rand(50..100)) # Teste 2
-                      end
-                    end
+                      base_query.where(level: focus.zero? ? [1, 2, 4] : focus).limit(rand(50..100))
+                    end.shuffle
 
     @ost =  case @level
             when 0
@@ -163,39 +144,32 @@
             end
     @ost_index = @ost[0].index(@ost[0].sample)
 
-    @full_query = all_questions.shuffle
-
-    @quiz = Quiz.create!(
+    @quiz = current_user.stat.quizzes.create!(
       subject_id: @subject.id,
       first_name: '', last_name: '',
       journey_id: @journey.id,
       start_time: Time.zone.now,
       format: @format,
-      level: @level,
-      stat_id: current_user.stat.id
+      level: @level
     )
 
-    @full_query.each do |question|
-      type = rand(0..(question.question_types.size - 1)).to_i
+    all_questions.each do |question|
+      type = question.question_types.sample
       calculated_variables = []
 
-      case question.question_types[type]
-      when 'choice', 'multichoice', 'veracity'
-        choices = question.choices.map(&:id).map(&:to_s)
-        calculated_variables = case question.question_types[type]
+      case type
+      when 'choice', 'veracity'
+        calculated_variables = case type
                                when 'veracity'
-                                 question.answer.each_with_index do |_choice_answer, index|
-                                   choices.push("a#{index}")
-                                 end
-                                 choices.shuffle!
-                                 choices[0..rand(1..(choices.size - 1)).to_i]
+                                 question.choices.shuffle[0..rand(1..(question.choices.size - 1))].map(&:id).map(&:to_s)
                                else
-                                 choices = choices[0..rand(0..(choices.size - 1)).to_i]
-                                 question.answer.each_with_index do |_choice_answer, index|
-                                   choices.push("a#{index}")
+                                 choices = question.choices.where(veracity: 0)
+                                 choices = choices[0..rand(0..(choices.size - 1))]
+                                 question.choices.where(veracity: 1).each do |choice_answer|
+                                   choices.push(choice_answer)
                                  end
                                  choices.shuffle!
-                                 choices
+                                 choices.map(&:id).map(&:to_s)
                                end
       when 'formula'
         que = question.question.dup
@@ -223,11 +197,9 @@
         end
       end
 
-      Answer.create!(
-        quiz_id: @quiz.id,
-        attempt: '',
+      @quiz.answers.create!(
         question_id: question.id,
-        grade: (Float(20) / @full_query.size),
+        grade: (Float(20) / all_questions.size),
         question_type: type,
         variables: calculated_variables
       )
@@ -252,7 +224,7 @@
     if params[:answer]
       params[:answer].each do |id, answer|
         ans = Answer.find_by(id: id.to_i)
-        case ans.question.question_types[ans.question_type]
+        case ans.question_type
         when 'table'
           og = ans.question.answer.map { |row| row.split('|') }
           answer.each do |row, input|
@@ -263,7 +235,7 @@
           og.map! { |row| row.join('|') }
           ans.update(attempt: og)
         else
-          ans.update(attempt: (answer.instance_of?(Array) ? answer : [answer]))
+          ans.update(attempt: answer)
         end
       end
     end
@@ -330,7 +302,7 @@
   def results
     @quiz = Quiz.find_by(id: params[:id].to_i)
     @grade = helpers.grade(@quiz, true)
-    grade_num = 
+    grade_num = @grade.gsub(',', '.').to_f
     @quiz_start = @quiz.start_time.to_time
     @quiz_end = @quiz.end_time.to_time
     @duration = Time.at(@quiz_end.to_i - @quiz_start.to_i)

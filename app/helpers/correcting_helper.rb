@@ -4,7 +4,7 @@ module CorrectingHelper
     total = 0.0
     answers = quiz.answers
     answers.each do |answer|
-      total += answer.grade if correct(answer) == true
+      total += answer.grade if answer.correct?
     end
     if text == true
       total.round(2).to_s.gsub('.', ',')
@@ -13,72 +13,11 @@ module CorrectingHelper
     end
   end
 
-  def correct(answer)
-    question = answer.question
-
-    correctness = case question.question_types[answer.question_type]
-                  when 'open'
-                    #if Stat.last.lenient_answer == 1
-                    #  matches = []
-                    #  question.answer.each do |matcher|
-                    #    matches.push(matcher.split(' ').intersection(answer.attempt).size)
-                    #  end
-                    #  return matches.max
-                    #els
-                    if (answer.attempt.intersect?(question.answer) &&
-                        question.parameters.include?('strict')
-                      ) ||
-                      (answer.attempt.map(&:downcase).intersect?(question.answer.map(&:downcase)) &&
-                        !question.parameters.include?('strict')
-                      )
-                      true
-                    end
-                  when 'choice', 'multichoice'
-                    true if answer.attempt.sort == question.answer.sort
-                  when 'caption'
-                    if (answer.attempt.sort == question.answer.sort &&
-                        question.parameters.include?('strict') &&
-                        question.parameters.include?('order') == false
-                       ) ||
-                       (answer.attempt.map(&:downcase).sort == question.answer.map(&:downcase).sort &&
-                        question.parameters.include?('strict') == false &&
-                        question.parameters.include?('order') == false
-                       ) ||
-                       (answer.attempt.map(&:downcase) == question.answer.map(&:downcase) &&
-                        question.parameters.include?('strict') == false &&
-                        question.parameters.include?('order')
-                       ) ||
-                       (answer.attempt == question.answer &&
-                        question.parameters.include?('strict') &&
-                        question.parameters.include?('order')
-                       )
-                      true
-                    end
-                  when 'veracity'
-                    true if organize_variables_text(answer).intersection(question.answer).sort == answer.attempt.sort
-                  when 'formula'
-                    imprint = begin
-                                format(question.answer.first, *answer.variables)
-                              end
-                    condition = eval <<-RUBY, binding, __FILE__, __LINE__ + 1
-                      imprint
-                    RUBY
-                    true if eval(condition) == answer.attempt.first
-                  when 'table'
-                    true if (question.answer.map(&:downcase) == answer.attempt.map(&:downcase) &&
-                    question.parameters.include?('strict') == false) ||
-                    (question.answer == answer.attempt &&
-                      question.parameters.include?('strict'))
-                  end
-    return correctness
-  end
-
   def show_correct(answer)
-    question_type = answer.question.question_types[answer.question_type]
-    case answer.question.question_types[answer.question_type]
+    case answer.question_type
     when 'open'
-      return %(<div class="form-control form-control-lg"><span class='text-wrap#{correct(answer) ? '' : ' text-decoration-line-through' }' style="text-decoration-color: red !important;font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt.first}</span>
-        #{correct(answer) ? '' : %(<span style="font-family: 'Homemade Apple', cursive;color: red;">#{answer.question.answer.sample}</span>)}</div>).html_safe
+      return %(<div class="form-control form-control-lg"><span class='text-wrap#{answer.correct? ? '' : ' text-decoration-line-through' }' style="text-decoration-color: red !important;font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt.first}</span>
+        #{answer.correct? ? '' : %(<span style="font-family: 'Homemade Apple', cursive;color: red;">#{answer.question.answer.sample}</span>)}</div>).html_safe
     when 'caption'
       attempts = answer.attempt.dup
       answers = answer.question.answer.dup
@@ -125,35 +64,15 @@ module CorrectingHelper
         end +
         %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: red;">#{solve}</span></div></div>)
       end).join.html_safe
-    when 'choice', 'multichoice', 'veracity'
-      type = case question_type
-             when 'choice'
+    when 'choice', 'veracity'
+      type = if answer.question_type == 'choice' && answer.question.choices.where(veracity: 1).size == 1
                'radio'
-             when 'multichoice', 'veracity'
+             else
                'checkbox'
              end
-      role = case question_type
-             when 'veracity'
-               ' form-switch" role="switch'
-             else
-               ''
-             end
-      variables = answer.variables.map do |variable|
-        if variable.include? 'a'
-          text = answer.question.answer[variable[1..].to_i]
-          if answer.question.choices.where(decoy: text).exists?
-            text += answer.question.choices.where(decoy: text).first.image.attached? ? %(<br><img src="#{answer.question.choices.where(decoy: text).first.image.url}" class"img-fluid">) : ''
-          end
-          text
-        else
-          choice = Choice.find_by(id: variable.to_i)
-          if choice.image.attached?
-            %(#{choice.decoy}<br><img src="#{choice.image.url}" class="img-fluid">)
-          else
-            choice.decoy
-          end
-        end
-      end
+      role = answer.question_type == 'veracity' ? ' form-switch" role="switch' : ''
+
+      variables = answer.map_with_decoys.map(&:first)
       return variables.map do |option|
         if answer.question.answer.include?(option) && answer.attempt.include?(option) # Correct and selected
           %(<div class="form-check#{role}">
@@ -177,7 +96,7 @@ module CorrectingHelper
             </label>
           </div>)
         elsif !answer.attempt.include?(option) && !answer.question.answer.include?(option) # Incorrect and not selected
-          if question_type == 'veracity'
+          if answer.question_type == 'veracity'
             %(<div class="form-check#{role}">
               <input class="form-check-input bg-success" type="#{type}" name="flex#{type.capitalize}Disabled#{answer.id}-#{variables.index(option)}" id="Check#{answer.id}-#{variables.index(option)}" disabled>
               <label class="form-check-label" for="Check#{answer.id}-#{variables.index(option)}">
