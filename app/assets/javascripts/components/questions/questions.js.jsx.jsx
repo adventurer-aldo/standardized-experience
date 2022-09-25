@@ -152,8 +152,8 @@ class DataQuestions extends React.Component {
     }
     this.setState(prev => {
       return { submitData: [{...prev.submitData[0], question: '', answer: Array(prev.submitData[0].answer.length).fill(''),
-      choices: Array(prev.submitData[0].choices.length).fill(prev.submitData[0].questionTypes.includes('table') ? Array(prev.submitData[0].choices[0].length).fill('') : '')}, {...prev.submitData[1], question: '', answer: Array(prev.submitData[1].answer.length).fill(''),
-    choices: Array(prev.submitData[1].choices.length).fill(prev.submitData[1].questionTypes.includes('table') ? Array(prev.submitData[1].choices[0].length).fill('') : '')}], editingID: null }
+      choices: Array(prev.submitData[0].choices.length).fill(Array(prev.submitData[0].choices[0].length).fill(''))}, {...prev.submitData[1], question: '', answer: Array(prev.submitData[1].answer.length).fill(''),
+    choices: Array(prev.submitData[1].choices.length).fill(Array(prev.submitData[1].choices[0].length).fill(''))}], editingID: null }
     })
     if (typeof document.getElementById('floatingInput') !== 'undefined') document.getElementById('floatingInput').focus();
   }
@@ -298,7 +298,7 @@ class DataQuestions extends React.Component {
   
   // Returns a completed string of the fill question type
   fillComplete(paragraph, fillers) {
-    let desiredString = paragraph;
+    let desiredString = `${paragraph}`;
     for (let i = 0; i < fillers.length;i++) {
       desiredString = desiredString.replace('%s', `${fillers[i]}`);
     }
@@ -322,7 +322,7 @@ class DataQuestions extends React.Component {
       if (newData[target].questionTypes[0] == 'table') {
         count = newData[target].choices.toString()
       } else {
-        count = newData[target].choices[0]
+        count = newData[target].choices[0][0]
       }
       count = count.match(/%s/g) || []
       if (count.length > 20) count = Array(20).fill('');

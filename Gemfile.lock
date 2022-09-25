@@ -192,6 +192,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    redcarpet (3.5.1)
     require_all (3.0.0)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -216,10 +217,6 @@ GEM
     thor (1.2.1)
     tilt (2.0.11)
     timeout (0.2.0)
-    turbo-rails (1.1.1)
-      actionpack (>= 6.0.0)
-      activejob (>= 6.0.0)
-      railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2022.1)
@@ -248,11 +245,11 @@ DEPENDENCIES
   queue_classic
   rails (~> 7.0.2, >= 7.0.2.2)
   react-rails
+  redcarpet
   require_all
   ruby-statistics
   sassc-rails
   sprockets-rails
-  turbo-rails
   tzinfo-data
 
 RUBY VERSION

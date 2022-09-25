@@ -63,7 +63,10 @@ class Api::QuestionsController < ApplicationController
     return unless @question.save && question_params['choices']
 
     question_params['choices'].each { |_index, args| Choice.create(question_id: @question.id, texts: args['texts']) }
-    question_params['answer'].each { |answer| Choice.create(question_id: @question.id, texts: [answer], veracity: 1) } if @question.question_types.intersect?(['choice','veracity'])
+
+    return unless @question.question_types.intersect?(%w[choice veracity])
+
+    question_params['answer'].each { |answer| Choice.create(question_id: @question.id, texts: [answer], veracity: 1) }
   end
 
   # PATCH/PUT api/questions/1 or api/questions/1.json

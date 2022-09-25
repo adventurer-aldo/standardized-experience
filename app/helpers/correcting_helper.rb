@@ -13,6 +13,16 @@ module CorrectingHelper
     end
   end
 
+  def get_empty_table_strings(texts)
+    array = []
+    texts.each_with_index do |text, index|
+      text.each_with_index do |cell, rIndex|
+        array.push([index, rIndex]) if cell == ''
+      end
+    end
+    return array
+  end
+
   def show_correct(answer)
     case answer.question_type
     when 'open'
@@ -65,7 +75,7 @@ module CorrectingHelper
         %(<div class='form-control form-control-lg' style="font-family: 'Homemade Apple', cursive;color: red;">#{solve}</span></div></div>)
       end).join.html_safe
     when 'choice', 'veracity'
-      type = if answer.question_type == 'choice' && answer.question.choices.where(veracity: 1).size == 1
+      type = if answer.question_type == 'choice' && answer.choices.where(veracity: 1).size == 1
                'radio'
              else
                'checkbox'
@@ -123,66 +133,43 @@ module CorrectingHelper
       return %(<div class="form-control form-control-lg"><span class='text-wrap#{correct(answer) ? '' : ' text-decoration-line-through' }' style="text-decoration-color: red !important;font-family: 'Homemade Apple', cursive;color: blue;"><b>R:</b> #{answer.attempt.first}</span>
       #{correct(answer) ? '' : %(<span style="font-family: 'Homemade Apple', cursive;color: red;">#{eval(condition)}</span>)}</div>).html_safe
     when 'table'
-      content_tag(:table,
-        (content_tag(:thead,
-          content_tag(:tr, (answer.attempt.first.split('|').map do |head|
-            if head[0] == '?' && head[-1] == '?'
-              temp = head.dup
-              temp[-1] = ''
-              temp[0] = ''
-              content_tag(:th, temp, style: "font-family: 'Homemade Apple', cursive;color: blue;")
-            else
-              content_tag(:th, head)
-            end
-          end).join.html_safe), class: 'bordering'
-        ) +
-        content_tag(:tbody,
-          answer.attempt[1..].collect do |row|
-            content_tag(:tr,
-              row.split('|').map do |column|
-                if column[0] == '?' && column[-1] == '?'
-                  temp = column.dup
-                  temp[-1] = ''
-                  temp[0] = ''
-                  content_tag(:td, temp, style: "font-family: 'Homemade Apple', cursive;color: blue;")
-                else
-                  content_tag(:td, column)
-                end
-              end.join.html_safe
-            )
-          end.join.html_safe, class: 'bordering'
-        ))
-      ) + (correct(answer) ? '' : content_tag(:table,
-        (content_tag(:thead,
-          content_tag(:tr, (answer.question.answer.first.split('|').map do |head|
-            if head[0] == '?' && head[-1] == '?'
-              temp = head.dup
-              temp[-1] = ''
-              temp[0] = ''
-              content_tag(:th, temp, style: "font-family: 'Homemade Apple', cursive;color: red;")
-            else
-              content_tag(:th, head)
-            end
-          end).join.html_safe), class: 'bordering-red'
-        ) + '<br>'.html_safe +
-        content_tag(:tbody,
-          answer.question.answer[1..].collect do |row|
-            content_tag(:tr,
-              row.split('|').map do |column|
-                if column[0] == '?' && column[-1] == '?'
-                  temp = column.dup
-                  temp[-1] = ''
-                  temp[0] = ''
-                  content_tag(:td, temp, style: "font-family: 'Homemade Apple', cursive;color: red;")
-                else
-                  content_tag(:td, column)
-                end
-              end.join.html_safe
-            )
-          end.join.html_safe, class: 'bordering-red'
-        ))
-      )
-    )
+      empty_indexes = get_empty_table_strings(answer.choices.map(&:texts))
+      content_tag(:div, answer.choices.each_with_index.collect do |choice, index|
+        content_tag(:div, choice.texts.each_with_index.map do |text, rIndex|
+          content_tag(:div, text == '' ? answer.attempt[empty_indexes.index([index, rIndex])] : text , class: 'form-control w-100 rounded-0', style: text == '' ? "font-family: 'Homemade Apple', cursive;color: blue;" : '')
+        end.join.html_safe, class: 'd-flex w-100')
+      end.join.html_safe, class: 'w-100 rounded border border-muted overflow-hidden') + (answer.correct? ? '' : content_tag(:div, answer.choices.each_with_index.collect do |choice, index|
+        content_tag(:div, choice.texts.each_with_index.map do |text, rIndex|
+          content_tag(:div, text == '' ? answer.question.answer[empty_indexes.index([index, rIndex])] : text , class: 'form-control w-100 rounded-0 border-danger', style: text == '' ? "font-family: 'Homemade Apple', cursive;color: red;" : '')
+        end.join.html_safe, class: 'd-flex w-100')
+      end.join.html_safe, class: 'w-100 mt-2 rounded border border-danger overflow-hidden'))
+    when 'fill'
+      filler = answer.choices.first.texts.first
+      filler_correct = filler.dup
+      Array(0...(filler.split('%s').size - 1)).each do |i|
+        filler['%s'] = "<span class='text-decoration-underline' style=\"font-family: 'Homemade Apple', cursive;color: blue;\">#{[nil, ''].include?(answer.attempt[i]) ? '_______' : answer.attempt[i]}</span>"
+        filler_correct['%s'] = "<span class='text-decoration-underline' style=\"font-family: 'Homemade Apple', cursive;color: red;\">#{answer.question.answer[i]}</span>"
+      end
+      (content_tag(:div, filler.html_safe, class: answer.correct? ? '' : 'opacity-75') + (answer.correct? ? '' : content_tag(:div, filler_correct.html_safe))).html_safe
+    when 'match'
+      variables = answer.variables
+      real_answers = answer.variables.map { |variable| answer.question.answer[answer.choices.where(veracity: 0).map(&:id).index(variable.to_i)] }
+      wrongs = variables.each_with_index.filter { |_variable, index| answer.attempt[index] != real_answers[index] }.map(&:first)
+      content_tag(:div, variables.each_with_index.collect do |variable, index|
+        text = Choice.find_by(id: variable.to_i).texts.first
+        content_tag(:div,
+          content_tag(:div, content_tag(:span, answer.attempt[index], class: 'p-2') , class: 'w-100 d-flex align-items-center') +
+          content_tag(:button, content_tag(:i, '', class: 'bi bi-arrow-left-right') ,disabled: true, class: "btn btn-#{real_answers[index] == answer.attempt[index] ? 'success' : 'danger'} rounded-0") +
+          content_tag(:div, content_tag(:span, text, class: "p-2"), class: 'w-100 d-flex align-items-center justify-content-end'),
+          class: 'd-flex w-100 border border-muted')
+      end.join.html_safe + (wrongs.size > 0 ? wrongs.each_with_index.collect do |variable, index|
+        text = Choice.find_by(id: variable.to_i).texts.first
+        content_tag(:div,
+          content_tag(:div, content_tag(:span, real_answers[index], class: 'p-2 text-danger') , class: 'w-100 d-flex align-items-center') +
+          content_tag(:button, content_tag(:i, '', class: 'bi bi-arrow-left-right') ,disabled: true, class: "btn btn-dark rounded-0") +
+          content_tag(:div, content_tag(:span, text, class: "p-2 text-danger"), class: 'w-100 d-flex align-items-center justify-content-end'),
+          class: 'd-flex w-100 border border-muted')
+      end.join.html_safe  : ''), class: 'border border-muted rounded')
     end
   end
 end

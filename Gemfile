@@ -14,6 +14,9 @@ gem "sprockets-rails"
 # Use PostgreSQL as the database for Active Record
 gem 'pg'
 
+# Markdown
+gem 'redcarpet'
+
 # Load environment variables
 gem 'dotenv'
 

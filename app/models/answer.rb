@@ -2,6 +2,7 @@
 class Answer < ApplicationRecord
   belongs_to :question, foreign_key: 'question_id'
   belongs_to :quiz, foreign_key: 'quiz_id'
+  has_many :choices, through: :question
 
   # For choice and veracity questions, use the variables stored in the variables column
   # to display the choices in that specific order.
@@ -49,7 +50,7 @@ class Answer < ApplicationRecord
                       true
                     end
                   when 'veracity'
-                    true if map_with_decoys.map(&:first).intersection(question.choices.where(veracity: 1).map(&:texts).map(&:first)).sort == attempt.sort
+                    true if map_with_decoys.map(&:first).intersection(choices.where(veracity: 1).map(&:texts).map(&:first)).sort == attempt.sort
                   when 'formula'
                     imprint = begin
                                 format(question.answer.first, *variables)
@@ -58,11 +59,15 @@ class Answer < ApplicationRecord
                       imprint
                     RUBY
                     true if eval(condition) == attempt.first
-                  when 'table'
+                  when 'table', 'fill'
                     true if (question.answer.map(&:downcase) == attempt.map(&:downcase) &&
                              !question.parameters.include?('strict')) ||
                             (question.answer == attempt &&
                              question.parameters.include?('strict'))
+                  when 'match'
+                    if attempt == variables.map { |variable| question.answer[choices.where(veracity: 0).map(&:id).index(variable.to_i)] }
+                      true
+                    end
                   end
     return correctness
   end

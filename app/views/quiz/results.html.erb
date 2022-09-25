@@ -4,12 +4,12 @@
         <span class='align-middle erasable'>Retornar</span></li>
     <% end %>
     <%= link_to quiz_path, class: 'nav-link' do %>
-        <li id='nav-li-Home' class='nav-item text-white'><%= fa_icon 'arrow-left', class: 'align-middle' %>
+        <li id='nav-li-Home' class='nav-item text-white'><i class="bi bi-pen align-middle"></i>
         <span class='align-middle erasable'>Praticar</span></li>
     <% end %>
 
 </ul>
-    <div id='nav-li-Time' class='text-white p-1 me-0 ms-auto '><%= fa_icon 'clock-o', class: 'align-middle' %> <%= @duration.min %>m <%= @duration.sec %>s</div>
+    <div id='nav-li-Time' class='text-white p-1 me-0 ms-auto '><i class="bi bi-clock-history align-middle"></i> <%= @duration.min %>m <%= @duration.sec %>s</div>
     </nav>
 <%= audio_tag(@fanfare, autoplay: true, id: 'fanfare')%>
 <div id='page' class="bg-light p-4">

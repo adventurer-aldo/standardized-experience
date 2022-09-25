@@ -68,10 +68,10 @@
   #=======================================================================================
 
   def index
-    @journey = if params[:journey] && Journey.where(id: params[:journey].to_i).exists?
+    @journey = if params[:journey] && current_user.journeys.where(id: params[:journey].to_i).exists?
                  Journey.find_by(id: params[:journey].to_i)
                else
-                 Journey.last
+                 current_user.journeys.last
                end
 
     @subject = if params[:subject] && current_user.subjects.or(Subject.where(visibility: 0)).where(id: params[:subject].to_i).exists?
@@ -158,6 +158,8 @@
       calculated_variables = []
 
       case type
+      when 'match'
+        calculated_variables = question.choices.where(veracity: 0).map(&:id).shuffle
       when 'choice', 'veracity'
         calculated_variables = case type
                                when 'veracity'
@@ -223,20 +225,7 @@
 
     if params[:answer]
       params[:answer].each do |id, answer|
-        ans = Answer.find_by(id: id.to_i)
-        case ans.question_type
-        when 'table'
-          og = ans.question.answer.map { |row| row.split('|') }
-          answer.each do |row, input|
-            input.each do |which_column, attempt|
-              og[row.to_i][which_column.to_i] = "?#{attempt}?"
-            end
-          end
-          og.map! { |row| row.join('|') }
-          ans.update(attempt: og)
-        else
-          ans.update(attempt: answer)
-        end
+        Answer.find_by(id: id.to_i).update(attempt: answer)
       end
     end
 
@@ -306,6 +295,10 @@
     @quiz_start = @quiz.start_time.to_time
     @quiz_end = @quiz.end_time.to_time
     @duration = Time.at(@quiz_end.to_i - @quiz_start.to_i)
+    puts '=' * 10
+    puts @quiz.answers.last.choices.first.texts.first.count('%s')
+    puts @quiz.answers.last.choices.first.texts
+    puts '=' * 10
 
     @fanfare =  if grade_num < 7
                   helpers.audio_path('results/failhard.ogg')

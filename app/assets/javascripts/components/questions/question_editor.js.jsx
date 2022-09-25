@@ -67,13 +67,13 @@ function QuestionEditor(props) {
                       {props.editing === null ? `Chave ${props.data.answer.length > 1 ? index + 1 : ''}` : `Nova chave ${props.data.answer.length > 1 ? index + 1 : ''}`}
                     </label>
                   </div>
-                  <button disabled={props.data.answer.length < 2} type="button" className="btn btn-danger border-top border-bottom rounded-0" onClick={() => {props.handleDeleteElement('answer', index);props.handleDeleteElement('choices', index)}}>
+                  <button disabled={props.data.answer.length < 2} tabIndex='-1' type="button" className="btn btn-danger border-top border-bottom rounded-0" onClick={() => {props.handleDeleteElement('answer', index);props.handleDeleteElement('choices', index)}}>
                     <i className="bi-dash fs-3 align-middle" />
                   </button>
                   <div className="form-floating w-50">
                     <input type="text" className="rounded-0 form-control" id={`floatingChoice${index}`}
                     placeholder="Valor" name={`question[choices][${index}][texts][]`} required="required"
-                    value={props.data.choices[index]} onChange={(event) => props.handleChange(event, `choices`, index)}/>
+                    value={props.data.choices[index][0]} onChange={(event) => props.handleChange(event, `choices`, index, 0)}/>
                     <label htmlFor={`floatingChoice${index}`}>
                       {props.editing === null ? `Valor ${props.data.choices.length > 1 ? index + 1 : ''}` : `Novo valor ${props.data.answer.length > 1 ? index + 1 : ''}`}
                     </label>
@@ -93,13 +93,13 @@ function QuestionEditor(props) {
       <div><strong>Texto:</strong> <span className="text">{props.fillComplete(props.data.choices[0][0], props.data.answer)}</span>
         <div className="form-floating">
           <textarea id="Sentence" className="form-control" required={true} type="text" name="question[choices][0][texts][]" 
-          value={props.data.choices[0]} onChange={(event) => {props.handleChange(event, 'choices', 0);props.handleFillAmount()}} style={{minHeight: 50}} />
+          value={props.data.choices[0][0]} onChange={(event) => {props.handleChange(event, 'choices', 0, 0);props.handleFillAmount()}} style={{minHeight: 50}} />
           <label htmlFor="Sentence">Parágrafo. Use %s para adicionar lacunas.</label>
         </div>
           {props.data.answer.map((answer, index) => (
           <div key={index} className="form-floating d-flex">
             <input type="text" className="rounded-0 rounded-start form-control" id={`floatingAnswer${index}`}
-            placeholder="Resposta" name="question[answer][]" required="required"
+            placeholder="Resposta" name="question[answer][]" required={true}
             value={answer} onChange={(event) => props.handleChange(event, `answer`, index)}/>
             <label htmlFor={`floatingAnswer${index}`}>
               {props.editing === null ? `Lacuna ${props.data.answer.length > 1 ? index + 1 : ''}` : `Nova lacuna ${props.data.answer.length > 1 ? index + 1 : ''}`}
@@ -156,7 +156,7 @@ function QuestionEditor(props) {
 
       </div>)
     } else {
-      return <div></div>
+      return <div>--UNRECOGNIZED QUESTION TYPE--</div>
     }
   }
 

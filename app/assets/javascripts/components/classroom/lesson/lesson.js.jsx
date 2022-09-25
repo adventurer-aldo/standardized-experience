@@ -2,7 +2,9 @@ function Lesson(props) {
   [points, setPoints] = React.useState(props.points);
   [progress, setProgress] = React.useState(0);
   [health, setHealth] = React.useState(100);
-  [attempts, setAttempts] = React.useState(countAttempts(props.points[0]))
+  [attempts, setAttempts] = React.useState([]);
+  [decoys, setDecoys] = React.useState([]);
+  [alternatives, setAlternatives] = React.useState([]);
   [sounds, setSounds] = React.useState({
     applause: [new Audio(props.sounds.applause[0]), new Audio(props.sounds.applause[1])],
     mistake: new Audio(props.sounds.mistake), correct: new Audio(props.sounds.correct),
@@ -10,23 +12,57 @@ function Lesson(props) {
     input: new Audio(props.sounds.input), cancel: new Audio(props.sounds.cancel)
   });
 
+  React.useEffect(() => {
+    setAttempts(Array(countAttempts(points[progress])).fill(''))
+  },[])
+
+  React.useEffect(() => {
+    if (progress > points.length / 1.5 && document.getElementById('bgm').src !== props.fire) {
+      document.getElementById('bgm').src = props.fire;
+      document.getElementById('bgm').load();
+    }
+  },[progress])
+
+  React.useEffect(() => {
+    if (health <= 0) {
+      window.location = '/aulas'
+    }
+  },[health])
+
+  const getNextDecoys = (target) => {
+    if (target.choices.length < 1 || !['choice','veracity'].includes(target.question_type)) return;
+    let amount = Math.floor(Math.random() * target.choices.length)
+    let choices = target.choices
+    choices.sort(() => Math.floor(Math.random() * 5) == 0)
+    let newDecoys = [];
+    for (let i=0;i<amount;i++) {
+      newDecoys.push(choices[i][0]);
+    }
+    return newDecoys
+  }
   const handleChange = (event, attemptIndex) => {
     let value = event.target.value.trim().toLowerCase();
     let completeness = determineCompleteness(value);
-    if (value.length > points[progress].attempt[attempt].length) {
+    if (value.length > attempts[attemptIndex].length) {
       if ([2,1].includes(completeness)) {
         if (completeness == 2) {
           sounds.correct.play();
+          if (['choice','veracity'].includes(points[progress+1].question_type)) setAlternatives(getNextDecoys(points[progress+1]).concat(points[progress+1].answers))
+          setAttempts(Array(countAttempts(points[progress+1])).fill(''))
+          setProgress(prevProgress => {
+            return prevProgress + 1;
+          })
         } else {
+          setAttempts(prev => {
+            p = prev;
+            p[attemptIndex] = value;
+            return p
+          })
           sounds.input.play();
         } 
-        setAttempts(prev => {
-          p = prev;
-          p[attemptIndex] = value;
-          return p
-        })
       } else {
         sounds.damage.play();
+        setHealth(prev => prev - attempts.length)
       }
     } else {
       sounds.cancel.play();
@@ -34,13 +70,17 @@ function Lesson(props) {
   }
 
   const countAttempts = (point) => {
-    if (point.question_type == 'open') {
+    if (point.question_type == 'open' || (point.question_type == 'choice' && point.answers.length == 1)) {
       return 1
-    } else if (['choice','caption','match','table','fill'].includes(point.question_type)) {
+    } else if (['caption','match','table','fill'].includes(point.question_type)) {
       return point.answers.length
-    } else if (point.question_type == 'veracity') {
-      2
+    } else if (['choice','veracity'].includes(point.question_type)) {
+      0
     }
+  }
+
+  const getAlternatives = (target) => {
+
   }
 
   const determineCompleteness = (value) => {
@@ -55,24 +95,12 @@ function Lesson(props) {
     }
   }
 
-  React.useEffect(() => {
-    if (progress > points.length / 1.5) {
-      document.getElementById('bgm').src = props.fire;
-      document.getElementById('bgm').load();
-    }
-  },[progress])
-
   return (
     <div className="text-bg-dark bg-opacity-75 fs-6 p-3 rounded overflow-scroll h-100">
-      <div className="progress mb-1">
-        <div className={"progress-bar-striped progress-bar-animated progress-bar text-dark fw-bold " + (progress > points.length / 1.5 ? 'bg-danger' : 'bg-warning')} role="progressbar" style={{width: `${progress / points.length * 100}%`}} aria-valuenow={progress / points.length * 100} aria-valuemin="0" aria-valuemax="100">{(progress / points.length * 100).toPrecision(4)}%</div>
-      </div>
-      <div className="progress" style={{height: 30}}>
-        <div className={"fs-5 progress-bar text-dark fw-bold " + (50 > health ? (20 > health ? 'bg-danger' : 'bg-warning') : 'bg-success')} role="progressbar" style={{width: `${health}%`}} aria-valuenow={health} aria-valuemin="0" aria-valuemax="100">{health}/100 HP</div>
-      </div>
+      <Bars health={health} progress={progress} points={points.length} />
       <div className="fs-3 text-center p-2 fw-bold">{props.tag}</div>
       <div className="fs-5 p-3 text-center">{points[progress].question}</div>
-      <LessonSolver point={points[progress]} handleChange={handleChange}/>
+      <LessonSolver attempts={attempts} alternatives={alternatives} point={points[progress]} handleChange={handleChange}/>
     </div>
   )
 }
