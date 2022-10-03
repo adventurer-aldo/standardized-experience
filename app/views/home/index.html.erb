@@ -1,6 +1,6 @@
 <head><title>Principal | SE</title>
 </head><%= render 'shared/header' %>
-<%= render 'shared/nav_home' %>
+<%= nav(to: 'home') %>
 
 <% if @pop_quiz.exists? %>
   <%= render 'home/components/tip' %>

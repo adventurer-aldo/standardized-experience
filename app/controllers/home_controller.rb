@@ -8,8 +8,8 @@ class HomeController < ApplicationController
     unless current_user.journeys.empty?
       @journey = current_user.journeys.last
       @progress = ['', 'Primeiras avaliações', 'Segundas avaliações', 'Reposições',
-                   'Realização de Trabalhos', 'Exames Normais', 'Exames de Recorrência',
-                   'Resultados da Jornada'][@journey.level]
+                   'Realização de trabalhos', 'Exames normais', 'Exames de recorrência',
+                   'Resultados da jornada'][@journey.level]
 
       @ost = "quiz/#{@journey.soundtrack.name}/"
       @ost += case @journey.level
@@ -40,7 +40,7 @@ class HomeController < ApplicationController
                           quiz.subject.title,
                           quiz.grade(text: true)) + Misc::Text.evaluate(quiz.grade)
                  else
-                   'Você ainda não fez nenhum teste. Comece um!'
+                   'Você ainda não fez nenhum teste. Porquê não iniciar um agora?'
                  end
   end
 

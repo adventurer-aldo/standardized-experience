@@ -41,8 +41,8 @@ function Lesson(props) {
     return newDecoys
   }
   const handleChange = (event, attemptIndex) => {
-    let value = event.target.value.trim().toLowerCase();
-    let completeness = determineCompleteness(value);
+    let value = event.target.value;
+    let completeness = determineCompleteness(value.toLowerCase());
     if (value.length > attempts[attemptIndex].length) {
       if ([2,1].includes(completeness)) {
         if (completeness == 2) {
@@ -53,19 +53,17 @@ function Lesson(props) {
             return prevProgress + 1;
           })
         } else {
-          setAttempts(prev => {
-            p = prev;
-            p[attemptIndex] = value;
-            return p
-          })
+          setAttempts([value])
           sounds.input.play();
         } 
       } else {
         sounds.damage.play();
         setHealth(prev => prev - attempts.length)
+        setAttempts([value])
       }
     } else {
       sounds.cancel.play();
+      setAttempts([value])
     }
   }
 

@@ -1,4 +1,6 @@
-<head><title>Estatísticas | SE</title></head><%= render 'shared/header' %><%= render 'shared/nav_data' %>
+<head><title>Estatísticas | SE</title></head>
+<%= render 'shared/header' %>
+<%= nav(to: 'data') %>
 
 Questões totais: <%= Question.all.size %><br>
 Questões encontradas: <%= @stats[0] %><br>

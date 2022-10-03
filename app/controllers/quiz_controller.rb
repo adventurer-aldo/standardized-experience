@@ -12,13 +12,13 @@
     @ending = ['']
 
     @test_name = [
-      'Exercícios',
-      'Teste 1',
-      'Teste 2',
-      'Teste de Reposição',
-      'Trabalho de Dissertação',
-      'Exame Normal',
-      'Exame de Recorrência'
+      'Exercises',
+      'Test 1',
+      'Test 2',
+      'Reposition Test',
+      'Job',
+      'Normal Exam',
+      'Recurrence Exam'
     ]
 
     @professorNames = [
@@ -48,11 +48,11 @@
     when 0
       @ending = ["#{@professorNames.sample}/#{@professorNames.sample}", 'center']
     when 1
-      @test_name[1] = '1º Teste de Frequência'
-      @test_name[2] = '2º Teste de Frequência'
+      @test_name[1] = '1st Frequency Test'
+      @test_name[2] = '2nd Frequency Test'
     when 2
-      @test_name[1] = 'I Teste'
-      @test_name[2] = 'II Teste'
+      @test_name[1] = 'Test I'
+      @test_name[2] = 'Test II'
       @ending = [@professorNames.sample, 'left']
     end
   end
@@ -300,19 +300,19 @@
     puts @quiz.answers.last.choices.first.texts
     puts '=' * 10
 
-    @fanfare =  if grade_num < 7
-                  helpers.audio_path('results/failhard.ogg')
-                elsif grade_num < 9.5
-                  helpers.audio_path('results/fail.ogg')
-                elsif grade_num < 14.5
-                  helpers.audio_path('results/succeed.ogg')
-                elsif grade_num < 18
-                  helpers.audio_path('results/succeedhard.ogg')
-                elsif grade_num < 20
-                  helpers.audio_path('results/succeedharder.ogg')
-                else
-                  helpers.audio_path('results/succeedhardest.ogg')
-                end
+    @fanfare = if grade_num < 7
+                 helpers.audio_path('results/failhard.ogg')
+               elsif grade_num < 9.5
+                 helpers.audio_path('results/fail.ogg')
+               elsif grade_num < 14.5
+                 helpers.audio_path('results/succeed.ogg')
+               elsif grade_num < 18
+                 helpers.audio_path('results/succeedhard.ogg')
+               elsif grade_num < 20
+                 helpers.audio_path('results/succeedharder.ogg')
+               else
+                 helpers.audio_path('results/succeedhardest.ogg')
+               end
   end
 
 end

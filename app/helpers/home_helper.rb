@@ -47,13 +47,13 @@ module HomeHelper
       content_tag(:thead,
                   content_tag(:tr,
                               content_tag(:th, 'Cadeira', rowspan: '2') +
-                              content_tag(:th, 'Notas', colspan: '7', class: 'text-center')
+                              content_tag(:th, 'Nota', colspan: '7', class: 'text-center')
                             ) +
                   content_tag(:tr,
                               content_tag(:th, '1º Teste', class: 'text-center') +
                               content_tag(:th, '2º Teste', class: 'text-center') +
                               content_tag(:th, 'Teste de Reposição', class: 'text-center') +
-                              content_tag(:th, 'Dissertação', class: 'text-center') +
+                              content_tag(:th, 'Trabalho', class: 'text-center') +
                               content_tag(:th, 'Média Final', class: 'text-center') +
                               content_tag(:th, 'Exame Normal', class: 'text-center') +
                               content_tag(:th, 'Exame de Recorrência', class: 'text-center')
@@ -92,12 +92,26 @@ module HomeHelper
                                 content_tag(:td, chair.second.nil? ? '---' : chair.second.to_s.gsub('.',','), class: 'text-center') +
                                 content_tag(:td, ((chair.first.nil? || chair.second.nil?) ? (chair.reposition.nil? ? '---' : chair.reposition.to_s.gsub('.',',')) : '---'), class: 'text-center') +
                                 content_tag(:td, chair.dissertation.nil? ? '---' : chair.dissertation.to_s.gsub('.',','), class: 'text-center') +
-                                content_tag(:td, media(chair).to_s.gsub('.',','), class: 'text-center') +
-                                content_tag(:td, exame(chair).to_s.gsub('.',','), class: 'text-center') +
-                                content_tag(:td, recurrence(chair).to_s.gsub('.',','), class: 'text-center'),
-                               class: "table-group-divider #{highlight}"),
-                               root_path)}.join.html_safe), id: 'journey', class: 'table table-striped table-striped-columns table-hover overflow-scroll'
+                                content_tag(:td, media(chair).to_s.gsub('.', ','), class: 'text-center') +
+                                content_tag(:td, exame(chair).to_s.gsub('.', ','), class: 'text-center') +
+                                content_tag(:td, recurrence(chair).to_s.gsub('.', ','), class: 'text-center'),
+                                class: "table-group-divider #{highlight}"),
+                    root_path) }.join.html_safe), id: 'journey', class: 'table table-striped table-striped-columns table-hover overflow-scroll'
                 )
   end
 
+  def nav(to: 'home')
+    buttons = case to
+              when 'home'
+                [[root_path, 'Jornada', 'shield-alt'], [classroom_path, 'Aula', 'language'],
+                 [challenges_path, 'Desafios', 'flag-checkered']]
+              when 'data'
+                [[question_path, 'Questões', 'question-circle'], [subject_path, 'Cadeiras', 'book'],
+                 [statistics_path, 'Estatísticas', 'graduation-cap'], [configurations_path, 'Configurações', 'cogs']]
+              when 'devise'
+                [[question_path, 'Questões', 'question-circle'], [subject_path, 'Cadeiras', 'book'],
+                 [statistics_path, 'Estatísticas', 'graduation-cap'], [configurations_path, 'Configurações', 'cogs']]
+              end
+    render 'shared/nav', buttons:
+  end
 end

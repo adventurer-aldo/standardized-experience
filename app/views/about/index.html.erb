@@ -1,0 +1,134 @@
+<head><title>Sobre | SE</title></head><%= render 'shared/header' %>
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        O que é isto?
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <span style='display: inline-block; color: white; background-color: #0051B5; padding: 0px 4px; border-radius: 3px; font-weight: bold'>
+        @standardized-experience</span> é uma ferramenta designada para simular as condições de um teste/exame
+dado nas escolas, universidades, colégios, etc.. Acredita-se que o fundamento do conhecimento é a experiência.
+Se você se deparar com um problema no presente e resolvê-lo agora, saberá como enfrentá-lo no futuro. O mesmo
+se aplica a qualquer parte da vida.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        Porquê replicar testes e exames?
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>A experiência é a melhor professora.</strong> Apesar da avaliação ser mais estrita, onde existe apenas uma resposta certa e variações não são aceites, isto permitir-lhe-á que saiba os seus pontos fortes
+        e seus pontos fracos. Normalmente, o estudante se esforça para estudar, destinado á saber se conseguirá ou não quando chegar a hora do teste. Ao praticar um teste antes do real, estará
+        melhor preparado do que ir na fé. Isto é, se cobrir os seus pontos fracos até lá.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Tipos de questões
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        Oito tipos de questões predominam nesta aplicação:<br><br>
+        <h4>Abertas</h4>
+        <p>
+        A resposta é uma ou mais frases que satisfaçam a pergunta.<br>Quando mais de uma resposta é
+        provida, a pergunta estará correta se qualquer uma das respostas for usada.
+        </p>
+        <h4>Multi-Abertas</h4>
+        <p>
+        A resposta é um conjunto de elementos enumerados que satisfazem a pergunta.<br>Para que esteja
+        correta, todos elementos devem ser providos.<br>
+        </p>
+        <h4>Escolha</h4>
+        <p>
+        Serão dadas opções para a pergunta, onde pelos menos uma delas é correta e se deve selecionar.<br>
+        </p>
+        <h4>Verdadeiro/Falso</h4>
+        <p>
+        Serão dadas afirmações ou elementos aleatórios, onde todos que satisfazem a condição imposta pela
+        pergunta devem ser selecionados.
+        </p>
+        <h4>Fórmula</h4>
+        <p>
+        A resposta é a resolução do problema exposto na pergunta, que envolve cálculos.
+        </p>
+        <h4>Tabela</h4>
+        <p>
+        A resposta reside na compleção da tabela provida pela pergunta.
+        </p>
+        <h4>Correspondência</h4>
+        <p>
+        Serão dados elementos divididos em duas colunas, onde as setas de cada elemento 
+        devem apontar para o elemento que tem afinidade com este na coluna adjacente.
+        </p>
+        <h4>Preencher</h4>
+        Os espaços em branco das frases providas devem ser preenchidos com as respostas.
+        <p>
+        
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingFour">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        Tipos de Cadeiras
+      </button>
+    </h2>
+    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        Uma cadeira pode ser de dois tipos:<br>
+        <ul>
+          <li>Teórica</li>
+          <li>Prática</li>
+        </ul>
+        Cadeiras teóricas terão testes onde o examinado poderá responder as questões em qualquer ordem, em qualquer tempo dentre o alojado.
+        Nas cadeiras práticas, a ordem é imutável, e se uma questão já tiver sido respondida, não será possível respondê-la novamente.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingFive">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+        Parâmetros
+      </button>
+    </h2>
+    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        Algumas questões podem possuir parâmetros, que são como subtipos dessa questão. Atualmente, existem três parâmetros:<br><br>
+        <h4>Rigoroso</h4>
+        Normalmente, letras maiúsculas ou minúsculas não fazem diferença numa resposta. Quando este parâmetro é adicionado, estas passarão à ser consideradas.
+        <h4>Ordenado</h4>
+        Respostas das perguntas multi-abertas devem obedecer a ordem original da pergunta.
+        <h4>Baralhado</h4>
+        Os elementos de uma pergunta tabela serão desorganizados, exceto a primeira fila. Numa questão tipo correspondência, os elementos da primeira coluna também serão desorganizados.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingSix">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+        Como melhor utilizar o Standardized Experience?
+      </button>
+    </h2>
+    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>Simplesmente memorizar não lhe ajudará a chegar longe.</strong> A melhor aproximação é escrever o que você confia profundamente ser a resposta correta, mesmo que esteja inventando algo, pois essa invenção ainda será algo que
+        você acredite explicar o que a pergunta quer como resposta. Ao fazer isso, e comparar a resposta que você acredita com a resposta que a pergunta considera correta, estará condicionado a pensar "Quando eu tentei isto, deu errado". 
+        Quanto mais você tentar deste jeito, saberá mais instintivamente a resposta certa, sem tentar memorizar.
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<%= render 'shared/footer' %>

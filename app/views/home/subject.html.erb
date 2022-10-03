@@ -1,9 +1,9 @@
 <head>
-  <title>Cadeiras | SE</title>
+  <title>Subjects | SE</title>
 </head>
 
 <%= render 'shared/header' %>
-<%= render 'shared/nav_data' %>
+<%= nav(to: 'data') %>
 <%= react_component('DataSubject', 
 {auth_token: @auth_token, formulas: @formulas, stat: current_user.stat.id}) %>
 

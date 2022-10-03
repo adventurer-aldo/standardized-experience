@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   get '/desafios', to: 'home#challenges', as: 'challenges'
   get '/aulas', to: 'home#classroom', as: 'classroom'
-  get '/sobre', to: 'home#about', as: 'about'
+  get '/sobre', to: 'about#index', as: 'about'
   get '/dados/questoes', to: 'home#question', as: 'question'
   get '/dados/cadeiras', to: 'home#subject', as: 'subject'
   get '/dados', to: 'home#statistics', as: 'statistics'
