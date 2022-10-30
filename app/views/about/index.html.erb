@@ -1,78 +1,83 @@
-<head><title>Sobre | SE</title></head><%= render 'shared/header' %>
+<head><title>About | SE</title></head>
+<%= render 'shared/header' %>
+<%= render "shared/notification" %>
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        O que é isto?
+        What's this?
       </button>
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <span style='display: inline-block; color: white; background-color: #0051B5; padding: 0px 4px; border-radius: 3px; font-weight: bold'>
-        @standardized-experience</span> é uma ferramenta designada para simular as condições de um teste/exame
-dado nas escolas, universidades, colégios, etc.. Acredita-se que o fundamento do conhecimento é a experiência.
-Se você se deparar com um problema no presente e resolvê-lo agora, saberá como enfrentá-lo no futuro. O mesmo
-se aplica a qualquer parte da vida.
+        @standardized-experience</span> is a tool designated to simulate the conditions of a test/exam
+given at schools, universities, colleges, etc.. I believe the foundation of knowledge is experience.
+If you face a problem at the present and manage to solve it, you'll know how to face it in the future. The same
+applies to any part of life.
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingTwo">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        Porquê replicar testes e exames?
+        Why replicate tests and exams?
       </button>
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <strong>A experiência é a melhor professora.</strong> Apesar da avaliação ser mais estrita, onde existe apenas uma resposta certa e variações não são aceites, isto permitir-lhe-á que saiba os seus pontos fortes
-        e seus pontos fracos. Normalmente, o estudante se esforça para estudar, destinado á saber se conseguirá ou não quando chegar a hora do teste. Ao praticar um teste antes do real, estará
-        melhor preparado do que ir na fé. Isto é, se cobrir os seus pontos fracos até lá.
+        <strong>Experience is the best teacher.</strong> Despite the evaluation being stricter, where there's only one correct answer and variations aren't accepted,
+        this will allow you to know your weak points and your strong points.
+        Normally, the student tries hard to study, destined to know if they'll manage or not when the test/exam arrives. By practicing in similar conditions before the real thing,
+        you'll be better prepared than going in blind. That is, if you cover your weak points by then.
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingThree">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        Tipos de questões
+        Question types
       </button>
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        Oito tipos de questões predominam nesta aplicação:<br><br>
-        <h4>Abertas</h4>
+        There are currently eight types of questions in Standardized Experience:<br><br>
+        <h4>Open</h4>
         <p>
-        A resposta é uma ou mais frases que satisfaçam a pergunta.<br>Quando mais de uma resposta é
-        provida, a pergunta estará correta se qualquer uma das respostas for usada.
+        The answer is one or more sentences that satisfy the question's conditions.<br>If more than one
+        answer is provided, the question will be correct if any one of them is used.<br>
         </p>
-        <h4>Multi-Abertas</h4>
+        <h4>List</h4>
         <p>
-        A resposta é um conjunto de elementos enumerados que satisfazem a pergunta.<br>Para que esteja
-        correta, todos elementos devem ser providos.<br>
+        The answer is a list of elements that satisfy the question's conditions.<br>In order to be correct,
+        all elements must be present.<br>
         </p>
-        <h4>Escolha</h4>
+        <h4>Choice</h4>
         <p>
-        Serão dadas opções para a pergunta, onde pelos menos uma delas é correta e se deve selecionar.<br>
+        Various options will be given to the questios, where at least one of them is correct and must be selected
+        to be correct.<br>
         </p>
-        <h4>Verdadeiro/Falso</h4>
+        <h4>Veracity</h4>
         <p>
-        Serão dadas afirmações ou elementos aleatórios, onde todos que satisfazem a condição imposta pela
-        pergunta devem ser selecionados.
+        A random number of sentences will be given out of a pool, where the ones that match the question's
+        criteria must be selected.<br>
         </p>
-        <h4>Fórmula</h4>
+        <h4>Formula</h4>
         <p>
-        A resposta é a resolução do problema exposto na pergunta, que envolve cálculos.
+        The answer is the solution to the problem exposed on the question, which involves calculations.<br>
+        This question type is currently hidden for an overhaul.<br>
         </p>
-        <h4>Tabela</h4>
+        <h4>Table</h4>
         <p>
-        A resposta reside na compleção da tabela provida pela pergunta.
+        A grid-like arrangement with blank areas that must be completed.<br>
         </p>
-        <h4>Correspondência</h4>
+        <h4>Match</h4>
         <p>
-        Serão dados elementos divididos em duas colunas, onde as setas de cada elemento 
-        devem apontar para o elemento que tem afinidade com este na coluna adjacente.
+        Two columns are given, where the arrows of each element on one side must correspond to its
+        match on the other side.<br>
         </p>
-        <h4>Preencher</h4>
-        Os espaços em branco das frases providas devem ser preenchidos com as respostas.
+        <h4>Fill</h4>
+        The blank spaces in the provided sentences must be filled with their answers.
         <p>
         
         </p>
@@ -82,50 +87,59 @@ se aplica a qualquer parte da vida.
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingFour">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-        Tipos de Cadeiras
+        Subject test types
       </button>
     </h2>
     <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        Uma cadeira pode ser de dois tipos:<br>
+        A subject's test type can be either:<br>
         <ul>
-          <li>Teórica</li>
-          <li>Prática</li>
+          <li>Regular</li>
+          <li>Timed (answer)</li>
         </ul>
-        Cadeiras teóricas terão testes onde o examinado poderá responder as questões em qualquer ordem, em qualquer tempo dentre o alojado.
-        Nas cadeiras práticas, a ordem é imutável, e se uma questão já tiver sido respondida, não será possível respondê-la novamente.
+        Regular tests display the whole list of questions, letting you to answer whichever you want, whenever you want,
+        within the time limit. Timed tests show one question at a time, alloting a pre-determined amount of time for 
+        each question, and once a question's time is up, you won't be able to answer it afterwards.
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingFive">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-        Parâmetros
+        Parameters
       </button>
     </h2>
     <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        Algumas questões podem possuir parâmetros, que são como subtipos dessa questão. Atualmente, existem três parâmetros:<br><br>
-        <h4>Rigoroso</h4>
-        Normalmente, letras maiúsculas ou minúsculas não fazem diferença numa resposta. Quando este parâmetro é adicionado, estas passarão à ser consideradas.
-        <h4>Ordenado</h4>
-        Respostas das perguntas multi-abertas devem obedecer a ordem original da pergunta.
-        <h4>Baralhado</h4>
-        Os elementos de uma pergunta tabela serão desorganizados, exceto a primeira fila. Numa questão tipo correspondência, os elementos da primeira coluna também serão desorganizados.
+        Some question types may possess parameters that make a slight adjust on how it is evaluated:<br><br>
+        <h4>Strict</h4>
+        Usually, uppercase and lowercase letters make no difference in an answer. With this parameter enabled, the answer must exactly match the case as well.
+        <h4>Order</h4>
+        List type questions' answers must obey the question's original order.
+        <h4>Shuffle</h4>
+        The elements of a question might be displayed in an order different than usual. In a table type question, that will only
+        apply to the blank spaces.
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingSix">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-        Como melhor utilizar o Standardized Experience?
+        Recommendations on using Standardized Experience
       </button>
     </h2>
     <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <strong>Simplesmente memorizar não lhe ajudará a chegar longe.</strong> A melhor aproximação é escrever o que você confia profundamente ser a resposta correta, mesmo que esteja inventando algo, pois essa invenção ainda será algo que
-        você acredite explicar o que a pergunta quer como resposta. Ao fazer isso, e comparar a resposta que você acredita com a resposta que a pergunta considera correta, estará condicionado a pensar "Quando eu tentei isto, deu errado". 
-        Quanto mais você tentar deste jeito, saberá mais instintivamente a resposta certa, sem tentar memorizar.
+      <strong>Simply memorizing will not be enough.</strong> I believe the best approach is to make up an answer if you don't know anything. Try to make a theory you think makes the most sense,
+      and then write that down. Afterwards, compare the answer logically and see where you're going wrong. As it's easier to memorize things you yourself came up with, you'll also memorize your
+      own mistakes, and those very same mistakes will point you to the right answer by conditioning to think "But when I thought like this, it was wrong and it was actually that" or along the lines.
+      <br>
+      Try to minimize the amount of words in Open, List, Formula, Fill and Table question types as much as possible that the answer is still logically sound and correct. Otherwise the answer might be
+      moreso testing how much you can write. And also, use simpler/shorter words that convey the same meaning. For example, replacing "therefore" with "so" in applicable context
+      cuts to the chase. Getting the logic of the answer should be your first goal, and you can always prettify your answers on the real thing. Developing a set of rules for writing your
+      questions might be helpful for you.
+      <br>
+      And lastly, do at least one practice test daily.
       </div>
     </div>
   </div>

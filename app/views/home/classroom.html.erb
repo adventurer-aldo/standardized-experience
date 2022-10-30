@@ -1,6 +1,7 @@
-<head><title>Sala de Aulas | SE</title>
+<head><title>Classroom | SE</title>
 </head><%= render 'shared/header' %>
 <%= nav(to: 'home') %>
+<%= render "shared/notification" %>
 
 <%= audio_tag('class/Shadow/lobby', autoplay: true, loop: true) %>
 <div class="p-3">
@@ -8,10 +9,10 @@
                   kaigi_mask_hakui school_test_seifuku_boy toshokan_benkyou classroom school_sotsuron_shimekiri_man
                   school_sotsuron_shimekiri_woman school_sensei_kokuban].sample, class: 'float-end') %>
   <div>
-    Bem vindo, aluno. Sente-se, que a aula está para começar!<br><br>
-    O seu aproveitamento da sua última sessão foi <strong><%= @lesson.grade.downcase %></strong>, sobre o tema <strong>"<%= @lesson.tag %>"</strong>.<br><br>
+    Welcome, student. Sit down, the lesson's about to begin!<br><br>
+    Your last session's rating was <strong><%= @lesson.grade.downcase %></strong>, about the tag <strong>"<%= @lesson.tag %>"</strong>.<br><br>
     <%= Misc::Text.classroom(@lesson.quiz.grade) %><br><br>
-    Selecione uma cadeira e um tema para começar a aula.<br>
+    Choose a subject and a tag to start.<br>
   </div>
 </div>
 

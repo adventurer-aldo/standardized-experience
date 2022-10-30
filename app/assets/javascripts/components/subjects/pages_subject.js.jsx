@@ -31,16 +31,16 @@ function PaginationSubject(props) {
           <div className="dropdown">
               <button type="button" className="btn btn-primary dropdown-toggle rounded-0 rounded-end"
                       data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                  Pesquisar
+                  Search
               </button>
               <div className="dropdown-menu p-4" style={{minWidth: '43vw'}}>
                   <div className="mb-3">
-                      <label htmlFor="searchTitle" className="form-label">Nome:</label>
+                      <label htmlFor="searchTitle" className="form-label">Name:</label>
                       <input type="text" className="form-control" id="searchTitle" placeholder="Cadeira" name="title"
                              onChange={(event) => props.handleChange(event, 'title')} value={props.query.title} />
                   </div>
                   <div className="mb-3">
-                      <label htmlFor="searchDescription" className="form-label">Descrição:</label>
+                      <label htmlFor="searchDescription" className="form-label">Description:</label>
                       <textarea className="form-control" id="searchDescription" name="description"
                              placeholder="Esta cadeira é sobre..." value={props.query.description}
                              onChange={(event) => props.handleChange(event, 'description')}/>
@@ -48,27 +48,27 @@ function PaginationSubject(props) {
                   <div className="form-floating">
                       <select value={props.query.formula} name="formula" className="form-select" id="searchFormula"
                               onChange={(event) => props.handleChange(event, 'formula')}>
-                          <option value="">Qualquer</option>
+                          <option value="">Any</option>
                           {props.formulas.map((formula, index) => <option key={index} value={index}>{formula}</option>)}
                       </select>
-                      <label htmlFor="searchFormula">Fórmula da média</label>
+                      <label htmlFor="searchFormula">Average Formula</label>
                   </div>
                   <div className="form-floating">
                       <select value={props.query.practical} name="practical" className="form-select" id="searchPractical"
                               onChange={(event) => props.handleChange(event, 'practical')}>
-                          <option value="">Qualquer</option>
-                          <option value="0">Teórica</option>
-                          <option value="1">Prática</option>
+                          <option value="">Any</option>
+                          <option value="0">Regular</option>
+                          <option value="1">Timed</option>
                       </select>
-                      <label htmlFor="searchPractical">Avaliação</label>
+                      <label htmlFor="searchPractical">Evaluation</label>
                   </div>
                   <div className="mb-3 form-floating">
                       <select value={props.query.order} name="order" className="form-select" id="searchOrder"
                               onChange={(event) => props.handleChange(event, 'order')}>
-                          <option value="ASC">Ascendente</option>
-                          <option value="DESC">Descendente</option>
+                          <option value="ASC">Ascending</option>
+                          <option value="DESC">Descending</option>
                       </select>
-                      <label htmlFor="searchOrder">Ordem dos resultados</label>
+                      <label htmlFor="searchOrder">Results' order</label>
                   </div>
                   <button className="btn btn-close" onClick={props.handleRestore}></button>
               </div>

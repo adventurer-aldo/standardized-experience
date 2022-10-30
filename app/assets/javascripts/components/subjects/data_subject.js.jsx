@@ -6,7 +6,7 @@ function DataSubject(props) {
   [query, setQuery] = React.useState({title: '', description: '', formula: '', job_type: '', practical: '', order: 'ASC'});
   [page, setPage] = React.useState(0);
   [pages, setPages] = React.useState(0);
-  [results, setResults] = React.useState('Pesquisando');
+  [results, setResults] = React.useState('Searching...');
   [submitData, setSubmitData] = React.useState(Array(2).fill({title: '', description: '',
   formula: 0, job_type: 0, practical: 0, visibility: '0', allow_foreign: '1'}));
 
@@ -128,11 +128,11 @@ function DataSubject(props) {
       data={editingID === null ? submitData[1] : submitData[0]} auth_token={props.auth_token}
       handleChange={handleChangeNew} evaluables={evaluables} stat={props.stat}
       />
-      <div className="h4 pb-2 my-2 border-bottom border-dark" >Cadeiras disponíveis</div>
+      <div className="h4 pb-2 my-2 border-bottom border-dark" >Available subjects</div>
       <PaginationSubject key={0}
           page={page} pages={pages} handleClick={handlePageClick} query={query} handleRestore={handleRestoreSearch}
           handleChange={handleChangeSearch} formulas={props.formulas}/>
-      <div className="border-bottom border-dark text-end" >{results} resultado{results == 1 ? '' : 's'}</div>
+      <div className="border-bottom border-dark text-end" >{results} result{results == 1 ? '' : 's'}</div>
       <div className="row row-cols-1 row-cols-md-2 g-4 mt-1 justify-content-center">
         <SubjectList
         subjects={subjects} editing={editingID} handleEvaluate={handleEvaluateClick}

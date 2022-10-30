@@ -20,7 +20,7 @@ function JourneyBarDisplay(props) {
           <button 
           onClick={props.handleClick}
           className="btn btn-primary">
-            A sua jornada terminou. Começe uma nova agora!</button>
+            Your journey is over. Start a new one now!</button>
       </div>
     </div>
   )

@@ -27,7 +27,7 @@ class Api::LessonsController < ApplicationController
                                              start_time: Time.zone.now,
                                              format: 0, level: 0)
 
-    ([true, false].sample ? subject.questions.limit(rand(20..40)) : subject.questions).where('? = ANY(tags)', lesson_params[:tag]).where(question_types: ['open']).shuffle.each do |question|
+    ([true, false].sample ? subject.questions.limit(rand(20..40)) : subject.questions).where('? = ANY(tags)', lesson_params[:tag]).shuffle.each do |question|
       question.answers.create!(quiz_id: quiz.id, grade: 0, question_type: question.question_types.sample)
     end
 

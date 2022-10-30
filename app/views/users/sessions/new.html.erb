@@ -1,6 +1,7 @@
-<head><title>Iniciar sessão | SE</title></head>
+<head><title>Log in | SE</title></head>
 <%= render "shared/header" %>
 <%= render "users/shared/links" %>
+<%= render "shared/notification" %>
 <div class="form-signin text-bg-light p-3 mx-auto page">
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
@@ -16,12 +17,12 @@
     <% if devise_mapping.rememberable? %>
       <div class="field">
         <%= f.check_box :remember_me, class: "form-check-input" %>
-        <%= f.label :remember_me, 'Lembre-me', class: "form-check-label" %>
+        <%= f.label :remember_me, 'Remember me', class: "form-check-label" %>
       </div>
     <% end %>
 
     <div class="actions text-center">
-      <%= f.submit "Iniciar sessão", class: "btn btn-primary" %>
+      <%= f.submit "Log in", class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>

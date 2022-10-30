@@ -47,11 +47,17 @@ function Lesson(props) {
       if ([2,1].includes(completeness)) {
         if (completeness == 2) {
           sounds.correct.play();
-          if (['choice','veracity'].includes(points[progress+1].question_type)) setAlternatives(getNextDecoys(points[progress+1]).concat(points[progress+1].answers))
-          setAttempts(Array(countAttempts(points[progress+1])).fill(''))
-          setProgress(prevProgress => {
-            return prevProgress + 1;
-          })
+          if (progress == points.length - 1) {
+            console.log("You're finished!")
+            setAttempts([value])
+            axios.patch('/api/lessons', {lesson: {id: props.id, grade: health / 100 * 20}})
+          } else {
+            if (['choice','veracity'].includes(points[progress+1].question_type)) setAlternatives(getNextDecoys(points[progress+1]).concat(points[progress+1].answers))
+            setAttempts(Array(countAttempts(points[progress+1])).fill(''))
+            setProgress(prevProgress => {
+              return prevProgress + 1;
+            })
+          }
         } else {
           setAttempts([value])
           sounds.input.play();

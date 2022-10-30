@@ -13,16 +13,16 @@ class QuestionNavigator extends React.Component {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id={`deleteModalLabel${question.id}`}>Apagar questão</h5>
+                <h5 className="modal-title" id={`deleteModalLabel${question.id}`}>Delete Question</h5>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
-                Tem certeza de que pretende apagar a seguinte pergunta?<br/><span className="fw-bold">{question.question}</span>?<br/><br/>
-                Esta ação é irreversível! Se bem que pode simplesmente refazê-la de algum jeito...
+                Are you sure you want to delete the following question?<br/><span className="fw-bold">{question.question}</span>?<br/><br/>
+                This action is irreversible and will also delete it from any quizzes that may have used it.
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Não...</button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-danger" onClick={() => this.props.handleDelete(question.id)}>Certeza!</button>
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No...</button>
+                <button type="button" data-bs-dismiss="modal" className="btn btn-danger" onClick={() => this.props.handleDelete(question.id)}>Sure!</button>
               </div>
             </div>
           </div>
@@ -30,10 +30,10 @@ class QuestionNavigator extends React.Component {
           <div className="card">
             <div className="card-header">
               <div className="d-flex">
-                  <button type="button" className={`btn btn-${this.props.editing === question.id ? 'warning' : 'secondary'}`} onClick={() => this.props.handleEditing(question.id)}>Editar</button>
-                  <button type="button" data-bs-toggle="modal" data-bs-target={`#deleteModal${question.id}`} className="btn btn-danger mx-1">Apagar</button>
-                  <button type="button" data-bs-toggle="modal" data-bs-target="#questionDetails" onClick={() => this.props.setDetails(question.id)} className="btn btn-primary">Detalhes</button>
-                  <button type="button"  className="btn btn-outline-primary ms-auto" disabled={true}>{['1º Teste','2º Teste','Trabalho','Exame'][question.level - 1]}</button>
+                  <button type="button" className={`btn btn-${this.props.editing === question.id ? 'warning' : 'secondary'}`} onClick={() => this.props.handleEditing(question.id)}>Edit</button>
+                  <button type="button" data-bs-toggle="modal" data-bs-target={`#deleteModal${question.id}`} className="btn btn-danger mx-1">Delete</button>
+                  <button type="button" data-bs-toggle="modal" data-bs-target="#questionDetails" onClick={() => this.props.setDetails(question.id)} className="btn btn-primary">Details</button>
+                  <button type="button"  className="btn btn-outline-primary ms-auto" disabled={true}>{['1st Test','2nd Test','CW','Exam'][question.level - 1]}</button>
               </div>
             </div>
             <div className="card-body">
@@ -41,7 +41,7 @@ class QuestionNavigator extends React.Component {
               <p className="text-truncate w-100">{question.answer}</p>
               <p className="card-text text-truncate w-100"><small className="text-muted">{this.props.subjects[this.props.subjects.findIndex((subj) => subj[0] == question.subject )][1]}</small></p>
               {question.question_types.map((questionType, index) => <span key={index} className={`mx-1 badge bg-${index == 0 ? 'success' : 'warning'}`}>
-                {['Aberta','Listar','Fórmula','Escolha','Veracidade','Correspondência','Preencher','Tabela'][['open','caption','formula','choice','veracity','match','fill','table'].findIndex((og) => og == questionType)]}
+                {['Open','List','Formula','Choice','Veracity','Match','Fill','Table'][['open','caption','formula','choice','veracity','match','fill','table'].findIndex((og) => og == questionType)]}
               </span>)}
             </div>
           </div>

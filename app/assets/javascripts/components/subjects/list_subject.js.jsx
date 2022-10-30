@@ -6,7 +6,7 @@ function SubjectList(props) {
       <ul className="nav nav-pills card-header-pills">
         <li className="nav-item">
           <button type="button"
-          className="btn btn-secondary">Estudar
+          className="btn btn-secondary">Study
           </button>
         </li>
       </ul>
@@ -22,10 +22,10 @@ function SubjectList(props) {
         </p>
       </div>
       <ul className="list-group list-group-flush">
-        <li className="list-group-item"><strong>Questões:</strong> <span className="placeholder placeholder-wave col-3"></span></li>
-        <li className="list-group-item"><strong>Média:</strong> <span className="placeholder placeholder-wave col-4"></span></li>
-        <li className="list-group-item"><strong>Prática:</strong> <span className="placeholder placeholder-wave col-2"></span></li>
-        <li className="list-group-item"><strong>Trabalho:</strong> <span className="placeholder placeholder-wave col-4"></span></li>
+        <li className="list-group-item"><strong>Questions:</strong> <span className="placeholder placeholder-wave col-3"></span></li>
+        <li className="list-group-item"><strong>Average:</strong> <span className="placeholder placeholder-wave col-4"></span></li>
+        <li className="list-group-item"><strong>Timed:</strong> <span className="placeholder placeholder-wave col-2"></span></li>
+        <li className="list-group-item"><strong>Course Work:</strong> <span className="placeholder placeholder-wave col-4"></span></li>
       </ul>
     </div>
     )
@@ -37,19 +37,19 @@ function SubjectList(props) {
           <li className="nav-item">
             <button type="button"
             className={"btn btn-" + (props.evaluables.includes(subject.id) ? 'primary' : 'secondary')}
-            onClick={() => props.handleEvaluate(subject.id)}>Estudar
+            onClick={() => props.handleEvaluate(subject.id)}>Study
             </button>
           </li>{subject.creator == props.stat ? (
             <li className="nav-item mx-2">
               <button className={`btn btn-${props.editing === subject.id ? 'warning' : 'secondary'}`}
               onClick={() => props.handleEditing(subject.id)}>
-                Editar
+                Edit
               </button>
             </li>) : ''}{subject.creator == props.stat ? (
             <li className="nav-item">
               <button type='button' className='btn btn-danger' 
               data-bs-toggle="modal" data-bs-target={`#eraseModal${subject.id}`} >
-                Apagar
+                Delete
               </button>
             </li>) : ''}
         </ul>
@@ -71,12 +71,12 @@ function SubjectList(props) {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                  Não...
+                  No...
                 </button>
                 <button type="button" onClick={() => props.handleDelete(subject.id)} name="operation" 
                 value="delete" className="btn btn-danger" data-disable-with="Certeza!"
                 data-bs-dismiss="modal">
-                Certeza!
+                Sure!
                 </button>
               </div>
             </div>
@@ -87,11 +87,11 @@ function SubjectList(props) {
           <p className="card-text">{ subject.description }</p>
         </div>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item"><strong>Questões:</strong> { subject.questions }</li>
-          <li className="list-group-item"><strong>Média:</strong> { props.formulas[subject.formula] }</li>
-          <li className="list-group-item"><strong>Prático:</strong> {subject.practical == 1 ? 'Sim' : 'Não'}</li>
-          <li className="list-group-item"><strong>Trabalho:</strong> Teste</li>
-          <li className="list-group-item"><strong>Criador:</strong> {subject.creator_name}</li>
+          <li className="list-group-item"><strong>Questions:</strong> { subject.questions }</li>
+          <li className="list-group-item"><strong>Average:</strong> { props.formulas[subject.formula] }</li>
+          <li className="list-group-item"><strong>Timed:</strong> {subject.practical == 1 ? 'Yes' : 'No'}</li>
+          <li className="list-group-item"><strong>Course Work:</strong> Test</li>
+          <li className="list-group-item"><strong>Owner:</strong> {subject.creator_name}</li>
         </ul>
       </div>
     )

@@ -1,17 +1,18 @@
-<head><title>Estatísticas | SE</title></head>
+<head><title>Statistics | SE</title></head>
 <%= render 'shared/header' %>
 <%= nav(to: 'data') %>
+<%= render "shared/notification" %>
 
-Questões totais: <%= Question.all.size %><br>
-Questões encontradas: <%= @stats[0] %><br>
-Acertos: <%= @stats[1]%>/<%= @stats[2] + @stats[1] %><br>
-Erros: <%= @stats[2]%>/<%= @stats[2] + @stats[1] %><br>
+Total Questions: <%= Question.all.size %><br>
+Questions Found: <%= @stats[0] %><br>
+Hits: <%= @stats[1]%>/<%= @stats[2] + @stats[1] %><br>
+Misses: <%= @stats[2]%>/<%= @stats[2] + @stats[1] %><br>
 <br>
-Disciplinas: <%= Subject.all.size %><br>
-Cadeiras aprovadas: <%= Chair.all.filter { |chair| media(chair).to_i >= 9.5 }.size %><br>
-Cadeiras reprovadas: <%= Chair.all.filter { |chair| media(chair).to_i < 9.5 }.size %><br>
+Subjects: <%= Subject.all.size %><br>
+Approved Subjects: <%= Chair.all.filter { |chair| media(chair).to_i >= 9.5 }.size %><br>
+Failed Subjects: <%= Chair.all.filter { |chair| media(chair).to_i < 9.5 }.size %><br>
 <br>
-Simulações: <%= Journey.all.size %><br>
+Journeys: <%= Journey.all.size %><br>
 
 <div id="quizzes" class="display-flex">
 	<% @quizzes.each do |quiz| %>

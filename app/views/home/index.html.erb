@@ -1,14 +1,15 @@
-<head><title>Principal | SE</title>
+<head><title>Home | SE</title>
 </head><%= render 'shared/header' %>
 <%= nav(to: 'home') %>
+<%= render "shared/notification" %>
+
+<%= audio_tag(@ost, autoplay: true, loop: true, id: 'bgm') %>
 
 <% if @pop_quiz.exists? %>
   <%= render 'home/components/tip' %>
 <% end %>
 
 <%= @last_quiz %>
-
-<%= audio_tag(@ost, autoplay: true, loop: true, id: 'bgm') %>
 
 <p><strong><h5><span id="journey-level"><%= @progress %></span></h5></strong>
 

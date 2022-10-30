@@ -1,12 +1,12 @@
 <% unless @grade.nil? %><span class='score'><%= @grade %>/20</span><% end %>
 <div class="p-2 rounded border border-secondary border-3"><p align='center'><b>SE</b></p>
 <p align='center'<b>STANDARDIZED EXPERIENCE</b></p>
-<p style='float: left'>Disciplina: <%=@quiz.subject.title%><br>
-Curso: Medicina Geral<br>
-Variante <%= %w[A B C D].sample %>
+<p style='float: left'>Subject: <%=@quiz.subject.title%><br>
+Course: Learning<br>
+Variant <%= %w[A B C D].sample %>
 </p><p style='float: right'>2º Ano, 1º Semestre: <br>
-Ano lectivo: <%=@quiz_start.year%><br>
-Data: <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>
+Lective year: <%=@quiz_start.year%><br>
+Date: <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>
 </p>
 <p><br><br><br><br>
 <span class='d-block text-center'><%= @test_name[@quiz.level].upcase %></span>

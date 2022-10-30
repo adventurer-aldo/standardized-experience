@@ -21,17 +21,17 @@ Rails.application.routes.draw do
     unlocks: 'users/unlocks'
   }
 
-  get '/desafios', to: 'home#challenges', as: 'challenges'
-  get '/aulas', to: 'home#classroom', as: 'classroom'
-  get '/sobre', to: 'about#index', as: 'about'
-  get '/dados/questoes', to: 'home#question', as: 'question'
-  get '/dados/cadeiras', to: 'home#subject', as: 'subject'
-  get '/dados', to: 'home#statistics', as: 'statistics'
-  get '/dados/configuracoes', to: 'home#configurations', as: 'configurations'
+  get '/challenges', to: 'home#challenges', as: 'challenges'
+  get '/classroom', to: 'home#classroom', as: 'classroom'
+  get '/about', to: 'about#index', as: 'about'
+  get '/data/questions', to: 'home#question', as: 'question'
+  get '/data/subjects', to: 'home#subject', as: 'subject'
+  get '/data', to: 'home#statistics', as: 'statistics'
+  get '/data/settings', to: 'home#configurations', as: 'configurations'
 
   get '/quiz(/:subject/:level/:journey)', to: 'quiz#index', as: 'quiz'
-  get '/resultados/:id', to: 'quiz#results', as: 'results'
-  get '/licao/:id', to: 'lesson#index', as: 'lesson'
+  get '/results/:id', to: 'quiz#results', as: 'results'
+  get '/lesson/:id', to: 'lesson#index', as: 'lesson'
 
   post '/quiz', to: 'quiz#submit'
 

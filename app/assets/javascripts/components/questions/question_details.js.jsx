@@ -23,11 +23,11 @@ function QuestionDetails(props) {
     } else {
       return (
         <div>
-          <em>Respostas{props.details.choices.length > 0 ? ' Verdadeiras' : ''}</em>
+          <em>{props.details.choices.length > 0 ? 'Real ' : ''}Answers</em>
           {props.details.answer.map((answer, index) => <div key={index} className="form-control">{answer}</div>)}
 
           {props.details.choices.length > 0 ? <div>
-            <em>Respostas Falsas</em>
+            <em>Decoy Answers</em>
             {props.details.choices.map((choice, rIndex) => <div key={rIndex} className="form-control">{choice[0]}</div>)}
           </div> : ''}          
         </div>
@@ -48,7 +48,7 @@ function QuestionDetails(props) {
               ...
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
@@ -67,15 +67,15 @@ function QuestionDetails(props) {
               <strong>{props.details.question}</strong><br/>
               {displayAnswer(props.details.questionTypes)}
               {props.details.questionTypes.map((questionType, index) => <span key={index} className={`mx-1 badge bg-${index == 0 ? 'success' : 'warning'}`}>
-                {['Aberta','Listar','Fórmula','Escolha','Veracidade','Correspondência','Preencher','Tabela'][['open','caption','formula','choice','veracity','match','fill','table'].findIndex((og) => og == questionType)]}
+                {['Open','List','Formula','Choice','Veracity','Match','Fill','Table'][['open','caption','formula','choice','veracity','match','fill','table'].findIndex((og) => og == questionType)]}
               </span>)} {props.details.parameters.map((param, index) => <span key={index} className={`mx-1 badge bg-info`}>
-                {['Rigoroso','Ordenado','Baralhar'][['strict','order','shuffle'].findIndex((og) => og == param)]}
+                {['Strict','Order','Shuffle'][['strict','order','shuffle'].findIndex((og) => og == param)]}
               </span>)}
-              <br/><strong>Cadeira: </strong>{props.details.subject[1]}
-              <br/><strong>Temas: </strong> {props.details.tags.map(tag => <div key={tag} className="btn btn-secondary">{tag}</div>)}
+              <br/><strong>Subject: </strong>{props.details.subject[1]}
+              <br/><strong>Tags: </strong> {props.details.tags.map(tag => <div key={tag} className="btn btn-secondary">{tag}</div>)}
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>

@@ -1,54 +1,55 @@
-<head><title>Configurações | SE</title></head>
+<head><title>Settings | SE</title></head>
 <%= render 'shared/header' %>
 <%= nav(to: 'data') %>
+<%= render "shared/notification" %>
 <br>
 <%= form_with do %>
 <div class="form-check form-switch">
 	<input class="form-check-input" role="switch" type="checkbox" name="lenient_name" <%= @lenient_name %>>
-	<label class="form-check-label" for="lenient_name"><b>Leniente em nomes</b></label>
+	<label class="form-check-label" for="lenient_name"><b>Lenient on Identifications</b></label>
 </div>
-Se um teste for submitido com as identificações erradas, automaticamente atribuir a nota 0.
+If a submitted test has the wrong identifications, automatically attribute grade 0.
 <br><br>
 <div class="form-check form-switch">
 	<input class="form-check-input" role="switch" type="checkbox" name="lenient_answer" <%= @lenient_answer %>>
-	<label class="form-check-label" for="lenient_answer"><b>Leniente em respostas</b></label>
+	<label class="form-check-label" for="lenient_answer"><b>Lenient on Answers</b></label>
 </div>
-Em vez de atribuir com base o quanto a resposta está correta, comparar o número de acertos por palavra para cada resposta. Assim, meio valores serão possíveis.
+Instead of awarding grade based on the answer's correctness, compare how close to the real answer you are per word for each answer.
 <br><br>
 <div class="form-check form-switch">
 	<input class="form-check-input" role="switch" type="checkbox" name="long_journey" <%= @long_journey %>>
-	<label class="form-check-label" for="long_journey"><b>Jornadas longas</b></label>
+	<label class="form-check-label" for="long_journey"><b>Long Journeys</b></label>
 </div>
-Se ativado, jornadas terão uma duração de dias. Caso não, horas com base no número de cadeiras numa jornada.
+When turned on, journeys might last days. Otherwise, hours based on the number of subjects at the start of a journey.
 <br><br>
 <div class="form-check form-switch">
 	<input class="form-check-input" role="switch" type="checkbox" name="skip_dissertation" <%= @skip_dissertation %>>
-	<label class="form-check-label" for="skip_dissertation"><b>Saltar Trabalhos de fim de Semestre (TFDS)</b></label>
+	<label class="form-check-label" for="skip_dissertation"><b>Skip Course Works</b></label>
 </div>
-Uma nota aleatória será atribuida para TFDS. Note que quando uma cadeira não possui nenhum trabalho por fazer, uma nota aleatória ainda será atribuída.
+A random grade will be given for Course Work. Notice that when a subject does not have a set working course work, this will be automatically done for that subject.
 <br><br>
 <div class="form-check form-switch">
 	<input class="form-check-input" role="switch" type="checkbox" name="negative_grades" <%= @negative_grades %>>
-	<label class="form-check-label" for="skip_dissertation"><b>Notas negativas</b></label>
+	<label class="form-check-label" for="skip_dissertation"><b>Negative Grades</b></label>
 </div>
-Haverá uma chance de uma pergunta dar valores negativos se não estiver correta. Cada pergunta avisará se for o caso.
+There will be a chance that a question will give out negative points if it's not correct. Each question will warn you if that's the case.
 <br><br>
 <div class="form-check form-switch">
 	<input class="form-check-input" role="switch" type="checkbox" name="negative_grades" <%= @questions_pref %>>
-	<label class="form-check-label" for="skip_dissertation"><b>Preferir minhas questões</b></label>
+	<label class="form-check-label" for="skip_dissertation"><b>Prefer My Questions</b></label>
 </div>
-Se prefere que as questões que aparecerão sejam apenas aquelas que você criou, ou permitir que questões de outros estudantes apareçam.
+If enabled, quizzes will display only questions that you created yourself. Otherwise, all questions made by other students will show up.
 <br><br>
-<b>Foco</b><br>
-Filtre as perguntas que aparecerão com base no nível.
+<b>Focus</b><br>
+Filter questions that will show up based on their level.
 <div id='focus'></div><br><br>
-<b>Estética: </b><select name="theme">
+<b>Theme: </b><select name="theme">
   <% Theme.all.order(:id).each do |theme| %>
     <option class="bg-<%= theme.class %>" value="<%= theme.id %>"><%= theme.name %></option>
   <% end %>
 </select><br>
 <div class="d-grid">
-<button class="btn btn-primary" type="submit">Salvar mudanças</button>
+<button class="btn btn-primary" type="submit">Save Changes</button>
 </div>
 <% end %>
 </div>

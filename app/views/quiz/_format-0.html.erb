@@ -1,21 +1,21 @@
 <% unless @grade.nil? %><span class='score'><%= @grade %>/20</span><% end %><div id='logoquiz' class='smudge-image'></div>
 <p align='center'><b>Standardized Experience</b><br>
-<b>Curso:</b> Med. Geral&emsp;<b>Ano lectivo:</b>&emsp;<b>Nível:</b> <%=@quiz.level%>&emsp;<%=@quiz_start.year%>&emsp;<b>Jornada:</b> <%=@quiz.journey.id %><br>
-<span style='text-decoration: underline'><b>Disciplina:</b> <%= @quiz.subject.title %>&emsp;<b><%=@test_name[@quiz.level]%></b>&emsp;<b>Data:</b> <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>&emsp;<b>Duração:</b> <%=@quiz_durations[@quiz.level]%>min — <%=@quiz_start.hour%>h<%=@quiz_start.min%>m as <%=@quiz_end.hour%>h<%=@quiz_end.min%>m </span> </p>
+<b>Course:</b> Learning&emsp;<b>Lective year:</b>&emsp;<b>Level:</b> <%=@quiz.level%>&emsp;<%=@quiz_start.year%>&emsp;<b>Journey:</b> <%=@quiz.journey.id %><br>
+<span style='text-decoration: underline'><b>Subject:</b> <%= @quiz.subject.title %>&emsp;<b><%=@test_name[@quiz.level]%></b>&emsp;<b>Date:</b> <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>&emsp;<b>Duração:</b> <%=@quiz_durations[@quiz.level]%>min — <%=@quiz_start.hour%>h<%=@quiz_start.min%>m to <%=@quiz_end.hour%>h<%=@quiz_end.min%>m </span> </p>
 <p> <%= form_with id: :name, html: { autocomplete: 'off' } do |form| %>
         <% if @quiz.end_time %>
             <div class="input-group mb-3">
-              <span class="input-group-text">Nome</span>
-              <span type="text" name="first_name" id="first_name" class="form-control" placeholder="Nome" aria-label="Username" style="font-family: 'Homemade Apple', cursive;color: blue;"><%= @quiz.first_name %></span>
-              <span class="input-group-text">Código</span>
-              <span type="text" name="last_name" id="last_name" class="form-control" placeholder="Código" aria-label="Server" style="font-family: 'Homemade Apple', cursive;color: blue;"><%= @quiz.last_name %></span>
+              <span class="input-group-text">Name</span>
+              <span type="text" name="first_name" id="first_name" class="form-control" placeholder="Name" aria-label="Username" style="font-family: 'Homemade Apple', cursive;color: blue;"><%= @quiz.first_name %></span>
+              <span class="input-group-text">Code</span>
+              <span type="text" name="last_name" id="last_name" class="form-control" placeholder="Code" aria-label="Server" style="font-family: 'Homemade Apple', cursive;color: blue;"><%= @quiz.last_name %></span>
             </div>
         <% else %>
             <div class="input-group mb-3">
-              <span class="input-group-text">Nome</span>
-              <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Nome" aria-label="Username" style="font-family: 'Homemade Apple', cursive;color: blue;">
-              <span class="input-group-text">Código</span>
-              <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Código" aria-label="Server" style="font-family: 'Homemade Apple', cursive;color: blue;">
+              <span class="input-group-text">Name</span>
+              <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Name" aria-label="Username" style="font-family: 'Homemade Apple', cursive;color: blue;">
+              <span class="input-group-text">Code</span>
+              <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Code" aria-label="Server" style="font-family: 'Homemade Apple', cursive;color: blue;">
             </div>
         <% end%>
     <% end %>

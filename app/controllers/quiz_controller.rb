@@ -295,10 +295,6 @@
     @quiz_start = @quiz.start_time.to_time
     @quiz_end = @quiz.end_time.to_time
     @duration = Time.at(@quiz_end.to_i - @quiz_start.to_i)
-    puts '=' * 10
-    puts @quiz.answers.last.choices.first.texts.first.count('%s')
-    puts @quiz.answers.last.choices.first.texts
-    puts '=' * 10
 
     @fanfare = if grade_num < 7
                  helpers.audio_path('results/failhard.ogg')

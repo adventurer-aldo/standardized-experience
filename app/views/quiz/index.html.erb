@@ -3,6 +3,7 @@
 
   <%= audio_tag("quiz/#{@journey.soundtrack.name}/#{@ost[0][@ost_index]}", {autoplay: true, loop: true, id: 'bgm'}) %>
 
+<%= render "shared/notification" %>
 <%= form_with id: :quiz, html: { autocomplete: 'off', 'data-turbo' => 'false', onsubmit: "submitNames(event)" } do |form| %>
     <%= form.hidden_field :quizID, value: @quiz.id.to_s %>
     <%= form.hidden_field :first_name, value: '', id: 'name_first' %>
@@ -18,6 +19,6 @@
     </div>
     <% end %>
     <div class="d-grid gap-2 col-7 mx-auto">
-      <%= form.submit 'Entregar Teste', id: 'submitBtn', class: 'btn btn-dark' %>
+      <%= form.submit 'Submit Test', id: 'submitBtn', class: 'btn btn-dark' %>
     </div>
 <% end %>

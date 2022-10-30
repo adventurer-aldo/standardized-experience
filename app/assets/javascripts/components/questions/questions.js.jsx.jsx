@@ -1,7 +1,7 @@
 class DataQuestions extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {page: 0, pages: 0, results: 'Pesquisando', questions: null, editingID: null,
+    this.state = {page: 0, pages: 0, results: 'Searching...', questions: null, editingID: null,
       subjects: [], editingName: '', tagInput: '', tags: [], details: {question: null},
       query: {question: '', level: '', tags: [], parameters: [], questionTypes: '', answer: '', subject: '', order: 'DESC'}, 
       submitData: Array(2).fill({question: '', answer: [''], questionTypes: ['open'], parameters: [],
@@ -466,7 +466,7 @@ class DataQuestions extends React.Component {
       handleTagging={this.handleTagging} tagInput={this.state.tagInput} tags={this.state.tags}
       handleClickParameter={this.handleClickParameter} addTableCoordinate={this.addTableCoordinate}
       removeTableCoordinate={this.removeTableCoordinate}
-      /><div className="h4 pb-2 my-2 border-bottom border-dark" >Minhas questões</div>
+      /><div className="h4 pb-2 my-2 border-bottom border-dark" >My questions</div>
       <PaginationQuestion key={0} page={this.state.page} pages={this.state.pages} handleClick={this.handlePageClick}
       query={this.state.query} handleChange={this.handleChangeSearch} handleRestore={this.handleRestoreSearch} subjects={this.state.subjects} />
       <QuestionDetails details={this.state.details} getTable={this.getTable} fillComplete={this.fillComplete} />

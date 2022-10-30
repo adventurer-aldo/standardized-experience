@@ -7,9 +7,9 @@ class HomeController < ApplicationController
   def index
     unless current_user.journeys.empty?
       @journey = current_user.journeys.last
-      @progress = ['', 'Primeiras avaliações', 'Segundas avaliações', 'Reposições',
-                   'Realização de trabalhos', 'Exames normais', 'Exames de recorrência',
-                   'Resultados da jornada'][@journey.level]
+      @progress = ['', 'First evaluations', 'Second evaluations', 'Repositions',
+                   'Course works', 'Regular Exams', 'Recurrence Exams',
+                   'Results'][@journey.level]
 
       @ost = "quiz/#{@journey.soundtrack.name}/"
       @ost += case @journey.level
@@ -36,11 +36,10 @@ class HomeController < ApplicationController
 
     quiz = current_user.quizzes.last
     @last_quiz = if quiz
-                   format('Seu último teste foi de %s, com nota %s. ',
-                          quiz.subject.title,
-                          quiz.grade(text: true)) + Misc::Text.evaluate(quiz.grade)
+                   format('Your last test was of %s, with the grade %s. %s',
+                          quiz.subject.title, quiz.grade(text: true), Misc::Text.evaluate(quiz.grade))
                  else
-                   'Você ainda não fez nenhum teste. Porquê não iniciar um agora?'
+                   'You have not done a test yet. Why not start one?'
                  end
   end
 

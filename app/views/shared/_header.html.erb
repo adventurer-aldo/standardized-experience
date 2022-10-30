@@ -2,24 +2,24 @@
 <script src="https://cdn.lordicon.com/xdjxvujz.js"></script>
     <%=link_to root_path, class: "px-0 py-0 nav-link #{current_page?(root_path) ? 'active' : ''}" do %>
         <li class='nav-item'>
-        <i class="bi bi-arrow-right"></i><span class='align-middle erasable'>Principal</span> </li>
+        <i class="bi bi-arrow-right"></i><span class='align-middle erasable'>Home</span> </li>
     <% end %>
 
     <%=link_to question_path, class: "px-0 py-0 nav-link #{current_page?(question_path) || current_page?(subject_path) ? 'active' : ''}" do %>
         <li class='nav-item'>
           <i class="bi bi-data fs-6"></i>
-          <span class='align-middle erasable'>Dados</span>
+          <span class='align-middle erasable'>Data</span>
         </li>
     <% end %>
 
     <%=link_to quiz_path, class: "px-0 py-0 nav-link #{current_page?(quiz_path) ? 'active' : ''}" do %>
         <li class='nav-item'>
-        <i class="bi bi-arrow-right"></i><span class='align-middle erasable'>Praticar</span></li>
+        <i class="bi bi-arrow-right"></i><span class='align-middle erasable'>Practice</span></li>
     <% end %>
 
     <%=link_to about_path, class: "px-0 py-0 nav-link #{current_page?(about_path) ? 'active' : ''}" do %>
         <li class='nav-item'>
-        <i class="bi bi-arrow-right fw-bold"></i><span class='align-middle erasable'>Sobre</span></li>
+        <i class="bi bi-arrow-right fw-bold"></i><span class='align-middle erasable'>About</span></li>
     <% end %>
 
 </ul>

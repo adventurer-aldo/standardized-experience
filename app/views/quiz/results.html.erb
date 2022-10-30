@@ -1,11 +1,11 @@
-<head><title><%= @quiz.subject.title %> | Resultados</title></head><nav class='navbar navbar-expand navbar-dark bg-dark py-0'><ul class='navbar-nav'>
+<head><title><%= @quiz.subject.title %> | Results</title></head><nav class='navbar navbar-expand navbar-dark bg-dark py-0'><ul class='navbar-nav'>
     <%=link_to root_path, class: 'nav-link' do %>
         <li id='nav-li-Home' class='nav-item text-white'><%= fa_icon 'arrow-left', class: 'align-middle' %>
-        <span class='align-middle erasable'>Retornar</span></li>
+        <span class='align-middle erasable'>Return</span></li>
     <% end %>
     <%= link_to quiz_path, class: 'nav-link' do %>
         <li id='nav-li-Home' class='nav-item text-white'><i class="bi bi-pen align-middle"></i>
-        <span class='align-middle erasable'>Praticar</span></li>
+        <span class='align-middle erasable'>Practice</span></li>
     <% end %>
 
 </ul>
@@ -15,6 +15,7 @@
 <div id='page' class="bg-light p-4">
     <%= render "format-#{@quiz.format}"%>
 
+    <%= render "shared/notification" %>
     <% @quiz.answers.order(id: :asc).each_with_index do |answer, index| %>
       <% if answer.correct? %>
           <span style='position: relative'><span class='grade'><%=number_with_precision answer.grade, significant: true, precision: 2, separator: ',' %></span></span>

@@ -4,11 +4,11 @@ module HomeHelper
     return '---' if media(chair) == '---'
 
     if media(chair) >= 14.5
-      'DISPENSADO'
+      'EXEMPTED'
     elsif media(chair) >= 9.5
-      chair.exam.nil? ? 'ADMITIDO' : chair.exam
+      chair.exam.nil? ? 'PASSED' : chair.exam
     else
-      'EXCLUÍDO'
+      'FAILED'
     end
   end
 
@@ -43,20 +43,20 @@ module HomeHelper
 
   def journey_table(journey)
     content_tag(:table,
-      content_tag(:caption, "Jornada #{journey.id}") +
+      content_tag(:caption, "Journey #{journey.id}") +
       content_tag(:thead,
                   content_tag(:tr,
-                              content_tag(:th, 'Cadeira', rowspan: '2') +
-                              content_tag(:th, 'Nota', colspan: '7', class: 'text-center')
+                              content_tag(:th, 'Subject', rowspan: '2') +
+                              content_tag(:th, 'Grade', colspan: '7', class: 'text-center')
                             ) +
                   content_tag(:tr,
-                              content_tag(:th, '1º Teste', class: 'text-center') +
-                              content_tag(:th, '2º Teste', class: 'text-center') +
-                              content_tag(:th, 'Teste de Reposição', class: 'text-center') +
-                              content_tag(:th, 'Trabalho', class: 'text-center') +
-                              content_tag(:th, 'Média Final', class: 'text-center') +
-                              content_tag(:th, 'Exame Normal', class: 'text-center') +
-                              content_tag(:th, 'Exame de Recorrência', class: 'text-center')
+                              content_tag(:th, '1st Test', class: 'text-center') +
+                              content_tag(:th, '2nd Test', class: 'text-center') +
+                              content_tag(:th, 'Reposition Test', class: 'text-center') +
+                              content_tag(:th, 'Course Work', class: 'text-center') +
+                              content_tag(:th, 'Average', class: 'text-center') +
+                              content_tag(:th, 'Exam', class: 'text-center') +
+                              content_tag(:th, 'Recurrence Exam', class: 'text-center')
                             )
                    ) +
       content_tag(:tbody,
@@ -70,7 +70,7 @@ module HomeHelper
                                   case exame(chair) 
                                   when '---'
                                     ''
-                                  when 0..9.4, 'ADMITIDO'
+                                  when 0..9.4, 'PASSED'
                                     case recurrence(chair)
                                     when '---'
                                       'table-warning'
@@ -90,7 +90,7 @@ module HomeHelper
                                 content_tag(:td, chair_check(chair) ? (link_to(quiz_path(journey: journey.id, level: journey.level, subject: chair.subject.id), class: 'stretched-link'){chair.subject.title}) : chair.subject.title, class: 'position-relative text-center') +
                                 content_tag(:td, chair.first.nil? ? '---' : chair.first.to_s.gsub('.',','), class: 'text-center') +
                                 content_tag(:td, chair.second.nil? ? '---' : chair.second.to_s.gsub('.',','), class: 'text-center') +
-                                content_tag(:td, ((chair.first.nil? || chair.second.nil?) ? (chair.reposition.nil? ? '---' : chair.reposition.to_s.gsub('.',',')) : '---'), class: 'text-center') +
+                                content_tag(:td, (chair.first.nil? || chair.second.nil? ? (chair.reposition.nil? ? '---' : chair.reposition.to_s.gsub('.',',')) : '---'), class: 'text-center') +
                                 content_tag(:td, chair.dissertation.nil? ? '---' : chair.dissertation.to_s.gsub('.',','), class: 'text-center') +
                                 content_tag(:td, media(chair).to_s.gsub('.', ','), class: 'text-center') +
                                 content_tag(:td, exame(chair).to_s.gsub('.', ','), class: 'text-center') +
@@ -103,14 +103,14 @@ module HomeHelper
   def nav(to: 'home')
     buttons = case to
               when 'home'
-                [[root_path, 'Jornada', 'shield-alt'], [classroom_path, 'Aula', 'language'],
-                 [challenges_path, 'Desafios', 'flag-checkered']]
+                [[root_path, 'Journey', 'shield-alt'], [classroom_path, 'Lesson', 'language'],
+                 ['#', 'Challenges', 'flag-checkered']]
               when 'data'
-                [[question_path, 'Questões', 'question-circle'], [subject_path, 'Cadeiras', 'book'],
-                 [statistics_path, 'Estatísticas', 'graduation-cap'], [configurations_path, 'Configurações', 'cogs']]
+                [[question_path, 'Questions', 'question-circle'], [subject_path, 'Subjects', 'book'],
+                 [statistics_path, 'Statistics', 'graduation-cap'], [configurations_path, 'Settings', 'cogs']]
               when 'devise'
-                [[question_path, 'Questões', 'question-circle'], [subject_path, 'Cadeiras', 'book'],
-                 [statistics_path, 'Estatísticas', 'graduation-cap'], [configurations_path, 'Configurações', 'cogs']]
+                [[question_path, 'Questions', 'question-circle'], [subject_path, 'Subjects', 'book'],
+                 [statistics_path, 'Statistics', 'graduation-cap'], [configurations_path, 'Settings', 'cogs']]
               end
     render 'shared/nav', buttons:
   end

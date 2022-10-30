@@ -15,11 +15,5 @@
 
   <body style="min-height: 100vh">
     <%= yield %>
-    <div class="notice"><%= notice %></div>
-    <% unless alert == nil %>
-      <div class="alert alert-danger alert-dismissible" role="alert"><%= alert %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <% end %>
   </body>
 </html>
