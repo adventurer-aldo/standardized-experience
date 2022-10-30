@@ -3,7 +3,7 @@
 <%= nav(to: 'home') %>
 <%= render "shared/notification" %>
 
-<%= audio_tag(@ost, autoplay: true, loop: true, id: 'bgm') %>
+<%= # audio_tag(@ost, autoplay: true, loop: true, id: 'bgm') %>
 
 <% if @pop_quiz.exists? %>
   <%= render 'home/components/tip' %>

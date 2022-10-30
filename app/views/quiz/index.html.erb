@@ -1,7 +1,7 @@
 <%= render "navbar"%><head><title><%=@quiz.subject.title %> | <%=@test_name[@quiz.level]%></title></head><div id='page' class="bg-light p-3"><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
 
-  <%= audio_tag("quiz/#{@journey.soundtrack.name}/#{@ost[0][@ost_index]}", {autoplay: true, loop: true, id: 'bgm'}) %>
+  <%= # audio_tag("quiz/#{@journey.soundtrack.name}/#{@ost[0][@ost_index]}", {autoplay: true, loop: true, id: 'bgm'}) %>
 
 <%= render "shared/notification" %>
 <%= form_with id: :quiz, html: { autocomplete: 'off', 'data-turbo' => 'false', onsubmit: "submitNames(event)" } do |form| %>
