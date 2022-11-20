@@ -36,12 +36,12 @@ function PaginationQuestion(props) {
               <div className="dropdown-menu p-4" style={{minWidth: '43vw'}}>
                   <div className="mb-3">
                       <label htmlFor="searchQuestion" className="form-label">Question:</label>
-                      <input type="text" className="form-control" id="searchQuestion" placeholder="Cadeira" name="question"
+                      <input type="text" className="form-control" id="searchQuestion" placeholder="Question" name="question"
                              onChange={(event) => props.handleChange(event, 'question')} value={props.query.question} />
                   </div>
                   <div className="mb-3">
                       <label htmlFor="searchAnswer" className="form-label">Answer:</label>
-                      <input type="text" className="form-control" id="searchAnswer" placeholder="Cadeira" name="answer"
+                      <input type="text" className="form-control" id="searchAnswer" placeholder="Answer" name="answer"
                              onChange={(event) => props.handleChange(event, 'answer')} value={props.query.answer} />
                   </div>
                   <div className="form-floating">

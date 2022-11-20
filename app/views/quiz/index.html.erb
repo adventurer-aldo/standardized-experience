@@ -1,23 +1,31 @@
 <%= render "navbar"%><head><title><%=@quiz.subject.title %> | <%=@test_name[@quiz.level]%></title></head><div id='page' class="bg-light p-3"><div style='padding: 30px'>
     <%= render "format-#{@format}"%>
 
+  <%= audio_tag("quiz/#{@ost_name}/#{@ost[0][@ost_index]}", {autoplay: true, loop: true, id: 'bgm'}) %>
 
 <%= render "shared/notification" %>
 <%= form_with id: :quiz, html: { autocomplete: 'off', 'data-turbo' => 'false', onsubmit: "submitNames(event)" } do |form| %>
     <%= form.hidden_field :quizID, value: @quiz.id.to_s %>
     <%= form.hidden_field :first_name, value: '', id: 'name_first' %>
     <%= form.hidden_field :last_name, value: '', id: 'name_last' %>
-    <% @quiz.answers.order(id: :asc).each_with_index do |answer, index| %>
-    <div class="mb-2"><b><%= index + 1 %>.</b> <%= show_question(answer) %>
-    <% if answer.question.image.attached? %>
-      <br><img src=<%= raw answer.question.image.url %> class="img-fluid">
+    <% if @subject.practical == 1 %>
+      <%= react_component "AnswerTimed", { answers: @practical }   %>
+      <div class="d-grid gap-2 col-7 mx-auto">
+        <%= form.submit 'Submit Test', id: 'submitBtn', class: 'btn btn-dark' %>
+      </div>
+    <% else %>
+      <% @quiz.answers.order(id: :asc).each_with_index do |answer, index| %>
+        <div class="mb-2 p-1"><b><%= index + 1 %>. </b><%= show_question(answer) %>
+          <% if answer.question.image.attached? %>
+            <br><img src=<%= raw answer.question.image.url %> class="img-fluid">
+          <% end %>
+          <div>
+            <%= input_answer(answer) %>
+          </div>
+        </div>
+      <% end %>
+      <div class="d-grid gap-2 col-7 mx-auto">
+        <%= form.submit 'Submit Test', id: 'submitBtn', class: 'btn btn-dark' %>
+      </div>
     <% end %>
-    <div>
-    <%= input_answer(answer) %>
-    </div>
-    </div>
-    <% end %>
-    <div class="d-grid gap-2 col-7 mx-auto">
-      <%= form.submit 'Submit Test', id: 'submitBtn', class: 'btn btn-dark' %>
-    </div>
 <% end %>

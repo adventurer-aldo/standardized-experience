@@ -8,8 +8,6 @@ class Journey < ApplicationRecord
   belongs_to :stat, class_name: 'Stat', foreign_key: 'stat_id'
   belongs_to :soundtrack, class_name: 'Soundtrack', foreign_key: 'soundtrack_id'
 
-  after_save :make_checkpoint
-
   def make_checkpoint
     return unless level < 7
 

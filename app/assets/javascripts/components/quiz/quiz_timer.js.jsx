@@ -14,11 +14,11 @@ class QuizTimer extends React.Component {
       })
       if (Math.trunc(remainingTime / 60) === 2 && Math.trunc(remainingTime % 60) == 30) {
         document.getElementById('timing-bar').style = 'top: 0px;'
-        // if (typeof this.props.fire !== 'undefined' && this.props.fire !== '') {
-          // let bgmElement = document.getElementById('bgm');
-          // bgmElement.src = this.props.fire;
-          // bgmElement.load();
-        // }
+        if (typeof this.props.fire !== 'undefined' && this.props.fire !== '') {
+          let bgmElement = document.getElementById('bgm');
+          bgmElement.src = this.props.fire;
+          bgmElement.load();
+        }
       }
       if (remainingTime < 0 || document.getElementById('submitBtn').disabled) {
         clearInterval(timerInterval);

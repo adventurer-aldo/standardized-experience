@@ -3,18 +3,15 @@
 <%= nav(to: 'home') %>
 <%= render "shared/notification" %>
 
+<%= audio_tag(@ost, autoplay: true, loop: true, id: 'bgm') %>
 
-<% if @pop_quiz.exists? %>
-  <%= render 'home/components/tip' %>
+<% if @pop_quiz %>
+  <%= react_component "Answer", @pop_quiz %>
 <% end %>
 
 <%= @last_quiz %>
 
-<p><strong><h5><span id="journey-level"><%= @progress %></span></h5></strong>
-
-<%= react_component('JourneyBar', {startTime: @start_time, chairsNum: @chairs, csrf_token: form_authenticity_token}) %>
-
-<span id="journey-cheer"><%= Misc::Text.cheer[@journey.level].sample %></span></p>
+<%= react_component('Journey', {id: @journey.id, level: @journey.level, cheer: @cheer, csrf_token: form_authenticity_token}) %>
 
 <div data-turbo="false">
   <% if @journey %>

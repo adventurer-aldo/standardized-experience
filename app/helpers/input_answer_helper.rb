@@ -18,7 +18,7 @@ module InputAnswerHelper
     when 'open', 'formula' # When the answer is to be typed in
       return input.html_safe
     when 'choice', 'multichoice', 'veracity' # When the answer is to be chosen from a list of choices
-      options = organize_variables(answer)
+      options = map_with_decoys(answer.variables)
       case answer.question_type
       when 'choice' # When the answer is a single choice from a list of choices
         options.map do |option|
@@ -26,7 +26,7 @@ module InputAnswerHelper
           <div class="form-check">
             <input class="form-check-input" type="#{answer.choices.where(veracity: 1).size > 1 ? 'checkbox' : 'radio'}" value="#{option}" name="answer[#{answer.id}][]" id="Check#{answer.id}-#{options.index(option)}">
             <label class="form-check-label" for="Check#{answer.id}-#{options.index(option)}">
-              #{option}
+              #{option.first}
             </label>
           </div>)
         end.join.html_safe
@@ -35,7 +35,9 @@ module InputAnswerHelper
           %(
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" name="answer[#{answer.id}][]" value="#{option}" id="Check#{answer.id}-#{options.index(option)}">
-            <label class="form-check-label" for="Check#{answer.id}-#{options.index(option)}">#{option}</label>
+            <label class="form-check-label" for="Check#{answer.id}-#{options.index(option)}">
+              #{option.first}
+            </label>
           </div>
         )
         end.join.html_safe

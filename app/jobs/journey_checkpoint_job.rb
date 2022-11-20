@@ -13,6 +13,8 @@ class JourneyCheckpointJob < ApplicationJob
       journey.level += 1 if journey.level == 6 && journey.chairs.where.not(recurrence: nil).exists?
     end
     journey.end_time = Time.zone.now if journey.level > 6
-    journey.save!
+    journey.save
+    journey.make_checkpoint
+    JourneyChannel.broadcast_to(journey, level: journey.level, cheer: Misc::Text.cheer[journey.level].sample)
   end
 end

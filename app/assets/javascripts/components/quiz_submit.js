@@ -8,6 +8,6 @@ function submitNames(event) {
   form = document.getElementById('quiz');
   formWithData = new FormData(form);
   axios.post('/quiz', formWithData).then(() => {
-    window.location = `/resultados/${form.elements['quizID'].value}`
+    window.location = `/results/${form.elements['quizID'].value}`
   })
 }

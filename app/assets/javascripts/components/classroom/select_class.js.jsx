@@ -13,7 +13,7 @@ function SelectClass(props) {
   const handleTagClick = (tag) => {
     axios.post('/api/lessons', {lesson: {tag: tag, subject_id: selectedSubject}, authenticity_token: props.auth_token})
     .then(response => {
-      window.location = '/licao/' + response.data.id
+      window.location = '/lesson/' + response.data.id
     })
   }
 

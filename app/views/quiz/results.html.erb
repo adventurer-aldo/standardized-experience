@@ -17,14 +17,24 @@
 
     <%= render "shared/notification" %>
     <% @quiz.answers.order(id: :asc).each_with_index do |answer, index| %>
-      <% if answer.correct? %>
-          <span style='position: relative'><span class='grade'><%=number_with_precision answer.grade, significant: true, precision: 2, separator: ',' %></span></span>
+      <% if @quiz.subject.practical %>
+        <div class="d-flex border rounded overflow-hidden w-100 my-2">
+          <span class="d-inline-block p-2 fw-bold text-bg-dark"><%= index + 1 %>. </span>
+          <div class="d-block p-1 w-100">
+            <%= show_question(answer) %>
+            <div><%= show_correct(answer) %></div>
+          </div>
+        </div>
       <% else %>
-          <span style='position: relative'><span class='grade'>0,0</span></span>
+        <% if answer.correct? %>
+            <span style='position: relative'><span class='grade'><%=number_with_precision answer.grade, significant: true, precision: 2, separator: ',' %></span></span>
+        <% else %>
+            <span style='position: relative'><span class='grade'>0,0</span></span>
+        <% end %>
+        <p><b><%= index + 1 %>.</b> <%= show_question(answer) %><br>
+        <%= image_tag(answer.question.image.url, class: 'img-fluid') if answer.question.image.attached? %>
+        <%= show_correct(answer) %></p>
       <% end %>
-      <p><b><%= index + 1 %>.</b> <%= show_question(answer) %><br>
-      <%= image_tag(answer.question.image.url, class: 'img-fluid') if answer.question.image.attached? %>
-      <%= show_correct(answer) %></p>
     <% end %>
         
 </div>

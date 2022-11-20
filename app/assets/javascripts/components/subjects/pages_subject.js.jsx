@@ -36,7 +36,7 @@ function PaginationSubject(props) {
               <div className="dropdown-menu p-4" style={{minWidth: '43vw'}}>
                   <div className="mb-3">
                       <label htmlFor="searchTitle" className="form-label">Name:</label>
-                      <input type="text" className="form-control" id="searchTitle" placeholder="Cadeira" name="title"
+                      <input type="text" className="form-control" id="searchTitle" placeholder="Name" name="title"
                              onChange={(event) => props.handleChange(event, 'title')} value={props.query.title} />
                   </div>
                   <div className="mb-3">

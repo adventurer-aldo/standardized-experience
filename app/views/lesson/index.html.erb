@@ -1,4 +1,5 @@
 <head><title>Aula: <%= params[:tag] %> | SE</title></head>
+<%= audio_tag('class/Shadow/session', autoplay: true, loop: true, id: 'bgm') %>
 <div style="height: 100vh; background: url('<%= image_url('bg_school_room2_yuyake') %>'); background-size: cover; )"
 class="text-bg-light p-5 overflow-scroll">
 <%= react_component('Lesson', {fire: audio_url('class/Shadow/rush'), auth_token: form_authenticity_token,

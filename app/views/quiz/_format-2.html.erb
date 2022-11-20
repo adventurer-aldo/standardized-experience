@@ -10,7 +10,7 @@
 <h4 class="text-center"><b>Standardized Experience</b></h4>
 <p class="text-center"><b>Superior Academic Training Program</b></p>
 <p class="text-center"><%= @test_name[@quiz.level] %> of <%= @quiz.subject.title %><br>
-<div class='border-bottom border-dark border-3'>Duration: <%= @quiz_durations[@quiz.level] %> minutes <div class='float-end d-inline-block'><%=@quiz_start.day%>.<%=@quiz_start.month%>.<%=@quiz_start.year%></div></div>
+<div class='border-bottom border-dark border-3'>Length: <%= @quiz_durations[@quiz.level] %> minutes <div class='float-end d-inline-block'><%=@quiz_start.day%>.<%=@quiz_start.month%>.<%=@quiz_start.year%></div></div>
 </p></div>
 <p> <%= form_with id: :name, html: { autocomplete: 'off', onsubmit: '' } do |form| %>
     <input type='hidden' name='first_name' value='' id='first_name' />

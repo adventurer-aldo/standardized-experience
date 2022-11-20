@@ -7,9 +7,6 @@ class HomeController < ApplicationController
   def index
     unless current_user.journeys.empty?
       @journey = current_user.journeys.last
-      @progress = ['', 'First evaluations', 'Second evaluations', 'Repositions',
-                   'Course works', 'Regular Exams', 'Recurrence Exams',
-                   'Results'][@journey.level]
 
       @ost = "quiz/#{@journey.soundtrack.name}/"
       @ost += case @journey.level
@@ -27,17 +24,25 @@ class HomeController < ApplicationController
 
       @start_time = @journey.start_time.to_time.to_f * 1000
       @chairs = @journey.chairs.size
+      @cheer = Misc::Text.cheer[@journey.level].sample
     end
 
     @ost = Soundtrack.first.home if @ost.nil?
     unless current_user.stat.evaluables.empty?
-      @pop_quiz = current_user.stat.evaluables.sample.subject&.questions&.order(Arel.sql('RANDOM()'))
+      random_study_question = current_user.stat.evaluables.sample.subject&.questions&.order(Arel.sql('RANDOM()'))
+      random_study_question = random_study_question&.first
+      unless random_study_question.nil?
+        type = random_study_question.question_types.sample
+        @pop_quiz = { choices: helpers.map_with_decoys(random_study_question.generate_variables(type)),
+                      id: random_study_question.id, question_type: type, question: random_study_question.question }
+      end
     end
 
     quiz = current_user.quizzes.last
     @last_quiz = if quiz
-                   format('Your last test was of %s, with the grade %s. %s',
-                          quiz.subject.title, quiz.grade(text: true), Misc::Text.evaluate(quiz.grade))
+                   format('Your last test was of %<subject_name>s, with the grade %<grade>s. %<text_cheer>s',
+                          { subject_name: quiz.subject.title, grade: quiz.grade(text: true),
+                            text_cheer: Misc::Text.evaluate(quiz.grade) })
                  else
                    'You have not done a test yet. Why not start one?'
                  end

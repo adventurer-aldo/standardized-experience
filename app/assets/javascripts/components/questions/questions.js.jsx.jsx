@@ -152,8 +152,8 @@ class DataQuestions extends React.Component {
     }
     this.setState(prev => {
       return { submitData: [{...prev.submitData[0], question: '', answer: Array(prev.submitData[0].answer.length).fill(''),
-      choices: Array(prev.submitData[0].choices.length).fill(Array(prev.submitData[0].choices[0].length).fill(''))}, {...prev.submitData[1], question: '', answer: Array(prev.submitData[1].answer.length).fill(''),
-    choices: Array(prev.submitData[1].choices.length).fill(Array(prev.submitData[1].choices[0].length).fill(''))}], editingID: null }
+      choices: Array(prev.submitData[0].choices.length).fill(Array((prev.submitData[0].choices[0] || new Array).length).fill(''))}, {...prev.submitData[1], question: '', answer: Array(prev.submitData[1].answer.length).fill(''),
+    choices: Array(prev.submitData[1].choices.length).fill(Array((prev.submitData[1].choices[0] || new Array).length).fill(''))}], editingID: null }
     })
     if (typeof document.getElementById('floatingInput') !== 'undefined') document.getElementById('floatingInput').focus();
   }

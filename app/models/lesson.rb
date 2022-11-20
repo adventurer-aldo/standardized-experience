@@ -7,17 +7,17 @@ class Lesson < ApplicationRecord
   def grade
     case quiz.grade
     when 0..4
-      'Péssimo'
+      'Terrible'
     when 4..8
-      'Mau'
+      'Bad'
     when 8..12
-      'Suficiente'
+      'Average'
     when 12..16
-      'Bom'
+      'Good'
     when 16..18
-      'Muito Bom'
+      'Great'
     when 18..20
-      'Excelente'
+      'Excellent'
     end
   end
 end

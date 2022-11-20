@@ -165,8 +165,9 @@ function QuestionEditor(props) {
       <input type='hidden' name='authenticity_token' value={props.auth_token} />
       <input type='hidden' name='question[stat_id]' value={props.stat} />
       <div className="form-floating mt-1 d-flex ">
-        <input type="text" className="rounded-0 rounded-start form-control" id="floatingInput"
+        <textarea className="rounded-0 rounded-start form-control" id="floatingInput"
           placeholder="Question" name="question[question]" required="required"
+          style={{minHeight: 58}}
           value={props.data.question} onChange={(event) => props.handleChange(event, 'question')} />
         <label htmlFor="floatingInput">
           {props.editing === null ? 'What will be the question?' : `Modify the question "${props.originalName}" to what?`}

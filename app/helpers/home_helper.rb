@@ -43,10 +43,10 @@ module HomeHelper
 
   def journey_table(journey)
     content_tag(:table,
-      content_tag(:caption, "Journey #{journey.id}") +
+      content_tag(:caption, "Journey ##{current_user.journeys.size} -- Started at #{journey.start_time.to_time.day}/#{journey.start_time.to_time.mon}/#{journey.start_time.to_time.year}") +
       content_tag(:thead,
                   content_tag(:tr,
-                              content_tag(:th, 'Subject', rowspan: '2') +
+                              content_tag(:th, 'Subject', rowspan: '2', class: 'text-center') +
                               content_tag(:th, 'Grade', colspan: '7', class: 'text-center')
                             ) +
                   content_tag(:tr,
@@ -96,7 +96,7 @@ module HomeHelper
                                 content_tag(:td, exame(chair).to_s.gsub('.', ','), class: 'text-center') +
                                 content_tag(:td, recurrence(chair).to_s.gsub('.', ','), class: 'text-center'),
                                 class: "table-group-divider #{highlight}"),
-                    root_path) }.join.html_safe), id: 'journey', class: 'table table-striped table-striped-columns table-hover overflow-scroll'
+                    root_path) }.join.html_safe), id: 'journey', class: 'table table-bordered table-striped table-striped-columns table-hover overflow-scroll'
                 )
   end
 

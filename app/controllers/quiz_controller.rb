@@ -18,7 +18,8 @@
       'Reposition Test',
       'Job',
       'Normal Exam',
-      'Recurrence Exam'
+      'Recurrence Exam',
+      'Extraordinary Exam'
     ]
 
     @professorNames = [
@@ -42,7 +43,7 @@
       'Oscar Martinez'
     ]
 
-    @quiz_durations = [5, 9, 9, 10, 6, 15, 20]
+    @quiz_durations = [5, 9, 9, 10, 6, 15, 20, 60]
 
     case @formats
     when 0
@@ -124,6 +125,8 @@
                       end
                     when 6
                       base_query.where(level: focus.zero? ? [1, 2, 4] : focus).limit(rand(50..100))
+                    when 7
+                      base_query
                     end.shuffle
 
     @ost =  case @level
@@ -141,8 +144,11 @@
               [@journey.soundtrack.exam, @journey.soundtrack.exam_rush]
             when 6
               [@journey.soundtrack.recurrence, @journey.soundtrack.recurrence_rush]
+            when 7
+              [['exam'], ['rushexam']]
             end
     @ost_index = @ost[0].index(@ost[0].sample)
+    @ost_name = @level == 7 ? 'Standardized' : @journey.soundtrack.name
 
     @quiz = current_user.stat.quizzes.create!(
       subject_id: @subject.id,
@@ -155,49 +161,7 @@
 
     all_questions.each do |question|
       type = question.question_types.sample
-      calculated_variables = []
-
-      case type
-      when 'match'
-        calculated_variables = question.choices.where(veracity: 0).map(&:id).shuffle
-      when 'choice', 'veracity'
-        calculated_variables = case type
-                               when 'veracity'
-                                 question.choices.shuffle[0..rand(1..(question.choices.size - 1))].map(&:id).map(&:to_s)
-                               else
-                                 choices = question.choices.where(veracity: 0)
-                                 choices = choices[0..rand(0..(choices.size - 1))]
-                                 question.choices.where(veracity: 1).each do |choice_answer|
-                                   choices.push(choice_answer)
-                                 end
-                                 choices.shuffle!
-                                 choices.map(&:id).map(&:to_s)
-                               end
-      when 'formula'
-        que = question.question.dup
-        randoms = que.count('#')
-        randoms.times do 
-          calculated_variables << "#{que[/#£(.*?)§/,1]}".split(',')
-          que[que.index('#£')..que.index('§')] = ''
-        end
-        calculated_variables.map! do |n|
-          c = n.map(&:to_f)
-          case n.size
-          when 1
-            Float(rand(1..(c.first))).round(2).to_s
-          when 2
-            Float(rand(c.first..c.last)).round.to_s
-          when 3
-            Float(rand(c.first..c.last)).round(1).to_s
-          when 4
-            Float(rand(c.first..c.last)).round(2).to_s
-          when 5
-            Float(rand(c.first..c.last)).round(3).to_s
-          else
-            Float(rand(20_000)).round(2).to_s
-          end
-        end
-      end
+      calculated_variables = question.generate_variables(type)
 
       @quiz.answers.create!(
         question_id: question.id,
@@ -205,6 +169,13 @@
         question_type: type,
         variables: calculated_variables
       )
+    end
+
+    if @subject.practical == 1
+      @practical = @quiz.answers.order(id: :asc).map do |answer|
+        { id: answer.id, question_type: answer.question_type, choices: helpers.map_with_decoys(answer.variables),
+          question: answer.question.question.gsub('\n', '\n '), answers_size: answer.question.answer.size }
+      end
     end
 
     @quiz_start = @quiz.start_time.time
