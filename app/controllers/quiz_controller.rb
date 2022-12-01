@@ -176,6 +176,7 @@
         { id: answer.id, question_type: answer.question_type, choices: helpers.map_with_decoys(answer.variables),
           question: answer.question.question.gsub('\n', '\n '), answers_size: answer.question.answer.size }
       end
+      @time_limit = (@quiz.start_time.to_f + @quiz_durations[@quiz.level]) * 1000
     end
 
     @quiz_start = @quiz.start_time.time
@@ -189,96 +190,102 @@
   #=======================================================================================
   def submit
     @quiz = Quiz.find_by(id: params[:quizID].to_i)
-    @quiz.update(end_time: Time.zone.now)
-    @quiz.update(first_name: params[:first_name]) if params[:first_name]
-    @quiz.update(last_name: params[:last_name]) if params[:last_name]
-    journey = @quiz.journey
+    @quiz.end_time = Time.zone.now
+    @quiz.first_name = params[:first_name] if params[:first_name]
+    @quiz.last_name = params[:last_name] if params[:last_name]
+    @quiz.save
 
-    if params[:answer]
-      params[:answer].each do |id, answer|
-        Answer.find_by(id: id.to_i).update(attempt: answer)
-      end
+    params[:answer]&.each do |id, answer|
+      Answer.find_by(id: id.to_i).update(attempt: answer)
     end
 
-    if journey.level == @quiz.level && journey.level < 7 && journey.chairs.where(subject_id: @quiz.subject.id).exists?
-      chair = journey.chairs.where(subject_id: @quiz.subject.id).first
-      case journey.level
-      when 1
-        chair.update(first: helpers.grade(@quiz)) if chair.first.nil?
-      when 2
-        chair.update(second: helpers.grade(@quiz)) if chair.second.nil?
-        unless chair.first.nil? || chair.second.nil?
-          chair.update(reposition: 0.0)
-          unless chair.dissertation.nil?
-            if helpers.media(chair) >= 14.5
-              chair.update(exam: 20.0)
-              chair.update(recurrence: 20.0)
-            elsif helpers.media(chair) < 9.5
-              chair.update(exam: 0.0)
-              chair.update(recurrence: 0.0)
-            end
-          end
-        end
-      when 3
-        chair.update(reposition: helpers.grade(@quiz)) if chair.reposition.nil?
-        if chair.first.nil? || !chair.second.nil?
-          chair.update(first: helpers.grade(@quiz))
-        elsif !chair.first.nil? || chair.second.nil?
-          chair.update(second: helpers.grade(@quiz))
-        elsif chair.first.nil? || chair.second.nil?
-          chair.update(first: (helpers.grade(@quiz) / 2.0).round(2))
-          chair.update(second: (helpers.grade(@quiz) / 2.0).round(2))
-        end
-        chair.update(reposition: helpers.grade(@quiz))
-      when 4
-        chair.update(dissertation: helpers.grade(@quiz)) if chair.dissertation.nil?
-        if helpers.media(chair) >= 14.5
-          chair.update(exam: 20.0)
-          chair.update(recurrence: 20.0)
-        elsif helpers.media(chair) < 9.5
-          chair.update(exam: 0.0)
-          chair.update(recurrence: 0.0)
-        end
-      when 5
-        if chair.exam.nil?
-          chair.update(exam: helpers.grade(@quiz))
-          chair.update(recurrence: 20.0) if helpers.grade(@quiz) >= 9.5
-        end
-      when 6
-        chair.update(recurrence: helpers.grade(@quiz)) if chair.recurrence.nil?
-      end
-    end
+    journey_update(@quiz.journey)
 
     redirect_to results_path(id: params[:quizID])
   end
 
   #=======================================================================================
+  # Posts the quiz's score to the Journey.
+  #=======================================================================================
+  def journey_update(journey)
+    return unless journey.level == @quiz.level && journey.level < 7 && journey.chairs.where(subject_id: @quiz.subject.id).exists?
+
+    chair = journey.chairs.where(subject_id: @quiz.subject.id).first
+    case journey.level
+    when 1
+      chair.first = @quiz.grade if chair.first.nil?
+    when 2
+      chair.second = @quiz.grade if chair.second.nil?
+      unless chair.first.nil? || chair.second.nil?
+        chair.reposition = 0.0
+        unless chair.dissertation.nil?
+          if helpers.media(chair) >= 14.5
+            chair.exam = 20.0
+            chair.recurrence = 20.0
+          elsif helpers.media(chair) < 9.5
+            chair.exam = 0.0
+            chair.recurrence = 0.0
+          end
+        end
+      end
+    when 3
+      chair.reposition = @quiz.grade if chair.reposition.nil?
+      if chair.first.nil? && !chair.second.nil?
+        chair.first = @quiz.grade
+      elsif !chair.first.nil? && chair.second.nil?
+        chair.second = @quiz.grade
+      elsif chair.first.nil? && chair.second.nil?
+        chair.first = (@quiz.grade / 2.0).round(2)
+        chair.second = (@quiz.grade / 2.0).round(2)
+      end
+      chair.reposition = @quiz.grade
+    when 4
+      chair.dissertation = @quiz.grade if chair.dissertation.nil?
+      if helpers.media(chair) >= 14.5
+        chair.exam = 20.0
+        chair.recurrence = 20.0
+      elsif helpers.media(chair) < 9.5
+        chair.exam = 0.0
+        chair.recurrence = 0.0
+      end
+    when 5
+      if chair.exam.nil?
+        chair.exam = @quiz.grade
+        chair.recurrence = 20.0 if @quiz.grade >= 9.5
+      end
+    when 6
+      chair.recurrence = @quiz.grade if chair.recurrence.nil?
+    end
+
+    chair.save
+  end
+
+  #===========================================
   # -- RESULT
   # Takes a mandatory Quiz ID as an attribute and retrieves the array, level and subject
   # of that quiz. Gets each answer object from the array of IDs from the quiz's answer
   # column, and attempts to match it to its Question ID to see if it's correct in order to
   # determine the grade.
-  #=======================================================================================
+  #============================================
   def results
     @quiz = Quiz.find_by(id: params[:id].to_i)
-    @grade = helpers.grade(@quiz, true)
+    @grade = @quiz.grade(text: true)
     grade_num = @grade.gsub(',', '.').to_f
     @quiz_start = @quiz.start_time.to_time
     @quiz_end = @quiz.end_time.to_time
     @duration = Time.at(@quiz_end.to_i - @quiz_start.to_i)
-
     @fanfare = if grade_num < 7
-                 helpers.audio_path('results/failhard.ogg')
+                 'results/failhard.ogg'
                elsif grade_num < 9.5
-                 helpers.audio_path('results/fail.ogg')
+                 'results/fail.ogg'
                elsif grade_num < 14.5
-                 helpers.audio_path('results/succeed.ogg')
+                 'results/succeed.ogg'
                elsif grade_num < 18
-                 helpers.audio_path('results/succeedhard.ogg')
+                 'results/succeedhard.ogg'
                elsif grade_num < 20
-                 helpers.audio_path('results/succeedharder.ogg')
+                 'results/succeedharder.ogg'
                else
-                 helpers.audio_path('results/succeedhardest.ogg')
+                 'results/succeedhardest.ogg'
                end
   end
 

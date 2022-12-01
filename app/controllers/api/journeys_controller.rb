@@ -20,14 +20,13 @@ class Api::JourneysController < ApplicationController
 
   # POST /journeys or /journeys.json
   def create
-    @journey = Journey.new(duration: 0, stat_id: current_user.stat.id, start_time: Time.zone.now,
-                               soundtrack_id: Soundtrack.order(Arel.sql('RANDOM()')).limit(1).first.id)
+    @journey = Journey.create(duration: 0, stat_id: current_user.stat.id, start_time: Time.zone.now,
+                              soundtrack_id: Soundtrack.order(Arel.sql('RANDOM()')).limit(1).first.id)
 
     current_user.evaluables.map(&:subject).sort_by(&:title).each do |subject|
       chair = @journey.chairs.create(subject_id: subject.id, format: rand(0..2).round)
       chair.update(dissertation: rand(0..20.0).round(2)) unless subject.questions.where(level: 3).exists?
     end
-    @journey.save
     @journey.make_checkpoint
 
     render json: { id: @journey.id }

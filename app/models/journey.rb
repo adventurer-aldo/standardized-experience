@@ -8,6 +8,8 @@ class Journey < ApplicationRecord
   belongs_to :stat, class_name: 'Stat', foreign_key: 'stat_id'
   belongs_to :soundtrack, class_name: 'Soundtrack', foreign_key: 'soundtrack_id'
 
+  # For a given journey, sets a job that will increase the level after a certain
+  # amount of time.
   def make_checkpoint
     return unless level < 7
 

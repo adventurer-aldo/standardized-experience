@@ -47,20 +47,18 @@ class Journey extends React.Component {
   }
 
   handleClick() {
-    axios.post('/api/journeys', {authenticity_token: this.props.csrf_token})
-    .then(response => this.createSubscription(response.data.id))
+    if (this.state.level === 7) {
+      axios.post('/api/journeys', {authenticity_token: this.props.csrf_token})
+      .then(response => this.createSubscription(response.data.id))
+    }
   }
 
   render() {
     return (
-      <div className="border rounded p-1 my-1">
-        <h5 className="border-bottom border-dark p-1"><span id="journey-level" className="fw-bold">{journey_stages[this.state.level]}</span></h5>
-        <span id="journey-cheer">{this.state.cheer}</span>
-        <div style={{display: (this.state.level === 7 ? '' : 'none')}}>
-          <button onClick={this.handleClick} className="btn btn-primary">
-            Your journey is over. Start a new one now!
-          </button>
-        </div>
+      <div className={`text-start border rounded p-1 my-1 w-100 ${this.state.level === 7 ? 'btn btn-primary' : ''}`}
+      onClick={this.handleClick}>
+        <h5 className={`border-bottom border-${this.state.level === 7 ? 'light' : 'dark'} p-1`}><span id="journey-level" className="fw-bold">{journey_stages[this.state.level]}</span></h5>
+        <span id="journey-cheer">{this.state.cheer} {this.state.level === 7 ? "Your journey is over. Click here to start a new one, whenever you're ready!" : ''}</span>
       </div>
     )
   }

@@ -1,6 +1,6 @@
 <% unless @grade.nil? %><span class='score'><%= @grade %>/20</span><% end %><div id='logoquiz' class='smudge-image'></div>
 <p align='center'><b>Standardized Experience</b><br>
-<b>Course:</b> Learning&emsp;<b>Lective year:<%=@quiz_start.year%></b>&emsp;<b>Level:</b> <%=@quiz.level%>&emsp;<b>Journey:</b> <%=@quiz.journey.id %><br>
+<b>Course:</b> Learning&emsp;<b>Lective year: <%=@quiz_start.year%></b>&emsp;<b>Level:</b> <%=@quiz.level%>&emsp;<b>Journey:</b> <%=@quiz.journey.id %><br>
 <span style='text-decoration: underline'><b>Subject:</b> <%= @quiz.subject.title %>&emsp;<b><%=@test_name[@quiz.level]%></b>&emsp;<b>Date:</b> <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>&emsp;<b>Length:</b> <%=@quiz_durations[@quiz.level]%>min — <%=@quiz_start.hour%>h<%=@quiz_start.min%>m to <%=@quiz_end.hour%>h<%=@quiz_end.min%>m </span> </p>
 <p> <%= form_with id: :name, html: { autocomplete: 'off' } do |form| %>
         <% if @quiz.end_time %>

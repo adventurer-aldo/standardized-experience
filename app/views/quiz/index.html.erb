@@ -9,7 +9,7 @@
     <%= form.hidden_field :first_name, value: '', id: 'name_first' %>
     <%= form.hidden_field :last_name, value: '', id: 'name_last' %>
     <% if @subject.practical == 1 %>
-      <%= react_component "AnswerTimed", { answers: @practical }   %>
+      <%= react_component "AnswerTimed", { answers: @practical, timeLimit: Float(@quiz_durations[@quiz.level] * 60) / Float(@practical.size) }   %>
       <div class="d-grid gap-2 col-7 mx-auto">
         <%= form.submit 'Submit Test', id: 'submitBtn', class: 'btn btn-dark' %>
       </div>

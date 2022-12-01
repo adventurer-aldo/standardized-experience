@@ -138,10 +138,11 @@ CREATE TABLE public.answers (
     id integer NOT NULL,
     quiz_id integer NOT NULL,
     question_id integer NOT NULL,
-    attempt text[],
+    attempt text[] DEFAULT '{}'::text[] NOT NULL,
     grade numeric DEFAULT 0 NOT NULL,
-    question_type smallint DEFAULT 0 NOT NULL,
-    variables text[] DEFAULT '{}'::text[] NOT NULL
+    variables text[] DEFAULT '{}'::text[] NOT NULL,
+    negative_grade smallint DEFAULT 0 NOT NULL,
+    question_type text NOT NULL
 );
 
 
@@ -224,7 +225,7 @@ CREATE TABLE public.challenges (
     subject_id integer DEFAULT 0 NOT NULL,
     quiz_id integer,
     stat_id integer,
-    date timestamp without time zone NOT NULL,
+    date date NOT NULL,
     goal smallint DEFAULT 1 NOT NULL,
     completion smallint DEFAULT 0 NOT NULL,
     variables integer[]
@@ -258,8 +259,8 @@ ALTER SEQUENCE public.challenges_id_seq OWNED BY public.challenges.id;
 CREATE TABLE public.choices (
     id integer NOT NULL,
     question_id integer NOT NULL,
-    decoy text NOT NULL,
-    veracity smallint DEFAULT 0 NOT NULL
+    veracity smallint DEFAULT 0 NOT NULL,
+    texts text[]
 );
 
 
@@ -284,17 +285,82 @@ ALTER SEQUENCE public.choices_id_seq OWNED BY public.choices.id;
 
 
 --
+-- Name: evaluables; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evaluables (
+    id integer NOT NULL,
+    subject_id integer NOT NULL,
+    stat_id integer NOT NULL
+);
+
+
+--
+-- Name: evaluables_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evaluables_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evaluables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evaluables_id_seq OWNED BY public.evaluables.id;
+
+
+--
+-- Name: frequencies; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.frequencies (
+    id integer NOT NULL,
+    question_id integer NOT NULL,
+    stat_id integer NOT NULL,
+    appearances integer DEFAULT 0 NOT NULL,
+    hits integer DEFAULT 0 NOT NULL,
+    misses integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: frequencies_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.frequencies_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: frequencies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.frequencies_id_seq OWNED BY public.frequencies.id;
+
+
+--
 -- Name: journeys; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.journeys (
     id integer NOT NULL,
-    duration smallint NOT NULL,
-    start_time time with time zone NOT NULL,
-    end_time time with time zone,
+    duration smallint DEFAULT 0 NOT NULL,
     level smallint DEFAULT 1 NOT NULL,
     soundtrack_id integer NOT NULL,
-    stat_id integer DEFAULT 2 NOT NULL
+    stat_id integer NOT NULL,
+    start_time timestamp without time zone,
+    end_time timestamp without time zone
 );
 
 
@@ -319,6 +385,39 @@ ALTER SEQUENCE public.journeys_id_seq OWNED BY public.journeys.id;
 
 
 --
+-- Name: lessons; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lessons (
+    id integer NOT NULL,
+    tag text NOT NULL,
+    quiz_id integer NOT NULL,
+    grade integer,
+    stat_id integer NOT NULL
+);
+
+
+--
+-- Name: lessons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.lessons_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lessons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.lessons_id_seq OWNED BY public.lessons.id;
+
+
+--
 -- Name: questions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -330,10 +429,8 @@ CREATE TABLE public.questions (
     answer text[] NOT NULL,
     tags text[] DEFAULT '{}'::text[] NOT NULL,
     level smallint DEFAULT 1 NOT NULL,
-    frequency integer[] DEFAULT '{0,0,0}'::integer[] NOT NULL,
     parameters text[] DEFAULT '{}'::text[] NOT NULL,
-    stat_id integer DEFAULT 2 NOT NULL,
-    evaluable smallint DEFAULT 1 NOT NULL
+    stat_id integer NOT NULL
 );
 
 
@@ -404,10 +501,11 @@ CREATE TABLE public.quizzes (
     last_name text,
     subject_id integer NOT NULL,
     journey_id integer DEFAULT 0 NOT NULL,
-    start_time time with time zone NOT NULL,
-    end_time time with time zone,
     format smallint DEFAULT 0 NOT NULL,
-    level smallint DEFAULT 0 NOT NULL
+    level smallint DEFAULT 0 NOT NULL,
+    stat_id integer DEFAULT 5,
+    start_time timestamp without time zone,
+    end_time timestamp without time zone
 );
 
 
@@ -459,23 +557,24 @@ CREATE SEQUENCE public.seq_id
 CREATE TABLE public.soundtracks (
     id integer NOT NULL,
     name text NOT NULL,
-    home text NOT NULL,
-    preparations text NOT NULL,
-    preparations_second text NOT NULL,
-    preparations_exam text NOT NULL,
-    practice text[],
-    first text[],
-    first_rush text[] DEFAULT '{""}'::text[] NOT NULL,
-    second text[],
-    second_rush text[] DEFAULT '{""}'::text[] NOT NULL,
-    dissertation text[],
-    exam text[],
-    exam_rush text[] DEFAULT '{""}'::text[] NOT NULL,
-    recurrence text[],
-    recurrence_rush text[] DEFAULT '{""}'::text[] NOT NULL,
-    dissertation_rush text[] DEFAULT '{""}'::text[] NOT NULL,
-    practice_rush text[] DEFAULT '{""}'::text[] NOT NULL,
-    preparations_dissertation text NOT NULL
+    home text DEFAULT 'home'::text,
+    preparations text DEFAULT 'prep'::text,
+    preparations_second text DEFAULT 'prep2'::text,
+    preparations_exam text DEFAULT 'prepexam'::text,
+    practice text[] DEFAULT '{prac}'::text[],
+    first text[] DEFAULT '{test1}'::text[],
+    first_rush text[] DEFAULT '{rush1}'::text[],
+    second text[] DEFAULT '{test2}'::text[],
+    second_rush text[] DEFAULT '{rush2}'::text[],
+    dissertation text[] DEFAULT '{dissertation}'::text[],
+    exam text[] DEFAULT '{exam}'::text[],
+    exam_rush text[] DEFAULT '{rushexam}'::text[],
+    recurrence text[] DEFAULT '{examrec}'::text[],
+    recurrence_rush text[] DEFAULT '{rushrec}'::text[],
+    dissertation_rush text[] DEFAULT '{rushdissertation}'::text[],
+    practice_rush text[] DEFAULT '{rushprac}'::text[],
+    preparations_dissertation text DEFAULT '{prep3}'::text[],
+    recurrence_rusher text[] DEFAULT '{""}'::text[]
 );
 
 
@@ -512,9 +611,11 @@ CREATE TABLE public.stats (
     avoid_negative smallint DEFAULT 1 NOT NULL,
     focus_level smallint DEFAULT 0 NOT NULL,
     questions_pref smallint DEFAULT 0 NOT NULL,
-    journey_id integer DEFAULT 0 NOT NULL,
     theme_id integer DEFAULT 1 NOT NULL,
-    user_id integer DEFAULT 1 NOT NULL
+    user_id integer NOT NULL,
+    picture smallint DEFAULT 1 NOT NULL,
+    evaluabless integer[] DEFAULT '{}'::integer[] NOT NULL,
+    subjects_pref smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -545,10 +646,13 @@ ALTER SEQUENCE public.stats_id_seq OWNED BY public.stats.id;
 CREATE TABLE public.subjects (
     id integer NOT NULL,
     title text NOT NULL,
-    difficulty integer NOT NULL,
     formula smallint DEFAULT 0 NOT NULL,
-    evaluable smallint DEFAULT 1 NOT NULL,
-    stat_id integer DEFAULT 2 NOT NULL
+    stat_id integer NOT NULL,
+    practical smallint DEFAULT 0 NOT NULL,
+    job_type smallint DEFAULT 0 NOT NULL,
+    description text,
+    visibility smallint DEFAULT 0 NOT NULL,
+    allow_foreign smallint DEFAULT 1 NOT NULL
 );
 
 
@@ -611,8 +715,7 @@ ALTER SEQUENCE public.themes_id_seq OWNED BY public.themes.id;
 
 CREATE TABLE public.users (
     id integer NOT NULL,
-    username text NOT NULL,
-    password text NOT NULL,
+    username text,
     profile_id integer,
     email character varying DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
@@ -706,10 +809,31 @@ ALTER TABLE ONLY public.choices ALTER COLUMN id SET DEFAULT nextval('public.choi
 
 
 --
+-- Name: evaluables id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evaluables ALTER COLUMN id SET DEFAULT nextval('public.evaluables_id_seq'::regclass);
+
+
+--
+-- Name: frequencies id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.frequencies ALTER COLUMN id SET DEFAULT nextval('public.frequencies_id_seq'::regclass);
+
+
+--
 -- Name: journeys id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.journeys ALTER COLUMN id SET DEFAULT nextval('public.journeys_id_seq'::regclass);
+
+
+--
+-- Name: lessons id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lessons ALTER COLUMN id SET DEFAULT nextval('public.lessons_id_seq'::regclass);
 
 
 --
@@ -833,11 +957,35 @@ ALTER TABLE ONLY public.choices
 
 
 --
+-- Name: evaluables evaluables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evaluables
+    ADD CONSTRAINT evaluables_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: frequencies frequencies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.frequencies
+    ADD CONSTRAINT frequencies_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: journeys journeys_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.journeys
     ADD CONSTRAINT journeys_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lessons lessons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lessons
+    ADD CONSTRAINT lessons_pkey PRIMARY KEY (id);
 
 
 --
@@ -910,6 +1058,14 @@ ALTER TABLE ONLY public.subjects
 
 ALTER TABLE ONLY public.themes
     ADD CONSTRAINT themes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users username; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT username UNIQUE (username);
 
 
 --
@@ -1018,14 +1174,6 @@ ALTER TABLE ONLY public.active_storage_attachments
 --
 
 ALTER TABLE ONLY public.chairs
-    ADD CONSTRAINT journey FOREIGN KEY (journey_id) REFERENCES public.journeys(id) NOT VALID;
-
-
---
--- Name: stats journey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.stats
     ADD CONSTRAINT journey FOREIGN KEY (journey_id) REFERENCES public.journeys(id) NOT VALID;
 
 

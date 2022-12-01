@@ -6,7 +6,7 @@ module HomeHelper
     if media(chair) >= 14.5
       'EXEMPTED'
     elsif media(chair) >= 9.5
-      chair.exam.nil? ? 'PASSED' : chair.exam
+      chair.exam.nil? ? 'ACCEPTED' : chair.exam
     else
       'FAILED'
     end
@@ -70,7 +70,7 @@ module HomeHelper
                                   case exame(chair) 
                                   when '---'
                                     ''
-                                  when 0..9.4, 'PASSED'
+                                  when 0..9.4, 'ACCEPTED'
                                     case recurrence(chair)
                                     when '---'
                                       'table-warning'
