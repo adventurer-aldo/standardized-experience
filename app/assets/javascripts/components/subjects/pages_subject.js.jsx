@@ -42,7 +42,7 @@ function PaginationSubject(props) {
                   <div className="mb-3">
                       <label htmlFor="searchDescription" className="form-label">Description:</label>
                       <textarea className="form-control" id="searchDescription" name="description"
-                             placeholder="Esta cadeira é sobre..." value={props.query.description}
+                             placeholder="This subject is about..." value={props.query.description}
                              onChange={(event) => props.handleChange(event, 'description')}/>
                   </div>
                   <div className="form-floating">

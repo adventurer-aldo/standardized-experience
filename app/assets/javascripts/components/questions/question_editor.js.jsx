@@ -33,7 +33,7 @@ function QuestionEditor(props) {
                 {props.data.choices.map((choices, index) => (
                   <div key={index} className="form-floating d-flex">
                     <input type="text" className="rounded-0 rounded-start form-control" id={`floatingAnswer${index}`}
-                      placeholder="Pergunta" name={`question[choices][${index}][texts][]`} required="required"
+                      placeholder="Question" name={`question[choices][${index}][texts][]`} required="required"
                       value={choices[0]} onChange={(event) => props.handleChange(event, `choices`, index, 0)} />
                     <label htmlFor={`floatingAnswer${index}`}>
                       {props.editing === null ? `Decoy answer ${props.data.choices.length > 1 ? index + 1 : ''}` : `New decoy answer ${props.data.choices.length > 1 ? index + 1 : ''}`}
@@ -156,7 +156,7 @@ function QuestionEditor(props) {
 
         </div>)
     } else {
-      return <div>--UNRECOGNIZED QUESTION TYPE--</div>
+      return <div>[CURRENTLY UNIMPLEMENTED]</div>
     }
   }
 
@@ -239,6 +239,10 @@ function QuestionEditor(props) {
           <button tabIndex='-1' type="button" onClick={() => props.handleClickParameter('shuffle')}
             className={`btn btn-${props.data.parameters.includes('shuffle') ? 'info' : ((props.data.questionTypes.includes('table') || props.data.questionTypes.includes('match')) ? 'secondary' : 'dark')}`}>
             Shuffle</button>
+
+            <button tabIndex='-1' type="button" onClick={() => props.handleClickParameter('enumerate')}
+            className={`btn btn-${props.data.parameters.includes('enumerate') ? 'info' : ((props.data.questionTypes.includes('list')) ? 'secondary' : 'dark')}`}>
+            Enumerate</button>
         </div>
       </div>
       {props.data.questionTypes.map(type => <input key={type} type='hidden' name="question[question_types][]" value={type} />)}

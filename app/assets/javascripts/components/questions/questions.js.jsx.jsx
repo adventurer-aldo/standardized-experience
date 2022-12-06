@@ -416,7 +416,7 @@ class DataQuestions extends React.Component {
       let target = prev.editingID === null ? 1 : 0;
       let newData = prev.submitData;
       if (newData[target].parameters.indexOf(param) == -1) {
-        if (param == 'order') {
+        if (param == 'order' || param == 'enumerate') {
           if (newData[target].questionTypes.includes('caption')) newData[target].parameters.push(param);
         } else if (param == 'shuffle') {
           if (newData[target].questionTypes.includes('table') || newData[target].questionTypes.includes('match')) newData[target].parameters.push(param);

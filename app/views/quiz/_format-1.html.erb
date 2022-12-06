@@ -4,9 +4,9 @@
 <p style='float: left'>Subject: <%=@quiz.subject.title%><br>
 Course: Learning<br>
 Variant <%= %w[A B C D].sample %>
-</p><p style='float: right'>2º Ano, 1º Semestre: <br>
-Lective year: <%=@quiz_start.year%><br>
-Date: <%=@quiz_start.day%>/<%=@quiz_start.month%>/<%=@quiz_start.year%>
+</p><p style='float: right'>2nd Year, 1st Semester: <br>
+Lective year: <%=@quiz.start_time.to_time.year%><br>
+Date: <%=@quiz.start_time.to_time.day%>/<%=@quiz.start_time.to_time.month%>/<%=@quiz.start_time.to_time.year%>
 </p>
 <p><br><br><br><br>
 <span class='d-block text-center'><%= @test_name[@quiz.level].upcase %></span>

@@ -22,7 +22,7 @@
       'Extraordinary Exam'
     ]
 
-    @professorNames = [
+    @professor_names = [
       'John Watson',
       'Mary Watson',
       'James Watson',
@@ -56,9 +56,6 @@
       @test_name[2] = 'Test II'
       @ending = [@professorNames.sample, 'left']
     end
-  end
-
-  def elaborate(subject: , level: 0, journey_id: 137, format: 0, focus: 0)
   end
 
   #=======================================================================================
@@ -150,24 +147,19 @@
     @ost_index = @ost[0].index(@ost[0].sample)
     @ost_name = @level == 7 ? 'Standardized' : @journey.soundtrack.name
 
-    @quiz = current_user.stat.quizzes.create!(
-      subject_id: @subject.id,
-      first_name: '', last_name: '',
-      journey_id: @journey.id,
-      start_time: Time.zone.now,
-      format: @format,
-      level: @level
+    @quiz = current_user.stat.quizzes.create(
+      subject_id: @subject.id, journey_id: @journey.id,
+      start_time: Time.zone.now, format: @format, level: @level
     )
 
     all_questions.each do |question|
       type = question.question_types.sample
-      calculated_variables = question.generate_variables(type)
 
-      @quiz.answers.create!(
+      @quiz.answers.create(
         question_id: question.id,
         grade: (Float(20) / all_questions.size),
         question_type: type,
-        variables: calculated_variables
+        variables: question.generate_variables(type)
       )
     end
 
@@ -179,8 +171,8 @@
       @time_limit = (@quiz.start_time.to_f + @quiz_durations[@quiz.level]) * 1000
     end
 
-    @quiz_start = @quiz.start_time.time
-    @quiz_end = Time.at(@quiz_start.to_i + @quiz_durations[@level] * 60)
+    @quiz.start_time.to_time = @quiz.start_time.time
+    @quiz.end_time.to_time = Time.at(@quiz.start_time.to_time.to_i + @quiz_durations[@level] * 60)
   end
 
   #=======================================================================================
@@ -271,9 +263,7 @@
     @quiz = Quiz.find_by(id: params[:id].to_i)
     @grade = @quiz.grade(text: true)
     grade_num = @grade.gsub(',', '.').to_f
-    @quiz_start = @quiz.start_time.to_time
-    @quiz_end = @quiz.end_time.to_time
-    @duration = Time.at(@quiz_end.to_i - @quiz_start.to_i)
+    @duration = Time.at(@quiz.end_time.to_time.to_i - @quiz.start_time.to_time.to_i)
     @fanfare = if grade_num < 7
                  'results/failhard.ogg'
                elsif grade_num < 9.5

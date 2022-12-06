@@ -1,4 +1,6 @@
-<% unless @grade.nil? %><span class='score'><%= @grade %>/20</span><% end %>
+<% unless @grade.nil? %>
+  <span class='score'><%= @grade %>/20</span>
+<% end %>
 <div style="font-weight: bold"><div class="standardized-image-black" style="
   background-image: url('https://i.ibb.co/8DR0wJS/XPLogo-Black.png');
   width: 145px;
@@ -10,7 +12,7 @@
 <h4 class="text-center"><b>Standardized Experience</b></h4>
 <p class="text-center"><b>Superior Academic Training Program</b></p>
 <p class="text-center"><%= @test_name[@quiz.level] %> of <%= @quiz.subject.title %><br>
-<div class='border-bottom border-dark border-3'>Length: <%= @quiz_durations[@quiz.level] %> minutes <div class='float-end d-inline-block'><%=@quiz_start.day%>.<%=@quiz_start.month%>.<%=@quiz_start.year%></div></div>
+<div class='border-bottom border-dark border-3'>Length: <%= @quiz_durations[@quiz.level] %> minutes <div class='float-end d-inline-block'><%=@quiz.start_time.to_time.day%>.<%=@quiz.start_time.to_time.month%>.<%=@quiz.start_time.to_time.year%></div></div>
 </p></div>
 <p> <%= form_with id: :name, html: { autocomplete: 'off', onsubmit: '' } do |form| %>
     <input type='hidden' name='first_name' value='' id='first_name' />

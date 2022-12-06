@@ -60,14 +60,14 @@ function SubjectList(props) {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id={`eraseModalLabel${subject.id}`}>Confirmação</h5>
+                <h5 className="modal-title" id={`eraseModalLabel${subject.id}`}>Confirmation</h5>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" 
                 aria-label="Close"></button>
               </div>
               <div className="modal-body">
-                Tem certeza de que pretende apagar esta cadeira?<br/><b>{ subject.title }</b><br /><br />
-                Todas perguntas que pertencem a esta cadeira, suas e de colaboradores, serão também apagadas no processo.<br/>
-                <strong>Este processo é irreversível!</strong>
+                Are you sure you want to delete this subject?<br/><b>{ subject.title }</b><br /><br />
+                All of this subject's questions, yours and from collaborators, will also be deleted in the process.<br/>
+                <strong>This process is irreversible!</strong>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
