@@ -75,7 +75,7 @@ class HomeController < ApplicationController
   end
 
   def configurations
-    stat = Stat.last
+    stat = current_user.stat
     @skip_dissertation = stat.skip_dissertation == 1 ? ' checked' : ''
     @long_journey = stat.long_journey == 1 ? ' checked' : ''
     @lenient_answer = stat.lenient_answer == 1 ? ' checked' : ''

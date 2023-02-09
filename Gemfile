@@ -1,7 +1,7 @@
 source "https://www.rubygems.org/"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby "3.2.0"
 
 gem "aws-sdk-s3", require: false
 
@@ -48,7 +48,7 @@ gem "bootsnap", require: false
 gem "sassc-rails"
 
 # Active job
-gem 'queue_classic'
+# gem 'queue_classic'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
