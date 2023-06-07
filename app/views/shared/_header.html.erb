@@ -1,0 +1,41 @@
+<nav class='navbar navbar-expand navbar-dark bg-primary py-1 px-2' style="z-index: 1"><ul class='navbar-nav'>
+    <%=link_to root_path, class: "py-0 my-0 nav-link #{current_page?(root_path) ? 'active' : ''}" do %>
+        <li class='nav-item'>
+          <%= fa_icon("home") %>
+          <span class='align-middle erasable'>Home</span>
+        </li>
+    <% end %>
+
+    <%=link_to question_path, class: "py-0 my-0 nav-link #{current_page?(question_path) || current_page?(subject_path) ? 'active' : ''}" do %>
+        <li class='nav-item'>
+          <%= fa_icon("folder") %>
+          <span class='align-middle erasable'>Data</span>
+        </li>
+    <% end %>
+
+    <%=link_to quiz_path, class: "py-0 my-0 nav-link #{current_page?(quiz_path) ? 'active' : ''}" do %>
+        <li class='nav-item'>
+          <%= fa_icon("file") %>
+          <span class='align-middle erasable'>Practice</span>
+        </li>
+    <% end %>
+
+    <%=link_to about_path, class: "py-0 my-0 nav-link #{current_page?(about_path) ? 'active' : ''}" do %>
+        <li class='nav-item'>
+          <%= fa_icon("info") %>
+          <span class='align-middle erasable'>About</span>
+        </li>
+    <% end %>
+
+</ul>
+  <% if current_user %>
+    <div class='text-white nav-item navbar-text ms-auto me-0 bold pe-2'>
+      <%= current_user.username %>
+      <%= link_to destroy_user_session_path, method: :delete  do %>
+        <%= fa_icon 'sign-out-alt', type: 'solid', class: 'align-middle'%>
+      <% end %>
+    </div>
+  <% end %>
+  </nav>
+  <div id='page' class="bg-light p-3">
+    <%= image_tag('logo', { id: 'standardized-image', draggable: false }) %>

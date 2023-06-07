@@ -1,0 +1,41 @@
+<head><title><%= @quiz.subject.title %> | Results</title></head><nav class='navbar navbar-expand navbar-dark bg-dark py-0'><ul class='navbar-nav'>
+    <%=link_to root_path, class: 'nav-link' do %>
+        <li id='nav-li-Home' class='nav-item text-white'><%= fa_icon 'arrow-left', class: 'align-middle' %>
+        <span class='align-middle erasable'>Return</span></li>
+    <% end %>
+    <%= link_to quiz_path, class: 'nav-link' do %>
+        <li id='nav-li-Home' class='nav-item text-white'><i class="bi bi-pen align-middle"></i>
+        <span class='align-middle erasable'>Practice</span></li>
+    <% end %>
+
+</ul>
+    <div id='nav-li-Time' class='text-white p-1 me-0 ms-auto '><i class="bi bi-clock-history align-middle"></i> <%= @duration.min %>m <%= @duration.sec %>s</div>
+    </nav>
+<%= audio_tag(@fanfare, autoplay: true, id: 'fanfare')%>
+<div id='page' class="bg-light p-4">
+    <%= render "format-#{@quiz.format}"%>
+
+    <%= render "shared/notification" %>
+    <% @quiz.answers.order(id: :asc).each_with_index do |answer, index| %>
+      <% if @quiz.subject.practical %>
+        <div class="d-flex border rounded overflow-hidden w-100 my-2">
+          <span class="d-inline-block p-2 fw-bold text-bg-dark"><%= index + 1 %>. </span>
+          <div class="d-block p-1 w-100">
+            <%= show_question(answer) %>
+            <%= image_tag(answer.question.image, class: 'img-fluid d-block') if answer.question.image.attached? %>
+            <div><%= show_correct(answer) %></div>
+          </div>
+        </div>
+      <% else %>
+        <% if answer.correct? %>
+            <span style='position: relative'><span class='grade'><%=number_with_precision answer.grade, significant: true, precision: 2, separator: ',' %></span></span>
+        <% else %>
+            <span style='position: relative'><span class='grade'>0,0</span></span>
+        <% end %>
+        <p><b><%= index + 1 %>.</b> <%= show_question(answer) %>
+        <%= image_tag(answer.question.image, class: 'img-fluid d-block') if answer.question.image.attached? %>
+        <%= show_correct(answer) %></p>
+      <% end %>
+    <% end %>
+        
+</div>

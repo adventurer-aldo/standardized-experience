@@ -1,0 +1,12 @@
+<head>
+  <title>Subjects | SE</title>
+</head>
+
+<%= render 'shared/header' %>
+<%= nav(to: 'data') %>
+<%= render "shared/notification" %>
+<%= react_component('DataSubject', 
+{auth_token: @auth_token, formulas: @formulas, stat: current_user.stat.id}) %>
+
+</div>
+<%= render 'shared/footer' %>

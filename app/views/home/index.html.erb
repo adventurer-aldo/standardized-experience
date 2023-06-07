@@ -1,0 +1,26 @@
+<head><title>Home | SE</title>
+</head><%= render 'shared/header' %>
+<%= nav(to: 'home') %>
+<%= render "shared/notification" %>
+
+<%= audio_tag(@ost, autoplay: true, loop: true, id: 'bgm') %>
+
+<% if @pop_quiz %>
+  <%= react_component "Answer", @pop_quiz %>
+<% end %>
+
+<%= @last_quiz %>
+
+<% if @journey %>
+  <%= react_component('Journey', {id: @journey.id, level: @journey.level, cheer: @cheer, csrf_token: form_authenticity_token}) %>
+<% end %>
+
+<% if @journey %>
+  <div style="overflow: auto; max-width: 100%;">
+    <%= journey_table(@journey) %>
+  </div>
+<% else %>
+  <p>Your experience will not be complete without trying out journeys. Click here to begin a new one!</p>
+<% end %>
+
+<%= render 'shared/footer' %>

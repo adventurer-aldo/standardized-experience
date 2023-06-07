@@ -1,0 +1,24 @@
+<head><title>Statistics | SE</title></head>
+<%= render 'shared/header' %>
+<%= nav(to: 'data') %>
+<%= render "shared/notification" %>
+
+Total Questions: <%= Question.all.size %><br>
+Questions Found: <%= @stats[0] %><br>
+Hits: <%= @stats[1]%>/<%= @stats[2] + @stats[1] %><br>
+Misses: <%= @stats[2]%>/<%= @stats[2] + @stats[1] %><br>
+<br>
+Subjects: <%= Subject.all.size %><br>
+Approved Subjects: <%= Chair.all.filter { |chair| media(chair).to_i >= 9.5 }.size %><br>
+Failed Subjects: <%= Chair.all.filter { |chair| media(chair).to_i < 9.5 }.size %><br>
+<br>
+Journeys: <%= Journey.all.size %><br>
+
+<div id="quizzes" class="display-flex">
+	<% @quizzes.each do |quiz| %>
+		<div class="card"><b><%= quiz.subject.title %></b><br>
+			<span class="text-danger"><b><%= grade(quiz, true) %><b></span>
+		</div>
+	<% end %>
+</div>
+<%= render 'shared/footer' %>

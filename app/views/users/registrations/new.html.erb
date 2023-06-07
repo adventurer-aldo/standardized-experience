@@ -1,0 +1,36 @@
+<head><title>Register | SE</title></head>
+<%= render "shared/header" %>
+<%= render "users/shared/links" %>
+<%= render "shared/notification" %>
+<div class="form-signin text-bg-light p-3 mx-auto page">
+<p class="text-center">You're now creating a new account for Standardized Experience.</p>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "users/shared/error_messages", resource: resource %>
+
+  <div class="form-floating">
+    <%= f.text_field :username, class: 'form-control' %>
+    <%= f.label :username, "Username" %>
+  </div>
+  
+  <div class="form-floating">
+    <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+    <%= f.label :email %>
+  </div>
+
+  <div class="form-floating">
+    <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+    <%= f.label :password, "Password#{@minimum_password_length ? " (#{@minimum_password_length} characters minimum)" : ''}" %>
+  </div>
+  
+  <div class="form-floating">
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+    <%= f.label :password_confirmation %><br />
+  </div>
+
+  <div class="actions text-center mb-2">
+    <%= f.submit "Sign up", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= render "users/shared/links" %>
