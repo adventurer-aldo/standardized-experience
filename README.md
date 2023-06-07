@@ -30,8 +30,6 @@ cd standardized-experience
 
 ```bash
 bundle install
-
-javascript
 ```
 
 4. Set up the database:
