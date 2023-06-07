@@ -16,27 +16,29 @@ To set up Standardized Experience, follow these steps:
 
 1. Clone the repository to your local machine:
 
-git clone https://github.com/your-username/standardized-experience.git
+```bash
+git clone https://github.com/your-username/standardized-experience.git```
 
 2. Navigate to the project directory:
 
-cd standardized-experience
+```bash
+cd standardized-experience```
 
 3. Install the required dependencies using Bundler:
 
+```bash
 bundle install
 
-javascript
-
+javascript```
 
 4. Set up the database:
 
-rails db:setup
-
+```bash
+rails db:setup```
 
 5. Start the Rails server:
-
-rails server
+```bash
+rails server```
 
 6. Open your web browser and visit `http://localhost:3000` to access the application.
 
@@ -70,4 +72,3 @@ Standardized Experience is released under the [MIT License](https://opensource.o
 ## Acknowledgments
 
 - [Ruby on Rails](https://rubyonrails.org/) - The web application framework used.
-- [Your Favorite Video Game Music] - Provides the exciting background music during practice tests (replace with appropriate credits).
