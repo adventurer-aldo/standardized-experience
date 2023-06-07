@@ -17,28 +17,33 @@ To set up Standardized Experience, follow these steps:
 1. Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/standardized-experience.git```
+git clone https://github.com/your-username/standardized-experience.git
+```
 
 2. Navigate to the project directory:
 
 ```bash
-cd standardized-experience```
+cd standardized-experience
+```
 
 3. Install the required dependencies using Bundler:
 
 ```bash
 bundle install
 
-javascript```
+javascript
+```
 
 4. Set up the database:
 
 ```bash
-rails db:setup```
+rails db:setup
+```
 
 5. Start the Rails server:
 ```bash
-rails server```
+rails server
+```
 
 6. Open your web browser and visit `http://localhost:3000` to access the application.
 
