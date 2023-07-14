@@ -53,12 +53,10 @@ Restore the file 2ndY1stS_backup to the database you'll connect to. Preferably p
 Once the application is running, you can start using Standardized Experience to simulate tests and practice your knowledge. Here are some guidelines:
 
 1. Sign up or log in to your account.
-2. Navigate to the "Tests" section to access available practice tests.
-3. Choose a test type (regular or timed) and select the desired test.
-4. Read the instructions and begin answering the questions.
-5. Submit your answers for evaluation.
-6. Receive feedback on your performance and identify your strengths and weaknesses.
-7. Repeat the process regularly by taking at least one practice test daily to improve your test-taking skills.
+2. Navigate to "Practice" and write a test
+3. Submit your answers for evaluation.
+4. Receive feedback on your performance and identify your strengths and weaknesses.
+5. Repeat the process regularly by taking at least one practice test daily to improve your test-taking skills.
 
 ## Contributing
 
