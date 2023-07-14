@@ -45,6 +45,9 @@ rails server
 
 6. Open your web browser and visit `http://localhost:3000` to access the application.
 
+## For me
+Restore the file 2ndY1stS_backup to the database you'll connect to. Preferably postgres. Extract the storage folder from https://f004.backblazeb2.com/file/standardized-experience/storage_2ndY1stS_backup.rar into the project's folder.
+
 ## Usage
 
 Once the application is running, you can start using Standardized Experience to simulate tests and practice your knowledge. Here are some guidelines:
