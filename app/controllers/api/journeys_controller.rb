@@ -20,6 +20,8 @@ class Api::JourneysController < ApplicationController
 
   # POST /journeys or /journeys.json
   def create
+    return if Journey.last&.level < 7
+
     @journey = Journey.create(duration: 0, stat_id: current_user.stat.id, start_time: Time.zone.now,
                               soundtrack_id: Soundtrack.order(Arel.sql('RANDOM()')).limit(1).first.id)
 

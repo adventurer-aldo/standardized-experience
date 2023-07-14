@@ -119,14 +119,14 @@
                     when 5
                       case focus
                       when 0
-                        base_query.where(level: 4).limit(rand(5..30)) + base_query.where.not(level: [3, 4]).limit(rand(10..20)) # Exame
+                        base_query.where(level: 4).limit(rand(5..30)) + base_query.where.not(level: [3, 4]).limit(rand(10..25)) # Exame
                       when 1, 2, 4
                         base_query.where(level: focus).limit(rand(25..45)) # Exame 1
                       end
                     when 6
                       base_query.where(level: focus.zero? ? [1, 2, 4] : focus).limit(rand(50..100))
                     when 7
-                      base_query
+                      base_query.where(level: focus.zero? ? [1, 2, 4] : focus)
                     end.shuffle
 
     @ost =  case @level
@@ -177,7 +177,7 @@
     end
 
     @quiz.start_time = @quiz.start_time.time
-    @quiz.end_time = Time.at(@quiz.start_time.to_time.to_i + @quiz_durations[@level] * 60)
+    @end_time = Time.at(@quiz.start_time.to_time.to_i + @quiz_durations[@level] * 60)
   end
 
   #=======================================================================================
@@ -280,6 +280,7 @@
   #============================================
   def results
     @quiz = Quiz.find_by(id: params[:id].to_i)
+    @end_time = @quiz.end_time
     @grade = @quiz.grade(text: true)
     grade_num = @grade.gsub(',', '.').to_f
     @quiz.update(last_grade: grade_num)

@@ -153,13 +153,13 @@ module CorrectingHelper
       (content_tag(:div, filler.html_safe, class: answer.correct? ? '' : 'opacity-75') + (answer.correct? ? '' : content_tag(:div, filler_correct.html_safe))).html_safe
     when 'match'
       variables = answer.variables
-      real_answers = answer.variables.map { |variable| answer.question.answer[answer.choices.where(veracity: 0).map(&:id).index(variable.to_i)] }
+      real_answers = answer.variables.map { |variable| answer.question.answer[answer.choices.map(&:id).index(variable.to_i)] }
       wrongs = variables.each_with_index.filter { |_variable, index| answer.attempt[index] != real_answers[index] }.map(&:first)
       content_tag(:div, variables.each_with_index.collect do |variable, index|
         text = Choice.find_by(id: variable.to_i).texts.first
         content_tag(:div,
           content_tag(:div, content_tag(:span, answer.attempt[index], class: 'p-2') , class: 'w-100 d-flex align-items-center') +
-          content_tag(:button, content_tag(:i, '', class: 'bi bi-arrow-left-right') ,disabled: true, class: "btn btn-#{real_answers[index] == answer.attempt[index] ? 'success' : 'danger'} rounded-0") +
+          content_tag(:button, content_tag(:i, '', class: 'bi bi-arrow-left-right'), disabled: true, class: "btn btn-#{real_answers[index] == answer.attempt[index] ? 'success' : 'danger'} rounded-0") +
           content_tag(:div, content_tag(:span, text, class: "p-2"), class: 'w-100 d-flex align-items-center justify-content-end'),
           class: 'd-flex w-100 border border-muted')
       end.join.html_safe + (wrongs.size > 0 ? wrongs.each_with_index.collect do |variable, index|

@@ -7,7 +7,7 @@ class Answer < ApplicationRecord
   # For choice and veracity questions, use the variables stored in the variables column
   # to display the choices in that specific order.
   def map_with_decoys
-    return [] unless question_type == 'choice'
+    return [] unless ['choice', 'veracity'].include? question_type
 
     variables.map do |id|
       choice = Choice.find_by(id: id.to_i)
