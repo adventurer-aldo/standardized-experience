@@ -4,7 +4,7 @@ function Answer(props) {
   const [answers, setAnswers] = React.useState([]);
 
   React.useEffect(() => {
-    if (props.time < 0) {
+    if (props.time < 0 && props.last == false) {
       props.onProceed(props.id, answers);
     }
   }, [props.time]);

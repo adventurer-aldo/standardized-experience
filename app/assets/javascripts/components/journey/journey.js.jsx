@@ -55,7 +55,7 @@ class Journey extends React.Component {
 
   render() {
     return (
-      <div className={`text-start border rounded p-1 my-1 w-100 ${this.state.level === 7 ? 'btn btn-primary' : ''}`}
+      <div className={`text-start border rounded p-1 my-1 w-100 ${this.state.level === 7 ? 'btn btn-primary text-center' : ''}`}
       onClick={this.handleClick}>
         <h5 className={`border-bottom border-${this.state.level === 7 ? 'light' : 'dark'} p-1`}><span id="journey-level" className="fw-bold">{journey_stages[this.state.level]}</span></h5>
         <span id="journey-cheer">{this.state.cheer} {this.state.level === 7 ? "Your journey is over. Click here to start a new one, whenever you're ready!" : ''}</span>

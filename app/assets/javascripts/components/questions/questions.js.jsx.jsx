@@ -54,6 +54,11 @@ class DataQuestions extends React.Component {
     } else if (event.altKey && event.key === '-') {
       let target = this.state.editingID === null ? 1 : 0;
       if (this.state.submitData[target].answer.length > 1) this.handleDeleteElement('answer', this.state.submitData[target].answer.length - 1)
+    } else if (event.altKey && event.key === "'") {
+      this.handleAddElement('choices');
+    } else if (event.altKey && event.key === '«') {
+      let target = this.state.editingID === null ? 1 : 0;
+      if (this.state.submitData[target].choices.length > 0) this.handleDeleteElement('choices', this.state.submitData[target].choices.length - 1)
     } else if (event.altKey && event.key === '1') {
       this.handleClickButton('open')
     } else if (event.altKey && event.key === '2') {

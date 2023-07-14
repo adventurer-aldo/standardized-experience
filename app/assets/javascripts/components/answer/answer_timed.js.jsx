@@ -57,6 +57,7 @@ class AnswerTimed extends React.Component {
           question_type={this.props.answers[this.state.progress].question_type}
           answers_size={this.props.answers[this.state.progress].answers_size}
           choices={this.props.answers[this.state.progress].choices}
+          last={this.props.answers.length - 1 == this.state.progress}
           onProceed={this.addAnswer} time={this.state.time} image={this.props.answers[this.state.progress].image}
           showProceed={this.state.progress < this.props.answers.length - 1}/>
         </div>
